@@ -12,6 +12,8 @@ npm i ishvara
 
 ## Example
 
+Let's suppose we have absolutely valid JavaScript file with types, which we can run with node v24.
+
 ```ts
 import {create} from '#ishvara';
 
