@@ -1,6 +1,6 @@
 {
   "name": "ishvara",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Compile JavaScript to WASM",
@@ -29,7 +29,9 @@
     "putout": "^40.0.13",
     "wabt": "^1.0.37"
   },
-  "keywords": ["putout"],
+  "keywords": [
+    "putout"
+  ],
   "devDependencies": {
     "@putout/plugin-printer": "^5.0.0",
     "@putout/test": "^13.2.3",
