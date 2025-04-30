@@ -3,15 +3,15 @@
   "version": "2.0.0",
   "type": "module",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
-  "description": "Compile JavaScript tot FASM",
-  "homepage": "https://github.com/coderaiser/nemesis",
+  "description": "Compile JavaScript to WASM",
+  "homepage": "https://github.com/putoutjs/ishvara",
   "main": "lib/ishvara.js",
   "release": false,
   "tag": false,
   "changelog": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coderaiser/nemesis.git"
+    "url": "git+https://github.com/putoutjs/ishvara.git"
   },
   "scripts": {
     "test": "madrun test",
