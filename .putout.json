@@ -1,0 +1,5 @@
+{
+    "rules": {
+        "github/set-node-versions": "off"
+    }
+}
