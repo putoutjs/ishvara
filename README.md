@@ -48,7 +48,6 @@ Compiled to:
 )
 ```
 
-
 ## License
 
 MIT
