@@ -1,4 +1,4 @@
-import {create} from '#ishvara';
+import {create} from '#operator-wast';
 
 export const stack = [];
 

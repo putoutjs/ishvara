@@ -43,10 +43,10 @@
   },
   "imports": {
     "#putout-plugin-wast-ts": "./wasm/putout-plugin-wast-ts/lib/index.js",
-    "#compiler": "./lib/compiler/compiler.js",
-    "#translator": "./lib/translator/translator.js",
-    "#runner": "./lib/runner/runner.js",
-    "#creator": "./lib/creator/creator.ts",
+    "#compiler-wast": "./lib/compiler-wast/compiler.js",
+    "#translator-wasm": "./lib/translator-wasm/translator.js",
+    "#runner-wasm": "./lib/runner-wasm/runner.js",
+    "#operator-wast": "./lib/operator-wast/operator-wast.ts",
     "#ishvara": "./lib/ishvara.js"
   },
   "license": "MIT",
