@@ -7,7 +7,7 @@ Compile JavaScript to WASM.
 ## Install
 
 ```
-npm i ishvara
+npm i ishvara -g
 ```
 
 ## Example
