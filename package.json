@@ -24,7 +24,8 @@
     "@putout/babel": "^3.2.0",
     "@putout/printer": "^14.4.0",
     "putout": "^40.0.13",
-    "wabt": "^1.0.37"
+    "wabt": "^1.0.37",
+    "try-catch": "^3.0.1"
   },
   "keywords": ["putout"],
   "devDependencies": {
@@ -38,8 +39,7 @@
     "montag": "^1.2.1",
     "nodemon": "^3.0.1",
     "redlint": "^4.2.1",
-    "supertape": "^11.1.0",
-    "try-catch": "^3.0.1"
+    "supertape": "^11.1.0"
   },
   "imports": {
     "#putout-plugin-wast-ts": "./wasm/putout-plugin-wast-ts/lib/index.js",

@@ -16,7 +16,12 @@ if (!input) {
 const source = readFileSync(input, 'utf8');
 
 const wast = compile(source);
-const wasm = await translate(input, wast);
+const [places, wasm] = await translate(input, wast);
+
+if (places.length) {
+    console.log(places);
+    process.exit(1);
+}
 
 writeFileSync(input.replace('.wast.ts', '.wasm'), wasm);
 writeFileSync(input.replace('.wast.ts', '.wast'), wast);
