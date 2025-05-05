@@ -46,7 +46,7 @@
     "#compiler-wast": "./lib/compiler-wast/compiler.js",
     "#translator-wasm": "./lib/translator-wasm/translator.js",
     "#runner-wasm": "./lib/runner-wasm/runner.js",
-    "#operator-wast": "./lib/operator-wast/operator-wast.ts",
+    "#operator-wast": "./lib/operator-wast/operator-wast.js",
     "#ishvara": "./lib/ishvara.js"
   },
   "license": "MIT",
