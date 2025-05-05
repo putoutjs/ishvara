@@ -1,9 +1,6 @@
 import {readFileSync, writeFileSync} from 'node:fs';
 import process from 'node:process';
-import {
-    translate,
-    run,
-} from '#ishvara';
+import {translate, run} from '#ishvara';
 import {
     compileToPlainWast,
     printWast,
