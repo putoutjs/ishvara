@@ -1,6 +1,5 @@
 import {readFileSync, writeFileSync} from 'node:fs';
 import process from 'node:process';
-import {Readable, Writable} from 'node:stream';
 import {codeFrameColumns} from '@putout/babel';
 import {run} from '#ishvara';
 import * as wasm from '../lib/wasm.js';
