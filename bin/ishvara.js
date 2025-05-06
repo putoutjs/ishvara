@@ -1,59 +1,69 @@
 import {readFileSync, writeFileSync} from 'node:fs';
 import process from 'node:process';
-import {translate, run} from '#ishvara';
-import {
-    compileToPlainWast,
-    printWast,
-} from '#compiler-wast';
+import {codeFrameColumns} from '@putout/babel';
+import {run} from '#ishvara';
+import * as wasm from '../lib/wasm.js';
 
-const [input, flag] = process.argv.slice(2);
+const [name, flag] = process.argv.slice(2);
 
-if (!input) {
+if (!name) {
     console.error('ishvara [input]');
     process.exit(1);
 }
 
-const source = readFileSync(input, 'utf8');
-const [plainWast, compilePlaces] = compileToPlainWast(source);
+const source = readFileSync(name, 'utf8');
+const target = parseTarget(flag);
+
+const [binary, compilePlaces] = await wasm.compile(source, {
+    name,
+    target,
+});
 
 if (compilePlaces.length) {
     console.error(compilePlaces);
     process.exit(1);
 }
 
-const wast = printWast(plainWast);
-
-if (flag === '--plain-wast-ts') {
-    console.log('----- start: plain-wast-ts ----');
-    console.log(wast);
-    console.log('----- end: plain-wast-ts ----');
-    process.exit(0);
+if (flag) {
+    const result = codeFrameColumns(binary, {}, {
+        highlightCode: true,
+        forceColor: true,
+    });
+    
+    console.log(result);
+    process.exit();
 }
 
-if (flag === '--wast') {
-    console.log('----- start: wast ----');
-    console.log(wast);
-    console.log('----- end: wast ----');
-    process.exit(0);
-}
-
-const [places, wasm] = await translate(input, wast);
-
-if (places.length) {
-    console.log(places);
-    process.exit(1);
-}
-
-writeFileSync(input.replace('.wast.ts', '.wasm'), wasm);
-writeFileSync(input.replace('.wast.ts', '.wast'), wast);
-
-const y = run(wasm, {
-    console: {
-        log: (a) => {
-            console.log('wasm:', a);
-            return a;
+if (target === 'binary') {
+    write(name, 'wasm', binary);
+    
+    const y = run(binary, {
+        console: {
+            log: (a) => {
+                console.log('wasm:', a);
+                return a;
+            },
         },
-    },
-});
+    });
+    
+    console.log('js:', y.x(1, 2));
+}
 
-console.log('js:', y.x(1, 2));
+if (target === 'assembly')
+    write(name, 'wast', binary);
+
+function write(input, extension, binary) {
+    const name = input.replace('.wast.ts', `.${extension}`);
+    writeFileSync(name, binary);
+}
+
+function parseTarget(flag) {
+    if (flag === '--code')
+        return 'code';
+    
+    if (flag === '--assembly')
+        return 'assembly';
+    
+    return 'binary';
+}
+
