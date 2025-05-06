@@ -11,6 +11,7 @@
     "url": "git+https://github.com/putoutjs/ishvara.git"
   },
   "scripts": {
+    "nvm": "madrun nvm",
     "test": "madrun test",
     "watch:test": "madrun watch:test",
     "lint": "madrun lint",

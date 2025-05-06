@@ -1,5 +1,6 @@
 import {readFileSync, writeFileSync} from 'node:fs';
 import process from 'node:process';
+import {Readable, Writable} from 'node:stream';
 import {codeFrameColumns} from '@putout/babel';
 import {run} from '#ishvara';
 import * as wasm from '../lib/wasm.js';
@@ -25,12 +26,17 @@ if (compilePlaces.length) {
 }
 
 if (flag) {
-    const result = codeFrameColumns(binary, {}, {
-        highlightCode: true,
-        forceColor: true,
-    });
+    if (target === 'binary') {
+        process.stdout.write(binary);
+    } else {
+        const result = codeFrameColumns(binary, {}, {
+            highlightCode: true,
+            forceColor: true,
+        });
+        
+        console.log(result);
+    }
     
-    console.log(result);
     process.exit();
 }
 
@@ -63,6 +69,9 @@ function parseTarget(flag) {
     
     if (flag === '--assembly')
         return 'assembly';
+    
+    if (flag === '--dump')
+        return 'dump';
     
     return 'binary';
 }

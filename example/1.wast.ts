@@ -3,7 +3,7 @@ import {create} from '#operator-wast';
 export const stack = [];
 
 export const imports = [
-    ['console', 'log', function log() {
+    ['console', 'log', function log(i32) {
         return i32;
     }],
 ];
