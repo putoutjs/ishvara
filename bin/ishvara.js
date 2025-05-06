@@ -66,4 +66,3 @@ function parseTarget(flag) {
     
     return 'binary';
 }
-
