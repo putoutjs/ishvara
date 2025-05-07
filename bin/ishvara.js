@@ -20,9 +20,7 @@ esbuild.buildSync({
     write: true,
     minify: false,
     outfile,
-    target: [
-        'node24',
-    ],
+    target: ['node24'],
     platform: 'node',
     format: 'esm',
     external: [
@@ -91,4 +89,3 @@ function parseType(flag) {
     
     return 'binary';
 }
-

@@ -1,6 +1,5 @@
 import {test} from 'supertape';
 import montag from 'montag';
-
 import {print} from './printer.js';
 
 test('ishvara: printer-fasm', (t) => {
@@ -17,4 +16,3 @@ test('ishvara: printer-fasm', (t) => {
     t.equal(result, expected);
     t.end();
 });
-
