@@ -1,7 +1,7 @@
 import {types, operator} from 'putout';
 
 const {replaceWithMultiple} = operator;
-const {CallExpression} = types;
+const {callExpression} = types;
 
 export const report = ({node}) => {
     const {callee} = node;
@@ -17,7 +17,7 @@ export const fix = (path) => {
     const nodes = [];
     
     for (const element of elements) {
-        nodes.push(CallExpression(callee, [element]));
+        nodes.push(callExpression(callee, [element]));
     }
     
     replaceWithMultiple(path, nodes);

@@ -14,4 +14,3 @@ export const translate = async (source, options = {}) => {
             [],
         ];
 };
-

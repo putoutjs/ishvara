@@ -1,10 +1,10 @@
 import {types} from 'putout';
 
 const {
-    CallExpression,
-    ArrayExpression,
-    Identifier,
-    ExpressionStatement,
+    expressionStatement,
+    identifier,
+    arrayExpression,
+    callExpression,
 } = types;
 
 export const report = () => `Use 'label' instead of 'function'`;
@@ -26,12 +26,12 @@ const convertFnToLabel = (ret) => ({__b, __type_params, __body}) => {
         __body,
     });
     
-    __body.body.push(ExpressionStatement(maybeRet(ret) || __b.typeName));
+    __body.body.push(expressionStatement(maybeRet(ret) || __b.typeName));
     
     return '__a: __body';
 };
 
-const maybeRet = (name) => name && Identifier(name);
+const maybeRet = (name) => name && identifier(name);
 
 function addStackOperations({__body, __type_params = []}) {
     const args = [];
@@ -41,6 +41,7 @@ function addStackOperations({__body, __type_params = []}) {
     }
     
     const push = createStackOperation('push', args);
+    
     const pop = createStackOperation('pop', args
         .slice()
         .reverse());
@@ -50,10 +51,10 @@ function addStackOperations({__body, __type_params = []}) {
 }
 
 function createStackOperation(name, args) {
-    const callee = Identifier(name);
+    const callee = identifier(name);
     const params = [
-        ArrayExpression(args),
+        arrayExpression(args),
     ];
     
-    return ExpressionStatement(CallExpression(callee, params));
+    return expressionStatement(callExpression(callee, params));
 }

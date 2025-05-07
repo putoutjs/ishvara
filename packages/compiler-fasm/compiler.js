@@ -27,4 +27,3 @@ export const compile = async (source, options) => {
     
     return [binary, places];
 };
-

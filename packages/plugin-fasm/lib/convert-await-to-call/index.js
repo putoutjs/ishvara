@@ -5,7 +5,7 @@ import {
 } from 'putout';
 
 const {insertBefore} = operator;
-const {ExpressionStatement} = types;
+const {expressionStatement} = types;
 
 export const report = () => `Use 'call()' operations instead of 'await'`;
 
@@ -16,7 +16,7 @@ const createMov = template('mov(__key, __value)', {
 export const replace = () => ({
     'await __a(__object)': ({__object}, path) => {
         for (const {key, value} of __object.properties) {
-            const mov = ExpressionStatement(createMov({
+            const mov = expressionStatement(createMov({
                 __key: key,
                 __value: value,
             }));

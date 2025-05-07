@@ -21,4 +21,3 @@ test('compiler: convert-assign-to-mov: transform', (t) => {
     t.transform('convert-assign-to-mov');
     t.end();
 });
-

@@ -1,8 +1,8 @@
 import {template, types} from 'putout';
 
 const {
-    StringLiteral,
     isStringLiteral,
+    stringLiteral,
 } = types;
 
 export const report = () => `Use '__a.equ.__b' instead of equ(__a, __b)`;
@@ -26,5 +26,5 @@ function maybeStringLiteral(a) {
     
     const hex = '0x' + Number(a.raw).toString(16);
     
-    return StringLiteral(hex);
+    return stringLiteral(hex);
 }

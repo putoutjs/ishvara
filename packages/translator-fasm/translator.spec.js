@@ -2,7 +2,7 @@ import {test} from 'supertape';
 import {translate} from '#translator-fasm';
 
 test('ishvara: translator-fasm', async (t) => {
-    const [result, places] = await translate(`
+    const [result] = await translate(`
         xor eax, eax
     `);
     
