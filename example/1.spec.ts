@@ -1,6 +1,6 @@
 import {test, stub} from 'supertape';
-import * as one from './1.wast.ts';
 import {prepare} from '#test-wasm';
+import * as one from './1.wast.ts';
 
 const preparedOne = prepare(one);
 
