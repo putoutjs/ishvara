@@ -1,6 +1,6 @@
 import {test, stub} from 'supertape';
 import * as one from './1.wast.ts';
-import {prepare} from '../prepare.js';
+import {prepare} from '#test-wasm';
 
 const preparedOne = prepare(one);
 
@@ -13,11 +13,10 @@ test('ishvara: wast: one', (t) => {
 
 test('ishvara: wast: one: imports', (t) => {
     const fn = stub();
+    
     preparedOne.declareImport('console', 'log', fn);
-    
     preparedOne.x(4, 6);
-    
-    preparedOne.undeclareImport('console', 'log', fn);
+    preparedOne.undeclareImport('console', 'log');
     
     t.calledWithNoArgs(fn);
     t.end();

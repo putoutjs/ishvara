@@ -12,6 +12,11 @@ test('compiler: convert-function-to-label: report', (t) => {
     t.end();
 });
 
+test('compiler: convert-function-to-label: no report: export', (t) => {
+    t.noReport('export');
+    t.end();
+});
+
 test('compiler: convert-function-to-label: transform', (t) => {
     t.transform('convert-function-to-label');
     t.end();

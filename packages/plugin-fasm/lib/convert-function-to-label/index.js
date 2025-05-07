@@ -5,9 +5,12 @@ const {
     identifier,
     arrayExpression,
     callExpression,
+    isExportNamedDeclaration,
 } = types;
 
 export const report = () => `Use 'label' instead of 'function'`;
+
+export const filter = (path) => !isExportNamedDeclaration(path.parentPath);
 
 export const replace = () => ({
     'async function __a<__type_params>(__args): __b {__body}': convertFnToLabel(),

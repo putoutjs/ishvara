@@ -1,4 +1,4 @@
-## putout-wast-ts
+## putout-wasm
 
 Transforms:
 

@@ -11,17 +11,17 @@ import * as convertAwaitToCall from './convert-await-to-call/index.js';
 import * as splitStackOperations from './split-stack-operations/index.js';
 import * as convertFunctionToLabel from './convert-function-to-label/index.js';
 
-export const compile = {
+export const rules = {
     'ishvara/move-vars-to-bottom': moveVarsToBottom,
-    'ishvara/convert-vars-to= -db': convertVarToDb,
-    'ishvara/convert-dec-to= -hex': convertDecToHex,
-    'ishvara/convert-equ-call= -to-member': convEquCallToMember,
-    'ishvara/convert-assign-to= -member': convertAssignToMember,
-    'ishvara/convert-assign-to= -add': convertAssignToAdd,
-    'ishvara/convert-assign-to= -mov': convertAssignToMov,
-    'ishvara/convert-assign-to= -xor': convertAssignToXor,
-    'ishvara/convert-assign-to= -shl': convertAssignToShl,
-    'ishvara/convert-function-to= -label': convertFunctionToLabel,
-    'ishvara/convert-await-to= -call': convertAwaitToCall,
+    'ishvara/convert-vars-to-db': convertVarToDb,
+    'ishvara/convert-dec-to-hex': convertDecToHex,
+    'ishvara/convert-equ-call-to-member': convEquCallToMember,
+    'ishvara/convert-assign-to-member': convertAssignToMember,
+    'ishvara/convert-assign-to-add': convertAssignToAdd,
+    'ishvara/convert-assign-to-mov': convertAssignToMov,
+    'ishvara/convert-assign-to-xor': convertAssignToXor,
+    'ishvara/convert-assign-to-shl': convertAssignToShl,
+    'ishvara/convert-function-to-label': convertFunctionToLabel,
+    'ishvara/convert-await-to-call': convertAwaitToCall,
     'ishvara/split-stack-operations': splitStackOperations,
 };

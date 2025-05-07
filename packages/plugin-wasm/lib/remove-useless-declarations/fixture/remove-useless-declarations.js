@@ -1,4 +1,4 @@
-import {create} from '#wast-ts';
+import {create} from '#operator-wasm';
 
 export const stack = [];
 

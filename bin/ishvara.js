@@ -2,8 +2,7 @@ import {readFileSync, writeFileSync} from 'node:fs';
 import process from 'node:process';
 import {codeFrameColumns} from '@putout/babel';
 import {run} from '#runner-wasm';
-import * as wasm from '#printer-wasm';
-import * as fasm from '#printer-fasm';
+import * as ishvara from '../packages/ishvara/ishvara.js';
 
 const [target, name, flag] = process.argv.slice(2);
 
@@ -15,11 +14,10 @@ if (!name) {
 const source = readFileSync(name, 'utf8');
 const type = parseType(flag);
 
-const compiler = target === 'wasm' ? wasm : fasm;
-
-const [binary, compilePlaces] = await compiler.compile(source, {
+const [binary, compilePlaces] = await ishvara.compile(source, {
     name,
     type,
+    target,
 });
 
 if (compilePlaces.length) {
@@ -28,7 +26,7 @@ if (compilePlaces.length) {
 }
 
 if (flag) {
-    if (target === 'binary') {
+    if (type === 'binary') {
         process.stdout.write(binary);
     } else {
         const result = codeFrameColumns(binary, {}, {

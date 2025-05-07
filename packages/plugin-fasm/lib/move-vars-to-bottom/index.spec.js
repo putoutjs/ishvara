@@ -16,3 +16,8 @@ test('compiler: move-vars-to-bottom: transform', (t) => {
     t.transform('move-vars-to-bottom');
     t.end();
 });
+
+test('compiler: move-vars-to-bottom: no report: array', (t) => {
+    t.noReport('array');
+    t.end();
+});

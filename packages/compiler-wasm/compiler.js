@@ -1,11 +1,11 @@
 import {translate} from '#translator-wasm';
-import * as wast from '#compiler-wast';
-import {print} from '../printer-wasm/printer.js';
+import {transform} from '#transformer-wasm';
+import {print} from '#printer-wasm';
 
 export const compile = async (source, options) => {
     const {name, type = 'binary'} = options;
     
-    const [code, compilePlaces] = wast.compile(source);
+    const [code, compilePlaces] = transform(source);
     
     if (compilePlaces.length)
         return [code, compilePlaces];

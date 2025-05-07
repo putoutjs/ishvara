@@ -1,5 +1,5 @@
 import putout from 'putout';
-import * as fasm from '#putout-plugin-fasm';
+import * as fasm from '#plugin-fasm';
 
 export const transform = (source) => {
     const {code} = putout(source, {

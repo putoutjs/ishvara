@@ -1,5 +1,6 @@
-import {operator} from 'putout';
+import {operator, types} from 'putout';
 
+const {isArrayExpression} = types;
 const {remove} = operator;
 
 export const report = () => `Move 'var' to bottom of the file`;
@@ -14,6 +15,10 @@ export const fix = (path) => {
 export const traverse = ({push}) => ({
     VariableDeclaration(path) {
         const prev = path.getPrevSibling();
+        const {init} = path.node.declarations[0];
+        
+        if (isArrayExpression(init))
+            return;
         
         if (!prev.node)
             push(path);
