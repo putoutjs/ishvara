@@ -24,6 +24,7 @@
   "dependencies": {
     "@putout/babel": "^3.2.0",
     "@putout/printer": "^14.4.0",
+    "esbuild": "^0.25.4",
     "fasm.js": "^1.0.7",
     "hexdump-nodejs": "^0.1.0",
     "iced-x86": "^1.21.0",
@@ -31,7 +32,9 @@
     "try-catch": "^3.0.1",
     "wabt": "^1.0.37"
   },
-  "keywords": ["putout"],
+  "keywords": [
+    "putout"
+  ],
   "devDependencies": {
     "@putout/plugin-printer": "^5.0.0",
     "@putout/test": "^13.2.3",

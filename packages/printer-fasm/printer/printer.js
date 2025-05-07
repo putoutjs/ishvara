@@ -8,6 +8,9 @@ import {SequenceExpression} from './visitors/sequence-expression.js';
 
 export const print = (ast) => {
     return putoutPrint(ast, {
+        semantics: {
+            comments: false,
+        },
         visitors: {
             CallExpression,
             MemberExpression,

@@ -12,6 +12,9 @@ export const print = (ast) => {
         format: {
             quote: '"',
         },
+        semantics: {
+            comments: false,
+        },
         visitors: {
             CallExpression,
             BlockStatement,

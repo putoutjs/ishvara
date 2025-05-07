@@ -7,7 +7,12 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('ishvara: putout-wast-ts: apply-putout-wast-import', (t) => {
+test('ishvara: putout-wast: apply-putout-wast-import', (t) => {
     t.transform('apply-putout-wast-import');
+    t.end();
+});
+
+test('ishvara: putout-wast: convert-var-to-const', (t) => {
+    t.transform('convert-var-to-const');
     t.end();
 });
