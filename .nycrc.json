@@ -1,0 +1,17 @@
+{
+    "skipFull": true,
+    "check-coverage": true,
+    "all": true,
+    "exclude": [
+        "bin",
+        "**/example",
+        "*.config.js",
+        ".*",
+        "coverage",
+        "**/fixture"
+    ],
+    "branches": 100,
+    "lines": 100,
+    "functions": 100,
+    "statements": 100
+}
