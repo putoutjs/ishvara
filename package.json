@@ -5,7 +5,7 @@
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Compile JavaScript to WASM",
   "homepage": "https://github.com/putoutjs/ishvara",
-  "main": "lib/ishvara.js",
+  "main": "packages/ishvara/ishvara.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/putoutjs/ishvara.git"
@@ -24,11 +24,15 @@
   "dependencies": {
     "@putout/babel": "^3.2.0",
     "@putout/printer": "^14.4.0",
+    "fasm.js": "^1.0.7",
+    "hexdump-nodejs": "^0.1.0",
     "putout": "^40.0.13",
-    "wabt": "^1.0.37",
-    "try-catch": "^3.0.1"
+    "try-catch": "^3.0.1",
+    "wabt": "^1.0.37"
   },
-  "keywords": ["putout"],
+  "keywords": [
+    "putout"
+  ],
   "devDependencies": {
     "@putout/plugin-printer": "^5.0.0",
     "@putout/test": "^13.2.3",
@@ -43,12 +47,17 @@
     "supertape": "^11.1.0"
   },
   "imports": {
-    "#putout-plugin-wast-ts": "./wasm/putout-plugin-wast-ts/lib/index.js",
-    "#compiler-wast": "./lib/compiler-wast/compiler.js",
-    "#translator-wasm": "./lib/translator-wasm/translator.js",
-    "#runner-wasm": "./lib/runner-wasm/runner.js",
-    "#operator-wast": "./lib/operator-wast/operator-wast.js",
-    "#ishvara": "./lib/ishvara.js"
+    "#putout-plugin-wasm": "./wasm/putout-plugin-wasm/packages/index.js",
+    "#putout-plugin-fasm": "./wasm/putout-plugin-fasm/packages/index.js",
+    "#compiler-wasm": "./packages/compiler-wasm/compiler.js",
+    "#compiler-fasm": "./packages/compiler-fasm/compiler.js",
+    "#printer-wasm": "./packages/compiler-wasm/compiler.js",
+    "#printer-fasm": "./packages/compiler-fasm/compiler.js",
+    "#translator-wasm": "./packages/translator-wasm/translator.js",
+    "#translator-fasm": "./packages/translator-fasm/translator.js",
+    "#runner-wasm": "./packages/runner-wasm/runner.js",
+    "#operator-wasm": "./packages/operator-wasm/operator.js",
+    "#ishvara": "./packages/ishvara.js"
   },
   "license": "MIT",
   "engines": {

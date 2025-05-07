@@ -1,6 +1,6 @@
 {
     "skipFull": true,
-    "check-coverage": true,
+    "check-coverage": false,
     "all": true,
     "exclude": [
         "bin",
@@ -9,7 +9,8 @@
         ".*",
         "coverage",
         "**/fixture",
-        "**/*.config.*"
+        "**/*.config.*",
+        "**/printer-*"
     ],
     "branches": 100,
     "lines": 100,

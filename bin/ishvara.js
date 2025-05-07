@@ -1,10 +1,11 @@
 import {readFileSync, writeFileSync} from 'node:fs';
 import process from 'node:process';
 import {codeFrameColumns} from '@putout/babel';
-import {run} from '#ishvara';
-import * as wasm from '../lib/wasm.js';
+import {run} from '#runner-wasm';
+import * as wasm from '#printer-wasm';
+import * as fasm from '#printer-fasm';
 
-const [name, flag] = process.argv.slice(2);
+const [target, name, flag] = process.argv.slice(2);
 
 if (!name) {
     console.error('ishvara [input]');
@@ -12,11 +13,13 @@ if (!name) {
 }
 
 const source = readFileSync(name, 'utf8');
-const target = parseTarget(flag);
+const type = parseType(flag);
 
-const [binary, compilePlaces] = await wasm.compile(source, {
+const compiler = target === 'wasm' ? wasm : fasm;
+
+const [binary, compilePlaces] = await compiler.compile(source, {
     name,
-    target,
+    type,
 });
 
 if (compilePlaces.length) {
@@ -62,7 +65,7 @@ function write(input, extension, binary) {
     writeFileSync(name, binary);
 }
 
-function parseTarget(flag) {
+function parseType(flag) {
     if (flag === '--code')
         return 'code';
     
