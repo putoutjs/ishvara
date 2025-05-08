@@ -23,6 +23,7 @@ esbuild.buildSync({
     target: ['node24'],
     platform: 'node',
     format: 'esm',
+    allowOverwrite: true,
     external: [
         '#operator-wasm',
     ],
