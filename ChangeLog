@@ -1,3 +1,11 @@
+2025.05.09, v2.0.7
+
+feature:
+- 8f46f13 ishvara: transform-wasm: inline-export
+- d9e46c2 ishvara: esbuild: add
+- 935ac70 ishara: plugins
+- 44fb512 ishvara: fasm
+
 2025.05.06, v2.0.6
 
 feature:
