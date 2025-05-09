@@ -1,3 +1,4 @@
+import * as removeUselessIdentifierSuffix from './remove-useless-identifier-suffix/index.js';
 import * as convertVarToConst from './convert-var-to-const/index.js';
 import * as applyFunctionDeclaration from './apply-function-declaration/index.js';
 import * as applyTypes from './apply-types/index.js';
@@ -10,4 +11,5 @@ export const rules = {
     'remove-useless-declarations': removeUselessDeclarations,
     'apply-types': applyTypes,
     'convert-var-to-const': convertVarToConst,
+    'remove-useless-identifier-suffix': removeUselessIdentifierSuffix,
 };

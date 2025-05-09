@@ -1,2 +1,2 @@
 // example/1.wast.ts
-const stack = [];
+const x = [];

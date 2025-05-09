@@ -16,3 +16,8 @@ test('putout-wast-ts: remove-useless-declarations: transform', (t) => {
     t.transform('remove-useless-declarations');
     t.end();
 });
+
+test('putout-wast-ts: remove-useless-declarations: transform: stack', (t) => {
+    t.transformCode('const stack = []', '\n');
+    t.end();
+});
