@@ -2,5 +2,6 @@
     "rules": {
         "github/set-node-versions": "off",
         "putout": "on"
-    }
+    },
+    "ignore": ["example"]
 }

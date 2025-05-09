@@ -14,4 +14,3 @@ export const transform = (source) => {
     
     return [code, places];
 };
-

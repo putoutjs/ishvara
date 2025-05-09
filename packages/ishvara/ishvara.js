@@ -1,7 +1,7 @@
 import * as wasm from '#compiler-wasm';
 import * as fasm from '#compiler-fasm';
 
-export const compile = (source, options) => {
+export const compile = async (source, options) => {
     const {
         target,
         type,
@@ -9,12 +9,12 @@ export const compile = (source, options) => {
     } = options;
     
     if (target === 'wasm')
-        return wasm.compile(source, {
+        return await wasm.compile(source, {
             type,
             name,
         });
     
-    return fasm.compile(source, {
+    return await fasm.compile(source, {
         type,
     });
 };

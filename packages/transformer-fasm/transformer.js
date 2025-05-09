@@ -2,12 +2,12 @@ import putout from 'putout';
 import * as fasm from '#plugin-fasm';
 
 export const transform = (source) => {
-    const {code} = putout(source, {
+    const {code, places} = putout(source, {
         isTS: true,
         plugins: [
             ['ishvara/fasm', fasm],
         ],
     });
     
-    return code;
+    return [code, places];
 };

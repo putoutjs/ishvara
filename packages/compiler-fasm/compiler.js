@@ -1,10 +1,10 @@
 import {transform} from '#transformer-fasm';
 import {print} from '#printer-fasm';
-import {translate} from '#translator-wasm';
+import {translate} from '#translator-fasm';
 
 export const compile = async (source, options) => {
     const {name, type = 'binary'} = options;
-    const [code, compilePlaces] = await transform(source);
+    const [code, compilePlaces] = transform(source);
     
     if (compilePlaces.length)
         return [code, compilePlaces];

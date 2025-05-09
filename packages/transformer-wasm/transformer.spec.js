@@ -23,4 +23,3 @@ test('ishvara: transformer-wasm', (t) => {
     t.equal(result, expected);
     t.end();
 });
-
