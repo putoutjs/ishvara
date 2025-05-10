@@ -1,32 +1,28 @@
 // example/fasm/a.js
-const line = 3;
-const col = 0;
-const textcolor = 2;
+var line = 3;
+var col = 0;
+var textcolor = 2;
 
 // example/fasm/example.ts
+org(31744);
 use16();
-jmp.short.start();
-rb(512 - $ - boot - 2);
-db.bpbOEM = 'nemesis ';
+boot: jmp.short.start();
+db.bpbOEM = "nemesis ";
 dw.bpbSectSize = 512;
-equ(kernel_begin, 32_256);
-let ax = ax;
-
+equ(kernel_begin, 32256);
+var ax = ax;
 push([
-    es,
-    ax,
-    di,
+  es,
+  ax,
+  di
 ]);
-ax = 47_104;
-const es = ax;
-
+ax = 47104;
+var es = ax;
 ax ^= ax;
-let ah = 4;
-
+var ah = 4;
 ah += [textcolor];
-const di = 0;
-const cx = 25 + 80;
-
+var di = 0;
+var cx = 25 + 80;
 rep.stosw();
 mov([line], 0);
 mov([col], 0);
@@ -36,18 +32,18 @@ rep.stosw();
 mov([line], 0);
 mov([col], 0);
 pop([
-    di,
-    ax,
-    es,
+  di,
+  ax,
+  es
 ]);
 iret();
 call(write);
-
+rb(512 - $ - boot - 2);
 async function write() {
-    await clear({
-        cl: 1,
-        ch: 2,
-    });
-    mov(ax, 3);
-    int(255);
+  await clear({
+    cl: 1,
+    ch: 2
+  });
+  mov(ax, 3);
+  int(255);
 }

@@ -1,8 +1,6 @@
-export const LabeledStatement = (path, {print, indent}) => {
+export const LabeledStatement = (path, {print}) => {
     print('__label');
     print(':');
-    indent.inc();
-    print.newline();
+    print.space();
     print('__body');
-    indent.dec();
 };

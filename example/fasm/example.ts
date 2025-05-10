@@ -4,11 +4,10 @@ import {
     textcolor,
 } from './a.js';
 
+org(0x7c00);
 use16();
 
-jmp.short.start();
-
-rb(0x200 - $ - boot - 2);
+boot: jmp.short.start();
 
 db.bpbOEM = 'nemesis ';
 dw.bpbSectSize = 512;
@@ -52,6 +51,7 @@ pop([
 iret();
 
 call(write);
+rb(0x200 - $ - boot - 2);
 
 async function write<es, ax, di>() {
     await clear({

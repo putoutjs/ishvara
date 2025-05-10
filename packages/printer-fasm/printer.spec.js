@@ -16,3 +16,17 @@ test('ishvara: printer-fasm', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-fasm: label', (t) => {
+    const source = montag`
+        boot: jmp.short.start();
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+         boot: jmp short start\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
