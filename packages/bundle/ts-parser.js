@@ -39,6 +39,7 @@ function addStartEnd(node) {
         
         if (Array.isArray(range)) {
             const [start, end] = range;
+            
             return {
                 start,
                 end,

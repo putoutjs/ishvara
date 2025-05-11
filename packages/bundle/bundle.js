@@ -1,6 +1,5 @@
 import {rollup} from 'rollup';
 import resolve from '@rollup/plugin-node-resolve';
-
 import tsParser from './ts-parser.js';
 
 export const build = async (input) => {
@@ -23,4 +22,3 @@ export const build = async (input) => {
     
     return output[0].code;
 };
-
