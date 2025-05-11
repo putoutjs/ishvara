@@ -41,3 +41,7 @@ test('ishvara: convert-ishvara-to-jasm: convert-await-to-call', (t) => {
     t.transform('convert-await-to-call');
     t.end();
 });
+test('plugin-fasm: transform: apply-inc', (t) => {
+    t.transform('apply-inc');
+    t.end();
+})
