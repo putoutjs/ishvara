@@ -55,22 +55,25 @@ if (flag) {
     process.exit();
 }
 
-if (target === 'binary') {
-    write(name, 'wasm', binary);
-    
-    const y = run(binary, {
-        console: {
-            log: (a) => {
-                console.log('wasm:', a);
-                return a;
+if (type === 'binary')
+    if (target === 'fasm') {
+        writeFileSync(name.replace('.ts', `.bin`), binary);
+    } else if (target === 'wasm') {
+        write(name, target, binary);
+        
+        const y = run(binary, {
+            console: {
+                log: (a) => {
+                    console.log('wasm:', a);
+                    return a;
+                },
             },
-        },
-    });
-    
-    console.log('js:', y.x(1, 2));
-}
+        });
+        
+        console.log('js:', y.x(1, 2));
+    }
 
-if (target === 'assembly')
+if (type === 'assembly')
     write(name, 'wast', binary);
 
 function write(input, extension, binary) {
@@ -90,3 +93,4 @@ function parseType(flag) {
     
     return 'binary';
 }
+
