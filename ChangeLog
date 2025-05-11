@@ -1,3 +1,9 @@
+2025.05.11, v2.0.13
+
+feature:
+- 18e28b9 ishvara: use rollup instead of esbuild
+- 5eb2a5f ishvara: fasm: apply-inc
+
 2025.05.11, v2.0.12
 
 feature:
