@@ -1,3 +1,4 @@
+import * as applyInc from './apply-inc/index.js';
 import * as convertVarToDb from './convert-var-to-db/index.js';
 import * as moveVarsToBottom from './move-vars-to-bottom/index.js';
 import * as convEquCallToMember from './convert-equ-call-to-member/index.js';
@@ -24,4 +25,5 @@ export const rules = {
     'ishvara/convert-function-to-label': convertFunctionToLabel,
     'ishvara/convert-await-to-call': convertAwaitToCall,
     'ishvara/split-stack-operations': splitStackOperations,
+    'apply-inc': applyInc,
 };

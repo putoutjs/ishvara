@@ -13,3 +13,4 @@ Transforms:
 - [convert-function-to-label](https://putout.cloudcmd.io/#/gist/415829430c67b2824c26901b2cc89fb0/ed8a2186889a0135302bbb64fee0a9ce2d084800);
 - [convert-await-to-call](https://putout.cloudcmd.io/#/gist/0ec93b79f05e36b8ed54e79acd5813d1/e1210ac63069d81dd5f679b324ad82b49a2f25ad);
 - [split-stack-operations](https://putout.cloudcmd.io/#/gist/e7b609200727bb78cfa073c0c1220c46/da0309ac125855533f7e0baa332b0670fd46f6b2);
+- [apply-inc](https://putout.cloudcmd.io/#/gist/467983456ef5496f892e74d0972f56a7/f1836597cb21bd7955f6fd62412ff360ad2cafc8);
