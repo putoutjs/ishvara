@@ -48,11 +48,12 @@ printf:
     pop(cx);
     pop(bp);
     push(si);
-    xor(bh, bh);
-
-    mov(ax, 0x1301); // 13(num of func),1 param
-    //al = 1  Assign all characters the attribute in BL update cursor
-    mov(bl,2) //green color ;)
+    
+    bh ^= bh;
+    // 13(num of func),1 param
+    // al = 1  Assign all characters the attribute in BL update cursor
+    ax = 0x1301;
+    bl = 2; //green color ;)
     cwd();
 
     dh = [line];
@@ -63,7 +64,7 @@ printf:
     jnz(line_good);
     [--line];
 
-    ax = 0x601; //Прокрутка вверх на одну строку
+    ax = 0x601; // Прокрутка вверх на одну строку
     bh = 0x02; // чорный фон, зеленые символы
     cx ^= cx; // от 00:00
     dx = 0x184f; // 24:79 (весь экран)

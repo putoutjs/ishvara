@@ -1,9 +1,9 @@
-import {readFileSync, writeFileSync} from 'node:fs';
+import {writeFileSync} from 'node:fs';
 import process from 'node:process';
-import esbuild from 'esbuild';
 import {codeFrameColumns} from '@putout/babel';
 import {run} from '#runner-wasm';
 import * as ishvara from '../packages/ishvara/ishvara.js';
+import {build} from '../packages/bundle/bundle.js';
 
 const [target, name, flag] = process.argv.slice(2);
 
@@ -12,25 +12,16 @@ if (!name) {
     process.exit(1);
 }
 
-const outfile = name.replace(/\.ts$/, '.bundle.js');
-
-esbuild.buildSync({
-    entryPoints: [name],
-    bundle: true,
-    write: true,
-    minify: false,
-    outfile,
-    target: ['node24'],
-    platform: 'node',
-    format: 'esm',
-    allowOverwrite: true,
-    external: [
-        '#operator-wasm',
-    ],
-});
-
-const source = readFileSync(outfile, 'utf8');
 const type = parseType(flag);
+const source = await build(name);
+
+if (type === 'bundle') {
+    console.log(codeFrameColumns(source, {}, {
+        highlightCode: true,
+        forceColor: true,
+    }));
+    process.exit();
+}
 
 const [binary, compilePlaces] = await ishvara.compile(source, {
     name,
@@ -90,6 +81,9 @@ function parseType(flag) {
     
     if (flag === '--dump')
         return 'dump';
+    
+    if (flag === '--bundle')
+        return 'bundle';
     
     return 'binary';
 }

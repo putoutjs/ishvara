@@ -40,9 +40,9 @@ printf:
 pop(cx);
 pop(bp);
 push(si);
-xor(bh, bh);
-mov(ax, 4865);
-mov(bl, 2);
+bh ^= bh;
+ax = 4865;
+bl = 2;
 cwd();
 dh = [line];
 int(16);
