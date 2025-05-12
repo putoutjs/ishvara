@@ -5,6 +5,9 @@ import tsParser from './ts-parser.js';
 export const build = async (input) => {
     const bundle = await rollup({
         input,
+        treeshake: {
+            moduleSideEffects: true,
+        },
         external: [
             '#operator-wasm',
         ],
@@ -12,7 +15,16 @@ export const build = async (input) => {
             resolve({
                 extensions: ['.ts'],
             }),
-            tsParser(),
+            tsParser(), {
+                name: 'disable-treeshake',
+                transform(code, id) {
+                    return {
+                        code,
+                        map: null,
+                        moduleSideEffects: 'no-treeshake',
+                    };
+                },
+            },
         ],
     });
     

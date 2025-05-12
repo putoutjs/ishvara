@@ -1,6 +1,7 @@
 export const LabeledStatement = (path, {print}) => {
+    print.breakline();
     print('__label');
     print(':');
-    print.space();
+    print.breakline();
     print('__body');
 };

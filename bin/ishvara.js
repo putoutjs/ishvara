@@ -1,6 +1,8 @@
 import {writeFileSync} from 'node:fs';
 import process from 'node:process';
+import {stat} from 'node:fs/promises';
 import {codeFrameColumns} from '@putout/babel';
+import tryToCatch from 'try-to-catch';
 import {run} from '#runner-wasm';
 import * as ishvara from '../packages/ishvara/ishvara.js';
 import {build} from '../packages/bundle/bundle.js';
@@ -13,6 +15,14 @@ if (!name) {
 }
 
 const type = parseType(flag);
+
+const [error] = await tryToCatch(stat, name);
+
+if (error) {
+    console.error(error.message);
+    process.exit(1);
+}
+
 const source = await build(name);
 
 if (type === 'bundle') {
@@ -87,3 +97,4 @@ function parseType(flag) {
     
     return 'binary';
 }
+
