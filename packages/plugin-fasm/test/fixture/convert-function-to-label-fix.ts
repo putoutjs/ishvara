@@ -1,4 +1,4 @@
-write: {
+__ishvara_write: {
     push(es);
     push(ax);
     push(di);
@@ -9,7 +9,7 @@ write: {
     pop(es);
     ret;
 }
-clear: {
+__ishvara_clear: {
     push(es);
     push(ax);
     push(di);

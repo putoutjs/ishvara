@@ -24,7 +24,7 @@ test('ishvara: printer-fasm: label: start', (t) => {
     
     const result = print(source);
     const expected = montag`
-        \nboot:
+        boot:
         jmp short start\n\n
     `;
     

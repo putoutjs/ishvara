@@ -1,3 +1,4 @@
+import * as addLabelPrefix from './add-label-prefix/index.js';
 import * as convertDeclarationToToMov from './convert-declaration-to-mov/index.js';
 import * as convertMovToAdd from './convert-mov-to-add/index.js';
 import * as convertReturnToEax from './convert-return-to-eax/index.js';
@@ -32,4 +33,5 @@ export const rules = {
     'convert-return-to-eax': convertReturnToEax,
     'convert-mov-to-add': convertMovToAdd,
     'convert-declaration-to-mov': convertDeclarationToToMov,
+    'add-label-prefix': addLabelPrefix,
 };

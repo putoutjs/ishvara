@@ -61,3 +61,7 @@ test('plugin-fasm: transform: convert-declaration-to-mov', (t) => {
     t.transform('convert-declaration-to-mov');
     t.end();
 });
+test('plugin-fasm: transform: add-label-prefix', (t) => {
+    t.transform('add-label-prefix');
+    t.end();
+})

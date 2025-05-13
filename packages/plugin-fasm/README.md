@@ -2,6 +2,7 @@
 
 Transforms:
 
+- [add-label-refix](https://putout.cloudcmd.io/#/gist/2123b2e3a71354a60f65e11e5f809c24/19c063b0fd95f2198f76daf43c466c3ad846e37a);
 - [convert-var-to-db](https://putout.cloudcmd.io/#/gist/971e8392f06e8fc4bb287269c784e910/c8f3691bbf325ad3b278f300cdeba731fdfc9558);
 - [move-vars-to-bottom](https://putout.cloudcmd.io/#/gist/3e3b83e6e23650d819e56b88f961051c/89ef3eafd926e14736ddc244d044de47709c8b69);
 - [convert-equ-call-to-member](https://putout.cloudcmd.io/#/gist/94c8110db310e6979c2fdc1c9311337a/6a17fab68cdf7adbd17952b7fead658599489c9c);

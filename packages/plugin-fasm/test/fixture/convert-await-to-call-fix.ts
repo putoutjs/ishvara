@@ -1,16 +1,16 @@
-write: {
+__ishvara_write: {
     push(es);
     push(ax);
     push(di);
     mov(cl, 0x1);
     mov(ch, 0x2);
-    call(clear);
+    call(__ishvara_clear);
     pop(di);
     pop(ax);
     pop(es);
     ret;
 }
-clear: {
+__ishvara_clear: {
     push(es);
     push(ax);
     push(di);
