@@ -46,3 +46,18 @@ test('plugin-fasm: transform: apply-inc', (t) => {
     t.transform('apply-inc');
     t.end();
 });
+
+test('plugin-fasm: transform: convert-return-to-eax', (t) => {
+    t.transform('convert-return-to-eax');
+    t.end();
+});
+
+test('plugin-fasm: transform: convert-mov-to-add', (t) => {
+    t.transform('convert-mov-to-add');
+    t.end();
+});
+
+test('plugin-fasm: transform: convert-declaration-to-to-mov', (t) => {
+    t.transform('convert-declaration-to-to-mov');
+    t.end();
+});

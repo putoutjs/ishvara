@@ -97,4 +97,3 @@ function parseType(flag) {
     
     return 'binary';
 }
-

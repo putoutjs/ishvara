@@ -1,3 +1,6 @@
+import * as convertDeclarationToToMov from './convert-declaration-to-to-mov/index.js';
+import * as convertMovToAdd from './convert-mov-to-add/index.js';
+import * as convertReturnToEax from './convert-return-to-eax/index.js';
 import * as applyInc from './apply-inc/index.js';
 import * as convertVarToDb from './convert-var-to-db/index.js';
 import * as moveVarsToBottom from './move-vars-to-bottom/index.js';
@@ -26,4 +29,7 @@ export const rules = {
     'ishvara/convert-await-to-call': convertAwaitToCall,
     'ishvara/split-stack-operations': splitStackOperations,
     'apply-inc': applyInc,
+    'convert-return-to-eax': convertReturnToEax,
+    'convert-mov-to-add': convertMovToAdd,
+    'convert-declaration-to-to-mov': convertDeclarationToToMov,
 };

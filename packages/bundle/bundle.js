@@ -17,7 +17,7 @@ export const build = async (input) => {
             }),
             tsParser(), {
                 name: 'disable-treeshake',
-                transform(code, id) {
+                transform(code) {
                     return {
                         code,
                         map: null,

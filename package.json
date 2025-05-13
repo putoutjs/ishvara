@@ -33,6 +33,7 @@
     "putout": "^40.0.13",
     "rollup": "^4.40.2",
     "try-catch": "^3.0.1",
+    "try-to-catch": "^3.0.1",
     "wabt": "^1.0.37"
   },
   "keywords": [

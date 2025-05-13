@@ -14,6 +14,9 @@ export const fix = (path) => {
 };
 export const traverse = ({push}) => ({
     VariableDeclaration(path) {
+        if (path.parentPath.isBlockStatement())
+            return;
+        
         const prev = path.getPrevSibling();
         const {init} = path.node.declarations[0];
         
