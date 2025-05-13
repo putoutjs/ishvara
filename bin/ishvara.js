@@ -7,6 +7,8 @@ import {run} from '#runner-wasm';
 import * as ishvara from '../packages/ishvara/ishvara.js';
 import {build} from '../packages/bundle/bundle.js';
 
+const {RAW} = process.env;
+
 const [target, name, flag] = process.argv.slice(2);
 
 if (!name) {
@@ -45,7 +47,7 @@ if (compilePlaces.length) {
 }
 
 if (flag) {
-    if (type === 'binary')
+    if (type === 'binary' || RAW)
         process.stdout.write(binary);
     else
         console.log(codeFrameColumns(binary, {}, {
