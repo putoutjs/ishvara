@@ -17,7 +17,7 @@ test('ishvara: printer-fasm', (t) => {
     t.end();
 });
 
-test('ishvara: printer-fasm: label', (t) => {
+test('ishvara: printer-fasm: label: start', (t) => {
     const source = montag`
         boot: jmp.short.start();
     `;
@@ -25,6 +25,24 @@ test('ishvara: printer-fasm: label', (t) => {
     const result = print(source);
     const expected = montag`
         \nboot:
+        jmp short start\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: printer-fasm: label', (t) => {
+    const source = montag`
+        mov(eax, ebx);
+        boot: jmp.short.start();
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        mov eax, ebx
+        
+        boot:
         jmp short start\n\n
     `;
     

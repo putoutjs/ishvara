@@ -1,5 +1,5 @@
-function printf<si>(cx, bp) {
-    return cx + bp;
+function addNumbers() {
+    const eax = 1;
+    const ebx = 2;
+    return eax + ebx;
 }
-
-printf();

@@ -1,4 +1,4 @@
-import * as convertDeclarationToToMov from './convert-declaration-to-to-mov/index.js';
+import * as convertDeclarationToToMov from './convert-declaration-to-mov/index.js';
 import * as convertMovToAdd from './convert-mov-to-add/index.js';
 import * as convertReturnToEax from './convert-return-to-eax/index.js';
 import * as applyInc from './apply-inc/index.js';
@@ -16,20 +16,20 @@ import * as splitStackOperations from './split-stack-operations/index.js';
 import * as convertFunctionToLabel from './convert-function-to-label/index.js';
 
 export const rules = {
-    'ishvara/move-vars-to-bottom': moveVarsToBottom,
-    'ishvara/convert-vars-to-db': convertVarToDb,
-    'ishvara/convert-dec-to-hex': convertDecToHex,
-    'ishvara/convert-equ-call-to-member': convEquCallToMember,
-    'ishvara/convert-assign-to-member': convertAssignToMember,
-    'ishvara/convert-assign-to-add': convertAssignToAdd,
-    'ishvara/convert-assign-to-mov': convertAssignToMov,
-    'ishvara/convert-assign-to-xor': convertAssignToXor,
-    'ishvara/convert-assign-to-shl': convertAssignToShl,
-    'ishvara/convert-function-to-label': convertFunctionToLabel,
-    'ishvara/convert-await-to-call': convertAwaitToCall,
-    'ishvara/split-stack-operations': splitStackOperations,
+    'move-vars-to-bottom': moveVarsToBottom,
+    'convert-vars-to-db': convertVarToDb,
+    'convert-dec-to-hex': convertDecToHex,
+    'convert-equ-call-to-member': convEquCallToMember,
+    'convert-assign-to-member': convertAssignToMember,
+    'convert-assign-to-add': convertAssignToAdd,
+    'convert-assign-to-mov': convertAssignToMov,
+    'convert-assign-to-xor': convertAssignToXor,
+    'convert-assign-to-shl': convertAssignToShl,
+    'convert-function-to-label': convertFunctionToLabel,
+    'convert-await-to-call': convertAwaitToCall,
+    'split-stack-operations': splitStackOperations,
     'apply-inc': applyInc,
     'convert-return-to-eax': convertReturnToEax,
     'convert-mov-to-add': convertMovToAdd,
-    'convert-declaration-to-to-mov': convertDeclarationToToMov,
+    'convert-declaration-to-mov': convertDeclarationToToMov,
 };

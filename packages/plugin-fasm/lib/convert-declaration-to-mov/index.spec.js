@@ -1,0 +1,18 @@
+import {createTest} from '@putout/test';
+import * as plugin from './index.js';
+
+const test = createTest(import.meta.url, {
+    plugins: [
+        ['convert-declaration-to-mov', plugin],
+    ],
+});
+
+test('fasm: convert-declaration-to-mov: report', (t) => {
+    t.report('convert-declaration-to-mov', `Use 'mov' instead of 'const'`);
+    t.end();
+});
+
+test('fasm: convert-declaration-to-mov: transform', (t) => {
+    t.transform('convert-declaration-to-mov');
+    t.end();
+});

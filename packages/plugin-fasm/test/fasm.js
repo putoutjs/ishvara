@@ -7,7 +7,7 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('ishvara: convert-ishvara-to-jasm: convert-assign-to-add', (t) => {
+test('plugin-fasm: convert-assign-to-add', (t) => {
     t.transform('convert-assign-to-add');
     t.end();
 });
@@ -57,7 +57,7 @@ test('plugin-fasm: transform: convert-mov-to-add', (t) => {
     t.end();
 });
 
-test('plugin-fasm: transform: convert-declaration-to-to-mov', (t) => {
-    t.transform('convert-declaration-to-to-mov');
+test('plugin-fasm: transform: convert-declaration-to-mov', (t) => {
+    t.transform('convert-declaration-to-mov');
     t.end();
 });

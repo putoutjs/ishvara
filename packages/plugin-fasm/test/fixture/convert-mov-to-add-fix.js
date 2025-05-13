@@ -1,1 +1,1 @@
-mov(eax, eax + ebx);
+add(eax, ebx);

@@ -1,6 +1,11 @@
 import {operator, types} from 'putout';
 
-const {isArrayExpression} = types;
+const {
+    isArrayExpression,
+    isFunction,
+    isBlockStatement,
+} = types;
+
 const {remove} = operator;
 
 export const report = () => `Move 'var' to bottom of the file`;
@@ -14,7 +19,10 @@ export const fix = (path) => {
 };
 export const traverse = ({push}) => ({
     VariableDeclaration(path) {
-        if (path.parentPath.isBlockStatement())
+        if (isFunction(path.parentPath.parentPath))
+            return;
+        
+        if (isBlockStatement(path.parentPath))
             return;
         
         const prev = path.getPrevSibling();
