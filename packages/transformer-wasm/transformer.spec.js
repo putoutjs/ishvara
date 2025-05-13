@@ -23,3 +23,39 @@ test('ishvara: transformer-wasm', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: transformer-wasm: nested', (t) => {
+    const source = montag`
+        function add(): i32 {
+            {
+                local(eax, i32);
+                local.set(eax, i32.const(1));
+            }
+            {
+                local(ebx, i32);
+                local.set(ebx, i32.const(1));
+            }
+            i32.add(local.get(eax), local.get(eax));
+            i32.add(local.get(ebx), local.get(ebx));
+        }
+    
+    `;
+    
+    const [result] = transform(source);
+    const expected = montag`
+        function add(): i32 {
+            local(eax, i32);
+            local.set(eax, i32.const(1));
+            
+            local(ebx, i32);
+            local.set(ebx, i32.const(1));
+            
+            i32.add(local.get(eax), local.get(eax));
+            i32.add(local.get(ebx), local.get(ebx));
+        }
+    
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

@@ -1,4 +1,5 @@
 import putout from 'putout';
+import * as removeNestedBlocks from '@putout/plugin-remove-nested-blocks';
 import * as esm from '@putout/plugin-esm';
 import * as plugin from '#plugin-wasm';
 
@@ -9,6 +10,7 @@ export const transform = (source) => {
         plugins: [
             ['ishvara/wasm', plugin],
             ['esm', esm],
+            ['remove-nested-blocks', removeNestedBlocks],
         ],
     });
     

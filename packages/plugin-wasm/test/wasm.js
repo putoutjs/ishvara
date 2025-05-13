@@ -21,3 +21,8 @@ test('plugin-wasm: transform: remove-useless-esbuild-suffix', (t) => {
     t.transform('remove-useless-esbuild-suffix');
     t.end();
 });
+
+test('plugin-wasm: transform: convert-const-to-local', (t) => {
+    t.transform('convert-const-to-local');
+    t.end();
+});
