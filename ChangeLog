@@ -1,3 +1,8 @@
+2025.05.13, v2.0.15
+
+feature:
+- a44417b ishvara: plugin-fasm: function -> label
+
 2025.05.12, v2.0.14
 
 feature:
