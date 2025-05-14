@@ -3,6 +3,7 @@ import process from 'node:process';
 import {stat} from 'node:fs/promises';
 import {codeFrameColumns} from '@putout/babel';
 import tryToCatch from 'try-to-catch';
+import tryCatch from 'try-catch';
 import {run} from '#runner-wasm';
 import * as ishvara from '../packages/ishvara/ishvara.js';
 import {build} from '../packages/bundle/bundle.js';
@@ -62,7 +63,7 @@ if (type === 'binary')
     if (target === 'fasm') {
         writeFileSync(name.replace('.ts', `.bin`), binary);
     } else if (target === 'wasm') {
-        write(name, target, binary);
+        write(name.replace('.ts', '.wasm'), target, binary);
         
         const y = run(binary, {
             console: {
@@ -73,7 +74,8 @@ if (type === 'binary')
             },
         });
         
-        console.log('js:', y.x(1, 2));
+        if (y.x)
+            console.log('js', y.x(1, 2));
     }
 
 if (type === 'assembly')
@@ -99,3 +101,4 @@ function parseType(flag) {
     
     return 'binary';
 }
+
