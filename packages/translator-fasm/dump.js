@@ -6,8 +6,8 @@ import {
 } from 'iced-x86';
 
 export const dump = (exampleCode) => {
-    const exampleBitness = 64;
-    const exampleRip = 0x00007FFAC46ACDA4n;
+    const exampleBitness = 16;
+    const exampleRip = 0x0000000000007c00n;
     const hexBytesColumnByteLength = 10;
     
     const decoder = new Decoder(exampleBitness, exampleCode, DecoderOptions.None);
