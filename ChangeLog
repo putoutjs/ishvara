@@ -1,3 +1,8 @@
+2025.05.14, v2.0.20
+
+fix:
+- 106a9b5 ishvara: plugin-wasm: convert-const-to-local
+
 2025.05.14, v2.0.19
 
 feature:
