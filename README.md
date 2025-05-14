@@ -10,6 +10,66 @@ Compile JavaScript to WASM.
 npm i ishvara -g
 ```
 
+## Usage Example
+
+Let's suppose you have JavaScript:
+
+```js
+function add() {
+    const eax = 1;
+    const ebx = 2;
+    return eax + ebx;
+}
+```
+
+You can compile it to fasm to wasm.
+
+### Fasm
+
+Let's compile javascript with:
+
+```sh
+ishvara fasm example/fn.ts --code
+```
+
+To intermidiate representation:
+
+```js
+__ishvara_add: {
+    mov(eax, 0x1);
+    mov(ebx, 0x2);
+    add(eax, ebx);
+    ret;
+}
+```
+
+Also we can compile it with:
+
+```sh
+ishvara fasm example/fn.ts --code
+```
+
+to assembly representation with:
+
+```asm
+__ishvara_add:
+mov eax, 0x1
+mov ebx, 0x2
+add eax, ebx
+ret
+```
+
+Also we can compile it to binary represenatation with `ishvara fasm example/fn.ts`:
+
+```sh
+$ hexdump example/fn.bin
+
+0000000 b866 0001 0000 bb66 0002 0000 0166 c3d8
+0000010
+```
+
+
+
 ## Example
 
 Let's suppose we have absolutely valid JavaScript file with types, which we can run with node v24.
