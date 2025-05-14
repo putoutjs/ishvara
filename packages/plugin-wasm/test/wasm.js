@@ -26,3 +26,7 @@ test('plugin-wasm: transform: convert-const-to-local', (t) => {
     t.transform('convert-const-to-local');
     t.end();
 });
+test('plugin-wasm: transform: move-local-on-top', (t) => {
+    t.transform('move-local-on-top');
+    t.end();
+})

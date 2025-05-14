@@ -1,3 +1,4 @@
+import * as moveLocalOnTop from './move-local-on-top/index.js';
 import * as convertConstToLocal from './convert-const-to-local/index.js';
 import * as removeUselessIdentifierSuffix from './remove-useless-identifier-suffix/index.js';
 import * as convertVarToConst from './convert-var-to-const/index.js';
@@ -14,4 +15,5 @@ export const rules = {
     'convert-var-to-const': convertVarToConst,
     'remove-useless-identifier-suffix': removeUselessIdentifierSuffix,
     'convert-const-to-local': convertConstToLocal,
+    'move-local-on-top': moveLocalOnTop,
 };

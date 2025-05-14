@@ -45,9 +45,9 @@ test('ishvara: transformer-wasm: nested', (t) => {
     const expected = montag`
         function add(): i32 {
             local(eax, i32);
+            local(ebx, i32);
             local.set(eax, i32.const(1));
             
-            local(ebx, i32);
             local.set(ebx, i32.const(1));
             
             i32.add(local.get(eax), local.get(eax));
