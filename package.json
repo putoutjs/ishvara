@@ -24,7 +24,7 @@
   "dependencies": {
     "@putout/babel": "^3.2.0",
     "@putout/plugin-esm": "^4.5.0",
-    "@putout/plugin-remove-nested-blocks": "^8.1.0",
+    "@putout/plugin-remove-nested-blocks": "^9.0.0",
     "@putout/printer": "^14.4.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@typescript-eslint/typescript-estree": "^8.32.0",
