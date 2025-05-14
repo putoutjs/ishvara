@@ -1,5 +1,5 @@
 import {print as putoutPrint} from '@putout/printer';
-import {CallExpression} from './visitors/call-expression.js';
+import {CallExpression} from './visitors/call-expression/call-expression.js';
 import {BlockStatement} from './visitors/block-statement.js';
 import {ExpressionStatement} from './visitors/expression-statement/expression-statement.js';
 import {ExportNamedDeclaration} from './visitors/export-named-declaration.js';

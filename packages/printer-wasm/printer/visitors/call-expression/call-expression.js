@@ -1,4 +1,5 @@
 import {types} from '@putout/babel';
+import {isWasmType} from './is-wasm-type.js';
 
 const {
     isStringLiteral,
@@ -20,7 +21,6 @@ export function CallExpression(path, {indent, print, maybe, traverse}) {
     const args = parseArgs(path);
     const n = args.length - 1;
     const isParentCall = path.parentPath.isCallExpression();
-    
     const callee = path.get('callee');
     
     print('(');
@@ -41,7 +41,7 @@ export function CallExpression(path, {indent, print, maybe, traverse}) {
             continue;
         }
         
-        if (isIdentifier(arg))
+        if (isIdentifier(arg) && !isWasmType(arg.node.name))
             print('$');
         
         print(arg);
@@ -60,3 +60,4 @@ export function CallExpression(path, {indent, print, maybe, traverse}) {
     
     print(')');
 }
+
