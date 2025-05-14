@@ -37,9 +37,7 @@
     "try-to-catch": "^3.0.1",
     "wabt": "^1.0.37"
   },
-  "keywords": [
-    "putout"
-  ],
+  "keywords": ["putout"],
   "devDependencies": {
     "@putout/plugin-printer": "^5.0.0",
     "@putout/test": "^13.2.3",

@@ -3,7 +3,6 @@ import process from 'node:process';
 import {stat} from 'node:fs/promises';
 import {codeFrameColumns} from '@putout/babel';
 import tryToCatch from 'try-to-catch';
-import tryCatch from 'try-catch';
 import {run} from '#runner-wasm';
 import * as ishvara from '../packages/ishvara/ishvara.js';
 import {build} from '../packages/bundle/bundle.js';
@@ -101,4 +100,3 @@ function parseType(flag) {
     
     return 'binary';
 }
-
