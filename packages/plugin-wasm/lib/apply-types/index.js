@@ -25,6 +25,6 @@ export const replace = () => ({
         
         return path;
     },
-    'return __': '__',
     '__a + __b': 'i32.add(local.get(__a), local.get(__b))',
+    'return __a': '__a',
 });
