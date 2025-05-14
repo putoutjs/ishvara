@@ -1,3 +1,8 @@
+2025.05.14, v2.0.21
+
+fix:
+- 9ea01ab ishvara: plugin-wasm: apply-types
+
 2025.05.14, v2.0.20
 
 fix:
