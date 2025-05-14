@@ -1,9 +1,11 @@
-import {types} from 'putout';
-import {operator} from 'putout';
+import {types, operator} from 'putout';
 
-const {compare} = operator;
-const {remove} = operator;
-const {insertAfter} = operator;
+const {
+    compare,
+    remove,
+    insertAfter,
+} = operator;
+
 const {expressionStatement} = types;
 const LOCAL = 'local(__a, __b)';
 
@@ -35,6 +37,6 @@ export const traverse = ({push}) => ({
 function findLastLocal(path) {
     do {
         path = path.getPrevSibling(path);
-    } while (!compare(path, LOCAL))
+    } while (!compare(path, LOCAL));
     return path;
 }
