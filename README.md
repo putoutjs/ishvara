@@ -18,6 +18,7 @@ Let's suppose you have JavaScript:
 function add() {
     const eax = 1;
     const ebx = 2;
+    
     return eax + ebx;
 }
 ```
@@ -32,7 +33,7 @@ Let's compile javascript with:
 ishvara fasm example/fn.ts --code
 ```
 
-To intermidiate representation:
+To intermediate representation:
 
 ```js
 __ishvara_add: {
@@ -59,7 +60,7 @@ add eax, ebx
 ret
 ```
 
-Also we can compile it to binary represenatation with `ishvara fasm example/fn.ts`:
+Also we can compile it to binary representation with `ishvara fasm example/fn.ts`:
 
 ```sh
 $ hexdump example/fn.bin
@@ -67,8 +68,6 @@ $ hexdump example/fn.bin
 0000000 b866 0001 0000 bb66 0002 0000 0166 c3d8
 0000010
 ```
-
-
 
 ## Example
 
