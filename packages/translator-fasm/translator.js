@@ -7,7 +7,7 @@ export const translate = async (source, options = {}) => {
     
     if (type === 'dump')
         return [
-            dump(binary),
+            dump(source, binary),
             [],
         ];
     

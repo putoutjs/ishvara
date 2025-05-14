@@ -10,6 +10,7 @@ export const build = async (input) => {
         },
         external: [
             '#operator-wasm',
+            '#operator-fasm',
         ],
         plugins: [
             resolve({

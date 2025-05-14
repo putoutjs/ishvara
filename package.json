@@ -64,7 +64,8 @@
     "#transformer-wasm": "./packages/transformer-wasm/transformer.js",
     "#transformer-fasm": "./packages/transformer-fasm/transformer.js",
     "#runner-wasm": "./packages/runner-wasm/runner.js",
-    "#operator-wasm": "./packages/operator-wasm/operator.js",
+    "#operator-wasm": "./packages/operator-wasm/index.js",
+    "#operator-fasm": "./packages/operator-fasm/index.js",
     "#ishvara": "./packages/ishvara.js"
   },
   "license": "MIT",

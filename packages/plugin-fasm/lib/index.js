@@ -1,3 +1,4 @@
+import * as removeUselessDeclarations from './remove-useless-declarations/index.js';
 import * as addLabelPrefix from './add-label-prefix/index.js';
 import * as convertDeclarationToToMov from './convert-declaration-to-mov/index.js';
 import * as convertMovToAdd from './convert-mov-to-add/index.js';
@@ -34,4 +35,5 @@ export const rules = {
     'convert-mov-to-add': convertMovToAdd,
     'convert-declaration-to-mov': convertDeclarationToToMov,
     'add-label-prefix': addLabelPrefix,
+    'remove-useless-declarations': removeUselessDeclarations,
 };

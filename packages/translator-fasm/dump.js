@@ -5,12 +5,19 @@ import {
     FormatterSyntax,
 } from 'iced-x86';
 
-export const dump = (exampleCode) => {
-    const exampleBitness = 16;
+function parseBitness(source) {
+    if (source.startsWith('use32'))
+        return 32;
+    
+    return 16;
+}
+
+export const dump = (source, binary) => {
     const exampleRip = 0x0000000000007c00n;
     const hexBytesColumnByteLength = 10;
+    const bitness = parseBitness(source);
     
-    const decoder = new Decoder(exampleBitness, exampleCode, DecoderOptions.None);
+    const decoder = new Decoder(bitness, binary, DecoderOptions.None);
     
     decoder.ip = exampleRip;
     // This decodes all bytes. There's also `decode()` which decodes the next instruction,
@@ -21,7 +28,7 @@ export const dump = (exampleCode) => {
     // Create a nasm formatter. It supports: Masm, Nasm, Gas (AT&T) and Intel (XED).
     // There's also `FastFormatter` which uses less code (smaller wasm files).
     //     const formatter = new FastFormatter();
-    const formatter = new Formatter(FormatterSyntax.Nasm);
+    const formatter = new Formatter(FormatterSyntax.Intel);
     
     // Change some options, there are many more
     formatter.digitSeparator = '`';
@@ -30,14 +37,12 @@ export const dump = (exampleCode) => {
     
     const output = instructions.map((instruction) => {
         // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
-        let line = ('000000000000000' + instruction.ip.toString(16))
-            .substr(-16)
-            .toUpperCase();
+        let line = instruction.ip.toString(16);
         
         line += ' ';
         const startIndex = Number(instruction.ip - exampleRip);
         
-        for (const b of exampleCode.slice(startIndex, startIndex + instruction.length)) {
+        for (const b of binary.slice(startIndex, startIndex + instruction.length)) {
             line += ('0' + b.toString(16))
                 .substr(-2)
                 .toUpperCase();

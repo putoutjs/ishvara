@@ -21,3 +21,13 @@ test('putout-wast-ts: remove-useless-declarations: transform: stack', (t) => {
     t.transformCode('const stack = []', '\n');
     t.end();
 });
+
+test('putout-wast-ts: remove-useless-declarations: operator-fasm', (t) => {
+    t.transformCode('import {use32} from "#operator-fasm"', '\n');
+    t.end();
+});
+
+test('putout-wast-ts: remove-useless-declarations: operator-fasm', (t) => {
+    t.transformCode('use32()', '\n');
+    t.end();
+});

@@ -66,3 +66,7 @@ test('plugin-fasm: transform: add-label-prefix', (t) => {
     t.transform('add-label-prefix');
     t.end();
 });
+test('plugin-fasm: transform: remove-useless-declarations', (t) => {
+    t.transform('remove-useless-declarations');
+    t.end();
+})
