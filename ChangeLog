@@ -1,3 +1,9 @@
+2025.05.14, v2.0.19
+
+feature:
+- 50eac47 ishvara: plugin-wasm: move-local-on-top
+- ef6a811 ishvara: @putout/plugin-remove-nested-blocks v9.0.0
+
 2025.05.14, v2.0.18
 
 feature:
