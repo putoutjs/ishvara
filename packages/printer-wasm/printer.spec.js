@@ -113,3 +113,31 @@ test('ishvara: printer-wasm: comments', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-wasm: function: no export', (t) => {
+    const source = montag`
+        function add(): i32 {
+            local(eax, i32);
+            local(ebx, i32);
+            local.set(eax, i32.const(1));
+            local.set(ebx, i32.const(2));
+            i32.add(local.get(eax), local.get(ebx));
+        }
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (func $add (result i32)
+                (local $eax $i32)
+                (local $ebx $i32)
+                (local.set $eax (i32.const 1))
+                (local.set $ebx (i32.const 2))
+                (i32.add (local.get $eax) (local.get $ebx))
+            )
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

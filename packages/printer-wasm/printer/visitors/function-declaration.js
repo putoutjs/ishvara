@@ -9,26 +9,16 @@ const {
     isAssignmentExpression,
     isTSModuleBlock,
     isBlockStatement,
-    isExportNamedDeclaration,
     isExpressionStatement,
     isFunctionDeclaration,
     isExportDefaultDeclaration,
 } = types;
 
-const isInsideNamedExport = ({parentPath}) => isExportNamedDeclaration(parentPath);
-
 export const FunctionDeclaration = {
     print(path, printer, semantics) {
-        const {print, maybe} = printer;
+        const {print} = printer;
         
-        const {
-            async,
-            generator,
-            returnType,
-        } = path.node;
-        
-        maybe.indent(!isInsideNamedExport(path));
-        maybe.print(async, 'async ');
+        const {generator, returnType} = path.node;
         
         print('(');
         print('func');
