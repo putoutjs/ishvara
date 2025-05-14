@@ -27,7 +27,7 @@ test('putout-wast-ts: remove-useless-declarations: operator-fasm', (t) => {
     t.end();
 });
 
-test('putout-wast-ts: remove-useless-declarations: operator-fasm', (t) => {
+test('putout-wast-ts: remove-useless-declarations: operator-fasm: use32', (t) => {
     t.transformCode('use32()', '\n');
     t.end();
 });
