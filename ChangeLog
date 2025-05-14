@@ -1,3 +1,8 @@
+2025.05.14, v2.0.22
+
+fix:
+- 8e9ac92 ishvara: printer-wasm: indent
+
 2025.05.14, v2.0.21
 
 fix:
