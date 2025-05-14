@@ -31,7 +31,7 @@
     "fasm.js": "^1.0.7",
     "hexdump-nodejs": "^0.1.0",
     "iced-x86": "^1.21.0",
-    "putout": "^40.0.13",
+    "putout": "^40.1.9",
     "rollup": "^4.40.2",
     "try-catch": "^3.0.1",
     "try-to-catch": "^3.0.1",
