@@ -46,7 +46,8 @@ test('plugin-wasm: transform: convert-export-memory-to-call', (t) => {
     t.transform('convert-export-memory-to-call');
     t.end();
 });
+
 test('plugin-wasm: transform: apply-wasm-memory', (t) => {
     t.transform('apply-wasm-memory');
     t.end();
-})
+});

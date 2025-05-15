@@ -16,4 +16,3 @@ test('wasm: apply-putout-wast-import: transform: apply-putout-wasm-import', (t) 
     t.transform('apply-putout-wasm-import');
     t.end();
 });
-

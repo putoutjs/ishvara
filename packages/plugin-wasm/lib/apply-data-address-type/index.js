@@ -1,4 +1,5 @@
-import {template, types} from 'putout';
+import {types} from 'putout';
+
 const {isNumericLiteral} = types;
 
 export const report = () => `Apply data address type`;

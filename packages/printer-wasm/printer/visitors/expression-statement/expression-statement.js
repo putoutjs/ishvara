@@ -36,4 +36,3 @@ export const ExpressionStatement = (path, printer) => {
     print('__expression');
     maybe.print.newline(surrounded);
 };
-
