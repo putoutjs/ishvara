@@ -7,8 +7,8 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('ishvara: putout-wast: apply-putout-wast-import', (t) => {
-    t.transform('apply-putout-wast-import');
+test('ishvara: putout-wast: apply-putout-wasm-import', (t) => {
+    t.transform('apply-putout-wasm-import');
     t.end();
 });
 
@@ -41,3 +41,12 @@ test('plugin-wasm: transform: apply-data-address-type', (t) => {
     t.transform('apply-data-address-type');
     t.end();
 });
+
+test('plugin-wasm: transform: convert-export-memory-to-call', (t) => {
+    t.transform('convert-export-memory-to-call');
+    t.end();
+});
+test('plugin-wasm: transform: apply-wasm-memory', (t) => {
+    t.transform('apply-wasm-memory');
+    t.end();
+})

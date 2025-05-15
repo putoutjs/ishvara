@@ -8,7 +8,7 @@ const {
     isIdentifier,
 } = types;
 
-const NAME = '__ishvara_wast_import';
+const NAME = '__ishvara_wasm_import';
 
 export const report = () => `Use '${NAME}()'`;
 

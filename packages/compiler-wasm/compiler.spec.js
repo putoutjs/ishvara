@@ -26,3 +26,50 @@ test('ishvara: compiler-wasm', async (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: compiler-wasm: data', async (t) => {
+    const source = montag`
+        data(0, 'Hello World');
+    `;
+    
+    const [result] = await compile(source, {
+        type: 'assembly',
+    });
+    
+    const expected = montag`
+        (module
+            (data (i32.constant 0) "Hello World")
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: compiler-wasm: memory', async (t) => {
+    const source = montag`
+        import {data} from '#operator-wasm';
+        export const memory = [
+            'memory',
+            1,
+        ];
+        
+        data(i32.constant(0), 'Hello World');
+        data(i32.const(10), 'ABC');
+    `;
+    
+    const [result] = await compile(source, {
+        type: 'assembly',
+    });
+    
+    const expected = montag`
+        (module
+            (memory (export "memory") 1)
+            (data (i32.constant 0) "Hello World")
+            (data (i32.const 10) "ABC")
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

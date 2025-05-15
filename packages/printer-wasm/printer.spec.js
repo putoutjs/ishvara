@@ -26,7 +26,7 @@ test('ishvara: printer-wasm', (t) => {
 
 test('ishvara: printer-wasm: import', (t) => {
     const source = montag`
-        __ishvara_wast_import('console', 'log', function log(i32) {});
+        __ishvara_wasm_import('console', 'log', function log(i32) {});
         export function x(a: i32, b: i32): i32 {
             i32.add(local.get(a), local.get(b));
             call(log);
@@ -50,7 +50,7 @@ test('ishvara: printer-wasm: import', (t) => {
 
 test('ishvara: printer-wasm: import: couple args', (t) => {
     const source = montag`
-        __ishvara_wast_import('console', 'log', function log(name: i32, message: f64) {return i32});
+        __ishvara_wasm_import('console', 'log', function log(name: i32, message: f64) {return i32});
         
         export function x(a: i32, b: i32): i32 {
             i32.add(local.get(a), local.get(b));
@@ -75,7 +75,7 @@ test('ishvara: printer-wasm: import: couple args', (t) => {
 
 test('ishvara: printer-wasm: import: no return', (t) => {
     const source = montag`
-         __ishvara_wast_import('console', 'log', function warn() {
+         __ishvara_wasm_import('console', 'log', function warn() {
              i32;
          });
     `;
@@ -142,7 +142,7 @@ test('ishvara: printer-wasm: function: no export', (t) => {
     t.end();
 });
 
-test('ishvara: printer-wasm: memory', (t) => {
+test('ishvara: printer-wasm: data', (t) => {
     const source = montag`
         data(i32.const(0), "Hello World");
     `;
@@ -151,6 +151,38 @@ test('ishvara: printer-wasm: memory', (t) => {
     const expected = montag`
         (module
             (data (i32.const 0) "Hello World")
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: printer-wasm: memory', (t) => {
+    const source = montag`
+        __ishvara_wasm_memory(1);
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (memory 1)
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: printer-wasm: memory: export', (t) => {
+    const source = montag`
+        __ishvara_wasm_memory("memory", 1);
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (memory (export "memory") 1)
         )\n
     `;
     

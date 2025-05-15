@@ -2,7 +2,6 @@ import {types} from '@putout/babel';
 import {isWasmType} from './is-wasm-type.js';
 
 const {isIdentifier} = types;
-
 const {isArray} = Array;
 
 const parseArgs = (path) => {

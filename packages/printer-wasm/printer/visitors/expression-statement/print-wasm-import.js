@@ -11,10 +11,10 @@ export const isWastImport = (expression) => {
     
     const {name} = expression.node.callee;
     
-    return name === '__ishvara_wast_import';
+    return name === '__ishvara_wasm_import';
 };
 
-export function printWastImport(path, printer) {
+export function printWasmImport(path, printer) {
     const {print, maybe} = printer;
     
     const [first, second, func] = path.get('arguments');
