@@ -1,6 +1,13 @@
 2025.05.15, v2.0.29
 
 feature:
+- 991aa14 ishvara: wasm: memory
+- 0e810f1 ishvara: wasm: memory
+- de618a8 plugin-wasm: apply-data-address-type
+
+2025.05.15, v2.0.29
+
+feature:
 - 04a4eba ishvara: wasm: memory
 - de618a8 plugin-wasm: apply-data-address-type
 
