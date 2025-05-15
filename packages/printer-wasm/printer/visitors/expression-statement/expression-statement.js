@@ -1,4 +1,4 @@
-import {isNext} from '@putout/printer/is';
+import {isNext, isPrev} from '@putout/printer/is';
 import {
     isWastImport,
     printWastImport,
@@ -20,7 +20,9 @@ export const ExpressionStatement = (path, printer) => {
         return;
     }
     
-    indent();
+    const surrounded = isPrev(path) || isNext(path);
+    
+    maybe.indent(surrounded);
     print('__expression');
-    print.newline();
+    maybe.print.newline(surrounded);
 };

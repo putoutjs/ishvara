@@ -1,10 +1,7 @@
 import {types} from '@putout/babel';
 import {isWasmType} from './is-wasm-type.js';
 
-const {
-    isStringLiteral,
-    isIdentifier,
-} = types;
+const {isIdentifier} = types;
 
 const {isArray} = Array;
 
@@ -35,11 +32,6 @@ export function CallExpression(path, {indent, print, maybe, traverse}) {
         
         if (isParentCall && !isObject && n)
             print.breakline();
-        
-        if (isStringLiteral(arg)) {
-            print(`$${arg.node.value}`);
-            continue;
-        }
         
         if (isIdentifier(arg) && !isWasmType(arg.node.name))
             print('$');

@@ -31,3 +31,8 @@ test('plugin-wasm: transform: move-local-on-top', (t) => {
     t.transform('move-local-on-top');
     t.end();
 });
+
+test('plugin-wasm: transform: convert-string-to-identifier-inside-call', (t) => {
+    t.transform('convert-string-to-identifier-inside-call');
+    t.end();
+});

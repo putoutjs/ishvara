@@ -1,3 +1,4 @@
+import * as convertStringToIdentifierInsideCall from './convert-string-to-identifier-inside-call/index.js';
 import * as moveLocalOnTop from './move-local-on-top/index.js';
 import * as convertConstToLocal from './convert-const-to-local/index.js';
 import * as removeUselessIdentifierSuffix from './remove-useless-identifier-suffix/index.js';
@@ -16,4 +17,5 @@ export const rules = {
     'remove-useless-identifier-suffix': removeUselessIdentifierSuffix,
     'convert-const-to-local': convertConstToLocal,
     'move-local-on-top': moveLocalOnTop,
+    'convert-string-to-identifier-inside-call': convertStringToIdentifierInsideCall,
 };

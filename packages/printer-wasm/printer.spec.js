@@ -6,7 +6,7 @@ test('ishvara: printer-wasm', (t) => {
     const source = montag`
         export function x(a: i32, b: i32): i32 {
             i32.add(local.get(a), local.get(b));
-            call('log');
+            call(log);
         }
     `;
     
@@ -24,12 +24,12 @@ test('ishvara: printer-wasm', (t) => {
     t.end();
 });
 
-test('ishvara: convert-jasm-to-wast: import', (t) => {
+test('ishvara: printer-wasm: import', (t) => {
     const source = montag`
         __ishvara_wast_import('console', 'log', function log(i32) {});
         export function x(a: i32, b: i32): i32 {
             i32.add(local.get(a), local.get(b));
-            call('log');
+            call(log);
         }
     `;
     
@@ -48,13 +48,13 @@ test('ishvara: convert-jasm-to-wast: import', (t) => {
     t.end();
 });
 
-test('ishvara: convert-jasm-to-wast: import: couple args', (t) => {
+test('ishvara: printer-wasm: import: couple args', (t) => {
     const source = montag`
         __ishvara_wast_import('console', 'log', function log(name: i32, message: f64) {return i32});
         
         export function x(a: i32, b: i32): i32 {
             i32.add(local.get(a), local.get(b));
-            call('log');
+            call(log);
         }
     `;
     
@@ -73,7 +73,7 @@ test('ishvara: convert-jasm-to-wast: import: couple args', (t) => {
     t.end();
 });
 
-test('ishvara: convert-jasm-to-wast: import: no return', (t) => {
+test('ishvara: printer-wasm: import: no return', (t) => {
     const source = montag`
          __ishvara_wast_import('console', 'log', function warn() {
              i32;
@@ -96,7 +96,7 @@ test('ishvara: printer-wasm: comments', (t) => {
         // example/1.wast.ts
         export function x(a: i32, b: i32): i32 {
             i32.add(local.get(a), local.get(b));
-            call('log');
+            call(log);
         }
     `;
     
@@ -135,6 +135,22 @@ test('ishvara: printer-wasm: function: no export', (t) => {
                 (local.set $ebx (i32.const 2))
                 (i32.add (local.get $eax) (local.get $ebx))
             )
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: printer-wasm: memory', (t) => {
+    const source = montag`
+        data(i32.const(0), "Hello World");
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (data (i32.const 0) "Hello World")
         )\n
     `;
     

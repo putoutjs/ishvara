@@ -2,7 +2,7 @@ import {translate} from '#translator-wasm';
 import {transform} from '#transformer-wasm';
 import {print} from '#printer-wasm';
 
-export const compile = async (source, options) => {
+export const compile = async (source, options = {}) => {
     const {name, type = 'binary'} = options;
     const [code, compilePlaces] = transform(source);
     
