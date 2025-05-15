@@ -16,3 +16,9 @@ test('wasm: apply-wasm-memory: transform', (t) => {
     t.transform('apply-wasm-memory');
     t.end();
 });
+
+test('wasm: apply-wasm-memory: transform: no-export', (t) => {
+    t.transform('no-export');
+    t.end();
+});
+
