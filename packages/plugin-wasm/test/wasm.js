@@ -36,7 +36,8 @@ test('plugin-wasm: transform: convert-string-to-identifier-inside-call', (t) => 
     t.transform('convert-string-to-identifier-inside-call');
     t.end();
 });
+
 test('plugin-wasm: transform: apply-data-address-type', (t) => {
     t.transform('apply-data-address-type');
     t.end();
-})
+});

@@ -1,11 +1,11 @@
-import {template} from 'putout';
-import {types} from 'putout';
+import {template, types} from 'putout';
 
 const {isNumericLiteral} = types;
+
 export const report = () => `Apply data address type`;
 
 export const match = () => ({
-    'export const data = __array': ({__array}, path) => {
+    'export const data = __array': ({__array}) => {
         for (const element of __array.elements) {
             const [first] = element.elements;
             
