@@ -1,3 +1,4 @@
+import * as applyDataAddressType from './apply-data-address-type/index.js';
 import * as convertStringToIdentifierInsideCall from './convert-string-to-identifier-inside-call/index.js';
 import * as moveLocalOnTop from './move-local-on-top/index.js';
 import * as convertConstToLocal from './convert-const-to-local/index.js';
@@ -18,4 +19,5 @@ export const rules = {
     'convert-const-to-local': convertConstToLocal,
     'move-local-on-top': moveLocalOnTop,
     'convert-string-to-identifier-inside-call': convertStringToIdentifierInsideCall,
+    'apply-data-address-type': applyDataAddressType,
 };
