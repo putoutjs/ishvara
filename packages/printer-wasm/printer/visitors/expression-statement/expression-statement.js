@@ -5,11 +5,7 @@ import {
 } from './print-wast-import.js';
 
 export const ExpressionStatement = (path, printer) => {
-    const {
-        print,
-        indent,
-        maybe,
-    } = printer;
+    const {print, maybe} = printer;
     
     const expression = path.get('expression');
     
