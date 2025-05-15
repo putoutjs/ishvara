@@ -1,3 +1,9 @@
+2025.05.15, v2.0.29
+
+feature:
+- 04a4eba ishvara: wasm: memory
+- de618a8 plugin-wasm: apply-data-address-type
+
 2025.05.15, v2.0.28
 
 feature:
