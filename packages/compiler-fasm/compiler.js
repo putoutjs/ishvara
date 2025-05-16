@@ -1,8 +1,9 @@
 import {transform} from '#transformer-fasm';
 import {print} from '#printer-fasm';
 import {translate} from '#translator-fasm';
+import {optimize} from '#optimizer-fasm';
 
-export const compile = async (source, options) => {
+export const compile = async (source, options = {}) => {
     const {name, type = 'binary'} = options;
     const [code, compilePlaces] = transform(source);
     
@@ -12,7 +13,12 @@ export const compile = async (source, options) => {
     if (type === 'code')
         return [code, compilePlaces];
     
-    const assembly = print(code);
+    const [optimized, optimizedPlaces] = optimize(code);
+    
+    if (type === 'optimized')
+        return [optimized, optimizedPlaces];
+    
+    const assembly = print(optimized);
     
     if (type === 'assembly')
         return [

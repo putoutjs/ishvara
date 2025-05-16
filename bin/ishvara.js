@@ -98,5 +98,8 @@ function parseType(flag) {
     if (flag === '--bundle')
         return 'bundle';
     
+    if (flag === '--optimized')
+        return 'optimized';
+    
     return 'binary';
 }

@@ -73,3 +73,31 @@ test('ishvara: compiler-wasm: memory', async (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: compiler-wasm: optimize', async (t) => {
+    const source = montag`
+        import {data} from '#operator-wasm';
+        export const memory = [
+            'memory',
+            1,
+        ];
+        
+        data(i32.constant(0), 'Hello World');
+        data(i32.const(10), 'ABC');
+    `;
+    
+    const [result] = await compile(source, {
+        type: 'optimized',
+    });
+    
+    const expected = montag`
+        __ishvara_wasm_memory('memory', 1);
+        
+        data(i32.constant(0), 'Hello World');
+        data(i32.const(10), 'ABC');
+    
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

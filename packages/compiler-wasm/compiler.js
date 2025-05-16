@@ -12,6 +12,9 @@ export const compile = async (source, options = {}) => {
     if (type === 'code')
         return [code, compilePlaces];
     
+    if (type === 'optimized')
+        return [code, compilePlaces];
+    
     const assembly = print(code);
     
     if (type === 'assembly')

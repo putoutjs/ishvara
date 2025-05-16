@@ -54,8 +54,10 @@
   "imports": {
     "#plugin-wasm": "./packages/plugin-wasm/lib/index.js",
     "#plugin-fasm": "./packages/plugin-fasm/lib/index.js",
+    "#plugin-optimizer-fasm": "./packages/plugin-optimizer-fasm/lib/index.js",
     "#compiler-wasm": "./packages/compiler-wasm/compiler.js",
     "#compiler-fasm": "./packages/compiler-fasm/compiler.js",
+    "#optimizer-fasm": "./packages/optimizer-fasm/optimizer.js",
     "#printer-wasm": "./packages/printer-wasm/printer.js",
     "#printer-fasm": "./packages/printer-fasm/printer.js",
     "#translator-wasm": "./packages/translator-wasm/translator.js",
