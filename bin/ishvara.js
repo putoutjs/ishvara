@@ -1,33 +1,29 @@
+#!/usr/bin/env node
+
 import {writeFileSync} from 'node:fs';
 import process from 'node:process';
 import {stat} from 'node:fs/promises';
 import {codeFrameColumns} from '@putout/babel';
 import tryToCatch from 'try-to-catch';
+import chalk from 'chalk';
 import {run} from '#runner-wasm';
-import * as ishvara from '../packages/ishvara/ishvara.js';
-import {build} from '../packages/bundle/bundle.js';
+import {bundle} from '#bundler';
+import {parseArgs, validateArgs} from '#cli-args';
+import * as ishvara from '#ishvara';
 
-const {RAW} = process.env;
+const {O = 1, RAW} = process.env;
+const args = parseArgs(process.argv.slice(2));
 
-const [target, name, flag] = process.argv.slice(2);
+await validateArgs(args, {
+    log: (a) => console.error(chalk.red(a)),
+    exit: process.exit,
+    stat,
+});
 
-if (!name) {
-    console.error('ishvara [input]');
-    process.exit(1);
-}
+const [name] = args._;
+const source = await bundle(name);
 
-const type = parseType(flag);
-
-const [error] = await tryToCatch(stat, name);
-
-if (error) {
-    console.error(error.message);
-    process.exit(1);
-}
-
-const source = await build(name);
-
-if (type === 'bundle') {
+if (args.output === 'bundle') {
     console.log(codeFrameColumns(source, {}, {
         highlightCode: true,
         forceColor: true,
@@ -37,8 +33,9 @@ if (type === 'bundle') {
 
 const [binary, compilePlaces] = await ishvara.compile(source, {
     name,
-    type,
-    target,
+    type: args.output,
+    target: args.target,
+    optimization: Boolean(Number(O)),
 });
 
 if (compilePlaces.length) {
@@ -46,8 +43,8 @@ if (compilePlaces.length) {
     process.exit(1);
 }
 
-if (flag) {
-    if (type === 'binary' || RAW)
+if (args.output) {
+    if (args.output === 'binary' || RAW)
         process.stdout.write(binary);
     else
         console.log(codeFrameColumns(binary, {}, {
@@ -58,10 +55,10 @@ if (flag) {
     process.exit();
 }
 
-if (type === 'binary')
-    if (target === 'fasm') {
+if (args.output === 'binary')
+    if (args.target === 'fasm') {
         writeFileSync(name.replace('.ts', `.bin`), binary);
-    } else if (target === 'wasm') {
+    } else if (args.target === 'wasm') {
         write(name.replace('.ts', '.wasm'), target, binary);
         
         const y = run(binary, {
@@ -77,29 +74,13 @@ if (type === 'binary')
             console.log('js', y.x(1, 2));
     }
 
-if (type === 'assembly')
+if (args.target === 'wast')
     write(name, 'wast', binary);
+
+else if (args.target === 'asm')
+    write(name, 'asm', binary);
 
 function write(input, extension, binary) {
     const name = input.replace('.wast.ts', `.${extension}`);
     writeFileSync(name, binary);
-}
-
-function parseType(flag) {
-    if (flag === '--code')
-        return 'code';
-    
-    if (flag === '--assembly')
-        return 'assembly';
-    
-    if (flag === '--dump')
-        return 'dump';
-    
-    if (flag === '--bundle')
-        return 'bundle';
-    
-    if (flag === '--optimized')
-        return 'optimized';
-    
-    return 'binary';
 }

@@ -4,7 +4,11 @@ import {translate} from '#translator-fasm';
 import {optimize} from '#optimizer-fasm';
 
 export const compile = async (source, options = {}) => {
-    const {name, type = 'binary'} = options;
+    const {
+        name,
+        type = 'binary',
+        optimization,
+    } = options;
     const [code, compilePlaces] = transform(source);
     
     if (compilePlaces.length)
@@ -13,7 +17,7 @@ export const compile = async (source, options = {}) => {
     if (type === 'code')
         return [code, compilePlaces];
     
-    const [optimized, optimizedPlaces] = optimize(code);
+    const [optimized, optimizedPlaces] = optimization ? optimize(code) : [code, []];
     
     if (type === 'optimized')
         return [optimized, optimizedPlaces];

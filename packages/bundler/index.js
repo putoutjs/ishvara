@@ -2,7 +2,7 @@ import {rollup} from 'rollup';
 import resolve from '@rollup/plugin-node-resolve';
 import tsParser from './ts-parser.js';
 
-export const build = async (input) => {
+export const bundle = async (input) => {
     const bundle = await rollup({
         input,
         treeshake: {

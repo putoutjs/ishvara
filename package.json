@@ -28,6 +28,7 @@
     "@putout/printer": "^14.4.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@typescript-eslint/typescript-estree": "^8.32.0",
+    "chalk": "^5.4.1",
     "fasm.js": "^1.0.7",
     "hexdump-nodejs": "^0.1.0",
     "iced-x86": "^1.21.0",
@@ -35,7 +36,8 @@
     "rollup": "^4.40.2",
     "try-catch": "^3.0.1",
     "try-to-catch": "^3.0.1",
-    "wabt": "^1.0.37"
+    "wabt": "^1.0.37",
+    "yargs-parser": "^21.1.1"
   },
   "keywords": [
     "putout"
@@ -54,6 +56,8 @@
     "supertape": "^11.1.0"
   },
   "imports": {
+    "#cli-args": "./packages/cli-args/index.js",
+    "#bundler": "./packages/bundler/index.js",
     "#plugin-wasm": "./packages/plugin-wasm/lib/index.js",
     "#plugin-fasm": "./packages/plugin-fasm/lib/index.js",
     "#plugin-optimizer-fasm": "./packages/plugin-optimizer-fasm/lib/index.js",
@@ -70,7 +74,7 @@
     "#runner-wasm": "./packages/runner-wasm/runner.js",
     "#operator-wasm": "./packages/operator-wasm/index.js",
     "#operator-fasm": "./packages/operator-fasm/index.js",
-    "#ishvara": "./packages/ishvara.js"
+    "#ishvara": "./packages/ishvara/ishvara.js"
   },
   "license": "MIT",
   "engines": {

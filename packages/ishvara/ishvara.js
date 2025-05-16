@@ -6,15 +6,18 @@ export const compile = async (source, options) => {
         target,
         type,
         name,
+        optimization,
     } = options;
     
     if (target === 'wasm')
         return await wasm.compile(source, {
             type,
             name,
+            optimization,
         });
     
     return await fasm.compile(source, {
         type,
+        optimization,
     });
 };
