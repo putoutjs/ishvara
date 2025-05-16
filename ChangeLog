@@ -1,3 +1,8 @@
+2025.05.16, v2.0.31
+
+feature:
+- f2b3c10 ishvara: plugin-optimizer-fasm: cdq
+
 2025.05.16, v2.0.30
 
 feature:
