@@ -16,3 +16,33 @@ test('optimizer-fasm: convert-mov-to-xor: transform', (t) => {
     t.transform('convert-mov-to-xor');
     t.end();
 });
+
+test('optimizer-fasm: convert-mov-to-xor: transform: ebx', (t) => {
+    t.transform('ebx');
+    t.end();
+});
+
+test('optimizer-fasm: convert-mov-to-xor: transform: edx', (t) => {
+    t.transform('edx');
+    t.end();
+});
+
+test('optimizer-fasm: convert-mov-to-xor: report: edx', (t) => {
+    t.report('edx', `Use 'cdq' instead of 'mov'`);
+    t.end();
+});
+
+test('optimizer-fasm: convert-mov-to-xor: transform: dx', (t) => {
+    t.transform('dx');
+    t.end();
+});
+
+test('optimizer-fasm: convert-mov-to-xor: report: dx', (t) => {
+    t.report('dx', `Use 'cdq' instead of 'mov'`);
+    t.end();
+});
+
+test('optimizer-fasm: convert-mov-to-xor: no report: addr', (t) => {
+    t.noReport('addr');
+    t.end();
+});
