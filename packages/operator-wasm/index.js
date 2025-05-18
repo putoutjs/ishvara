@@ -1,6 +1,6 @@
 const isFn = (a) => typeof a === 'function';
 
-export const create = ({stack, imports}) => {
+export const create = ({stack, imports = []}) => {
     const push = stack.push.bind(stack);
     const pop = stack.pop.bind(stack);
     

@@ -7,8 +7,9 @@ export const compile = async (source, options = {}) => {
     const {
         name,
         type = 'binary',
-        optimization,
+        optimization = true,
     } = options;
+    
     const [code, compilePlaces] = transform(source);
     
     if (compilePlaces.length)

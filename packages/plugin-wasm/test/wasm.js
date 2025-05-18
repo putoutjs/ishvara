@@ -51,3 +51,7 @@ test('plugin-wasm: transform: apply-wasm-memory', (t) => {
     t.transform('apply-wasm-memory');
     t.end();
 });
+test('plugin-wasm: transform: apply-i32-const', (t) => {
+    t.transform('apply-i32-const');
+    t.end();
+})

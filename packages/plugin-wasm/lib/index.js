@@ -1,3 +1,4 @@
+import * as applyI32Const from './apply-i32-const/index.js';
 import * as applyWasmMemory from './apply-wasm-memory/index.js';
 import * as convertExportMemoryToCall from './convert-export-memory-to-call/index.js';
 import * as applyDataAddressType from './apply-data-address-type/index.js';
@@ -24,4 +25,5 @@ export const rules = {
     'convert-string-to-identifier-inside-call': convertStringToIdentifierInsideCall,
     'convert-export-memory-to-call': convertExportMemoryToCall,
     'apply-wasm-memory': applyWasmMemory,
+    'apply-i32-const': applyI32Const,
 };

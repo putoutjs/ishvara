@@ -1,7 +1,8 @@
-## putout-wasm
+## putout-plugin-wasm
 
 Transforms:
 
+- ✅[`apply-i32-const`](https://putout.cloudcmd.io/#/gist/cc1bb27ea12aea64b296010de764e66d/98a661ae056f454a357ca8ea4a6839a0fa0e9c8e);
 - ✅[`apply-types`](https://putout.cloudcmd.io/#/gist/5e3f3260fcd10398c2249231ada8cb06/b28fa3069226fcf347926a25f43adfbd5aff75b1);
 - ✅[`convert-const-to-local`](https://putout.cloudcmd.io/#/gist/6d8ad12a1ccfb0b36eee7a4a612ec574/c8bbab02a4844c7da1dbb59ac6f307b0b2ba93d4);
 - ✅[`convert-export-memory-to-call`](https://putout.cloudcmd.io/#/gist/921e66339ea459d0f3b44fbeb635520d/964250541bb5a7d154582022c3d32189cd4287a3);

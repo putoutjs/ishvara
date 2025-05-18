@@ -31,3 +31,18 @@ test('ishvara: operator-wast: create: fn', (t) => {
     t.equal(error.message, `[call]: 'x' not found`);
     t.end();
 });
+
+test('ishvara: operator-wast: create: i32.const', (t) => {
+    const stack = [];
+    const {i32} = create({
+        stack,
+    });
+    
+    i32.const(5);
+    
+    const expected = [5];
+    
+    t.deepEqual(stack, expected);
+    t.end();
+});
+
