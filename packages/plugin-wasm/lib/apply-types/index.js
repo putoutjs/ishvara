@@ -4,6 +4,7 @@ const {
     identifier,
     TSTypeReference,
     TSTypeAnnotation,
+    isFunction,
 } = types;
 
 const createType = () => TSTypeAnnotation(TSTypeReference(identifier('i32')));
@@ -15,7 +16,6 @@ export const match = () => ({
 });
 
 export const replace = () => ({
-    'return __a': '__a',
     '__a + __b': 'i32.add(local.get(__a), local.get(__b))',
     'function __a(__args) {__body}': (vars, path) => {
         for (const param of path.get('params')) {
@@ -28,3 +28,4 @@ export const replace = () => ({
         return path;
     },
 });
+
