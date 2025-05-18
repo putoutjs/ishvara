@@ -1,3 +1,9 @@
+2025.05.18, v2.0.33
+
+feature:
+- d88a379 ishvara: plugin-wasm: apply-i32-const
+- 05e47a5 cli-help: add
+
 2025.05.16, v2.0.32
 
 feature:
