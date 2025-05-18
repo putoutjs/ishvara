@@ -4,15 +4,20 @@ import {writeFileSync} from 'node:fs';
 import process from 'node:process';
 import {stat} from 'node:fs/promises';
 import {codeFrameColumns} from '@putout/babel';
-import tryToCatch from 'try-to-catch';
 import chalk from 'chalk';
 import {run} from '#runner-wasm';
 import {bundle} from '#bundler';
 import {parseArgs, validateArgs} from '#cli-args';
+import {help} from '#cli-help';
 import * as ishvara from '#ishvara';
 
 const {O = 1, RAW} = process.env;
 const args = parseArgs(process.argv.slice(2));
+
+if (args.help) {
+    console.log(help());
+    process.exit(0);
+}
 
 await validateArgs(args, {
     log: (a) => console.error(chalk.red(a)),
@@ -76,7 +81,6 @@ if (args.output === 'binary')
 
 if (args.target === 'wast')
     write(name, 'wast', binary);
-
 else if (args.target === 'asm')
     write(name, 'asm', binary);
 
@@ -84,3 +88,4 @@ function write(input, extension, binary) {
     const name = input.replace('.wast.ts', `.${extension}`);
     writeFileSync(name, binary);
 }
+

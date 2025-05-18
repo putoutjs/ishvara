@@ -6,6 +6,9 @@
   "description": "Compile JavaScript to WASM",
   "homepage": "https://github.com/putoutjs/ishvara",
   "main": "packages/ishvara/ishvara.js",
+  "bin": {
+    "ishvara": "bin/ishvara.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/putoutjs/ishvara.git"
@@ -57,6 +60,7 @@
   },
   "imports": {
     "#cli-args": "./packages/cli-args/index.js",
+    "#cli-help": "./packages/cli-help/help.js",
     "#bundler": "./packages/bundler/index.js",
     "#plugin-wasm": "./packages/plugin-wasm/lib/index.js",
     "#plugin-fasm": "./packages/plugin-fasm/lib/index.js",
