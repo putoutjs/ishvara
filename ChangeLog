@@ -1,3 +1,8 @@
+2025.05.18, v2.0.34
+
+feature:
+- f8811ab plugin-wasm: apply-eq: add
+
 2025.05.18, v2.0.33
 
 feature:
