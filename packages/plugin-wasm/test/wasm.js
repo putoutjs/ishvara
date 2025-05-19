@@ -58,4 +58,8 @@ test('plugin-wasm: transform: apply-i32-const', (t) => {
 test('plugin-wasm: transform: apply-eq', (t) => {
     t.transform('apply-eq');
     t.end();
+});
+test('plugin-wasm: transform: remove-useless-return', (t) => {
+    t.transform('remove-useless-return');
+    t.end();
 })
