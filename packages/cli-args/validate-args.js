@@ -1,4 +1,3 @@
-import {stat} from 'node:fs/promises';
 import process from 'node:process';
 import tryToCatch from 'try-to-catch';
 
@@ -17,9 +16,6 @@ export const validateArgs = async (args, {log, exit, stat}) => {
     
     const [error] = await tryToCatch(stat, name);
     
-    if (error) {
-        console.error(error.message);
+    if (error)
         process.exit(1);
-    }
 };
-

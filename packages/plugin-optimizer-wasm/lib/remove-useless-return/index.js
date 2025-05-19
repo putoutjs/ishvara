@@ -1,7 +1,6 @@
 import {types} from 'putout';
 
-const {isIfStatement} = types;
-const {isFunction} = types;
+const {isIfStatement, isFunction} = types;
 
 export const report = () => `Avoid useless 'return'`;
 
@@ -13,10 +12,7 @@ export const match = () => ({
         const {parentPath} = path;
         const next = parentPath.getNextSibling();
         
-        if (isIfStatement(parentPath) && !next.node)
-            return true;
-        
-        return false;
+        return isIfStatement(parentPath) && !next.node;
     },
 });
 

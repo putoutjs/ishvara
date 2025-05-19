@@ -4,7 +4,6 @@ const {
     identifier,
     TSTypeReference,
     TSTypeAnnotation,
-    isFunction,
 } = types;
 
 const createType = () => TSTypeAnnotation(TSTypeReference(identifier('i32')));
@@ -28,4 +27,3 @@ export const replace = () => ({
         return path;
     },
 });
-

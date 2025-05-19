@@ -209,3 +209,31 @@ test('ishvara: printer-wasm: return', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-wasm: if', (t) => {
+    const source = montag`
+        export function thenElse(a: i32): i32 {
+            if (i32.eq(local.get(a), 10))
+                return i32.const(1);
+            
+            i32.const(0);
+        }
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (func $thenElse (export "thenElse") (param $a i32) (result i32)
+                (if
+                    (then (i32.eq (local.get $a) 10))
+                        (return (i32.const 1))
+                    )
+                )
+                (i32.const 0)
+            )
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

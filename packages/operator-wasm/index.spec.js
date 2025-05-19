@@ -45,4 +45,3 @@ test('ishvara: operator-wast: create: i32.const', (t) => {
     t.deepEqual(stack, expected);
     t.end();
 });
-

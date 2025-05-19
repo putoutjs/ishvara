@@ -18,7 +18,10 @@ export const compile = async (source, options = {}) => {
     if (type === 'code')
         return [code, compilePlaces];
     
-    const [optimized, optimizedPlaces] = optimization ? optimize(code) : [code, []];
+    const [optimized, optimizedPlaces] = optimization ? optimize(code) : [
+        code,
+        [],
+    ];
     
     if (type === 'optimized')
         return [optimized, optimizedPlaces];

@@ -1,6 +1,8 @@
-import {template} from 'putout';
-import {types} from 'putout';
-import {operator} from 'putout';
+import {
+    template,
+    types,
+    operator,
+} from 'putout';
 
 const {replaceWith} = operator;
 const {isCallExpression} = types;
@@ -12,9 +14,7 @@ export const include = () => [
     'NumericLiteral',
 ];
 
-export const filter = (path) => {
-    return !isCallExpression(path.parentPath);
-};
+export const filter = (path) => !isCallExpression(path.parentPath);
 
 export const fix = (path) => {
     replaceWith(path, createCall({

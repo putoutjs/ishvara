@@ -101,4 +101,3 @@ test('ishvara: compiler-wasm: optimize', async (t) => {
     t.equal(result, expected);
     t.end();
 });
-

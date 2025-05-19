@@ -64,7 +64,7 @@ if (args.output === 'binary')
     if (args.target === 'fasm') {
         writeFileSync(name.replace('.ts', `.bin`), binary);
     } else if (args.target === 'wasm') {
-        write(name.replace('.ts', '.wasm'), target, binary);
+        write(name.replace('.ts', '.wasm'), binary);
         
         const y = run(binary, {
             console: {
@@ -88,4 +88,3 @@ function write(input, extension, binary) {
     const name = input.replace('.wast.ts', `.${extension}`);
     writeFileSync(name, binary);
 }
-

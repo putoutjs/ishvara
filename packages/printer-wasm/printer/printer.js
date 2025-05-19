@@ -7,6 +7,7 @@ import {FunctionDeclaration} from './visitors/function-declaration.js';
 import {Program} from './visitors/program.js';
 import {Identifier} from './visitors/identifier.js';
 import {ReturnStatement} from './visitors/return.js';
+import {IfStatement} from './visitors/if-statement.js';
 
 export const print = (ast) => {
     return putoutPrint(ast, {
@@ -20,6 +21,7 @@ export const print = (ast) => {
             ReturnStatement,
             CallExpression,
             BlockStatement,
+            IfStatement,
             ExpressionStatement,
             ExportNamedDeclaration,
             FunctionDeclaration,
