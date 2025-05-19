@@ -1,3 +1,8 @@
+2025.05.19, v2.0.36
+
+feature:
+- c5fd706 ishvara: plugin-wasm: remove-useless-return
+
 2025.05.18, v2.0.35
 
 feature:
