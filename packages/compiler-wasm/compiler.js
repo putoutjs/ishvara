@@ -1,6 +1,7 @@
 import {translate} from '#translator-wasm';
 import {transform} from '#transformer-wasm';
 import {print} from '#printer-wasm';
+import {optimize} from '#optimizer-wasm';
 
 export const compile = async (source, options = {}) => {
     const {name, type = 'binary'} = options;
@@ -12,10 +13,12 @@ export const compile = async (source, options = {}) => {
     if (type === 'code')
         return [code, compilePlaces];
     
-    if (type === 'optimized')
-        return [code, compilePlaces];
+    const [optimized, optimizedPlaces] = optimize(code);
     
-    const assembly = print(code);
+    if (type === 'optimized')
+        return [optimized, optimizedPlaces];
+    
+    const assembly = print(optimized);
     
     if (type === 'assembly')
         return [

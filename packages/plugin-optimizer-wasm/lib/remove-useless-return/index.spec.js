@@ -7,12 +7,12 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('wasm: remove-useless-return: report', (t) => {
+test('optimizer-wasm: remove-useless-return: report', (t) => {
     t.report('remove-useless-return', `Avoid useless 'return'`);
     t.end();
 });
 
-test('wasm: remove-useless-return: transform', (t) => {
+test('optimizer-wasm: remove-useless-return: transform', (t) => {
     t.transform('remove-useless-return');
     t.end();
 });

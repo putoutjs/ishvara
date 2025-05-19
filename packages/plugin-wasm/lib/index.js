@@ -1,4 +1,3 @@
-import * as removeUselessReturn from './remove-useless-return/index.js';
 import * as applyEq from './apply-eq/index.js';
 import * as applyI32Const from './apply-i32-const/index.js';
 import * as applyWasmMemory from './apply-wasm-memory/index.js';
@@ -29,5 +28,4 @@ export const rules = {
     'apply-wasm-memory': applyWasmMemory,
     'apply-i32-const': applyI32Const,
     'apply-eq': applyEq,
-    'remove-useless-return': removeUselessReturn,
 };

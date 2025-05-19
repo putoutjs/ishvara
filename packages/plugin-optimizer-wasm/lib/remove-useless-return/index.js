@@ -1,6 +1,7 @@
 import {types} from 'putout';
 
-const {isIfStatement, isFunction} = types;
+const {isIfStatement} = types;
+const {isFunction} = types;
 
 export const report = () => `Avoid useless 'return'`;
 
@@ -12,11 +13,13 @@ export const match = () => ({
         const {parentPath} = path;
         const next = parentPath.getNextSibling();
         
-        return isIfStatement(parentPath) && !next.node;
+        if (isIfStatement(parentPath) && !next.node)
+            return true;
+        
+        return false;
     },
 });
 
 export const replace = () => ({
     'return __a': '__a',
 });
-

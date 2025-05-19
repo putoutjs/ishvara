@@ -76,14 +76,12 @@ test('ishvara: compiler-wasm: memory', async (t) => {
 
 test('ishvara: compiler-wasm: optimize', async (t) => {
     const source = montag`
-        import {data} from '#operator-wasm';
-        export const memory = [
-            'memory',
-            1,
-        ];
-        
-        data(i32.constant(0), 'Hello World');
-        data(i32.const(10), 'ABC');
+        export function thenElse(a: i32): i32 {
+            if (i32.eq(a, 10))
+                return i32.const(1);
+            else
+                return i32.const(5);
+        }
     `;
     
     const [result] = await compile(source, {
@@ -91,13 +89,16 @@ test('ishvara: compiler-wasm: optimize', async (t) => {
     });
     
     const expected = montag`
-        __ishvara_wasm_memory('memory', 1);
-        
-        data(i32.constant(0), 'Hello World');
-        data(i32.const(10), 'ABC');
+        export function thenElse(a: i32): i32 {
+            if (i32.eq(a, 10))
+                i32.const(1);
+            else
+                i32.const(5);
+        }
     
     `;
     
     t.equal(result, expected);
     t.end();
 });
+
