@@ -37,7 +37,7 @@ export const replace = () => ({
         if (isEdx(path) && isPrevXorEax(path))
             return `cdq()`;
         
-        if (isDx(path) && isPrevXorEax(path))
+        if (isDx(path) && isPrevXorAx(path))
             return 'cwd()';
         
         return 'xor(__a, __a)';
@@ -49,7 +49,7 @@ export const replace = () => ({
                 inc(edx);
             }`;
         
-        if (isDx(path) && isPrevXorEax(path))
+        if (isDx(path) && isPrevXorAx(path))
             return `{
                 cwd();
                 inc(dx);

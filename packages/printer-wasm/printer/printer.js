@@ -6,6 +6,7 @@ import {ExportNamedDeclaration} from './visitors/export-named-declaration.js';
 import {FunctionDeclaration} from './visitors/function-declaration.js';
 import {Program} from './visitors/program.js';
 import {Identifier} from './visitors/identifier.js';
+import {ReturnStatement} from './visitors/return.js';
 
 export const print = (ast) => {
     return putoutPrint(ast, {
@@ -16,6 +17,7 @@ export const print = (ast) => {
             comments: false,
         },
         visitors: {
+            ReturnStatement,
             CallExpression,
             BlockStatement,
             ExpressionStatement,

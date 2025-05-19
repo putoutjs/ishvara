@@ -189,3 +189,23 @@ test('ishvara: printer-wasm: memory: export', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-wasm: return', (t) => {
+    const source = montag`
+        export function thenElse(a: i32): i32 {
+            return i32.const(1);
+        }
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (func $thenElse (export "thenElse") (param $a i32) (result i32)
+                (return (i32.const 1))
+            )
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

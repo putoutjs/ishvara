@@ -1,9 +1,9 @@
 xor(ax, ax);
-xor(dx, dx);
+cwd();
 
 xor(ax, ax);
 {
-    xor(dx, dx);
+    cwd();
     inc(dx);
 }
 xor(dx, dx);
