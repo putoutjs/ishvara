@@ -1,3 +1,8 @@
+2025.05.19, v2.0.39
+
+feature:
+- 54825f9 ishvara: printer-wasm: if: then
+
 2025.05.19, v2.0.38
 
 feature:
