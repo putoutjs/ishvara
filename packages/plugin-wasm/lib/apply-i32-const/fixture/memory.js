@@ -1,0 +1,1 @@
+__ishvara_wasm_memory('memory', 10);

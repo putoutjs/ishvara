@@ -1,1 +1,1 @@
-data(i32.constant(0), 'Hello World');
+data(i32.const(0), 'Hello World');

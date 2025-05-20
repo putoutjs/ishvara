@@ -48,10 +48,9 @@ export const IfStatement = (path, {indent, print, maybe, write, traverse}) => {
     print('(if');
     indent.inc();
     print.breakline();
-    print('(then');
-    print.space();
     print('__test');
-    print(')');
+    print.breakline();
+    print('(then');
     
     const consequent = path.get('consequent');
     const alternate = path.get('alternate');

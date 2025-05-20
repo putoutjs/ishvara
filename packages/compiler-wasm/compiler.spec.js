@@ -38,7 +38,7 @@ test('ishvara: compiler-wasm: data', async (t) => {
     
     const expected = montag`
         (module
-            (data (i32.constant 0) "Hello World")
+            (data (i32.const 0) "Hello World")
         )\n
     `;
     
@@ -54,7 +54,7 @@ test('ishvara: compiler-wasm: memory', async (t) => {
             1,
         ];
         
-        data(i32.constant(0), 'Hello World');
+        data(i32.const(0), 'Hello World');
         data(i32.const(10), 'ABC');
     `;
     
@@ -65,7 +65,7 @@ test('ishvara: compiler-wasm: memory', async (t) => {
     const expected = montag`
         (module
             (memory (export "memory") 1)
-            (data (i32.constant 0) "Hello World")
+            (data (i32.const 0) "Hello World")
             (data (i32.const 10) "ABC")
         )\n
     `;
@@ -90,7 +90,7 @@ test('ishvara: compiler-wasm: optimize', async (t) => {
     
     const expected = montag`
         export function thenElse(a: i32): i32 {
-            if (i32.eq(a, 10))
+            if (i32.eq(local.get(a), i32.const(10)))
                 i32.const(1);
             else
                 i32.const(5);

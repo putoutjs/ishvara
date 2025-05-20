@@ -9,5 +9,5 @@ export const match = () => ({
 });
 
 export const replace = () => ({
-    'data(__a, __b)': 'data(i32.constant(__a), __b)',
+    'data(__a, __b)': 'data(i32.const(__a), __b)',
 });

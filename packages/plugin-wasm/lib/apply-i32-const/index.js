@@ -14,7 +14,10 @@ export const include = () => [
     'NumericLiteral',
 ];
 
-export const filter = (path) => !isCallExpression(path.parentPath);
+export const exclude = () => [
+    'i32.const(__a)',
+    '__ishvara_wasm_memory(__args)',
+];
 
 export const fix = (path) => {
     replaceWith(path, createCall({
