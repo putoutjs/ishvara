@@ -1,6 +1,6 @@
 export const compare = (eax) => {
-    if (eax)
+    if (local.get(eax))
         return 1;
     
     return 0;
-}
+};

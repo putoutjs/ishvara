@@ -6,19 +6,27 @@ const {
     identifier,
 } = types;
 
-export const report = () => `Use 'if condition' instead of 'ternary expression'`;
+export const report = () => `Use 'jmp' instead of 'if'`;
 
 export const replace = () => ({
-    'if (__a) return __b': (vars, path) => {
+    'if (__a === __b) return __c': (vars, path) => {
         const label = createLabel(path);
         
         return `{
-            __a;
+            cmp(__a, __b);
             jnz(${label});
-            return __b;
+            return __c;
         }`;
     },
-    '__a === __b': 'cmp(__a, __b)',
+    'if (__a !== __b) return __c': (vars, path) => {
+        const label = createLabel(path);
+        
+        return `{
+            cmp(__a, __b);
+            jz(${label});
+            return __c;
+        }`;
+    },
 });
 
 function createLabel(path) {

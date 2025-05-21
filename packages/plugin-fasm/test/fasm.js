@@ -81,3 +81,8 @@ test('plugin-fasm: transform: extract-labeled-block', (t) => {
     t.transform('extract-labeled-block');
     t.end();
 });
+
+test('plugin-fasm: transform: apply-equality', (t) => {
+    t.transform('apply-equality');
+    t.end();
+});

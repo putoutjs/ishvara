@@ -4,6 +4,7 @@ const {
     isArrayExpression,
     isFunction,
     isBlockStatement,
+    isExportNamedDeclaration,
 } = types;
 
 const {remove} = operator;
@@ -19,6 +20,9 @@ export const fix = (path) => {
 };
 export const traverse = ({push}) => ({
     VariableDeclaration(path) {
+        if (isExportNamedDeclaration(path.parentPath))
+            return;
+        
         if (isFunction(path.parentPath.parentPath))
             return;
         

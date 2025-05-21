@@ -1,3 +1,4 @@
+import * as applyEquality from './apply-equality/index.js';
 import * as extractLabeledBlock from './extract-labeled-block/index.js';
 import * as convertIfToJmp from './convert-if-to-jmp/index.js';
 import * as removeUselessDeclarations from './remove-useless-declarations/index.js';
@@ -40,4 +41,5 @@ export const rules = {
     'remove-useless-declarations': removeUselessDeclarations,
     'convert-if-to-jmp': convertIfToJmp,
     'extract-labeled-block': extractLabeledBlock,
+    'apply-equality': applyEquality,
 };

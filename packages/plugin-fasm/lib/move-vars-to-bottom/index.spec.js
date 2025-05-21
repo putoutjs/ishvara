@@ -1,5 +1,6 @@
 import {createTest} from '@putout/test';
 import * as plugin from './index.js';
+import * as applyEquality from '../apply-equality/index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
@@ -29,5 +30,12 @@ test('compiler: move-vars-to-bottom: no report: function', (t) => {
 
 test('compiler: move-vars-to-bottom: no report: block', (t) => {
     t.noReport('block');
+    t.end();
+});
+
+test('compiler: move-vars-to-bottom: transform: apply-equality', (t) => {
+    t.transform('apply-equality', [
+        ['apply-equality', applyEquality],
+    ]);
     t.end();
 });

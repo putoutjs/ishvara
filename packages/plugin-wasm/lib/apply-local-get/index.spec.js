@@ -8,7 +8,7 @@ const test = createTest(import.meta.url, {
 });
 
 test('wasm: apply-local-get: report', (t) => {
-    t.report('apply-local-get', `Use 'if condition' instead of 'ternary expression'`);
+    t.report('apply-local-get', `Use 'local.get()'`);
     t.end();
 });
 
@@ -16,3 +16,9 @@ test('wasm: apply-local-get: transform', (t) => {
     t.transform('apply-local-get');
     t.end();
 });
+
+test('wasm: apply-local-get: transform: if', (t) => {
+    t.transform('if');
+    t.end();
+});
+
