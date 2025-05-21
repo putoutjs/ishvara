@@ -1,3 +1,5 @@
+import * as extractLabeledBlock from './extract-labeled-block/index.js';
+import * as convertIfToJmp from './convert-if-to-jmp/index.js';
 import * as removeUselessDeclarations from './remove-useless-declarations/index.js';
 import * as addLabelPrefix from './add-label-prefix/index.js';
 import * as convertDeclarationToToMov from './convert-declaration-to-mov/index.js';
@@ -36,4 +38,6 @@ export const rules = {
     'convert-declaration-to-mov': convertDeclarationToToMov,
     'add-label-prefix': addLabelPrefix,
     'remove-useless-declarations': removeUselessDeclarations,
+    'convert-if-to-jmp': convertIfToJmp,
+    'extract-labeled-block': extractLabeledBlock,
 };

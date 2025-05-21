@@ -1,5 +1,8 @@
 export const report = () => `Use 'eax' instead of 'return'`;
 
 export const replace = () => ({
-    'return __': 'eax = __',
+    'return __a': `{
+        eax = __a;
+        ret();
+    }`,
 });

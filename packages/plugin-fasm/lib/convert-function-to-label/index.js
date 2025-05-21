@@ -34,7 +34,7 @@ const convertFnToLabel = (ret) => ({__b, __type_params, __body}) => {
     return '__a: __body';
 };
 
-const maybeRet = (name) => name && identifier(name);
+const maybeRet = (name) => name && callExpression(identifier(name), []);
 
 function addStackOperations({__body, __type_params = []}) {
     const args = [];

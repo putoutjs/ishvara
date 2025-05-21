@@ -61,6 +61,7 @@ test('plugin-wasm: transform: apply-eq', (t) => {
     t.transform('apply-eq');
     t.end();
 });
+
 test('plugin-wasm: transform: apply-local-get', (t) => {
     t.transform('apply-local-get');
     t.end();

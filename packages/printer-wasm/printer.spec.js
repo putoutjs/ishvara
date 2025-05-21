@@ -301,7 +301,7 @@ test('ishvara: printer-wasm: else: no return', (t) => {
     t.end();
 });
 
-test.only('ishvara: printer-wasm: if: result', (t) => {
+test('ishvara: printer-wasm: if: result', (t) => {
     const source = montag`
         export function compare2(a: i32): i32 {
             if (i32.eq<i32>(i32.const(10), local.get(a)))

@@ -26,4 +26,3 @@ test('wasm: apply-i32-const: no report: memory', (t) => {
     t.noReport('memory');
     t.end();
 });
-

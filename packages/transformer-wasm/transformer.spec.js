@@ -59,3 +59,25 @@ test('ishvara: transformer-wasm: nested', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: transformer-wasm: arrow', (t) => {
+    const source = montag`
+        const sum = (a: i32, b: i32): i32 => {
+            i32.add(local.get(), local.get());
+        }
+        
+        export {
+            sum,
+        };
+    `;
+    
+    const [result] = transform(source);
+    const expected = montag`
+        export function sum(a: i32, b: i32): i32 {
+            i32.add(local.get(), local.get());
+        }\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

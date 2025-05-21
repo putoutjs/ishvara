@@ -7,7 +7,7 @@ __ishvara_write: {
     pop(di);
     pop(ax);
     pop(es);
-    ret;
+    ret();
 }
 __ishvara_clear: {
     push(es);

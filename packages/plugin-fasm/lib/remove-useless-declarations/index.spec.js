@@ -1,4 +1,5 @@
 import {createTest} from '@putout/test';
+import montag from 'montag';
 import * as plugin from './index.js';
 
 const test = createTest(import.meta.url, {
@@ -14,5 +15,16 @@ test('fasm: remove-useless-declarations: report', (t) => {
 
 test('fasm: remove-useless-declarations: transform', (t) => {
     t.transform('remove-useless-declarations');
+    t.end();
+});
+
+test('fasm: remove-useless-declarations: transform: export', (t) => {
+    const source = montag`
+        export {
+            _ishvara_compare,
+        }
+    `;
+    
+    t.transformCode(source, '\n');
     t.end();
 });

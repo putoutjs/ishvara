@@ -1,11 +1,7 @@
-import {
-    template,
-    types,
-    operator,
-} from 'putout';
+import {template, operator} from 'putout';
 
 const {replaceWith} = operator;
-const {isCallExpression} = types;
+
 const createCall = template(`i32.const(VALUE)`);
 
 export const report = () => `Use 'i32.const()'`;

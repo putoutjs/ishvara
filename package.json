@@ -42,9 +42,7 @@
     "wabt": "^1.0.37",
     "yargs-parser": "^21.1.1"
   },
-  "keywords": [
-    "putout"
-  ],
+  "keywords": ["putout"],
   "devDependencies": {
     "@putout/plugin-printer": "^5.0.0",
     "@putout/test": "^13.2.3",
@@ -64,6 +62,7 @@
     "#bundler": "./packages/bundler/index.js",
     "#plugin-wasm": "./packages/plugin-wasm/lib/index.js",
     "#plugin-fasm": "./packages/plugin-fasm/lib/index.js",
+    "#plugin-ishvara": "./packages/plugin-ishvara/lib/index.js",
     "#plugin-optimizer-fasm": "./packages/plugin-optimizer-fasm/lib/index.js",
     "#plugin-optimizer-wasm": "./packages/plugin-optimizer-wasm/lib/index.js",
     "#compiler-wasm": "./packages/compiler-wasm/compiler.js",

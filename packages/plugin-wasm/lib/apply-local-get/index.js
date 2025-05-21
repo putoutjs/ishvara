@@ -1,9 +1,14 @@
-import {template} from 'putout';
-import {types} from 'putout';
-import {operator} from 'putout';
+import {
+    template,
+    types,
+    operator,
+} from 'putout';
 
-const {getTemplateValues} = operator;
-const {replaceWith} = operator;
+const {
+    getTemplateValues,
+    replaceWith,
+} = operator;
+
 const {isIdentifier} = types;
 const i32 = 'i32.__(__a, __b)';
 
@@ -15,6 +20,7 @@ export const fix = (path) => {
     if (isIdentifier(first)) {
         const localGet = template.ast(`local.get(${first.node.name})`);
         replaceWith(first, localGet);
+        
         return;
     }
     

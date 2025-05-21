@@ -1,9 +1,5 @@
 import {types} from '@putout/babel';
-import {
-    exists,
-    isNext,
-    isInsideIf,
-} from '@putout/printer/is';
+import {exists, isInsideIf} from '@putout/printer/is';
 
 const {
     isBlockStatement,
@@ -13,7 +9,6 @@ const {
 } = types;
 
 const isTopLevel = ({parentPath}) => parentPath.parentPath.isProgram();
-const isEmptyConsequent = (path) => path.get('consequent').isEmptyStatement();
 
 const isInsideNestedBody = ({parentPath}) => {
     if (parentPath.type !== 'BlockStatement')
@@ -131,4 +126,3 @@ export const IfStatement = (path, {indent, print, maybe, write, traverse}) => {
     print(')');
     print.newline();
 };
-

@@ -9,14 +9,12 @@ import * as moveLocalOnTop from './move-local-on-top/index.js';
 import * as convertConstToLocal from './convert-const-to-local/index.js';
 import * as removeUselessIdentifierSuffix from './remove-useless-identifier-suffix/index.js';
 import * as convertVarToConst from './convert-var-to-const/index.js';
-import * as applyFunctionDeclaration from './apply-function-declaration/index.js';
 import * as applyTypes from './apply-types/index.js';
 import * as removeUselessDeclarations from './remove-useless-declarations/index.js';
 import * as applyWasmImport from './apply-wasm-import/index.js';
 
 export const rules = {
     'apply-data-address-type': applyDataAddressType,
-    'apply-function-declaration': applyFunctionDeclaration,
     'apply-wasm-import': applyWasmImport,
     'remove-useless-declarations': removeUselessDeclarations,
     'apply-types': applyTypes,

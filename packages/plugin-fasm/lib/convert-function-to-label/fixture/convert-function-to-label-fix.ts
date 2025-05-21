@@ -3,7 +3,7 @@ write: {
     mov(ax, 3);
     int(0xff);
     pop([di, ax, es]);
-    ret;
+    ret();
 }
 clear: {
     push([es, ax, di]);

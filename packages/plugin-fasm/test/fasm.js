@@ -71,3 +71,13 @@ test('plugin-fasm: transform: remove-useless-declarations', (t) => {
     t.transform('remove-useless-declarations');
     t.end();
 });
+
+test('plugin-fasm: transform: convert-if-to-jmp', (t) => {
+    t.transform('convert-if-to-jmp');
+    t.end();
+});
+
+test('plugin-fasm: transform: extract-labeled-block', (t) => {
+    t.transform('extract-labeled-block');
+    t.end();
+});

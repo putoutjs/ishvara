@@ -10,4 +10,4 @@ function add(): i32 {
     i32.add(local.get(), local.get());
 }
 
-export function fn(): i32 {}
+export const fn = () => {};
