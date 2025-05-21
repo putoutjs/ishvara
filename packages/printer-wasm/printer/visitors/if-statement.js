@@ -47,8 +47,17 @@ export const IfStatement = (path, {indent, print, maybe, write, traverse}) => {
         indent();
     
     print('(if');
+    
+    if (path.node.test.typeArguments) {
+        print.space();
+        print('(result ');
+        print(path.get('test.typeArguments.params.0.typeName'));
+        print(')');
+    }
+    
     indent.inc();
     print.breakline();
+    
     print('__test');
     print.breakline();
     print('(then');
