@@ -331,3 +331,30 @@ test('ishvara: printer-wasm: if: result', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-wasm: fn: couple', (t) => {
+    const source = montag`
+        export function compare(eax: i32): i32 {
+            i32.eq(local.get(eax), i32.const(0));
+        }
+        
+        export function compare2(eax: i32): i32 {
+            i32.eq(local.get(eax), i32.const(0));
+        }
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (func $compare (export "compare") (param $eax i32) (result i32)
+                (i32.eq (local.get $eax) (i32.const 0))
+            )
+            (func $compare2 (export "compare2") (param $eax i32) (result i32)
+                (i32.eq (local.get $eax) (i32.const 0))
+            )
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

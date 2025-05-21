@@ -58,7 +58,7 @@ export const BlockStatement = {
     },
     afterIf: shouldAddNewlineAfter,
     after(path, {write}) {
-        write.newline();
+        //write.newline();
     },
 };
 

@@ -1,3 +1,4 @@
+import {write} from 'node:fs';
 import {types} from '@putout/babel';
 import {isNext, isNextParent} from '@putout/printer/is';
 import {printParams} from '../params.js';
@@ -16,8 +17,7 @@ const {
 
 export const FunctionDeclaration = {
     print(path, printer, semantics) {
-        const {print} = printer;
-        
+        const {print, maybe} = printer;
         const {generator, returnType} = path.node;
         
         print('(');
@@ -60,11 +60,12 @@ export const FunctionDeclaration = {
         print(')');
     },
     afterSatisfy: () => [isNext, isNextParent, isInsideBlockStatement],
-    after(path, {indent, maybe}) {
+    after(path, {indent, write, maybe}) {
         if (isNextAssign(path) || isNextFunction(path) || isNext(path))
             indent();
         
-        maybe.write.newline(notInsideExportDefaultWithBody(path));
+        write.breakline();
+        //maybe.write.newline(notInsideExportDefaultWithBody(path));
     },
 };
 
@@ -100,3 +101,4 @@ function isInsideExportDefaultWithBody(path) {
     
     return path.node.body.body.length;
 }
+
