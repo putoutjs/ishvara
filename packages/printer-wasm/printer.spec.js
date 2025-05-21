@@ -238,3 +238,65 @@ test('ishvara: printer-wasm: if', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-wasm: else', (t) => {
+    const source = montag`
+        export function compare2(a: i32): i32 {
+            if (i32.eq(i32.const(10), local.get(a)))
+                return i32.const(5);
+            else
+                return i32.const(10);
+        }
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (func $compare2 (export "compare2") (param $a i32) (result i32)
+                (if
+                    (i32.eq (i32.const 10) (local.get $a))
+                    (then
+                        (return (i32.const 5))
+                    )
+                    (else
+                        (return (i32.const 10))
+                    )
+                )
+            )
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: printer-wasm: else: no return', (t) => {
+    const source = montag`
+        export function compare2(a: i32): i32 {
+            if (i32.eq(i32.const(10), local.get(a)))
+                i32.const(5);
+            else
+                i32.const(10);
+        }
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (func $compare2 (export "compare2") (param $a i32) (result i32)
+                (if
+                    (i32.eq (i32.const 10) (local.get $a))
+                    (then
+                        (i32.const 5)
+                    )
+                    (else
+                        (i32.const 10)
+                    )
+                )
+            )
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

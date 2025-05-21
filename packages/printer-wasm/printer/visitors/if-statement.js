@@ -9,6 +9,7 @@ const {
     isBlockStatement,
     isFunctionDeclaration,
     isStatement,
+    isReturnStatement,
 } = types;
 
 const isTopLevel = ({parentPath}) => parentPath.parentPath.isProgram();
@@ -64,18 +65,22 @@ export const IfStatement = (path, {indent, print, maybe, write, traverse}) => {
         if (isInsideIf(path.parentPath) || isInsideNestedBody(path))
             maybe.print.newline(isEmptyBody(consequent));
     } else {
-        const is = !isEmptyConsequent(path);
-        
-        maybe.print.newline(is);
-        maybe.indent.inc(is);
-        maybe.indent(isVar);
+        const isRet = isReturnStatement(consequent);
+        print.newline();
+        indent.inc();
+        maybe.indent(!isRet);
         print(consequent);
-        maybe.indent.dec(is);
+        indent.dec();
+        maybe.print.newline(!isRet);
     }
+    
+    indent();
+    print(')');
+    print.newline();
     
     if (alternate.isBlockStatement()) {
         write.space();
-        write('else');
+        write('(else');
         write.space();
         traverse(alternate);
     } else if (alternate.isIfStatement()) {
@@ -84,21 +89,25 @@ export const IfStatement = (path, {indent, print, maybe, write, traverse}) => {
         else
             indent();
         
-        write('else ');
+        write('(else ');
         traverse(alternate);
     } else if (exists(alternate)) {
         maybe.write.newline(isVar);
         maybe.indent(!isConsequentBlock);
         maybe.write.space(isConsequentBlock);
-        write('else');
+        write('(else');
         write.splitter();
         indent.inc();
+        
+        const isRet = isReturnStatement(alternate);
+        maybe.indent(!isRet);
         traverse(alternate);
+        maybe.write.newline(!isRet);
         indent.dec();
+        indent();
+        write(')');
+        write.newline();
     }
-    
-    if (!isNext(path) && !consequent.isBlockStatement())
-        return;
     
     const nextPath = path.parentPath.getNextSibling();
     
@@ -108,10 +117,9 @@ export const IfStatement = (path, {indent, print, maybe, write, traverse}) => {
     if (isLastEmptyInsideBody(path))
         print.newline();
     
-    indent();
-    print(')');
     indent.dec();
-    print.breakline();
+    indent();
     print(')');
     print.newline();
 };
+
