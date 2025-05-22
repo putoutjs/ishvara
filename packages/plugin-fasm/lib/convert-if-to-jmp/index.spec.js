@@ -27,3 +27,7 @@ test('fasm: convert-if-to-jmp: transform: else', (t) => {
     t.end();
 });
 
+test('fasm: convert-if-to-jmp: transform: block', (t) => {
+    t.transform('block');
+    t.end();
+});

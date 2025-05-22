@@ -1,17 +1,35 @@
 import {types, operator} from 'putout';
 
-const {replaceWith} = operator;
+const {replaceWith, insertAfter} = operator;
 const {
     labeledStatement,
     identifier,
+    returnStatement,
 } = types;
+
+const getStart = (path) => {
+    const {loc} = path.node;
+    
+    if (loc)
+        return loc.start;
+    
+    const prev = path.getPrevSibling();
+    
+    return prev.node.loc.start;
+};
+
+const createName = (path) => {
+    const start = getStart(path);
+    const label = `__ishvara_fasm_if_${start.line}`;
+    
+    return label;
+};
 
 export const report = () => `Use 'jmp' instead of 'if'`;
 
 export const replace = () => ({
     'if (__a === __b) return __c; else return __d': (vars, path) => {
-        const {loc} = path.node;
-        const label = `__ishvara_fasm_if_${loc.start.line}`;
+        const label = createName(path);
         
         return `{
             cmp(__a, __b);
@@ -22,34 +40,57 @@ export const replace = () => ({
         }`;
     },
     'if (__a === __b) return __c': (vars, path) => {
-        const label = createLabel(path);
+        const next = getNext(path);
+        const name = createName(next);
+        
+        createLabel(next, name);
         
         return `{
             cmp(__a, __b);
-            jnz(${label});
+            jnz(${name});
             return __c;
         }`;
     },
-    'if (__a !== __b) return __c': (vars, path) => {
-        const label = createLabel(path);
+    'if (__a === __b) {__body}': (vars, path) => {
+        const next = getNext(path);
+        const name = createName(next);
+        
+        createLabel(next, name);
         
         return `{
             cmp(__a, __b);
-            jz(${label});
+            jnz(${name});
+            __body;
+        }`;
+    },
+    'if (__a !== __b) return __c': (vars, path) => {
+        const next = getNext(path);
+        const name = createName(next);
+        
+        createLabel(next, name);
+        
+        return `{
+            cmp(__a, __b);
+            jz(${name});
             return __c;
         }`;
     },
 });
 
-function createLabel(path) {
-    const next = path.getNextSibling();
-    const {loc} = next.node;
-    
-    const name = `__ishvara_fasm_if_${loc.start.line}`;
+function createLabel(path, name) {
     const labelName = identifier(name);
-    const label = labeledStatement(labelName, next.node);
+    const label = labeledStatement(labelName, path.node);
     
-    replaceWith(next, label);
-    
-    return name;
+    replaceWith(path, label);
 }
+
+function getNext(path) {
+    const next = path.getNextSibling();
+    
+    if (next.node)
+        return next;
+    
+    insertAfter(path, returnStatement());
+    return path.getNextSibling();
+}
+

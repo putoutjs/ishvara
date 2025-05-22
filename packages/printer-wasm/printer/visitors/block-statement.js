@@ -56,10 +56,6 @@ export const BlockStatement = {
         if (path.parentPath.isObjectMethod())
             write(',');
     },
-    afterIf: shouldAddNewlineAfter,
-    after(path, {write}) {
-        //write.newline();
-    },
 };
 
 const isTopLevelWithNoNext = (path) => {

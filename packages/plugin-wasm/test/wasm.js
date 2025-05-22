@@ -66,6 +66,7 @@ test('plugin-wasm: transform: apply-local-get', (t) => {
     t.transform('apply-local-get');
     t.end();
 });
+
 test('plugin-wasm: transform: apply-type-to-if', (t) => {
     t.transform('apply-type-to-if');
     t.end();

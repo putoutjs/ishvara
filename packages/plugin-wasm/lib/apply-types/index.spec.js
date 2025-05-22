@@ -21,4 +21,3 @@ test('putout-wast-ts: apply-types: transform: no report after transform', (t) =>
     t.noReportAfterTransform('apply-types');
     t.end();
 });
-

@@ -1,10 +1,6 @@
-import {write} from 'node:fs';
 import {types} from '@putout/babel';
 import {isNext, isNextParent} from '@putout/printer/is';
 import {printParams} from '../params.js';
-
-const not = (fn) => (...a) => !fn(...a);
-const notInsideExportDefaultWithBody = not(isInsideExportDefaultWithBody);
 
 const {
     isAssignmentExpression,
@@ -12,12 +8,11 @@ const {
     isBlockStatement,
     isExpressionStatement,
     isFunctionDeclaration,
-    isExportDefaultDeclaration,
 } = types;
 
 export const FunctionDeclaration = {
     print(path, printer, semantics) {
-        const {print, maybe} = printer;
+        const {print} = printer;
         const {generator, returnType} = path.node;
         
         print('(');
@@ -60,7 +55,7 @@ export const FunctionDeclaration = {
         print(')');
     },
     afterSatisfy: () => [isNext, isNextParent, isInsideBlockStatement],
-    after(path, {indent, write, maybe}) {
+    after(path, {indent, write}) {
         if (isNextAssign(path) || isNextFunction(path) || isNext(path))
             indent();
         
@@ -94,11 +89,3 @@ function isInsideBlockStatement(path) {
     
     return !path.node.body.body.length;
 }
-
-function isInsideExportDefaultWithBody(path) {
-    if (!isExportDefaultDeclaration(path.parentPath))
-        return false;
-    
-    return path.node.body.body.length;
-}
-

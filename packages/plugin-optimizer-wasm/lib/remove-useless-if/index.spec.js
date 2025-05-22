@@ -21,4 +21,3 @@ test('optimizer-wasm: remove-useless-if: transform: local', (t) => {
     t.transform('local');
     t.end();
 });
-

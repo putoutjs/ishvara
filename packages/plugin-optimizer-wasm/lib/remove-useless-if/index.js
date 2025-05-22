@@ -1,16 +1,11 @@
 import {operator} from 'putout';
 
-const {remove, compare} = operator;
+const {remove} = operator;
 
 export const report = () => `Avoid useless 'if condition'`;
 
 export const match = () => ({
-    'if (__a.__b(__c, __d)) return 1': (vars, path) => {
-        return true;
-        const next = path.getNextSibling();
-        
-        return compare(next, 'return 0');
-    },
+    'if (__a.__b(__c, __d)) return 1': () => true,
 });
 
 export const replace = () => ({

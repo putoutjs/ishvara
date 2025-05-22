@@ -24,4 +24,3 @@ export const match = () => ({
 export const replace = () => ({
     'return __a': '__a',
 });
-

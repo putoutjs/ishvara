@@ -43,12 +43,12 @@ push(loader_name);
 push(szloader_name - loader_name);
 call(printf);
 
-printf:
+function printf() {
     pop(si);
     pop(cx);
     pop(bp);
     push(si);
-    
+
     bh ^= bh;
     // 13(num of func),1 param
     // al = 1  Assign all characters the attribute in BL update cursor
@@ -60,18 +60,16 @@ printf:
     int(0x10);
     [++line];
 
-    cmp([line], 24);
-    jnz(line_good);
-    [--line];
+    if ([line] === 24) {
+        [--line];
 
-    ax = 0x601; // Прокрутка вверх на одну строку
-    bh = 0x02; // чорный фон, зеленые символы
-    cx ^= cx; // от 00:00
-    dx = 0x184f; // 24:79 (весь экран)
-    int(0x10);
-    
-line_good:
-    ret
+        ax = 0x601; // Прокрутка вверх на одну строку
+        bh = 0x02; // чорный фон, зеленые символы
+        cx ^= cx; // от 00:00
+        dx = 0x184f; // 24:79 (весь экран)
+        int(0x10);
+    }
+}
 
 loader_name.db  = 'Nemesis loader'
 szloader_name:
