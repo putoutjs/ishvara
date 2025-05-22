@@ -31,3 +31,14 @@ test('fasm: convert-if-to-jmp: transform: block', (t) => {
     t.transform('block');
     t.end();
 });
+
+test('fasm: convert-if-to-jmp: transform: block-last', (t) => {
+    t.transform('block-last');
+    t.end();
+});
+
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: block-pop', (t) => {
+    t.transform('block-pop');
+    t.end();
+});
+

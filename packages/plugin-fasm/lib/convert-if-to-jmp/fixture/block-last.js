@@ -8,5 +8,4 @@ function printf() {
         dx = 0x184f; // 24:79 (весь экран)
         int(0x10);
     }
-    eax = 1;
 }

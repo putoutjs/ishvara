@@ -1,10 +1,15 @@
 import {types, operator} from 'putout';
 
-const {replaceWith, insertAfter} = operator;
+const {
+    replaceWith,
+    insertAfter,
+    compare,
+} = operator;
 const {
     labeledStatement,
     identifier,
     returnStatement,
+    isReturnStatement,
 } = types;
 
 const getStart = (path) => {
@@ -52,8 +57,16 @@ export const replace = () => ({
         }`;
     },
     'if (__a === __b) {__body}': (vars, path) => {
-        const next = getNext(path);
-        const name = createName(next);
+        const next = path.getNextSibling();
+        const name = createName(path);
+        
+        if (!next.node || compare(next, 'pop([])'))
+            return `{
+                cmp(__a, __b);
+                jz(${name});
+                ret
+                ${name}: __body;
+            }`;
         
         createLabel(next, name);
         
