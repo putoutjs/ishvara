@@ -22,3 +22,8 @@ test('fasm: convert-if-to-jmp: transform: equility', (t) => {
     t.end();
 });
 
+test('fasm: convert-if-to-jmp: transform: else', (t) => {
+    t.transform('else');
+    t.end();
+});
+
