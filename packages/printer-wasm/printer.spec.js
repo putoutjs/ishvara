@@ -358,3 +358,29 @@ test('ishvara: printer-wasm: fn: couple', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-wasm: return: empty', (t) => {
+    const source = montag`
+        export function compare(eax) {
+            if (local.get(eax))
+                return;
+        }
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        (module
+            (func $compare (export "compare") (param $eax)
+                (if
+                    (local.get $eax)
+                    (then
+                        (return)
+                    )
+                )
+            )
+        )\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
