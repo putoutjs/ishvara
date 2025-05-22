@@ -5,5 +5,5 @@ function compare() {
         
         return 5;
     }
-    __ishvara_fasm_if_5:     return 3;
+    __ishvara_fasm_if_5: return 3;
 }

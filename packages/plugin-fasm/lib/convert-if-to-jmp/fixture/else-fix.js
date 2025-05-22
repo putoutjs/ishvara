@@ -5,5 +5,5 @@ export const compare2 = (eax) => {
         
         return 5;
     }
-    __ishvara_fasm_if_5:     return 10;
+    __ishvara_fasm_if_5: return 10;
 };
