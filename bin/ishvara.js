@@ -60,11 +60,11 @@ if (args.output) {
     process.exit();
 }
 
-if (args.output === 'binary')
+if (!args.output)
     if (args.target === 'fasm') {
-        writeFileSync(name.replace('.ts', `.bin`), binary);
+        write(name, 'bin', binary);
     } else if (args.target === 'wasm') {
-        write(name.replace('.ts', '.wasm'), binary);
+        write(name, 'wasm', binary);
         
         const y = run(binary, {
             console: {
@@ -85,6 +85,6 @@ else if (args.target === 'asm')
     write(name, 'asm', binary);
 
 function write(input, extension, binary) {
-    const name = input.replace('.wast.ts', `.${extension}`);
+    const name = input.replace('.ts', `.${extension}`);
     writeFileSync(name, binary);
 }

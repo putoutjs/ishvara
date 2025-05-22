@@ -12,10 +12,16 @@ export const match = () => ({
         const {parentPath} = path;
         const next = parentPath.getNextSibling();
         
-        return isIfStatement(parentPath) && !next.node;
+        if (!isIfStatement(parentPath))
+            return false;
+        
+        const {typeArguments} = parentPath.node.test;
+        
+        return typeArguments || next.node;
     },
 });
 
 export const replace = () => ({
     'return __a': '__a',
 });
+

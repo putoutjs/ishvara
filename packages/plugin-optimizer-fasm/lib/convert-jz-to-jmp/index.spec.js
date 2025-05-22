@@ -7,12 +7,12 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('packages: convert-jz-to-jmp: report', (t) => {
+test('optimizer-fasm: convert-jz-to-jmp: report', (t) => {
     t.report('convert-jz-to-jmp', `Avoid useless 'jz'`);
     t.end();
 });
 
-test('packages: convert-jz-to-jmp: transform', (t) => {
+test('optimizer-fasm: convert-jz-to-jmp: transform', (t) => {
     t.transform('convert-jz-to-jmp');
     t.end();
 });

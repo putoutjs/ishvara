@@ -16,3 +16,14 @@ test('optimizer-wasm: remove-useless-return: transform', (t) => {
     t.transform('remove-useless-return');
     t.end();
 });
+
+test('optimizer-wasm: remove-useless-return: transform: else', (t) => {
+    t.transform('else');
+    t.end();
+});
+
+test('optimizer-wasm: remove-useless-return: no report: if-no-type', (t) => {
+    t.noReport('if-no-type');
+    t.end();
+});
+

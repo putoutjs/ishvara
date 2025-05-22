@@ -77,7 +77,7 @@ test('ishvara: compiler-wasm: memory', async (t) => {
 test('ishvara: compiler-wasm: optimize', async (t) => {
     const source = montag`
         export function thenElse(a: i32): i32 {
-            if (i32.eq(a, 10))
+            if (i32.eq<i32>(a, 10))
                 return i32.const(1);
             else
                 return i32.const(5);
@@ -90,7 +90,7 @@ test('ishvara: compiler-wasm: optimize', async (t) => {
     
     const expected = montag`
         export function thenElse(a: i32): i32 {
-            if (i32.eq(local.get(a), i32.const(10)))
+            if (i32.eq<i32>(local.get(a), i32.const(10)))
                 i32.const(1);
             else
                 i32.const(5);

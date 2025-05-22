@@ -9,14 +9,14 @@ function add(): i32 {
 
 export function compare(a: i32): i32 {
     if (i32.eq(a, 10))
-        return i32.const(1);
+        i32.const(1);
     
     i32.const(0);
 }
 
 export function thenElse(a: i32): i32 {
     if (i32.eq(a, 10))
-        i32.const(1);
+        return i32.const(1);
     else
-        i32.const(5);
+        return i32.const(5);
 }
