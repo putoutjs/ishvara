@@ -57,16 +57,8 @@ export const replace = () => ({
         }`;
     },
     'if (__a === __b) {__body}': (vars, path) => {
-        const next = path.getNextSibling();
         const name = createName(path);
-        
-        if (!next.node || compare(next, 'pop([])'))
-            return `{
-                cmp(__a, __b);
-                jz(${name});
-                ret
-                ${name}: __body;
-            }`;
+        const next = getNext(path);
         
         createLabel(next, name);
         

@@ -1,9 +1,8 @@
 function printf() {
     {
         cmp([line], 24);
-        jz(__ishvara_fasm_if_2);
-        ret;
-        __ishvara_fasm_if_2: {
+        jnz(__ishvara_fasm_if_2);
+        {
             [
                 --line,
             ];
@@ -15,5 +14,5 @@ function printf() {
             int(0x10);
         }
     }
-    pop([]);
+    __ishvara_fasm_if_2: pop([]);
 }

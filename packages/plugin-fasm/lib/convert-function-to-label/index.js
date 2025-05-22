@@ -43,6 +43,9 @@ function addStackOperations({__body, __type_params = []}) {
         args.push(name);
     }
     
+    if (!args.length)
+        return;
+    
     const push = createStackOperation('push', args);
     
     const pop = createStackOperation('pop', args
