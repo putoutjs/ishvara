@@ -1,3 +1,8 @@
+2025.05.22, v2.1.5
+
+feature:
+- a9d5449 @putout/plugin-optimizer-wasm: remove-useles-ret
+
 2025.05.22, v2.1.4
 
 feature:
