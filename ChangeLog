@@ -1,3 +1,8 @@
+2025.05.23, v2.1.7
+
+feature:
+- ca5ba79 ishvara: printer-wasm: return
+
 2025.05.22, v2.1.6
 
 fix:
