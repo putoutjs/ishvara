@@ -1,3 +1,8 @@
+2025.05.23, v2.1.8
+
+fix:
+- d2b08a9 ishvara: plugin-fasm: convert-if-to-jmp
+
 2025.05.23, v2.1.7
 
 feature:
