@@ -1,6 +1,6 @@
 org(31744);
 use16();
-boot: jmp.short.start();
+boot: jmp(start);
 line.db = 0;
 
 // Standard BIOS Parameter Block, "BPB".   ;
@@ -49,13 +49,12 @@ function printf() {
     pop(bp);
     push(si);
 
-    bh ^= bh;
     // 13(num of func),1 param
     // al = 1  Assign all characters the attribute in BL update cursor
     ax = 0x1301;
+    bh = 0;
     bl = 2; //green color ;)
     cwd();
-
     dh = [line];
     int(0x10);
     [++line];
@@ -65,7 +64,7 @@ function printf() {
 
         ax = 0x601; // Прокрутка вверх на одну строку
         bh = 0x02; // чорный фон, зеленые символы
-        cx ^= cx; // от 00:00
+        cx = 0; // от 00:00
         dx = 0x184f; // 24:79 (весь экран)
         int(0x10);
     }

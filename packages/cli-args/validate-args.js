@@ -16,6 +16,8 @@ export const validateArgs = async (args, {log, exit, stat}) => {
     
     const [error] = await tryToCatch(stat, name);
     
-    if (error)
-        process.exit(1);
+    if (error) {
+        log(error.message);
+        return exit(1);
+    }
 };
