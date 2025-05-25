@@ -18,7 +18,8 @@ test('ishvara: translator-fasm: places', async (t) => {
     `);
     
     const expected = [{
-        error: 'error: illegal instruction.',
+        message: `illegal instruction: '(module)'`,
+        column: 0,
         line: 2,
     }];
     
