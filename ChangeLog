@@ -1,3 +1,8 @@
+2025.05.25, v2.1.13
+
+feature:
+- 9170dee plugin-optimizer-wasm: apply-eqz: add
+
 2025.05.23, v2.1.12
 
 feature:
