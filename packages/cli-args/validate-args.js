@@ -1,4 +1,3 @@
-import process from 'node:process';
 import tryToCatch from 'try-to-catch';
 
 export const validateArgs = async (args, {log, exit, stat}) => {

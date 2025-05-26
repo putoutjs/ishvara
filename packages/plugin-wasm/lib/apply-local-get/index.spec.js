@@ -21,4 +21,3 @@ test('wasm: apply-local-get: transform: if', (t) => {
     t.transform('if');
     t.end();
 });
-

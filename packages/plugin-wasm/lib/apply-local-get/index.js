@@ -14,6 +14,7 @@ const {
     isIfStatement,
     isCallExpression,
 } = types;
+
 const i32 = 'i32.__(__a, __b)';
 
 export const report = () => `Use 'local.get()'`;
@@ -62,4 +63,3 @@ export const traverse = ({push}) => ({
         push(path);
     },
 });
-

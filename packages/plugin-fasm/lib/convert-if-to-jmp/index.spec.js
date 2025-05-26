@@ -41,4 +41,3 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: block-pop', (t) => {
     t.transform('block-pop');
     t.end();
 });
-

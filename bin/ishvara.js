@@ -88,4 +88,3 @@ function write(input, extension, binary) {
     const name = input.replace('.ts', `.${extension}`);
     writeFileSync(name, binary);
 }
-

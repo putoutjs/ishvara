@@ -5,6 +5,7 @@ test('ishvara: cli-args: exit', async (t) => {
     const exit = stub();
     const log = stub();
     const stat = stub().throws(Error('not found'));
+    
     const args = {
         _: '',
         target: 'wasm',
@@ -24,6 +25,7 @@ test('ishvara: cli-args: log', async (t) => {
     const exit = stub();
     const log = stub();
     const stat = stub().throws(Error('not found'));
+    
     const args = {
         _: 'xxxx',
         target: 'wasm',
@@ -38,4 +40,3 @@ test('ishvara: cli-args: log', async (t) => {
     t.calledWith(log, ['not found']);
     t.end();
 });
-

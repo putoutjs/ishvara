@@ -1,15 +1,11 @@
 import {types, operator} from 'putout';
 
-const {
-    replaceWith,
-    insertAfter,
-    compare,
-} = operator;
+const {replaceWith, insertAfter} = operator;
+
 const {
     labeledStatement,
     identifier,
     returnStatement,
-    isReturnStatement,
 } = types;
 
 const getStart = (path) => {
@@ -25,9 +21,8 @@ const getStart = (path) => {
 
 const createName = (path) => {
     const start = getStart(path);
-    const label = `__ishvara_fasm_if_${start.line}`;
     
-    return label;
+    return `__ishvara_fasm_if_${start.line}`;
 };
 
 export const report = () => `Use 'jmp' instead of 'if'`;
@@ -98,4 +93,3 @@ function getNext(path) {
     insertAfter(path, returnStatement());
     return path.getNextSibling();
 }
-
