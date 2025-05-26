@@ -6,10 +6,10 @@ import {stat} from 'node:fs/promises';
 import {codeFrameColumns} from '@putout/babel';
 import chalk from 'chalk';
 import {run} from '#runner-wasm';
-import {bundle} from '#bundler';
 import {parseArgs, validateArgs} from '#cli-args';
 import {help} from '#cli-help';
 import * as ishvara from '#ishvara';
+import {bundle} from '../packages/bundler/index.js';
 
 const {O = 1, RAW} = process.env;
 const args = parseArgs(process.argv.slice(2));
@@ -88,3 +88,4 @@ function write(input, extension, binary) {
     const name = input.replace('.ts', `.${extension}`);
     writeFileSync(name, binary);
 }
+

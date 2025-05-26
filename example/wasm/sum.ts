@@ -1,1 +1,1 @@
-export const sum = (a, b) => a + b;
+export const sum = (a:i64, b:i64)=> a + b;

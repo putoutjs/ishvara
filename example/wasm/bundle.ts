@@ -1,5 +1,5 @@
-import {sum} from './sum'
+import { add } from './add';
 
-export const getSum = () => {
-    return sum(1, 2);
+export function double(n: number) {
+    return add(n, n);
 }
