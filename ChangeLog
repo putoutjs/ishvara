@@ -1,3 +1,13 @@
+2025.05.26, v2.2.0
+
+fix:
+- 88c811b bundler
+
+feature:
+- 3d9899b ishvara: bios.clearScreen(): add
+- 0de285b ishvara: fasm: boot
+- 3336d28 ishvara: eslint-plugin-putout v27.0.0
+
 2025.05.25, v2.1.13
 
 feature:
