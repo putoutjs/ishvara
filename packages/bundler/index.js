@@ -11,6 +11,7 @@ export async function bundle(filePath) {
         output: {
             format: 'esm',
         },
+        treeshake: false,
         plugins: [
             resolve({
                 extensions: ['.ts'],

@@ -1,3 +1,4 @@
+import * as convertAssignToSub from './convert-assign-to-sub/index.js';
 import * as applyEquality from './apply-equality/index.js';
 import * as extractLabeledBlock from './extract-labeled-block/index.js';
 import * as convertIfToJmp from './convert-if-to-jmp/index.js';
@@ -42,4 +43,5 @@ export const rules = {
     'convert-if-to-jmp': convertIfToJmp,
     'extract-labeled-block': extractLabeledBlock,
     'apply-equality': applyEquality,
+    'convert-assign-to-sub': convertAssignToSub,
 };

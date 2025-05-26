@@ -49,3 +49,17 @@ test('ishvara: printer-fasm: label', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test.only('ishvara: printer-fasm: jmp far', (t) => {
+    const source = montag`
+        jmp.far('0xFFFF:0x0000');
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        jmp far 0xFFFF:0x0000\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

@@ -9,6 +9,7 @@ Transforms:
 - ✅[`convert-equ-call-to-member`](https://putout.cloudcmd.io/#/gist/94c8110db310e6979c2fdc1c9311337a/6a17fab68cdf7adbd17952b7fead658599489c9c);
 - ✅[`convert-assign-to-member`](https://putout.cloudcmd.io/#/gist/7624d8ad5507586ba4ba25f30a9ae26b/085ae7ea6a1c449013fd5806c390ac1ce5eb1c17);
 - ✅[`convert-assign-to-add`](https://putout.cloudcmd.io/#/gist/043e2fec17734c5671a8528091d1275b/f200da1222cdd86fee5fd3125a67f2d0703391d7);
+- ✅[`convert-assign-to-sub`](https://putout.cloudcmd.io/#/gist/6543aba90ae4ac95b5fb7a79c0314f25/9eb8259ffa611b714ebd4b2e7be5ca124aae7e18);
 - ✅[`convert-assign-to-mov`](https://putout.cloudcmd.io/#/gist/1e4a2f439d20fe7cad91d75881bce08a/e5dc7cad875e4be3faafb47f384115cf28a62d25);
 - ✅[`convert-assign-to-xor`](https://putout.cloudcmd.io/#/gist/1e4a2f439d20fe7cad91d75881bce08a/e5dc7cad875e4be3faafb47f384115cf28a62d2);
 - ✅[`convert-assign-to-shl`](https://putout.cloudcmd.io/#/gist/e7b609200727bb78cfa073c0c1220c46/da0309ac125855533f7e0baa332b0670fd46f6b2);
