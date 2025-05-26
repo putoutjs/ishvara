@@ -86,7 +86,8 @@ test('plugin-fasm: transform: apply-equality', (t) => {
     t.transform('apply-equality');
     t.end();
 });
+
 test('plugin-fasm: transform: convert-assign-to-sub', (t) => {
     t.transform('convert-assign-to-sub');
     t.end();
-})
+});

@@ -6,6 +6,7 @@ export const ExpressionStatement = (path, printer) => {
         indent,
         traverse,
     } = printer;
+    
     const expression = path.get('expression');
     
     if (isJmpFar(expression)) {
@@ -19,4 +20,3 @@ export const ExpressionStatement = (path, printer) => {
     traverse(expression);
     print.newline();
 };
-

@@ -2,7 +2,6 @@ import {types} from '@putout/babel';
 
 const {
     isCallExpression,
-    isReturnStatement,
     isMemberExpression,
 } = types;
 

@@ -50,7 +50,7 @@ test('ishvara: printer-fasm: label', (t) => {
     t.end();
 });
 
-test.only('ishvara: printer-fasm: jmp far', (t) => {
+test('ishvara: printer-fasm: jmp far', (t) => {
     const source = montag`
         jmp.far('0xFFFF:0x0000');
     `;
