@@ -1,3 +1,5 @@
+import {bios} from '#operator-fasm';
+
 org(0x7c00);
 use16();
 boot: jmp(start);
@@ -37,8 +39,7 @@ ss = ax;
 --ax;
 sp = ax;
 
-ax = 3;   // Очистим экран
-int(0x10);
+bios.clearScreen();
 
 push(loader_name);
 push(szloader_name - loader_name);

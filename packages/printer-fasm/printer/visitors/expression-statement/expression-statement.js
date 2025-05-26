@@ -1,7 +1,9 @@
+import {isNext} from '@putout/printer/is';
 import {isJmpFar, printJmpFar} from './print-jmp-far.js';
 
 export const ExpressionStatement = (path, printer) => {
     const {
+        maybe,
         print,
         indent,
         traverse,
@@ -11,7 +13,7 @@ export const ExpressionStatement = (path, printer) => {
     
     if (isJmpFar(expression)) {
         printJmpFar(expression, printer);
-        print.breakline();
+        maybe.print.breakline(isNext(path));
         
         return;
     }

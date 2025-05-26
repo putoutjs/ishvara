@@ -12,6 +12,9 @@ export async function bundle(filePath) {
             format: 'esm',
         },
         treeshake: false,
+        external: [
+            '#operator-fasm',
+        ],
         plugins: [
             resolve({
                 extensions: ['.ts'],

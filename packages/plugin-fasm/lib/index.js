@@ -1,3 +1,4 @@
+import * as convertBiosClearScreenToInt10 from './convert-bios-clear-screen-to-int-10/index.js';
 import * as convertAssignToSub from './convert-assign-to-sub/index.js';
 import * as applyEquality from './apply-equality/index.js';
 import * as extractLabeledBlock from './extract-labeled-block/index.js';
@@ -44,4 +45,5 @@ export const rules = {
     'extract-labeled-block': extractLabeledBlock,
     'apply-equality': applyEquality,
     'convert-assign-to-sub': convertAssignToSub,
+    'convert-bios-clear-screen-to-int-10': convertBiosClearScreenToInt10,
 };
