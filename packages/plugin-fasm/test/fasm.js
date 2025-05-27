@@ -96,3 +96,7 @@ test('plugin-fasm: transform: convert-bios-clear-screen-to-int-10', (t) => {
     t.transform('convert-bios-clear-screen-to-int-10');
     t.end();
 });
+test('plugin-fasm: transform: convert-bios-print-line-to-int-10', (t) => {
+    t.transform('convert-bios-print-line-to-int-10');
+    t.end();
+})

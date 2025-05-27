@@ -188,14 +188,11 @@ async function printf() {
     pop(bp);
     push(si);
 
-    // 13(num of func),1 param
-    // al = 1  Assign all characters the attribute in BL update cursor
-    ax = 0x1301;
     bh = 0;
     bl = 2; //green color ;)
     cwd();
     dh = [line];
-    int(0x10);
+    bios.printLine();
     [++line];
 
     if ([line] === 24) {
