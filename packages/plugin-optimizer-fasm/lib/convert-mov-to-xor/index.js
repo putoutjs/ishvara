@@ -30,6 +30,9 @@ export const report = (path) => {
 
 export const exclude = () => [
     'mov(__array, __a)',
+    'mov(ds, __a)',
+    'mov(ss, __a)',
+    'mov(es, __a)',
 ];
 
 export const replace = () => ({

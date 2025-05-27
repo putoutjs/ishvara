@@ -46,3 +46,9 @@ test('optimizer-fasm: convert-mov-to-xor: no report: addr', (t) => {
     t.noReport('addr');
     t.end();
 });
+
+test('optimizer-fasm: convert-mov-to-xor: no report: ds', (t) => {
+    t.noReport('ds');
+    t.end();
+});
+

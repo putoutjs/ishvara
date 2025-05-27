@@ -1,4 +1,4 @@
-import {bios} from '#operator-fasm';
+import {org, use16, bios} from '#operator-fasm';
 
 org(0x7c00);
 use16();
@@ -31,172 +31,158 @@ bpbFileSystem.db = 'FAT12   ';
 
 kernel_begin.equ = 0x7e00;
 
-start: 
-ax = 0; // initialize all the necessary
-ds = ax;  // registers.
-es = ax;
-ss = ax;
---ax;
-sp = ax;
+async function start() {
+    ax = 0; // initialize all the necessary
+    ds = ax;  // registers.
+    es = ax;
+    ss = ax;
+    --ax;
+    sp = ax;
 
-bios.clearScreen();
+    bios.clearScreen();
 
-push(loader_name);
-push(szloader_name - loader_name);
-call(printf);
+    await printf(loader_name, szloader_name - loader_name);
 
-sec_reading:
-push(cx);
-ah = 2; // reading the sector #2
-al = 1; //how much sectors? 1
-bx = kernel_begin; // buffer
-cl = 2; // sector
-ch = 0; // track
-dx = 0;
-++dh; //головка 1(вторая)
-int(0x13);
+    sec_reading:
+    push(cx);
+    ah = 2; // reading the sector #2
+    al = 1; //how much sectors? 1
+    bx = kernel_begin; // buffer
+    cl = 2; // sector
+    ch = 0; // track
+    dx = 0;
+    ++dh; //головка 1(вторая)
+    int(0x13);
 
-pop(cx);
-jnc(_find_file);
+    pop(cx);
+    jnc(_find_file);
 
-clc();
-loop(sec_reading);
+    clc();
+    loop(sec_reading);
 
-push(error_reading);
-push(szerror_reading - error_reading);
-call(printf);
-jmp(reboot);
+    await printf(error_reading, szerror_reading - error_reading)
+    await reboot();
 
-_find_file:
-si = kernel_begin // 0x7e00
-bx = si
-_find_file_next: di = kernel_name
-si = bx;
-cx = szkernel_name-kernel_name;
-repe.cmpsb();
-or(cx, cx);
-jnz(_find_file_not)    // строки неравны :(
-jmp(find_kernel);
-_find_file_not: bx += 0x20;
-si = bx;
-lodsb();
-or(al, al);
-jz(_error_finding); //в корне ядра нема :(
-jmp(_find_file_next);
+    _find_file:
+    si = kernel_begin // 0x7e00
+    bx = si
+    
+    _find_file_next: di = kernel_name
+    si = bx;
+    cx = szkernel_name - kernel_name;
+    repe.cmpsb();
+    or(cx, cx);
+    jnz(_find_file_not)    // строки неравны :(
+    jmp(find_kernel);
+    
+    _find_file_not:
+    bx += 0x20;
+    si = bx;
+    lodsb();
+    or(al, al);
+    jz(_error_finding); //в корне ядра нема :(
+    jmp(_find_file_next);
+    
+    find_kernel:
+    si += 0x14;
+    lodsw();
+    [kernel_offset] = ax;
+    lodsw();
+    [kernel_size] = ax;
+    cx = 0x200;
+    cwd();
+    div(cx);
 
-find_kernel:
+    or(dx, dx);
+    jz(bez_ostatka);
+    ++al;
 
-si += 0x14;
-lodsw();
-[kernel_offset] = ax;
-lodsw();
-[kernel_size] = ax;
-cx = 0x200;
-cwd();
-div(cx);
+    bez_ostatka:
+    [kernel_sec_size] = al;
 
-or(dx, dx);
-jz(bez_ostatka);
-++al;
+    await printf(kernel_fined, szkernel_fined - kernel_fined)
 
-bez_ostatka:
-[kernel_sec_size] = al;
+    cx = 3
+    // Грузим ядро
+    sec_reading2:
+    push(cx);
 
+    bx = kernel_begin; // ;$a000 ;buffer
+    ax = [kernel_offset];
+    al -= 2;
+    cx = 0x200; //track/sector 0/2
+    mul(cx);
+    ax += 0x4200;
+    cwd(); // необязательно... но, мало ли... лучше
+    div(cx) // пропишем, что б потом неожиданностей небыло...
+    // получаем количество секторов в ax
+    cx = 18; //дорожка
+    cwd();
+    div(cx);
+    // в ax номер дорожки
+    // в dx номер сектора на дорожке
+    or(dl, dl);
+    jnz(not_sec1);
 
-push(kernel_fined);
-push(szkernel_fined-kernel_fined);
-call(printf);
+    not_sec1:
+    ++dl
+    cl = dl; //номер сектора
+    dx = ax; //смотрим парная ли дорожка
+    push(dx);
+    push(bx);
+    bx = 2;
+    cwd();
+    div(bx);
+    ch = al;// в ch номер дорожки
+    mul(bx); // если парная - нужно перевернуть
+    // дискетук a.k.a головке один
+    pop(bx);
+    pop(dx);
+    cmp(dx, 1); //ax;присвоить
+    jnz(not_twin);
 
-cx = 3
-// Грузим ядро
-sec_reading2:
-push(cx);
+    jmp(twin);
 
-bx = kernel_begin; // ;$a000 ;buffer
-ax = [kernel_offset];
-al -= 2;
-cx = 0x200; //track/sector 0/2
-mul(cx);
-ax += 0x4200;
-cwd(); // необязательно... но, мало ли... лучше
-div(cx) // пропишем, что б потом неожиданностей небыло...
-// получаем количество секторов в ax
-cx = 18; //дорожка
-cwd();
-div(cx);
-// в ax номер дорожки
-// в dx номер сектора на дорожке
-or(dl, dl);
-jnz(not_sec1);
+    not_twin:// ;не парное число секторов...
+        dh = 0; // левая головка
+    jmp(not_twin_ok);
+    twin:
+        dh = 1; // 1-ая головка
+    not_twin_ok:
+        dl = 0; // грузимся с дискетки ;)!
+    ah = 2; //_secread;reading the sector
+    al = [kernel_sec_size]; // how much sectors?
+    int(0x13);
 
-not_sec1:
-++dl
-cl = dl; //номер сектора
-dx = ax; //смотрим парная ли дорожка
-push(dx);
-push(bx);
-bx = 2;
-cwd();
-div(bx);
-ch = al;// в ch номер дорожки
-mul(bx); // если парная - нужно перевернуть
-// дискетук a.k.a головке один
-pop(bx);
-pop(dx);
-cmp(dx, 1); //ax;присвоить
-jnz(not_twin);
+    jnc(_find_kernel);
 
-jmp(twin);
+    clc();
+    pop(cx);
+    loop(sec_reading2);
 
-not_twin:// ;не парное число секторов...
-dh = 0; // левая головка
-jmp(not_twin_ok);
-twin:
-    dh = 1; // 1-ая головка
-not_twin_ok:
-dl = 0; // грузимся с дискетки ;)!
-ah = 2; //_secread;reading the sector
-al = [kernel_sec_size]; // how much sectors?
-int(0x13);
+    await printf(error_krnlfile, szerror_krnlfile - error_krnlfile);
+    await reboot();
 
-jnc(_find_kernel);
-
-clc();
-pop(cx);
-loop(sec_reading2);
-
-push(error_krnlfile);
-push(szerror_krnlfile - error_krnlfile);
-call(printf);
-
-jmp(reboot);
-
-_find_kernel:
-push(kernel_load);
-push(szkernel_load-kernel_load);
-call(printf);
-
-jmp(kernel_begin);
+    _find_kernel:
+    await printf(kernel_load, szkernel_load - kernel_load)
+    jmp(kernel_begin);
 
 
-_error_finding:
-push(error_finding);
-push(szerror_finding-error_finding);
-call(printf);
-jmp(reboot);
+    _error_finding:
+    await printf(error_finding, szerror_finding - error_finding);
+    await reboot();
+}
 
 // Служебные функци o_O
-function reboot() {
-    push(press_any_key);
-    push(szpress_any_key - press_any_key);
-    call(printf);
+async function reboot() {
+    await printf(press_any_key, szpress_any_key - press_any_key);
     ax = 0;
     int(0x16) //ждем нажатия на клаву ;)
 
     jmp.far('0xFFFF:0x0000');
 }
 
-function printf() {
+async function printf() {
     pop(si);
     pop(cx);
     pop(bp);

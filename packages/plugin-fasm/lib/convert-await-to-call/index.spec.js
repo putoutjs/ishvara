@@ -16,3 +16,14 @@ test('compiler: convert-await-to-call: transform', (t) => {
     t.transform('convert-await-to-call');
     t.end();
 });
+
+test('compiler: convert-await-to-call: transform: no-args', (t) => {
+    t.transform('no-args');
+    t.end();
+});
+
+test('compiler: convert-await-to-call: transform: two-args', (t) => {
+    t.transform('two-args');
+    t.end();
+});
+

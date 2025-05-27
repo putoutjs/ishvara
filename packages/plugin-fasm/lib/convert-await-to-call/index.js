@@ -14,6 +14,12 @@ const createMov = template('mov(__key, __value)', {
 });
 
 export const replace = () => ({
+    'await __a(__b, __c)': `{
+        push(__b);
+        push(__c);
+        call(__a);
+    }`,
+    'await __a()': 'call(__a)',
     'await __a(__object)': ({__object}, path) => {
         for (const {key, value} of __object.properties) {
             const mov = expressionStatement(createMov({
