@@ -1,3 +1,8 @@
+2025.05.27, v2.2.1
+
+feature:
+- 8f9e144 ishvara: await fn -> call(fn)
+
 2025.05.26, v2.2.0
 
 fix:
