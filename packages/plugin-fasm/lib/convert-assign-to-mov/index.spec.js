@@ -26,4 +26,3 @@ test('compiler: convert-assign-to-mov: no report: call', (t) => {
     t.noReport('call');
     t.end();
 });
-

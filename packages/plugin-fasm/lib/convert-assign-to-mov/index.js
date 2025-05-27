@@ -19,4 +19,3 @@ export const match = () => ({
 export const replace = () => ({
     '__a = __b': 'mov(__a, __b)',
 });
-
