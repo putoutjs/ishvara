@@ -1,3 +1,4 @@
+import * as convertBiosReadCharToInt10 from './convert-bios-read-char-to-int-10/index.js';
 import * as convertBiosPrintLineToInt10 from './convert-bios-print-line-to-int-10/index.js';
 import * as convertBiosClearScreenToInt10 from './convert-bios-clear-screen-to-int-10/index.js';
 import * as convertAssignToSub from './convert-assign-to-sub/index.js';
@@ -48,4 +49,5 @@ export const rules = {
     'convert-assign-to-sub': convertAssignToSub,
     'convert-bios-clear-screen-to-int-10': convertBiosClearScreenToInt10,
     'convert-bios-print-line-to-int-10': convertBiosPrintLineToInt10,
+    'convert-bios-read-char-to-int-10': convertBiosReadCharToInt10,
 };

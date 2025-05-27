@@ -176,9 +176,8 @@ async function start() {
 // Служебные функци o_O
 async function reboot() {
     await printf(press_any_key, szpress_any_key - press_any_key);
-    ax = 0;
-    int(0x16) //ждем нажатия на клаву ;)
-
+    // ждем нажатия на клаву ;)
+    bios.readChar();
     jmp.far('0xFFFF:0x0000');
 }
 
