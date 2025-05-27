@@ -99,7 +99,6 @@ async function start() {
 
     bez_ostatka:
     [kernel_sec_size] = al;
-
     await printf(kernel_fined, szkernel_fined - kernel_fined)
 
     cx = 3
@@ -144,12 +143,14 @@ async function start() {
     jmp(twin);
 
     not_twin:// ;не парное число секторов...
-        dh = 0; // левая головка
+    dh = 0; // левая головка
     jmp(not_twin_ok);
+    
     twin:
-        dh = 1; // 1-ая головка
+    dh = 1; // 1-ая головка
+    
     not_twin_ok:
-        dl = 0; // грузимся с дискетки ;)!
+    dl = 0; // грузимся с дискетки ;)!
     ah = 2; //_secread;reading the sector
     al = [kernel_sec_size]; // how much sectors?
     int(0x13);

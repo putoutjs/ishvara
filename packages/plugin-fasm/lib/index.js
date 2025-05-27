@@ -1,3 +1,4 @@
+import * as convertDoWhileToJz from './convert-do-while-to-jz/index.js';
 import * as convertBiosReadCharToInt10 from './convert-bios-read-char-to-int-10/index.js';
 import * as convertBiosPrintLineToInt10 from './convert-bios-print-line-to-int-10/index.js';
 import * as convertBiosClearScreenToInt10 from './convert-bios-clear-screen-to-int-10/index.js';
@@ -50,4 +51,5 @@ export const rules = {
     'convert-bios-clear-screen-to-int-10': convertBiosClearScreenToInt10,
     'convert-bios-print-line-to-int-10': convertBiosPrintLineToInt10,
     'convert-bios-read-char-to-int-10': convertBiosReadCharToInt10,
+    'convert-do-while-to-jz': convertDoWhileToJz,
 };

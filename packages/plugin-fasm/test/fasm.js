@@ -106,3 +106,7 @@ test('plugin-fasm: transform: convert-bios-read-char-to-int-10', (t) => {
     t.transform('convert-bios-read-char-to-int-10');
     t.end();
 });
+test('plugin-fasm: transform: convert-do-while-to-jz', (t) => {
+    t.transform('convert-do-while-to-jz');
+    t.end();
+});
