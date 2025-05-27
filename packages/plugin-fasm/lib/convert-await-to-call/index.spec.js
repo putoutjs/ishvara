@@ -26,4 +26,3 @@ test('compiler: convert-await-to-call: transform: two-args', (t) => {
     t.transform('two-args');
     t.end();
 });
-
