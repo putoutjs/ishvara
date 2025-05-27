@@ -1,7 +1,7 @@
-import {template} from 'putout';
-import {types} from 'putout';
+import {template, types} from 'putout';
 
 const {expressionStatement} = types;
+
 export const report = () => `Use 'jz' instead of 'do-while'`;
 
 export const replace = () => ({

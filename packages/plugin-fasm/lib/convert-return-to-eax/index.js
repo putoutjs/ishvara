@@ -1,6 +1,3 @@
-import {types} from 'putout';
-
-const {isIdentifier} = types;
 const i16 = [
     'ax',
     'bx',
@@ -11,7 +8,7 @@ const i16 = [
 export const report = () => `Use 'eax' instead of 'return'`;
 
 export const replace = () => ({
-    'return __a': ({__a}, path) => {
+    'return __a': ({__a}) => {
         if (i16.includes(__a.name))
             return `{
                 ax = __a;
@@ -24,4 +21,3 @@ export const replace = () => ({
         }`;
     },
 });
-

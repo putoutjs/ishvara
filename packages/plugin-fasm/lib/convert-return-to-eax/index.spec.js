@@ -21,4 +21,3 @@ test('fasm: convert-return-to-eax: transform: cx', (t) => {
     t.transform('cx');
     t.end();
 });
-
