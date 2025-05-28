@@ -18,4 +18,3 @@ export const replace = () => ({
         return `__ishvara_do_while_${line}: __body`;
     },
 });
-

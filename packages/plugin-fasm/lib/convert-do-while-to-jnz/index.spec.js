@@ -21,4 +21,3 @@ test('fasm: convert-do-while-to-jz: transform: al', (t) => {
     t.transform('al');
     t.end();
 });
-
