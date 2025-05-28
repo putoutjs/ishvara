@@ -215,5 +215,5 @@ kernel_load.db = 'kernel loaded', 0;
 press_any_key.db = 'press any key 4 restart', 0;
 kernel_name.db = 'KERNEL', 0;
 
-rb, 0x200 - ($ -boot) - 2;
+rb, 0x200 - ($ - boot) - 2;
 db(0x55, 0xaa);

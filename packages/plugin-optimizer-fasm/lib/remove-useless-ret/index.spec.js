@@ -16,3 +16,9 @@ test('optimizer-fasm: remove-useless-ret: transform', (t) => {
     t.transform('remove-useless-ret');
     t.end();
 });
+
+test('optimizer-fasm: remove-useless-ret: transform: after-jmp', (t) => {
+    t.transform('after-jmp');
+    t.end();
+});
+
