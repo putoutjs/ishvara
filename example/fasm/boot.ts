@@ -181,7 +181,7 @@ async function printf() {
 
     bh = 0;
     bl = 2; // green color ;)
-    cwd();
+    dl = 0;
     dh = [line];
     bios.printLine();
     if (dh === 23) {
@@ -195,10 +195,10 @@ async function printf() {
 }
 
 function getStringLength() {
-    pop(eax)
-    pop(esi);
-    push(eax);
-    cx = 0;
+    pop(ax)
+    pop(si);
+    push(ax);
+    cx = -1;
 
     do {
         lodsb();
