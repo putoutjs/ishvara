@@ -1,4 +1,4 @@
-export const report = () => `Use '0x10' instead of 'bios.readChar()'`;
+export const report = () => `Use '0x16' instead of 'bios.readChar()'`;
 
 export const match = () => ({
     'bios.readChar()': (vars, path) => {

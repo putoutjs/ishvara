@@ -15,7 +15,8 @@ Transforms:
 - ✅[`convert-assign-to-shl`](https://putout.cloudcmd.io/#/gist/e7b609200727bb78cfa073c0c1220c46/da0309ac125855533f7e0baa332b0670fd46f6b2);
 - ✅[`convert-bios-clear-screen-to-int-10`](https://putout.cloudcmd.io/#/gist/602d579a76cf38b5927f0207ee4bcf98/a31a08ce34e4a83ca909a9afc2ec76533ded8c82);
 - ✅[`convert-bios-print-line-to-int-10`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/24b97107a50d00df0f012fed507d47aafb5109e2);
-- ✅[`convert-bios-read-char-to-int-10`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/af89e4d564811f38b703f482469f5d874a17bad0);
+- ✅[`convert-bios-read-char-to-int-16`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/af89e4d564811f38b703f482469f5d874a17bad0);
+- ✅[`convert-bios-scroll-to-int-10`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/95520a650428a2defd77a65ffc255a073540d902);
 - ✅[`convert-function-to-label`](https://putout.cloudcmd.io/#/gist/415829430c67b2824c26901b2cc89fb0/ed8a2186889a0135302bbb64fee0a9ce2d084800);
 - ✅[`convert-if-to-jmp`](https://putout.cloudcmd.io/#/gist/415829430c67b2824c26901b2cc89fb0/ed8a2186889a0135302bbb64fee0a9ce2d084800);
 - ✅[`convert-return-to-eax`](https://putout.cloudcmd.io/#/gist/72dfce2332d04829b70703b389464840/75d1d02c87506a2125e44ee24797240293a3a27b);

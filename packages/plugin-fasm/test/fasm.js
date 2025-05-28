@@ -92,18 +92,8 @@ test('plugin-fasm: transform: convert-assign-to-sub', (t) => {
     t.end();
 });
 
-test('plugin-fasm: transform: convert-bios-clear-screen-to-int-10', (t) => {
-    t.transform('convert-bios-clear-screen-to-int-10');
-    t.end();
-});
-
 test('plugin-fasm: transform: convert-bios-print-line-to-int-10', (t) => {
     t.transform('convert-bios-print-line-to-int-10');
-    t.end();
-});
-
-test('plugin-fasm: transform: convert-bios-read-char-to-int-10', (t) => {
-    t.transform('convert-bios-read-char-to-int-10');
     t.end();
 });
 
@@ -114,5 +104,15 @@ test('plugin-fasm: transform: convert-do-while-to-jz', (t) => {
 
 test('plugin-fasm: transform: split-assign-await-with-assign-eax', (t) => {
     t.transform('split-assign-await-with-assign-eax');
+    t.end();
+});
+
+test('plugin-fasm: transform: convert-bios-scroll-to-int-10', (t) => {
+    t.transform('convert-bios-scroll-to-int-10');
+    t.end();
+});
+
+test('plugin-fasm: transform: convert-bios-read-char-to-int-16', (t) => {
+    t.transform('convert-bios-read-char-to-int-16');
     t.end();
 });

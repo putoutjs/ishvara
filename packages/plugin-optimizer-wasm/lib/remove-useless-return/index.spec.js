@@ -26,3 +26,9 @@ test('optimizer-wasm: remove-useless-return: no report: if-no-type', (t) => {
     t.noReport('if-no-type');
     t.end();
 });
+
+test('optimizer-wasm: remove-useless-return: no report: not-if', (t) => {
+    t.noReport('not-if');
+    t.end();
+});
+

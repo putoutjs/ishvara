@@ -67,12 +67,13 @@ async function start() {
     si = kernel_begin // 0x7e00
     bx = si
     
-    _find_file_next: di = kernel_name
+    _find_file_next:
+    di = kernel_name
     si = bx;
-    cx = await getStringLength(kernel_name);
+    cx = await getStringLength(di);
     repe.cmpsb();
     or(cx, cx);
-    jnz(_find_file_not)    // строки неравны :(
+    jnz(_find_file_not) // строки неравны :(
     jmp(find_kernel);
     
     _find_file_not:
@@ -193,11 +194,8 @@ async function printf() {
     dh = [line];
     bios.printLine();
     if (dh === 23) {
-        ax = 0x601; // Прокрутка вверх на одну строку
         bh = 0x02; // чорный фон, зеленые символы
-        cx = 0; // от 00:00
-        dx = 0x184f; // 24:79 (весь экран)
-        int(0x10);
+        bios.scroll();
         return;
     }
 
