@@ -44,7 +44,6 @@ async function start() {
     await printf(loader_name);
 
     sec_reading:
-    push(cx);
     al = 1; //how much sectors? 1
     bx = kernel_begin; // buffer
     cl = 2; // sector
@@ -52,16 +51,13 @@ async function start() {
     dx = 0;
     ++dh; //головка 1(вторая)
     bios.readSector();
-    if (!al) {
-        jmp(find_file);
+    
+    if (al) {
+        await printf(error_reading)
+        await reboot();
+        return;
     }
-
-    pop(cx);
-    loop(sec_reading);
-
-    await printf(error_reading)
-    await reboot();
-
+    
     find_file:
     si = kernel_begin // 0x7e00
     bx = si
@@ -210,7 +206,7 @@ function getStringLength() {
     return cx;
 }
 
-loader_name.db  = 'Nemesis loader', 0;
+loader_name.db  = 'Nemesis loader 3.0', 0;
 error_reading.db = 'error: read', 0;
 kernel_fined.db = 'kernel found', 0;
 error_finding.db = 'error: kernel not found', 0;
