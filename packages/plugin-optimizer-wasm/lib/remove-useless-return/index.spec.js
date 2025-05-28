@@ -31,4 +31,3 @@ test('optimizer-wasm: remove-useless-return: no report: not-if', (t) => {
     t.noReport('not-if');
     t.end();
 });
-

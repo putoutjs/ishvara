@@ -26,4 +26,3 @@ test('compiler: convert-dec-to-hex: no report: below-ten', (t) => {
     t.noReport('below-ten');
     t.end();
 });
-
