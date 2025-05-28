@@ -116,3 +116,7 @@ test('plugin-fasm: transform: convert-bios-read-char-to-int-16', (t) => {
     t.transform('convert-bios-read-char-to-int-16');
     t.end();
 });
+test('plugin-fasm: transform: convert-bios-read-sector-to-int-13', (t) => {
+    t.transform('convert-bios-read-sector-to-int-13');
+    t.end();
+});

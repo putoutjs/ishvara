@@ -16,6 +16,7 @@ Transforms:
 - ✅[`convert-bios-clear-screen-to-int-10`](https://putout.cloudcmd.io/#/gist/602d579a76cf38b5927f0207ee4bcf98/a31a08ce34e4a83ca909a9afc2ec76533ded8c82);
 - ✅[`convert-bios-print-line-to-int-10`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/24b97107a50d00df0f012fed507d47aafb5109e2);
 - ✅[`convert-bios-read-char-to-int-16`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/af89e4d564811f38b703f482469f5d874a17bad0);
+- ✅[`convert-bios-read-sector-int-13`](https://putout.cloudcmd.io/#/gist/6ae8820756ba1af043f93f3bdb49360e/a575cf6f5432ca215838795c2617c161f2b981cb);
 - ✅[`convert-bios-scroll-to-int-10`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/95520a650428a2defd77a65ffc255a073540d902);
 - ✅[`convert-function-to-label`](https://putout.cloudcmd.io/#/gist/415829430c67b2824c26901b2cc89fb0/ed8a2186889a0135302bbb64fee0a9ce2d084800);
 - ✅[`convert-if-to-jmp`](https://putout.cloudcmd.io/#/gist/415829430c67b2824c26901b2cc89fb0/ed8a2186889a0135302bbb64fee0a9ce2d084800);

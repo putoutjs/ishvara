@@ -14,8 +14,8 @@ test('ishvara: transformer-fasm', (t) => {
     
     const expected = montag`
         __ishvara_add: {
-            mov(eax, 0x1);
-            mov(ebx, 0x2);
+            mov(eax, 1);
+            mov(ebx, 2);
             add(eax, ebx);
             ret();
             ret();
@@ -38,8 +38,8 @@ test('ishvara: transformer-fasm: arrow', (t) => {
     
     const expected = montag`
         __ishvara_add: {
-            mov(eax, 0x1);
-            mov(ebx, 0x2);
+            mov(eax, 1);
+            mov(ebx, 2);
             add(eax, ebx);
             ret();
             ret();
@@ -64,9 +64,9 @@ test('ishvara: transformer-fasm: if', (t) => {
        __ishvara_compare: {
            cmp(eax, ebx);
            jnz(__ishvara_fasm_if_6);
-           mov(eax, 0x5);
+           mov(eax, 5);
            ret();
-           __ishvara_fasm_if_6: mov(eax, 0x3);
+           __ishvara_fasm_if_6: mov(eax, 3);
            ret();
            ret();
        }\n

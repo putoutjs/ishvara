@@ -1,9 +1,9 @@
 __ishvara_add: {
-    mov(a, 0x5);
+    mov(a, 5);
     
     __ishvara_fasm_if_6: mov(eax, 0x3);
     ret();
     
-    mov(eax, 0x1);
+    mov(eax, 1);
     ret();
 }

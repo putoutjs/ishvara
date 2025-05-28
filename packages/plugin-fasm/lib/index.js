@@ -1,3 +1,4 @@
+import * as convertBiosReadSectorToInt13 from './convert-bios-read-sector-to-int-13/index.js';
 import * as convertBiosReadCharToInt16 from './convert-bios-read-char-to-int-16/index.js';
 import * as convertBiosScrollToInt10 from './convert-bios-scroll-to-int-10/index.js';
 import * as splitAssignAwaitWithAssignEax from './split-assign-await-with-assign-eax/index.js';
@@ -56,4 +57,5 @@ export const rules = {
     'split-assign-await-with-assign-eax': splitAssignAwaitWithAssignEax,
     'convert-bios-scroll-to-int-10': convertBiosScrollToInt10,
     'convert-bios-read-char-to-int-16': convertBiosReadCharToInt16,
+    'convert-bios-read-sector-to-int-13': convertBiosReadSectorToInt13,
 };

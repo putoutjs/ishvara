@@ -45,44 +45,48 @@ async function start() {
 
     sec_reading:
     push(cx);
-    ah = 2; // reading the sector #2
     al = 1; //how much sectors? 1
     bx = kernel_begin; // buffer
     cl = 2; // sector
     ch = 0; // track
     dx = 0;
     ++dh; //головка 1(вторая)
-    int(0x13);
+    bios.readSector();
+    if (!al) {
+        jmp(find_file);
+    }
 
     pop(cx);
-    jnc(_find_file);
-
-    clc();
     loop(sec_reading);
 
     await printf(error_reading)
     await reboot();
 
-    _find_file:
+    find_file:
     si = kernel_begin // 0x7e00
     bx = si
     
-    _find_file_next:
+    find_file_next:
     di = kernel_name
     si = bx;
     cx = await getStringLength(di);
     repe.cmpsb();
-    or(cx, cx);
-    jnz(_find_file_not) // строки неравны :(
-    jmp(find_kernel);
     
-    _find_file_not:
+    if (!cx) {
+        await printf(kernel_load)
+        jmp(kernel_begin);
+        return;
+    }
     bx += 0x20;
     si = bx;
     lodsb();
-    or(al, al);
-    jz(_error_finding); //в корне ядра нема :(
-    jmp(_find_file_next);
+    if (!al) {
+        // в корне ядра нет :(
+        await printf(error_finding);
+        await reboot();
+        return;
+    }
+    jmp(find_file_next);
     
     find_kernel:
     si += 0x14;
@@ -152,26 +156,17 @@ async function start() {
     
     not_twin_ok:
     dl = 0; // грузимся с дискетки ;)!
-    ah = 2; //_secread;reading the sector
     al = [kernel_sec_size]; // how much sectors?
-    int(0x13);
+    bios.readSector();
 
-    jnc(_find_kernel);
+    if (ax) {
+        clc();
+        pop(cx);
+        loop(sec_reading2);
 
-    clc();
-    pop(cx);
-    loop(sec_reading2);
-
-    await printf(error_krnlfile);
-    await reboot();
-
-    _find_kernel:
-    await printf(kernel_load)
-    jmp(kernel_begin);
-
-    _error_finding:
-    await printf(error_finding);
-    await reboot();
+        await printf(error_krnlfile);
+        await reboot();
+    }
 }
 
 // Служебные функци o_O

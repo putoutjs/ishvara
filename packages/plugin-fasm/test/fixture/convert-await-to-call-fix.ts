@@ -2,8 +2,8 @@ __ishvara_write: {
     push(es);
     push(ax);
     push(di);
-    mov(cl, 0x1);
-    mov(ch, 0x2);
+    mov(cl, 1);
+    mov(ch, 2);
     call(__ishvara_clear);
     pop(di);
     pop(ax);

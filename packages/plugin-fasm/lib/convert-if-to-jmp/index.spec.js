@@ -17,8 +17,8 @@ test('fasm: convert-if-to-jmp: transform', (t) => {
     t.end();
 });
 
-test('fasm: convert-if-to-jmp: transform: equility', (t) => {
-    t.transform('equility');
+test('fasm: convert-if-to-jmp: transform: equality', (t) => {
+    t.transform('equality');
     t.end();
 });
 
@@ -39,5 +39,10 @@ test('fasm: convert-if-to-jmp: transform: block-last', (t) => {
 
 test('ishvara: plugin-fasm: convert-if-to-jmp: transform: block-pop', (t) => {
     t.transform('block-pop');
+    t.end();
+});
+
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: not-equal', (t) => {
+    t.transform('not-equal');
     t.end();
 });

@@ -1,7 +1,11 @@
 export const report = () => `Use hex index of dec`;
 
 export const filter = (path) => {
-    const {raw} = path.node;
+    const {raw, value} = path.node;
+    
+    if (value < 10)
+        return false;
+    
     return !raw?.startsWith('0x');
 };
 

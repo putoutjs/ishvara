@@ -2,7 +2,7 @@ __ishvara_write: {
     push(es);
     push(ax);
     push(di);
-    mov(ax, 0x3);
+    mov(ax, 3);
     int(0xff);
     pop(di);
     pop(ax);
