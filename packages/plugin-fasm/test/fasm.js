@@ -97,8 +97,8 @@ test('plugin-fasm: transform: convert-bios-print-line-to-int-10', (t) => {
     t.end();
 });
 
-test('plugin-fasm: transform: convert-do-while-to-jz', (t) => {
-    t.transform('convert-do-while-to-jz');
+test('plugin-fasm: transform: convert-do-while-to-jnz', (t) => {
+    t.transform('convert-do-while-to-jnz');
     t.end();
 });
 
@@ -121,3 +121,4 @@ test('plugin-fasm: transform: convert-bios-read-sector-to-int-13', (t) => {
     t.transform('convert-bios-read-sector-to-int-13');
     t.end();
 });
+

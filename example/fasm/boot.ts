@@ -44,7 +44,7 @@ async function start() {
     await printf(loader_name);
 
     sec_reading:
-    al = 1; //how much sectors? 1
+    al = 1; // how much sectors? 1
     bx = kernel_begin; // buffer
     cl = 2; // sector
     ch = 0; // track
@@ -64,8 +64,8 @@ async function start() {
     
     find_file_next:
     di = kernel_name
-    si = bx;
     cx = await getStringLength(di);
+    si = bx;
     repe.cmpsb();
     
     if (!cx) {
@@ -143,7 +143,7 @@ async function start() {
 
     jmp(twin);
 
-    not_twin:// ;не парное число секторов...
+    not_twin: // не парное число секторов...
     dh = 0; // левая головка
     jmp(not_twin_ok);
     
@@ -180,7 +180,7 @@ async function printf() {
     cx = await getStringLength(bp);
 
     bh = 0;
-    bl = 2; //green color ;)
+    bl = 2; // green color ;)
     cwd();
     dh = [line];
     bios.printLine();
@@ -195,24 +195,26 @@ async function printf() {
 }
 
 function getStringLength() {
+    pop(eax)
     pop(esi);
+    push(eax);
     cx = 0;
 
     do {
         lodsb();
         ++cx;
-    } while (test(al, al))
+    } while (al)
 
     return cx;
 }
 
-loader_name.db  = 'Nemesis loader 3.0', 0;
+loader_name.db  = 'Nemesis Loader', 0;
 error_reading.db = 'error: read', 0;
 kernel_fined.db = 'kernel found', 0;
 error_finding.db = 'error: kernel not found', 0;
-error_krnlfile.db  = 'error: kernel load', 0;
-kernel_load.db = 'kernel loaded', 0;
-press_any_key.db = 'press any key 4 restart', 0;
+error_krnlfile.db  = 'kernel not load :(', 0;
+kernel_load.db = 'kernel loaded :)', 0;
+press_any_key.db = 'press any key', 0;
 kernel_name.db = 'KERNEL', 0;
 
 rb, 0x200 - ($ - boot) - 2;

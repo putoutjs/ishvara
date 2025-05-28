@@ -13,6 +13,9 @@ export const match = () => ({
         if (compare(prev, 'jmp(__a)'))
             return true;
         
+        if (compare(prev, 'jmp.far(__a)'))
+            return true;
+        
         return compare(next, RET);
     },
 });

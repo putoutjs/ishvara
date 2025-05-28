@@ -1,6 +1,6 @@
 __ishvara_do_while_1: {
     lodsb();
-    inc(cx);
+    ++cx;
     test(al, al);
-    jz(__ishvara_do_while_1);
+    jnz(__ishvara_do_while_1);
 }

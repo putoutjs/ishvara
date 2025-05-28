@@ -8,7 +8,7 @@ const test = createTest(import.meta.url, {
 });
 
 test('fasm: convert-do-while-to-jz: report', (t) => {
-    t.report('convert-do-while-to-jz', `Use 'jz' instead of 'do-while'`);
+    t.report('convert-do-while-to-jz', `Use 'jnz' instead of 'do-while'`);
     t.end();
 });
 
@@ -16,3 +16,9 @@ test('fasm: convert-do-while-to-jz: transform', (t) => {
     t.transform('convert-do-while-to-jz');
     t.end();
 });
+
+test('fasm: convert-do-while-to-jz: transform: al', (t) => {
+    t.transform('al');
+    t.end();
+});
+
