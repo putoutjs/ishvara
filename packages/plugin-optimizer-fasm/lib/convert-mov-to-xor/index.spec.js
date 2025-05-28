@@ -56,4 +56,3 @@ test('optimizer-fasm: convert-mov-to-xor: no report: dh', (t) => {
     t.noReport('dh');
     t.end();
 });
-

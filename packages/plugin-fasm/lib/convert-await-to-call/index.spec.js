@@ -36,4 +36,3 @@ test('compiler: convert-await-to-call: no report: assign', (t) => {
     t.noReport('assign');
     t.end();
 });
-

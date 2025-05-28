@@ -51,4 +51,3 @@ export const replace = () => ({
         return 'call(__a)';
     },
 });
-

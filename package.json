@@ -43,9 +43,7 @@
     "wabt": "^1.0.37",
     "yargs-parser": "^21.1.1"
   },
-  "keywords": [
-    "putout"
-  ],
+  "keywords": ["putout"],
   "devDependencies": {
     "@putout/plugin-printer": "^5.0.0",
     "@putout/test": "^13.2.3",
