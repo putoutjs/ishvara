@@ -41,7 +41,7 @@ async function start() {
 
     bios.clearScreen();
 
-    await printf(loader_name, szloader_name - loader_name);
+    await printf(loader_name);
 
     sec_reading:
     push(cx);
@@ -60,7 +60,7 @@ async function start() {
     clc();
     loop(sec_reading);
 
-    await printf(error_reading, szerror_reading - error_reading)
+    await printf(error_reading)
     await reboot();
 
     _find_file:
@@ -69,7 +69,7 @@ async function start() {
     
     _find_file_next: di = kernel_name
     si = bx;
-    cx = szkernel_name - kernel_name;
+    cx = await getStringLength(kernel_name);
     repe.cmpsb();
     or(cx, cx);
     jnz(_find_file_not)    // строки неравны :(
@@ -99,7 +99,7 @@ async function start() {
 
     bez_ostatka:
     [kernel_sec_size] = al;
-    await printf(kernel_fined, szkernel_fined - kernel_fined)
+    await printf(kernel_fined);
 
     cx = 3
     // Грузим ядро
@@ -161,22 +161,21 @@ async function start() {
     pop(cx);
     loop(sec_reading2);
 
-    await printf(error_krnlfile, szerror_krnlfile - error_krnlfile);
+    await printf(error_krnlfile);
     await reboot();
 
     _find_kernel:
-    await printf(kernel_load, szkernel_load - kernel_load)
+    await printf(kernel_load)
     jmp(kernel_begin);
 
-
     _error_finding:
-    await printf(error_finding, szerror_finding - error_finding);
+    await printf(error_finding);
     await reboot();
 }
 
 // Служебные функци o_O
 async function reboot() {
-    await printf(press_any_key, szpress_any_key - press_any_key);
+    await printf(press_any_key);
     // ждем нажатия на клаву ;)
     bios.readChar();
     jmp.far('0xFFFF:0x0000');
@@ -184,49 +183,48 @@ async function reboot() {
 
 async function printf() {
     pop(si);
-    pop(cx);
     pop(bp);
     push(si);
+    cx = await getStringLength(bp);
 
     bh = 0;
     bl = 2; //green color ;)
     cwd();
     dh = [line];
     bios.printLine();
-    [++line];
-
-    if ([line] === 24) {
-        [--line];
-
+    if (dh === 23) {
         ax = 0x601; // Прокрутка вверх на одну строку
         bh = 0x02; // чорный фон, зеленые символы
         cx = 0; // от 00:00
         dx = 0x184f; // 24:79 (весь экран)
         int(0x10);
+        return;
     }
+
+    ++dh;
+    [line] = dh;
 }
 
-loader_name.db  = 'Nemesis loader'
-szloader_name:
-error_reading.db = 'error reading';
+function getStringLength() {
+    pop(esi);
+    cx = 0;
 
-szerror_reading:
-kernel_fined.db = 'kernel find'
+    do {
+        lodsb();
+        ++cx;
+    } while (test(al, al))
 
-szkernel_fined:
-error_finding.db = 'error finding the kernel'
+    return cx;
+}
 
-szerror_finding:
-error_krnlfile.db  = 'error loading kernel';
+loader_name.db  = 'Nemesis loader', 0;
+error_reading.db = 'error: read', 0;
+kernel_fined.db = 'kernel found', 0;
+error_finding.db = 'error: kernel not found', 0;
+error_krnlfile.db  = 'error: kernel load', 0;
+kernel_load.db = 'kernel loaded', 0;
+press_any_key.db = 'press any key 4 restart', 0;
+kernel_name.db = 'KERNEL', 0;
 
-szerror_krnlfile:
-kernel_load.db = 'kernel load successfully';
-
-szkernel_load:
-press_any_key.db = 'press any key 4 restart';
-
-szpress_any_key:
-kernel_name.db = 'KERNEL';
-szkernel_name:
 rb, 0x200 - ($ -boot) - 2;
 db(0x55, 0xaa);

@@ -111,3 +111,7 @@ test('plugin-fasm: transform: convert-do-while-to-jz', (t) => {
     t.transform('convert-do-while-to-jz');
     t.end();
 });
+test('plugin-fasm: transform: split-assign-await-with-assign-eax', (t) => {
+    t.transform('split-assign-await-with-assign-eax');
+    t.end();
+})

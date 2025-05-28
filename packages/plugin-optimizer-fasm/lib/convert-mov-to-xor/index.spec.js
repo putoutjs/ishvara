@@ -51,3 +51,9 @@ test('optimizer-fasm: convert-mov-to-xor: no report: ds', (t) => {
     t.noReport('ds');
     t.end();
 });
+
+test('optimizer-fasm: convert-mov-to-xor: no report: dh', (t) => {
+    t.noReport('dh');
+    t.end();
+});
+

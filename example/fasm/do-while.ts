@@ -1,4 +1,4 @@
-function getStrLength() {
+function getStringLength() {
     pop(esi);
     cx = 0;
     

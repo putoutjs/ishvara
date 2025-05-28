@@ -5,13 +5,21 @@ import {
 } from 'putout';
 
 const {insertBefore} = operator;
-const {expressionStatement} = types;
+const {
+    expressionStatement,
+    isObjectExpression,
+    isExpressionStatement,
+} = types;
 
 export const report = () => `Use 'call()' operations instead of 'await'`;
 
 const createMov = template('mov(__key, __value)', {
     placeholderPattern: /__[a-z]/,
 });
+
+export const filter = (path) => {
+    return isExpressionStatement(path.parentPath);
+};
 
 export const replace = () => ({
     'await __a(__b, __c)': `{
@@ -20,8 +28,14 @@ export const replace = () => ({
         call(__a);
     }`,
     'await __a()': 'call(__a)',
-    'await __a(__object)': ({__object}, path) => {
-        for (const {key, value} of __object.properties) {
+    'await __a(__b)': ({__b}, path) => {
+        if (!isObjectExpression(__b))
+            return `{
+                push(__b);
+                call(__a);
+            }`;
+        
+        for (const {key, value} of __b.properties) {
             const mov = expressionStatement(createMov({
                 __key: key,
                 __value: value,
@@ -37,3 +51,4 @@ export const replace = () => ({
         return 'call(__a)';
     },
 });
+

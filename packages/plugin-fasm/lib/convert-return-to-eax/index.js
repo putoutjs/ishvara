@@ -8,7 +8,8 @@ const i16 = [
 export const report = () => `Use 'eax' instead of 'return'`;
 
 export const replace = () => ({
-    'return __a': ({__a}) => {
+    'return': 'ret()',
+    'return __a': ({__a}, path) => {
         if (i16.includes(__a.name))
             return `{
                 ax = __a;

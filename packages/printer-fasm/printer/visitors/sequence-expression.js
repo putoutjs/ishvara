@@ -1,8 +1,18 @@
-export const SequenceExpression = (path, {traverse, write}) => {
+import {types} from '@putout/babel';
+
+const {isMemberExpression} = types;
+
+export const SequenceExpression = (path, {traverse, maybe, write}) => {
     const expressions = path.get('expressions');
+    const n = expressions.length - 1;
     
-    for (const expression of expressions) {
+    for (const [i, expression] of expressions.entries()) {
         traverse(expression);
-        write(' ');
+        
+        if (isMemberExpression(expression))
+            write(',');
+        
+        maybe.write(i < n, ' ');
     }
 };
+

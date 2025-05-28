@@ -26,3 +26,14 @@ test('compiler: convert-await-to-call: transform: two-args', (t) => {
     t.transform('two-args');
     t.end();
 });
+
+test('compiler: convert-await-to-call: transform: one-arg', (t) => {
+    t.transform('one-arg');
+    t.end();
+});
+
+test('compiler: convert-await-to-call: no report: assign', (t) => {
+    t.noReport('assign');
+    t.end();
+});
+

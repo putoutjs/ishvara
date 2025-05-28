@@ -63,3 +63,17 @@ test('ishvara: printer-fasm: jmp far', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-fasm: db', (t) => {
+    const source = montag`
+        kernel_name.db['KERNEL'], 0;
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        kernel_name db 'KERNEL', 0\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
