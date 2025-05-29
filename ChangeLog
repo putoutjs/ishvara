@@ -1,3 +1,8 @@
+2025.05.29, v2.2.10
+
+fix:
+- d7becc6 plugin-fasm: convert-bios-read-sector-to-int-13: clc
+
 2025.05.29, v2.2.9
 
 feature:
