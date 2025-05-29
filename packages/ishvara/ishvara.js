@@ -18,6 +18,7 @@ export const compile = async (source, options) => {
     
     return await fasm.compile(source, {
         type,
+        target,
         optimization,
     });
 };

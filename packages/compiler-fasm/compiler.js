@@ -8,6 +8,7 @@ export const compile = async (source, options = {}) => {
         name,
         type = 'binary',
         optimization = true,
+        target = 'fasm',
     } = options;
     
     const [code, compilePlaces] = transform(source);
@@ -28,7 +29,7 @@ export const compile = async (source, options = {}) => {
     
     const assembly = print(optimized);
     
-    if (type === 'assembly')
+    if (type === 'assembly' || target === 'asm')
         return [
             assembly,
             [],

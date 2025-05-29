@@ -3,6 +3,8 @@
 import {writeFileSync} from 'node:fs';
 import process from 'node:process';
 import {stat} from 'node:fs/promises';
+import {basename, join} from 'node:path';
+import * as path from 'node:path';
 import {codeFrameColumns} from '@putout/babel';
 import chalk from 'chalk';
 import {run} from '#runner-wasm';
@@ -85,6 +87,9 @@ else if (args.target === 'asm')
     write(name, 'asm', binary);
 
 function write(input, extension, binary) {
-    const name = input.replace('.ts', `.${extension}`);
-    writeFileSync(name, binary);
+    const {dir, name} = path.parse(input);
+    const full = `${join(dir, name)}.${extension}`;
+    
+    writeFileSync(full, binary);
 }
+
