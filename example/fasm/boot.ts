@@ -33,7 +33,7 @@ kernel_begin.equ = 0x7e00;
 
 async function start() {
     ax = 0; // initialize all the necessary
-    ds = ax;  // registers.
+    ds = ax; // registers.
     es = ax;
     ss = ax;
     --ax;

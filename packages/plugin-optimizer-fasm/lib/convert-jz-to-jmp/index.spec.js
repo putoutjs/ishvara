@@ -16,3 +16,13 @@ test('optimizer-fasm: convert-jz-to-jmp: transform', (t) => {
     t.transform('convert-jz-to-jmp');
     t.end();
 });
+
+test('optimizer-fasm: convert-jz-to-jmp: transform: test', (t) => {
+    t.transform('test');
+    t.end();
+});
+
+test('optimizer-fasm: convert-jz-to-jmp: transform: label', (t) => {
+    t.transform('label');
+    t.end();
+});
