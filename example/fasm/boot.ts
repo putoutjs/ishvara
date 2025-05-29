@@ -59,8 +59,7 @@ async function start() {
     }
     
     find_file:
-    si = kernel_begin // 0x7e00
-    bx = si
+    bx = kernel_begin // 0x7e00
     
     find_file_next:
     di = kernel_name
@@ -68,21 +67,20 @@ async function start() {
     si = bx;
     repe.cmpsb();
     
-    if (!cx) {
-        await printf(kernel_load)
-        jmp(kernel_begin);
+    if (cx) {
+        bx += 0x20;
+        si = bx;
+        lodsb();
+        if (!al) {
+            // в корне ядра нет :(
+            await printf(error_finding);
+            await reboot();
+            return;
+        }
+        
+        jmp(find_file_next);
         return;
     }
-    bx += 0x20;
-    si = bx;
-    lodsb();
-    if (!al) {
-        // в корне ядра нет :(
-        await printf(error_finding);
-        await reboot();
-        return;
-    }
-    jmp(find_file_next);
     
     find_kernel:
     si += 0x14;

@@ -48,12 +48,16 @@ inc dh
 mov ah, 2
 int 0x13
 jnc __ishvara_read_sector_ok_53
-clc
 mov al, 1
+jmp __ishvara_read_sector_end_53
 
 __ishvara_read_sector_ok_53:
 xor ax, ax
-jmp __ishvara_fasm_if_61
+
+__ishvara_read_sector_end_53:
+clc
+test al, al
+jz __ishvara_fasm_if_61
 push error_reading
 call __ishvara_printf
 call __ishvara_reboot
@@ -61,8 +65,7 @@ ret
 
 __ishvara_fasm_if_61:
 __ishvara_find_file:
-mov si, kernel_begin
-mov bx, si
+mov bx, kernel_begin
 
 __ishvara_find_file_next:
 mov di, kernel_name
@@ -72,25 +75,22 @@ mov cx, ax
 mov si, bx
 repe cmpsb
 test cx, cx
-jnz __ishvara_fasm_if_71
-push kernel_load
-call __ishvara_printf
-jmp kernel_begin
-
-__ishvara_fasm_if_71:
+jz __ishvara_fasm_if_85
 add bx, 0x20
 mov si, bx
 lodsb
 test al, al
-jnz __ishvara_fasm_if_79
+jnz __ishvara_fasm_if_74
 push error_finding
 call __ishvara_printf
 call __ishvara_reboot
 ret
 
-__ishvara_fasm_if_79:
+__ishvara_fasm_if_74:
 jmp __ishvara_find_file_next
+ret
 
+__ishvara_fasm_if_85:
 __ishvara_find_kernel:
 add si, 0x14
 lodsw
@@ -155,20 +155,24 @@ mov dl, 0
 mov al, [kernel_sec_size]
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_156
-clc
+jnc __ishvara_read_sector_ok_154
 mov al, 1
+jmp __ishvara_read_sector_end_154
 
-__ishvara_read_sector_ok_156:
+__ishvara_read_sector_ok_154:
 xor ax, ax
-jmp __ishvara_fasm_if_158
+
+__ishvara_read_sector_end_154:
+clc
+test ax, ax
+jz __ishvara_fasm_if_156
 pop cx
 loop __ishvara_sec_reading2
 push error_krnlfile
 call __ishvara_printf
 call __ishvara_reboot
 
-__ishvara_fasm_if_158:
+__ishvara_fasm_if_156:
 ret
 
 __ishvara_reboot:
@@ -191,7 +195,7 @@ mov dh, [line]
 mov ax, 0x1301
 int 0x10
 cmp dh, 0x17
-jnz __ishvara_fasm_if_186
+jnz __ishvara_fasm_if_184
 mov bh, 0x02
 xor cx, cx
 mov ax, 0x601
@@ -199,7 +203,7 @@ mov dx, 0x184f
 int 0x10
 ret
 
-__ishvara_fasm_if_186:
+__ishvara_fasm_if_184:
 inc dh
 mov [line], dh
 ret
@@ -210,11 +214,11 @@ pop si
 push ax
 mov cx, -1
 
-__ishvara_do_while_202:
+__ishvara_do_while_200:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_202
+jnz __ishvara_do_while_200
 mov ax, cx
 ret
 loader_name db 'Nemesis Loader', 0
