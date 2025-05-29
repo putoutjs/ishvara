@@ -156,7 +156,6 @@ async function start() {
     bios.readSector();
 
     if (ax) {
-        clc();
         pop(cx);
         loop(sec_reading2);
 
