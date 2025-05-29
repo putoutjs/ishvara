@@ -3,7 +3,7 @@
 import {writeFileSync} from 'node:fs';
 import process from 'node:process';
 import {stat} from 'node:fs/promises';
-import {basename, join} from 'node:path';
+import {join} from 'node:path';
 import * as path from 'node:path';
 import {codeFrameColumns} from '@putout/babel';
 import chalk from 'chalk';
@@ -92,4 +92,3 @@ function write(input, extension, binary) {
     
     writeFileSync(full, binary);
 }
-
