@@ -2,19 +2,15 @@ import {operator} from 'putout';
 
 const {compare} = operator;
 
-export const report = () => `Use 'if condition' instead of 'ternary expression'`;
-
 export const match = () => ({
-    'xor(__a, __a)': (vars, path) => {
+    '__a(__b, __c)': (vars, path) => {
         const next = path.parentPath.getNextSibling();
-        
-        if (!next.node)
-            return false;
-        
         return compare(path, next);
     },
 });
 
+export const report = () => `Avoid duplicate operations`;
+
 export const replace = () => ({
-    'xor(__a, __a)': '',
+    '__a(__b, __c)': '',
 });
