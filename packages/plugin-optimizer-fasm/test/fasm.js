@@ -7,7 +7,12 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('plugin-fasm: convert-mov-to-xor', (t) => {
+test('plugin-optimizer-fasm: convert-mov-to-xor', (t) => {
     t.transform('convert-mov-to-xor');
+    t.end();
+});
+
+test('plugin-optimizer-fasm: transform: join-one-byte-registers-assign', (t) => {
+    t.transform('join-one-byte-registers-assign');
     t.end();
 });

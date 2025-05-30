@@ -16,3 +16,8 @@ test('optimizer-fasm: join-one-byte-registers-assign: transform', (t) => {
     t.transform('join-one-byte-registers-assign');
     t.end();
 });
+
+test('optimizer-fasm: join-one-byte-registers-assign: transform: xor', (t) => {
+    t.transform('xor');
+    t.end();
+});
