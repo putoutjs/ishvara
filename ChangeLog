@@ -1,3 +1,8 @@
+2025.05.30, v2.2.13
+
+feature:
+- 8ffb771 plugin-optimizer-fasm: join-one-bite-registers-assign
+
 2025.05.29, v2.2.12
 
 feature:
