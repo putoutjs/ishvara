@@ -106,7 +106,7 @@ inc al
 
 __ishvara_bez_ostatka:
 mov [kernel_sec_size], al
-push kernel_fined
+push kernel_found
 call __ishvara_printf
 mov cx, 3
 
@@ -223,7 +223,7 @@ mov ax, cx
 ret
 loader_name db 'Nemesis Loader', 0
 error_reading db 'error: read', 0
-kernel_fined db 'kernel found', 0
+kernel_found db 'kernel found', 0
 error_finding db 'error: kernel not found', 0
 error_krnlfile db 'kernel not load :(', 0
 kernel_load db 'kernel loaded :)', 0

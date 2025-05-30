@@ -28,7 +28,15 @@ await validateArgs(args, {
 });
 
 const [name] = args._;
-const source = await bundle(name);
+const [error, source] = await bundle(name);
+
+if (error) {
+    const {line} = error.location.start;
+    const {fileName} = error;
+    
+    console.error(`file://${chalk.blue(fileName)}:${line}: ${chalk.red(error.message)}`);
+    process.exit(1);
+}
 
 if (args.output === 'bundle') {
     console.log(codeFrameColumns(source, {}, {

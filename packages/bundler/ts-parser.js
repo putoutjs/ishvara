@@ -3,7 +3,6 @@ import {parse} from '@typescript-eslint/typescript-estree';
 export default function tsParser() {
     return {
         name: 'ts-parser',
-        
         transform(code, filePath) {
             const ast = parse(code, {
                 comment: false,

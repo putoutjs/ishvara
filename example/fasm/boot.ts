@@ -124,8 +124,8 @@ async function start() {
 
     not_sec1:
     ++dl
-    cl = dl; //номер сектора
-    dx = ax; //смотрим парная ли дорожка
+    cl = dl; // номер сектора
+    dx = ax; // смотрим парная ли дорожка
     push(dx);
     push(bx);
     bx = 2;

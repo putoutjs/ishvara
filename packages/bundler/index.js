@@ -1,12 +1,17 @@
 import {rollup} from 'rollup';
 import resolve from '@rollup/plugin-node-resolve';
+import tryToCatch from 'try-to-catch';
 import tsParser from './ts-parser.js';
+import {readSourceLine} from './read-source-line.js';
+import {prepareError} from './prepare-error.js';
+
+const {assign} = Object;
 
 const isString = (a) => typeof a === 'string';
 
 export async function bundle(filePath) {
     // create a bundle
-    const bundleResult = await rollup({
+    const [error, bundleResult] = await tryToCatch(rollup, {
         input: filePath,
         output: {
             format: 'esm',
@@ -22,6 +27,9 @@ export async function bundle(filePath) {
             tsParser(),
         ],
     });
+    
+    if (error)
+        return [await prepareError(error)];
     
     // an array of file names this bundle depends on
     // console.log(`>> Building ${filePath} from:`, bundleResult.watchFiles);
@@ -76,5 +84,8 @@ export async function bundle(filePath) {
     }
     
     await bundleResult.close();
-    return outputContent.join('');
+    const result = outputContent.join('');
+    
+    return [null, result];
 }
+

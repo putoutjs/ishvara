@@ -26,3 +26,9 @@ test('optimizer-fasm: remove-useless-ret: transform: after-jmp-far', (t) => {
     t.transform('after-jmp-far');
     t.end();
 });
+
+test('optimizer-fasm: remove-useless-ret: transform: label', (t) => {
+    t.transform('label');
+    t.end();
+});
+
