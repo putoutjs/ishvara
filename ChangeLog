@@ -1,3 +1,8 @@
+2025.05.30, v2.2.16
+
+feature:
+- 7cc5003 ishvara: optimizer-fasm: remove-useless-condition
+
 2025.05.30, v2.2.15
 
 feature:
