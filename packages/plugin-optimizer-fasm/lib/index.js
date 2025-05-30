@@ -1,3 +1,4 @@
+import * as removeUselessCondition from './remove-useless-condition/index.js';
 import * as removeDuplicateOperations from './remove-duplicate-operations/index.js';
 import * as joinOneByteRegistersAssign from './join-one-byte-registers-assign/index.js';
 import * as removeUselessMov from './remove-useless-mov/index.js';
@@ -14,4 +15,5 @@ export const rules = {
     'remove-useless-mov': removeUselessMov,
     'join-one-byte-registers-assign': joinOneByteRegistersAssign,
     'remove-duplicate-operations': removeDuplicateOperations,
+    'remove-useless-condition': removeUselessCondition,
 };

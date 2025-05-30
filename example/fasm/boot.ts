@@ -98,7 +98,7 @@ async function start() {
 
     bez_ostatka:
     [kernel_sec_size] = al;
-    await printf(kernel_fined);
+    await printf(kernel_found);
 
     cx = 3
     // Грузим ядро
@@ -119,10 +119,6 @@ async function start() {
     div(cx);
     // в ax номер дорожки
     // в dx номер сектора на дорожке
-    or(dl, dl);
-    jnz(not_sec1);
-
-    not_sec1:
     ++dl
     cl = dl; // номер сектора
     dx = ax; // смотрим парная ли дорожка
@@ -205,12 +201,12 @@ function getStringLength() {
     return cx;
 }
 
-loader_name.db  = 'Nemesis Loader', 0;
+loader_name.db  = 'Nemesis Loader o_O', 0;
 error_reading.db = 'error: read', 0;
-kernel_fined.db = 'kernel found', 0;
+kernel_found.db = '+ kernel found', 0;
 error_finding.db = 'error: kernel not found', 0;
-error_krnlfile.db  = 'kernel not load :(', 0;
-kernel_load.db = 'kernel loaded :)', 0;
+error_krnlfile.db  = '- kernel not load :(', 0;
+kernel_load.db = '+ kernel loaded :)', 0;
 press_any_key.db = 'press any key', 0;
 kernel_name.db = 'KERNEL', 0;
 

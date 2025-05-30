@@ -88,7 +88,6 @@ ret
 
 __ishvara_fasm_if_74:
 jmp __ishvara_find_file_next
-ret
 
 __ishvara_fasm_if_85:
 __ishvara_find_kernel:
@@ -123,10 +122,6 @@ div cx
 mov cx, 0x12
 cwd
 div cx
-or dl, dl
-jnz __ishvara_not_sec1
-
-__ishvara_not_sec1:
 inc dl
 mov cl, dl
 mov dx, ax
@@ -221,12 +216,12 @@ test al, al
 jnz __ishvara_do_while_200
 mov ax, cx
 ret
-loader_name db 'Nemesis Loader', 0
+loader_name db 'Nemesis Loader o_O', 0
 error_reading db 'error: read', 0
-kernel_found db 'kernel found', 0
+kernel_found db '+ kernel found', 0
 error_finding db 'error: kernel not found', 0
-error_krnlfile db 'kernel not load :(', 0
-kernel_load db 'kernel loaded :)', 0
+error_krnlfile db '- kernel not load :(', 0
+kernel_load db '+ kernel loaded :)', 0
 press_any_key db 'press any key', 0
 kernel_name db 'KERNEL', 0
 rb 0x200 - ($ - __ishvara_boot) - 2
