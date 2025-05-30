@@ -1,7 +1,6 @@
 import {operator} from 'putout';
 
-const {remove} = operator;
-const {compare} = operator;
+const {remove, compare} = operator;
 
 export const report = () => `Avoid useless 'or/jnz'`;
 
@@ -17,10 +16,7 @@ export const match = () => ({
         
         const prevPrev = prev.getPrevSibling();
         
-        if (!compare(prevPrev, 'or(__a, __a)'))
-            return false;
-        
-        return true;
+        return compare(prevPrev, 'or(__a, __a)');
     },
 });
 
