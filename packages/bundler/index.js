@@ -2,10 +2,7 @@ import {rollup} from 'rollup';
 import resolve from '@rollup/plugin-node-resolve';
 import tryToCatch from 'try-to-catch';
 import tsParser from './ts-parser.js';
-import {readSourceLine} from './read-source-line.js';
 import {prepareError} from './prepare-error.js';
-
-const {assign} = Object;
 
 const isString = (a) => typeof a === 'string';
 
@@ -29,7 +26,9 @@ export async function bundle(filePath) {
     });
     
     if (error)
-        return [await prepareError(error)];
+        return [
+            await prepareError(error),
+        ];
     
     // an array of file names this bundle depends on
     // console.log(`>> Building ${filePath} from:`, bundleResult.watchFiles);
@@ -88,4 +87,3 @@ export async function bundle(filePath) {
     
     return [null, result];
 }
-

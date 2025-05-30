@@ -20,4 +20,3 @@ test('ishvara: bundler: readSourceLine', async (t) => {
     t.equal(result, expected);
     t.end();
 });
-

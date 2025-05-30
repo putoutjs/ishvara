@@ -31,4 +31,3 @@ test('optimizer-fasm: remove-useless-ret: transform: label', (t) => {
     t.transform('label');
     t.end();
 });
-

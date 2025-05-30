@@ -8,8 +8,8 @@ export const prepareError = async (error) => {
     const sourceLine = await readSourceLine(fileName, line);
     
     const message = error.message.replace('.', `: '${sourceLine}'`);
+    
     return assign(error, {
         message,
     });
 };
-
