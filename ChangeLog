@@ -1,3 +1,8 @@
+2025.05.30, v2.2.15
+
+feature:
+- d304ae7 ishvara: optimizer-fasm: remove-useless-ret
+
 2025.05.30, v2.2.14
 
 feature:
