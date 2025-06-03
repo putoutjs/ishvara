@@ -2,11 +2,11 @@ import {types} from 'putout';
 
 const {
     identifier,
-    TSTypeReference,
-    TSTypeAnnotation,
+    tsTypeReference,
+    tsTypeAnnotation,
 } = types;
 
-const createType = () => TSTypeAnnotation(TSTypeReference(identifier('i32')));
+const createType = () => tsTypeAnnotation(tsTypeReference(identifier('i32')));
 
 export const report = () => `Apply types`;
 
