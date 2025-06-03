@@ -28,7 +28,7 @@
     "@putout/babel": "^4.0.1",
     "@putout/plugin-esm": "^4.5.0",
     "@putout/plugin-remove-nested-blocks": "^9.0.0",
-    "@putout/printer": "^14.4.0",
+    "@putout/printer": "^15.0.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@typescript-eslint/typescript-estree": "^8.32.1",
     "chalk": "^5.4.1",
