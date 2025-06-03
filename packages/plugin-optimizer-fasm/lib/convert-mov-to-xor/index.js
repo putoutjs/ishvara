@@ -33,14 +33,6 @@ export const exclude = () => [
     'mov(ds, __a)',
     'mov(ss, __a)',
     'mov(es, __a)',
-    'mov(ah, __a)',
-    'mov(bh, __a)',
-    'mov(ch, __a)',
-    'mov(dh, __a)',
-    'mov(al, __a)',
-    'mov(bl, __a)',
-    'mov(cl, __a)',
-    'mov(dl, __a)',
 ];
 
 export const replace = () => ({

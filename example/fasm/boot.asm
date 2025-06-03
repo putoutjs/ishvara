@@ -39,16 +39,18 @@ push loader_name
 call __ishvara_printf
 
 __ishvara_sec_reading:
-mov al, 1
+xor al, al
+inc al
 mov bx, kernel_begin
 mov cl, 2
-mov ch, 0
+xor ch, ch
 xor dx, dx
 inc dh
 mov ah, 2
 int 0x13
 jnc __ishvara_read_sector_ok_53
-mov al, 1
+xor al, al
+inc al
 jmp __ishvara_read_sector_end_53
 
 __ishvara_read_sector_ok_53:
@@ -139,36 +141,41 @@ jnz __ishvara_not_twin
 jmp __ishvara_twin
 
 __ishvara_not_twin:
-mov dh, 0
+xor dh, dh
 jmp __ishvara_not_twin_ok
 
 __ishvara_twin:
-mov dh, 1
+xor dh, dh
+inc dh
 
 __ishvara_not_twin_ok:
-mov dl, 0
+xor dl, dl
 mov al, [kernel_sec_size]
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_154
-mov al, 1
-jmp __ishvara_read_sector_end_154
+jnc __ishvara_read_sector_ok_150
+xor al, al
+inc al
+jmp __ishvara_read_sector_end_150
 
-__ishvara_read_sector_ok_154:
+__ishvara_read_sector_ok_150:
 xor ax, ax
 
-__ishvara_read_sector_end_154:
+__ishvara_read_sector_end_150:
 clc
 test ax, ax
-jz __ishvara_fasm_if_156
+jz __ishvara_fasm_if_161
 pop cx
 loop __ishvara_sec_reading2
 push error_krnlfile
 call __ishvara_printf
 call __ishvara_reboot
-
-__ishvara_fasm_if_156:
 ret
+
+__ishvara_fasm_if_161:
+push kernel_load
+call __ishvara_printf
+jmp kernel_begin
 
 __ishvara_reboot:
 push press_any_key
@@ -183,9 +190,9 @@ push si
 push bp
 call __ishvara_getStringLength
 mov cx, ax
-mov bh, 0
+xor bh, bh
 mov bl, 2
-mov dl, 0
+xor dl, dl
 mov dh, [line]
 mov ax, 0x1301
 int 0x10
@@ -218,10 +225,10 @@ mov ax, cx
 ret
 loader_name db 'Nemesis Loader o_O', 0
 error_reading db 'error: read', 0
-kernel_found db '+ kernel found', 0
+kernel_found db '+kernel found', 0
 error_finding db 'error: kernel not found', 0
-error_krnlfile db '- kernel not load :(', 0
-kernel_load db '+ kernel loaded :)', 0
+error_krnlfile db 'kernel not load', 0
+kernel_load db '+kernel load', 0
 press_any_key db 'press any key', 0
 kernel_name db 'KERNEL', 0
 rb 0x200 - ($ - __ishvara_boot) - 2
