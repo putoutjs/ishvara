@@ -1,3 +1,8 @@
+2025.06.03, v2.2.18
+
+feature:
+- c7f85aa plugin-optimizer-fasm: convert-mov-to-xor: one byte registers
+
 2025.06.03, v2.2.17
 
 feature:
