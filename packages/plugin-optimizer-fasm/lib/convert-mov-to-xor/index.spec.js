@@ -56,4 +56,3 @@ test('optimizer-fasm: convert-mov-to-xor: transform: dh', (t) => {
     t.transform('dh');
     t.end();
 });
-
