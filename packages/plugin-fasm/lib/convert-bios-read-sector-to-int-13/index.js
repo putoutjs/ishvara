@@ -7,19 +7,29 @@ export const match = () => ({
 });
 
 export const replace = () => ({
-    'bios.readSector()': (vars, path) => {
+    '__a = bios.readSector()': (vars, path) => {
         const {line} = path.node.loc.start;
-        
         return `{
-            ah = 2;
-            int(0x13);
-            jnc(__ishvara_read_sector_ok_${line});
-            al = 1;
-            jmp(__ishvara_read_sector_end_${line});
-            __ishvara_read_sector_ok_${line}:
-            ax = 0
-            __ishvara_read_sector_end_${line}:
-            clc();
+            ${createReadSector(line)}
+            mov(__a, ax);
         }`;
     },
+    'bios.readSector()': (vars, path) => {
+        const {line} = path.node.loc.start;
+        return createReadSector(line);
+    },
 });
+
+function createReadSector(line) {
+    return `{
+        ah = 2;
+        int(0x13);
+        jnc(__ishvara_read_sector_ok_${line});
+        al = 1;
+        jmp(__ishvara_read_sector_end_${line});
+        __ishvara_read_sector_ok_${line}:
+        ax = 0
+        __ishvara_read_sector_end_${line}:
+        clc();
+    }`;
+}

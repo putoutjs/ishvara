@@ -50,9 +50,9 @@ async function start() {
     ch = 0; // track
     dx = 0;
     ++dh; //головка 1(вторая)
-    bios.readSector();
+    ax = bios.readSector();
     
-    if (al) {
+    if (ax) {
         await printf(error_reading)
         await rebootAfterKeyPress();
         return;
