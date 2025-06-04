@@ -1,3 +1,8 @@
+2025.06.04, v2.2.20
+
+feature:
+- 5707486 plugin-fasm: convert-if-to-jmp: no-block
+
 2025.06.04, v2.2.19
 
 feature:
