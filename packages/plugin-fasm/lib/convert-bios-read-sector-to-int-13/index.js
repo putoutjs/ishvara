@@ -1,14 +1,6 @@
 import {operator} from 'putout';
 
 const {extract} = operator;
-const ARGS = {
-    count: 'al',
-    buffer: 'bx',
-    sector: 'cl',
-    track: 'ch',
-    disk: 'dl',
-    head: 'dh',
-};
 
 export const report = () => `Use '0x13' instead of 'bios.readSector()'`;
 
@@ -78,4 +70,3 @@ function parseArgs(properties) {
     
     return result;
 }
-
