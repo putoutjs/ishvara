@@ -1,3 +1,4 @@
+import * as convertTernaryToIf from './convert-ternary-to-if/index.js';
 import * as convertStrncmpToRepeCmpsb from './convert-strncmp-to-repe-cmpsb/index.js';
 import * as convertBiosRebootToJmpFar from './convert-bios-reboot-to-jmp-far/index.js';
 import * as convertBiosReadSectorToInt13 from './convert-bios-read-sector-to-int-13/index.js';
@@ -62,4 +63,5 @@ export const rules = {
     'convert-bios-read-sector-to-int-13': convertBiosReadSectorToInt13,
     'convert-bios-reboot-to-jmp-far': convertBiosRebootToJmpFar,
     'convert-strncmp-to-repe-cmpsb': convertStrncmpToRepeCmpsb,
+    'convert-ternary-to-if': convertTernaryToIf,
 };

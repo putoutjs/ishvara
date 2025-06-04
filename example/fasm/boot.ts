@@ -130,19 +130,9 @@ async function start() {
     // дискетук a.k.a головке один
     pop(bx);
     pop(dx);
-    cmp(dx, 1); //ax;присвоить
-    jnz(not_twin);
-
-    jmp(twin);
-
-    not_twin: // не парное число секторов...
-    dh = 0; // левая головка
-    jmp(not_twin_ok);
     
-    twin:
-    dh = 1; // 1-ая головка
+    dh = dx === 1 ? 1 : 0;
     
-    not_twin_ok:
     dl = 0; // грузимся с дискетки ;)!
     al = [kernel_sec_size]; // how much sectors?
     bios.readSector();

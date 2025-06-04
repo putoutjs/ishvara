@@ -4,3 +4,8 @@ export const compare2 = (eax) => {
     
     return 10;
 };
+
+if (dx === 1)
+    dh = 1;
+else
+    dh = 0;

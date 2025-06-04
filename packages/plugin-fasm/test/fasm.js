@@ -131,3 +131,7 @@ test('plugin-fasm: transform: convert-strncmp-to-repe-cmpsb', (t) => {
     t.transform('convert-strncmp-to-repe-cmpsb');
     t.end();
 });
+test('plugin-fasm: transform: convert-ternary-to-if', (t) => {
+    t.transform('convert-ternary-to-if');
+    t.end();
+})

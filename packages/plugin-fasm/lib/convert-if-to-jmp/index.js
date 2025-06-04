@@ -87,6 +87,21 @@ export const replace = () => ({
             __body;
         }`;
     },
+    'if (__a === __b) __c; else __d': (vars, path) => {
+        const next = getNext(path);
+        const name = createName(next);
+        
+        createLabel(next, name);
+        
+        return `{
+            cmp(__a, __b);
+            jnz(${name}_not_ok);
+            __c;
+            jmp(${name});
+            ${name}_not_ok:
+            __d;
+        }`;
+    },
 });
 
 function createLabel(path, name) {
