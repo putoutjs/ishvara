@@ -21,3 +21,9 @@ test('fasm: convert-bios-read-sector-to-int-13: transform: assign', (t) => {
     t.transform('assign');
     t.end();
 });
+
+test('fasm: convert-bios-read-sector-to-int-13: transform: args', (t) => {
+    t.transform('args');
+    t.end();
+});
+

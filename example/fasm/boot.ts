@@ -44,13 +44,14 @@ async function start() {
     await printf(loader_name);
 
     sec_reading:
-    al = 1; // how much sectors? 1
-    bx = kernel_begin; // buffer
-    cl = 2; // sector
-    ch = 0; // track
-    dx = 0;
-    ++dh; //головка 1(вторая)
-    ax = bios.readSector();
+    ax = bios.readSector({
+        count: 1,
+        buffer: kernel_begin,
+        sector: 2,
+        track: 0,
+        head: 1,
+        disk: 0,
+    });
     
     if (ax) {
         await printf(error_reading)

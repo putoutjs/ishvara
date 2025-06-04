@@ -1,3 +1,15 @@
+import {operator} from 'putout';
+
+const {extract} = operator;
+const ARGS = {
+    count: 'al',
+    buffer: 'bx',
+    sector: 'cl',
+    track: 'ch',
+    disk: 'dl',
+    head: 'dh',
+};
+
 export const report = () => `Use '0x13' instead of 'bios.readSector()'`;
 
 export const match = () => ({
@@ -7,6 +19,28 @@ export const match = () => ({
 });
 
 export const replace = () => ({
+    '__a = bios.readSector(__object)': ({__object}, path) => {
+        const {line} = path.node.loc.start;
+        const {
+            count = 1,
+            buffer = 0,
+            sector = 0,
+            track = 0,
+            disk = 0,
+            head = 0,
+        } = parseArgs(__object.properties);
+        
+        return `{
+            al = ${count};
+            bx = ${buffer};
+            cl = ${sector};
+            ch = ${track};
+            dl = ${disk};
+            dh = ${head}; 
+            ${createReadSector(line)}
+            mov(__a, ax);
+        }`;
+    },
     '__a = bios.readSector()': (vars, path) => {
         const {line} = path.node.loc.start;
         
@@ -34,3 +68,14 @@ function createReadSector(line) {
         clc();
     }`;
 }
+
+function parseArgs(properties) {
+    const result = {};
+    
+    for (const {key, value} of properties) {
+        result[key.name] = extract(value);
+    }
+    
+    return result;
+}
+
