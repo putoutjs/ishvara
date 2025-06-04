@@ -1,3 +1,8 @@
+2025.06.04, v2.2.19
+
+feature:
+- a619346 ishvara: plugin-fasm: convert-bios-reboot-to-jmp-far
+
 2025.06.03, v2.2.18
 
 feature:
