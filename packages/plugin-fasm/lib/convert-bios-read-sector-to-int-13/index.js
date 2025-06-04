@@ -9,6 +9,7 @@ export const match = () => ({
 export const replace = () => ({
     '__a = bios.readSector()': (vars, path) => {
         const {line} = path.node.loc.start;
+        
         return `{
             ${createReadSector(line)}
             mov(__a, ax);
