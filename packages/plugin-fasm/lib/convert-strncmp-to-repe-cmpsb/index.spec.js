@@ -21,4 +21,3 @@ test('fasm: convert-strncmp-to-repe-cmpsb: transform: assign', (t) => {
     t.transform('assign');
     t.end();
 });
-

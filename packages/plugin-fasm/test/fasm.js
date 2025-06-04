@@ -126,7 +126,8 @@ test('plugin-fasm: transform: convert-bios-reboot-to-jmp-far', (t) => {
     t.transform('convert-bios-reboot-to-jmp-far');
     t.end();
 });
+
 test('plugin-fasm: transform: convert-strncmp-to-repe-cmpsb', (t) => {
     t.transform('convert-strncmp-to-repe-cmpsb');
     t.end();
-})
+});
