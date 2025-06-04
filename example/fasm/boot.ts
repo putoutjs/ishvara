@@ -62,10 +62,9 @@ async function start() {
     bx = kernel_begin // 0x7e00
     
     find_file_next:
-    di = kernel_name
-    cx = await getStringLength(di);
-    si = bx;
-    repe.cmpsb();
+    di = kernel_name;
+    ax = await getStringLength(di);
+    cx = strncmp(bx, di, ax);
     
     if (cx) {
         bx += 0x20;

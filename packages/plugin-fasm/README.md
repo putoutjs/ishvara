@@ -19,6 +19,7 @@ Transforms:
 - ✅[`convert-bios-read-sector-int-13`](https://putout.cloudcmd.io/#/gist/6ae8820756ba1af043f93f3bdb49360e/a575cf6f5432ca215838795c2617c161f2b981cb);
 - ✅[`convert-bios-scroll-to-int-10`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/95520a650428a2defd77a65ffc255a073540d902);
 - ✅[`convert-bios-reboot-to-jmp-far`](https://putout.cloudcmd.io/#/gist/44a87987c4d6d3130b5004f8818a3454/4c6dd61184b46c60b8d8dc653232d567238ea865);
+- ✅[`convert-strncmp-to-repe-cmsb`](https://putout.cloudcmd.io/#/gist/397388e71e71442d3dd5bebd3a424da6/8eb60aaaf4b5afb85f87ddcd0af51266db158263);
 - ✅[`convert-function-to-label`](https://putout.cloudcmd.io/#/gist/415829430c67b2824c26901b2cc89fb0/ed8a2186889a0135302bbb64fee0a9ce2d084800);
 - ✅[`convert-if-to-jmp`](https://putout.cloudcmd.io/#/gist/415829430c67b2824c26901b2cc89fb0/ed8a2186889a0135302bbb64fee0a9ce2d084800);
 - ✅[`convert-return-to-eax`](https://putout.cloudcmd.io/#/gist/72dfce2332d04829b70703b389464840/75d1d02c87506a2125e44ee24797240293a3a27b);

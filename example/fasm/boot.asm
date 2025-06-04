@@ -77,21 +77,21 @@ mov cx, ax
 mov si, bx
 repe cmpsb
 test cx, cx
-jz __ishvara_fasm_if_85
+jz __ishvara_fasm_if_84
 add bx, 0x20
 mov si, bx
 lodsb
 test al, al
-jnz __ishvara_fasm_if_81
+jnz __ishvara_fasm_if_80
 push error_finding
 call __ishvara_printf
 call __ishvara_rebootAfterKeyPress
 ret
 
-__ishvara_fasm_if_81:
+__ishvara_fasm_if_80:
 jmp __ishvara_find_file_next
 
-__ishvara_fasm_if_85:
+__ishvara_fasm_if_84:
 __ishvara_find_kernel:
 add si, 0x14
 lodsw
@@ -102,10 +102,10 @@ mov cx, 0x200
 cwd
 div cx
 test dx, dx
-jz __ishvara_fasm_if_98
+jz __ishvara_fasm_if_97
 inc al
 
-__ishvara_fasm_if_98:
+__ishvara_fasm_if_97:
 mov [kernel_sec_size], al
 push kernel_found
 call __ishvara_printf
@@ -153,18 +153,18 @@ xor dl, dl
 mov al, [kernel_sec_size]
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_148
+jnc __ishvara_read_sector_ok_147
 xor al, al
 inc al
-jmp __ishvara_read_sector_end_148
+jmp __ishvara_read_sector_end_147
 
-__ishvara_read_sector_ok_148:
+__ishvara_read_sector_ok_147:
 xor ax, ax
 
-__ishvara_read_sector_end_148:
+__ishvara_read_sector_end_147:
 clc
 test ax, ax
-jz __ishvara_fasm_if_159
+jz __ishvara_fasm_if_158
 pop cx
 loop __ishvara_sec_reading2
 push error_krnlfile
@@ -172,7 +172,7 @@ call __ishvara_printf
 call __ishvara_rebootAfterKeyPress
 ret
 
-__ishvara_fasm_if_159:
+__ishvara_fasm_if_158:
 push kernel_load
 call __ishvara_printf
 jmp kernel_begin
@@ -197,7 +197,7 @@ mov dh, [line]
 mov ax, 0x1301
 int 0x10
 cmp dh, 0x17
-jnz __ishvara_fasm_if_188
+jnz __ishvara_fasm_if_187
 mov bh, 0x02
 xor cx, cx
 mov ax, 0x601
@@ -205,7 +205,7 @@ mov dx, 0x184f
 int 0x10
 ret
 
-__ishvara_fasm_if_188:
+__ishvara_fasm_if_187:
 inc dh
 mov [line], dh
 ret
@@ -216,11 +216,11 @@ pop si
 push ax
 mov cx, -1
 
-__ishvara_do_while_198:
+__ishvara_do_while_197:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_198
+jnz __ishvara_do_while_197
 mov ax, cx
 ret
 loader_name db 'Nemesis Loader o_O', 0
