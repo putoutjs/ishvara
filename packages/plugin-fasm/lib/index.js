@@ -1,3 +1,4 @@
+import * as convertBiosRebootToJmpFar from './convert-bios-reboot-to-jmp-far/index.js';
 import * as convertBiosReadSectorToInt13 from './convert-bios-read-sector-to-int-13/index.js';
 import * as convertBiosReadCharToInt16 from './convert-bios-read-char-to-int-16/index.js';
 import * as convertBiosScrollToInt10 from './convert-bios-scroll-to-int-10/index.js';
@@ -58,4 +59,5 @@ export const rules = {
     'convert-bios-scroll-to-int-10': convertBiosScrollToInt10,
     'convert-bios-read-char-to-int-16': convertBiosReadCharToInt16,
     'convert-bios-read-sector-to-int-13': convertBiosReadSectorToInt13,
+    'convert-bios-reboot-to-jmp-far': convertBiosRebootToJmpFar,
 };

@@ -54,7 +54,7 @@ async function start() {
     
     if (al) {
         await printf(error_reading)
-        await reboot();
+        await rebootAfterKeyPress();
         return;
     }
     
@@ -74,7 +74,7 @@ async function start() {
         if (!al) {
             // в корне ядра нет :(
             await printf(error_finding);
-            await reboot();
+            await rebootAfterKeyPress();
             return;
         }
         
@@ -154,7 +154,7 @@ async function start() {
         loop(sec_reading2);
 
         await printf(error_krnlfile);
-        await reboot();
+        await rebootAfterKeyPress();
         return;
     }
 
@@ -163,11 +163,11 @@ async function start() {
 }
 
 // Служебные функци o_O
-async function reboot() {
+async function rebootAfterKeyPress() {
     await printf(press_any_key);
     // ждем нажатия на клаву ;)
     bios.readChar();
-    jmp.far('0xFFFF:0x0000');
+    bios.reboot();
 }
 
 async function printf() {

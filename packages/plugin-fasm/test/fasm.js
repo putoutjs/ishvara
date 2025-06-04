@@ -121,3 +121,7 @@ test('plugin-fasm: transform: convert-bios-read-sector-to-int-13', (t) => {
     t.transform('convert-bios-read-sector-to-int-13');
     t.end();
 });
+test('plugin-fasm: transform: convert-bios-reboot-to-jmp-far', (t) => {
+    t.transform('convert-bios-reboot-to-jmp-far');
+    t.end();
+})
