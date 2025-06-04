@@ -39,7 +39,7 @@ export const replace = () => ({
             return __d;
         }`;
     },
-    'if (__a === __b) return __c': (vars, path) => {
+    'if (__a === __b) __c': (vars, path) => {
         const next = getNext(path);
         const name = createName(next);
         
@@ -48,7 +48,7 @@ export const replace = () => ({
         return `{
             cmp(__a, __b);
             jnz(${name});
-            return __c;
+            __c;
         }`;
     },
     'if (__a === __b) {__body}': (vars, path) => {
@@ -63,7 +63,7 @@ export const replace = () => ({
             __body;
         }`;
     },
-    'if (__a !== __b) return __c': (vars, path) => {
+    'if (__a !== __b) __c': (vars, path) => {
         const next = getNext(path);
         const name = createName(next);
         
@@ -72,7 +72,7 @@ export const replace = () => ({
         return `{
             cmp(__a, __b);
             jz(${name});
-            return __c;
+            __c;
         }`;
     },
     'if (__a !== __b) {__body}': (vars, path) => {

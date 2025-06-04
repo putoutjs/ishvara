@@ -46,3 +46,9 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: not-equal', (t) => {
     t.transform('not-equal');
     t.end();
 });
+
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: no-block', (t) => {
+    t.transform('no-block');
+    t.end();
+});
+

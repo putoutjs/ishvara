@@ -92,11 +92,9 @@ async function start() {
     cwd();
     div(cx);
 
-    or(dx, dx);
-    jz(bez_ostatka);
-    ++al;
+    if (dx)
+        ++al;
 
-    bez_ostatka:
     [kernel_sec_size] = al;
     await printf(kernel_found);
 

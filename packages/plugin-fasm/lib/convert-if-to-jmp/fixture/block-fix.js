@@ -1,7 +1,7 @@
 function printf() {
     {
         cmp([line], 24);
-        jnz(__ishvara_fasm_if_2);
+        jnz(__ishvara_fasm_if_11);
         {
             [
                 --line,
@@ -14,5 +14,5 @@ function printf() {
             int(0x10);
         }
     }
-    __ishvara_fasm_if_2: eax = 1;
+    __ishvara_fasm_if_11: eax = 1;
 }
