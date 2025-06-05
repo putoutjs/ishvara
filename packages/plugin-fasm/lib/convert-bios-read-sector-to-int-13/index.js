@@ -1,5 +1,6 @@
-import {operator} from 'putout';
+import {operator, types} from 'putout';
 
+const {isArrayExpression} = types;
 const {extract} = operator;
 
 export const report = () => `Use '0x13' instead of 'bios.readSector()'`;
@@ -65,8 +66,16 @@ function parseArgs(properties) {
     const result = {};
     
     for (const {key, value} of properties) {
-        result[key.name] = extract(value);
+        const extracted = extract(value);
+        
+        if (isArrayExpression(value)) {
+            result[key.name] = `[${extracted}]`;
+            continue;
+        }
+        
+        result[key.name] = extracted;
     }
     
     return result;
 }
+

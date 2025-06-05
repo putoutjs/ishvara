@@ -26,3 +26,9 @@ test('fasm: convert-bios-read-sector-to-int-13: transform: args', (t) => {
     t.transform('args');
     t.end();
 });
+
+test('fasm: convert-bios-read-sector-to-int-13: transform: pointer', (t) => {
+    t.transform('pointer');
+    t.end();
+});
+

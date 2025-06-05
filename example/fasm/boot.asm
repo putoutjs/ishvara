@@ -137,31 +137,31 @@ mul bx
 pop bx
 pop dx
 cmp dx, 1
-jnz __ishvara_fasm_if_136_not_ok
+jnz __ishvara_fasm_if_135_not_ok
 xor dh, dh
 inc dh
-jmp __ishvara_fasm_if_136
+jmp __ishvara_fasm_if_135
 
-__ishvara_fasm_if_136_not_ok:
+__ishvara_fasm_if_135_not_ok:
 xor dh, dh
 
-__ishvara_fasm_if_136:
-xor dl, dl
+__ishvara_fasm_if_135:
 mov al, [kernel_sec_size]
+xor dl, dl
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_138
+jnc __ishvara_read_sector_ok_135
 xor al, al
 inc al
-jmp __ishvara_read_sector_end_138
+jmp __ishvara_read_sector_end_135
 
-__ishvara_read_sector_ok_138:
+__ishvara_read_sector_ok_135:
 xor ax, ax
 
-__ishvara_read_sector_end_138:
+__ishvara_read_sector_end_135:
 clc
 test ax, ax
-jz __ishvara_fasm_if_149
+jz __ishvara_fasm_if_153
 pop cx
 loop __ishvara_sec_reading2
 push error_krnlfile
@@ -169,7 +169,7 @@ call __ishvara_printf
 call __ishvara_rebootAfterKeyPress
 ret
 
-__ishvara_fasm_if_149:
+__ishvara_fasm_if_153:
 push kernel_load
 call __ishvara_printf
 jmp kernel_begin
@@ -194,7 +194,7 @@ mov dh, [line]
 mov ax, 0x1301
 int 0x10
 cmp dh, 0x17
-jnz __ishvara_fasm_if_178
+jnz __ishvara_fasm_if_182
 mov bh, 0x02
 xor cx, cx
 mov ax, 0x601
@@ -202,7 +202,7 @@ mov dx, 0x184f
 int 0x10
 ret
 
-__ishvara_fasm_if_178:
+__ishvara_fasm_if_182:
 inc dh
 mov [line], dh
 ret
@@ -213,11 +213,11 @@ pop si
 push ax
 mov cx, -1
 
-__ishvara_do_while_188:
+__ishvara_do_while_192:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_188
+jnz __ishvara_do_while_192
 mov ax, cx
 ret
 loader_name db 'Nemesis Loader o_O', 0

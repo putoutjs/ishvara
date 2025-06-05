@@ -132,10 +132,14 @@ async function start() {
     pop(dx);
     
     dh = dx === 1 ? 1 : 0;
-    
-    dl = 0; // грузимся с дискетки ;)!
-    al = [kernel_sec_size]; // how much sectors?
-    bios.readSector();
+    ax = bios.readSector({
+        count: [kernel_sec_size],
+        buffer: bx,
+        sector: cl,
+        track: ch,
+        head: dh,
+        disk: 0,
+    });
 
     if (ax) {
         pop(cx);
