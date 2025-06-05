@@ -1,3 +1,8 @@
+2025.06.05, v2.2.25
+
+feature:
+- 1e5a84e plugin-fasm: convert-bios-read-sector: pointer
+
 2025.06.04, v2.2.24
 
 feature:
