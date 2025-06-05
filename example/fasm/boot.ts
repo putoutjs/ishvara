@@ -58,28 +58,26 @@ async function start() {
         return;
     }
     
-    find_file:
-    bx = kernel_begin // 0x7e00
+    bx = kernel_begin;
     
-    find_file_next:
-    di = kernel_name;
-    ax = await getStringLength(di);
-    cx = strncmp(bx, di, ax);
-    
-    if (cx) {
-        bx += 0x20;
-        si = bx;
-        lodsb();
-        if (!al) {
-            // в корне ядра нет :(
-            await printf(error_finding);
-            await reboot();
-            return;
+    do {
+        di = kernel_name;
+        ax = await getStringLength(di);
+        cx = strncmp(bx, di, ax);
+
+        if (cx) {
+            bx += 0x20;
+            si = bx;
+            lodsb();
+            
+            if (!al) {
+                // в корне ядра нет :(
+                await printf(error_finding);
+                await reboot();
+                return;
+            }
         }
-        
-        jmp(find_file_next);
-        return;
-    }
+    } while (!cx);
     
     find_kernel:
     si += 0x14;
