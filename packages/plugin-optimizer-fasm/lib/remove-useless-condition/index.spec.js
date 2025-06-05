@@ -26,4 +26,3 @@ test('optimizer-fasm: remove-useless-condition: no transform: no-jnz', (t) => {
     t.noTransform('no-jnz');
     t.end();
 });
-
