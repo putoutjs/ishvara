@@ -1,4 +1,4 @@
-jmp.short.add()
+jmp(add);
 call(add);
 add:
-    add(eax, ebx);
+add(eax, ebx);
