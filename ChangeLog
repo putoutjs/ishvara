@@ -1,3 +1,9 @@
+2025.06.05, v2.2.26
+
+feature:
+- d6f81c3 ishvara: plugin-fasm: add-label-prefix: exclude MemberExpression
+- 9b586ae do-while
+
 2025.06.05, v2.2.25
 
 feature:
