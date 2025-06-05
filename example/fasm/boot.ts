@@ -43,7 +43,6 @@ async function start() {
 
     await printf(loader_name);
 
-    sec_reading:
     ax = bios.readSector({
         count: 1,
         buffer: kernel_begin,
