@@ -111,7 +111,7 @@ push kernel_found
 call __ishvara_printf
 mov cx, 3
 
-__ishvara_sec_reading2:
+__ishvara_do_while_103:
 push cx
 mov bx, kernel_begin
 mov ax, [kernel_offset]
@@ -130,49 +130,52 @@ mov dx, ax
 push dx
 push bx
 mov bx, 2
-cwd
 div bx
 mov ch, al
-mul bx
 pop bx
 pop dx
 cmp dx, 1
-jnz __ishvara_fasm_if_135_not_ok
+jnz __ishvara_fasm_if_133_not_ok
 xor dh, dh
 inc dh
-jmp __ishvara_fasm_if_135
+jmp __ishvara_fasm_if_133
 
-__ishvara_fasm_if_135_not_ok:
+__ishvara_fasm_if_133_not_ok:
 xor dh, dh
 
-__ishvara_fasm_if_135:
+__ishvara_fasm_if_133:
 mov al, [kernel_sec_size]
 xor dl, dl
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_135
+jnc __ishvara_read_sector_ok_133
 xor al, al
 inc al
-jmp __ishvara_read_sector_end_135
+jmp __ishvara_read_sector_end_133
 
-__ishvara_read_sector_ok_135:
+__ishvara_read_sector_ok_133:
 xor ax, ax
 
-__ishvara_read_sector_end_135:
+__ishvara_read_sector_end_133:
 clc
 test ax, ax
-jz __ishvara_fasm_if_153
+jnz __ishvara_fasm_if_147
+push kernel_load
+call __ishvara_printf
+jmp kernel_begin
+
+__ishvara_fasm_if_147:
 pop cx
-loop __ishvara_sec_reading2
+loop __ishvara_do_while_103
+test ax, ax
+jz __ishvara_fasm_if_150
 push error_krnlfile
 call __ishvara_printf
 call __ishvara_rebootAfterKeyPress
 ret
 
-__ishvara_fasm_if_153:
-push kernel_load
-call __ishvara_printf
-jmp kernel_begin
+__ishvara_fasm_if_150:
+ret
 
 __ishvara_rebootAfterKeyPress:
 push press_any_key

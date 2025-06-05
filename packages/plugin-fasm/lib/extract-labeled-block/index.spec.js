@@ -8,7 +8,7 @@ const test = createTest(import.meta.url, {
 });
 
 test('fasm: extract-labeled-block: report', (t) => {
-    t.report('extract-labeled-block', `Extract 'labeled' block'`);
+    t.report('extract-labeled-block', `Extract 'labeled' block: '__ishvara_fasm_if_6'`);
     t.end();
 });
 

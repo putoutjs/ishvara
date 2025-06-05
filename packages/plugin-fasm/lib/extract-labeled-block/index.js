@@ -2,10 +2,18 @@ import {types} from 'putout';
 
 const {isProgram} = types;
 
-export const report = () => `Extract 'labeled' block'`;
+export const report = (path) => {
+    const {name} = path.node.label;
+    
+    return `Extract 'labeled' block: '${name}'`;
+};
 
 export const match = () => ({
-    '__a: {__body}': (vars, path) => !isProgram(path.parentPath),
+    '__a: {__body}': (vars, path) => {
+        const {parentPath} = path;
+        
+        return !isProgram(parentPath);
+    },
 });
 
 export const replace = () => ({

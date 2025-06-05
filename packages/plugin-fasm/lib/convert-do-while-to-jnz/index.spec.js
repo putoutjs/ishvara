@@ -1,5 +1,6 @@
 import {createTest} from '@putout/test';
 import * as plugin from './index.js';
+import * as convertIfToJmp from '../convert-if-to-jmp/index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
@@ -19,5 +20,22 @@ test('fasm: convert-do-while-to-jz: transform', (t) => {
 
 test('fasm: convert-do-while-to-jz: transform: al', (t) => {
     t.transform('al');
+    t.end();
+});
+
+test('fasm: convert-do-while-to-jz: transform: dec', (t) => {
+    t.transform('dec');
+    t.end();
+});
+
+test('fasm: convert-do-while-to-jz: transform: break', (t) => {
+    t.transform('break');
+    t.end();
+});
+
+test('fasm: convert-do-while-to-jz: transform: convert-if-to-jmp', (t) => {
+    t.transform('convert-if-to-jmp', {
+        convertIfToJmp,
+    });
     t.end();
 });

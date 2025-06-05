@@ -5,6 +5,7 @@ import * as ishvara from '#plugin-ishvara';
 
 export const transform = (source) => {
     const {code, places} = putout(source, {
+        fixCount: 4,
         isTS: true,
         plugins: [
             ['remove-nested-blocks', removeNestedBlocks],

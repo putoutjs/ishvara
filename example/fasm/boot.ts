@@ -100,58 +100,58 @@ async function start() {
 
     cx = 3
     // Грузим ядро
-    sec_reading2:
-    push(cx);
+    do {
+        push(cx);
 
-    bx = kernel_begin; // ;$a000 ;buffer
-    ax = [kernel_offset];
-    al -= 2;
-    cx = 0x200; //track/sector 0/2
-    mul(cx);
-    ax += 0x4200;
-    cwd(); // необязательно... но, мало ли... лучше
-    div(cx) // пропишем, что б потом неожиданностей небыло...
-    // получаем количество секторов в ax
-    cx = 18; //дорожка
-    cwd();
-    div(cx);
-    // в ax номер дорожки
-    // в dx номер сектора на дорожке
-    ++dl
-    cl = dl; // номер сектора
-    dx = ax; // смотрим парная ли дорожка
-    push(dx);
-    push(bx);
-    bx = 2;
-    cwd();
-    div(bx);
-    ch = al;// в ch номер дорожки
-    mul(bx); // если парная - нужно перевернуть
-    // дискетук a.k.a головке один
-    pop(bx);
-    pop(dx);
-    
-    dh = dx === 1 ? 1 : 0;
-    ax = bios.readSector({
-        count: [kernel_sec_size],
-        buffer: bx,
-        sector: cl,
-        track: ch,
-        head: dh,
-        disk: 0,
-    });
+        bx = kernel_begin; // ;$a000 ;buffer
+        ax = [kernel_offset];
+        al -= 2;
+        cx = 0x200; //track/sector 0/2
+        mul(cx);
+        ax += 0x4200;
+        cwd(); // необязательно... но, мало ли... лучше
+        div(cx) // пропишем, что б потом неожиданностей небыло...
+        // получаем количество секторов в ax
+        cx = 18; //дорожка
+        cwd();
+        div(cx);
+        // в ax номер дорожки
+        // в dx номер сектора на дорожке
+        ++dl
+        cl = dl; // номер сектора
+        dx = ax; // смотрим парная ли дорожка
+        push(dx);
+        push(bx);
+        bx = 2;
+        div(bx);
+        ch = al;
+        // дискетук a.k.a головке один
+        pop(bx);
+        pop(dx);
+
+        dh = dx === 1 ? 1 : 0;
+        ax = bios.readSector({
+            count: [kernel_sec_size],
+            buffer: bx,
+            sector: cl,
+            track: ch,
+            head: dh,
+            disk: 0,
+        });
+        
+        if (!ax) {
+            await printf(kernel_load);
+            jmp(kernel_begin);
+        }
+        
+        pop(cx);
+    } while (--cx);
 
     if (ax) {
-        pop(cx);
-        loop(sec_reading2);
-
         await printf(error_krnlfile);
         await rebootAfterKeyPress();
         return;
     }
-
-    await printf(kernel_load);
-    jmp(kernel_begin);
 }
 
 // Служебные функци o_O

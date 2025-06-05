@@ -118,5 +118,6 @@ function getNext(path) {
         return next;
     
     insertAfter(path, returnStatement());
+    
     return path.getNextSibling();
 }

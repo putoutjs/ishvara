@@ -1,5 +1,6 @@
 import {createTest} from '@putout/test';
 import * as plugin from './index.js';
+import * as convertDoWhileToJnz from '../convert-do-while-to-jnz/index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
@@ -49,5 +50,12 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: not-equal', (t) => {
 
 test('ishvara: plugin-fasm: convert-if-to-jmp: transform: no-block', (t) => {
     t.transform('no-block');
+    t.end();
+});
+
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: convert-do-while-to-jnz', (t) => {
+    t.transform('convert-do-while-to-jnz', {
+        convertDoWhileToJnz,
+    });
     t.end();
 });
