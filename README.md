@@ -2,7 +2,7 @@
 
 ![ishvara](https://github.com/putoutjs/ishvara/blob/master/images/ishvara.jpg)
 
-Compile JavaScript to WASM.
+Compile JavaScript to WASM and Fasm.
 
 ## Install
 
@@ -30,7 +30,7 @@ You can compile it to fasm to wasm.
 Let's compile javascript with:
 
 ```sh
-ishvara fasm example/fn.ts --code
+ishvara --target fasm example/fn.ts -o code
 ```
 
 To intermediate representation:
@@ -47,7 +47,7 @@ __ishvara_add: {
 Also we can compile it with:
 
 ```sh
-ishvara fasm example/fn.ts --code
+ishvara -t fasm example/fn.ts -o code
 ```
 
 to assembly representation with:
