@@ -53,4 +53,3 @@ test('ishvara: translator-fasm: dump: use32', async (t) => {
     t.match(result, '89C8');
     t.end();
 });
-
