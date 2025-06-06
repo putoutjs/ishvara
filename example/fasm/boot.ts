@@ -77,9 +77,8 @@ async function start() {
                 return;
             }
         }
-    } while (--cx);
+    } while (!cx);
     
-    find_kernel:
     si += 0x14;
     lodsw();
     [kernel_offset] = ax;
