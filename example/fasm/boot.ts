@@ -37,7 +37,7 @@ async function start() {
     es = ax;
     ss = ax;
     --ax;
-    sp = ax;
+    sp = 0x7c00;
 
     bios.clearScreen();
 

@@ -31,23 +31,22 @@ xor ax, ax
 mov ds, ax
 mov es, ax
 mov ss, ax
-mov sp, ax
+dec ax
+mov sp, 0x7c00
 mov ax, 3
 int 0x10
 push loader_name
 call __ishvara_printf
-xor al, al
-inc al
+mov al, 1
 mov bx, kernel_begin
 mov cl, 2
 xor ch, ch
-xor dx, dx
-inc dh
+xor dl, dl
+mov dh, 1
 mov ah, 2
 int 0x13
 jnc __ishvara_read_sector_ok_46
-xor al, al
-inc al
+mov al, 1
 jmp __ishvara_read_sector_end_46
 
 __ishvara_read_sector_ok_46:
@@ -131,8 +130,7 @@ pop bx
 pop dx
 cmp dx, 1
 jnz __ishvara_fasm_if_129_not_ok
-xor dh, dh
-inc dh
+mov dh, 1
 jmp __ishvara_fasm_if_129
 
 __ishvara_fasm_if_129_not_ok:
@@ -144,8 +142,7 @@ xor dl, dl
 mov ah, 2
 int 0x13
 jnc __ishvara_read_sector_ok_129
-xor al, al
-inc al
+mov al, 1
 jmp __ishvara_read_sector_end_129
 
 __ishvara_read_sector_ok_129:
