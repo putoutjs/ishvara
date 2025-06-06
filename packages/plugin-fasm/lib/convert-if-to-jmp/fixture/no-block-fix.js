@@ -3,4 +3,4 @@
     jz(__ishvara_fasm_if_1);
     ++al;
 }
-__ishvara_fasm_if_1: return;
+__ishvara_fasm_if_1: nop();

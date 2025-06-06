@@ -1,8 +1,6 @@
-do {
-    push(cx);
-    cx = 0x200;
-    pop(cx);
-
-    if (ax === 0)
-        break;
-} while (--cl);
+function x() {
+    do {
+        if (cx !== 0)
+            lodsb();
+    } while (!cx);
+}

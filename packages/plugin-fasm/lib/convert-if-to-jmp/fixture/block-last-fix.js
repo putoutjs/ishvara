@@ -14,5 +14,5 @@ function printf() {
             int(0x10);
         }
     }
-    __ishvara_fasm_if_2: return;
+    __ishvara_fasm_if_2: nop();
 }

@@ -5,4 +5,4 @@
     jmp(__ishvara_fasm_if_1);
     __ishvara_fasm_if_1_not_ok: mov(dh, 0);
 }
-__ishvara_fasm_if_1: ret();
+__ishvara_fasm_if_1: nop();

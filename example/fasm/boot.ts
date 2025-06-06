@@ -77,7 +77,7 @@ async function start() {
                 return;
             }
         }
-    } while (!cx);
+    } while (cx);
     
     si += 0x14;
     lodsw();
@@ -142,7 +142,7 @@ async function start() {
         
         pop(cx);
     } while (--cx);
-
+    
     if (ax) {
         await printf(error_krnlfile);
         await reboot();
@@ -195,10 +195,10 @@ function getStringLength() {
 
 loader_name.db  = 'Nemesis Loader o_O', 0;
 error_reading.db = 'error: read', 0;
-kernel_found.db = '+kernel found', 0;
+kernel_found.db = 'kernel found', 0;
 error_finding.db = 'error: kernel not found', 0;
 error_krnlfile.db  = 'kernel not load', 0;
-kernel_load.db = '+kernel load', 0;
+kernel_load.db = 'kernel load', 0;
 press_any_key.db = 'press any key', 0;
 kernel_name.db = 'KERNEL', 0;
 

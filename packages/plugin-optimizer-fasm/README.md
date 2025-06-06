@@ -10,3 +10,5 @@ Transforms:
 - ✅[`remove-useless-ret`](https://putout.cloudcmd.io/#/gist/454918cb89efe8618807e82b0d29dd9b/297e4d8e42fca69b21b0ca446324359ba3136697);
 - ✅[`remove-useless-mov`](http://putout.cloudcmd.io/#/gist/5bb619a820137a843bb23fe0bcb4c7a0/a81316a1e973cd8cc47764e16dadfbdb63acd68a);
 - ✅[`remove-useless-condition`](https://putout.cloudcmd.io/#/gist/0aa4bd34bbcd79c44a0c6e601ab70144/ab04a3b4ab0572703392224c0a3f4af058260569);
+- ✅[`remove-useless-nop`](http://putout.cloudcmd.io/#/gist/c8e30a751bf179c3de9cd88ffc71d625/f9244a1032046ef98fdeb2f79d2419c2c9a1adcb);
+- 

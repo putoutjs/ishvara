@@ -15,4 +15,4 @@ export const compare2 = (eax) => {
     jmp(__ishvara_fasm_if_8);
     __ishvara_fasm_if_8_not_ok: dh = 0;
 }
-__ishvara_fasm_if_8: return;
+__ishvara_fasm_if_8: nop();

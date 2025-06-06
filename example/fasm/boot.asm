@@ -31,7 +31,6 @@ xor ax, ax
 mov ds, ax
 mov es, ax
 mov ss, ax
-dec ax
 mov sp, ax
 mov ax, 3
 int 0x10
@@ -87,10 +86,8 @@ ret
 
 __ishvara_fasm_if_73:
 __ishvara_fasm_if_68:
-test undefined, undefined
+test cx, cx
 jnz __ishvara_do_while_63
-
-__ishvara_find_kernel:
 add si, 0x14
 lodsw
 mov [kernel_offset], ax
@@ -100,16 +97,16 @@ mov cx, 0x200
 cwd
 div cx
 test dx, dx
-jz __ishvara_fasm_if_95
+jz __ishvara_fasm_if_94
 inc al
 
-__ishvara_fasm_if_95:
+__ishvara_fasm_if_94:
 mov [kernel_sec_size], al
 push kernel_found
 call __ishvara_printf
 mov cx, 3
 
-__ishvara_do_while_100:
+__ishvara_do_while_99:
 push cx
 mov bx, kernel_begin
 mov ax, [kernel_offset]
@@ -133,46 +130,46 @@ mov ch, al
 pop bx
 pop dx
 cmp dx, 1
-jnz __ishvara_fasm_if_130_not_ok
+jnz __ishvara_fasm_if_129_not_ok
 xor dh, dh
 inc dh
-jmp __ishvara_fasm_if_130
+jmp __ishvara_fasm_if_129
 
-__ishvara_fasm_if_130_not_ok:
+__ishvara_fasm_if_129_not_ok:
 xor dh, dh
 
-__ishvara_fasm_if_130:
+__ishvara_fasm_if_129:
 mov al, [kernel_sec_size]
 xor dl, dl
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_130
+jnc __ishvara_read_sector_ok_129
 xor al, al
 inc al
-jmp __ishvara_read_sector_end_130
+jmp __ishvara_read_sector_end_129
 
-__ishvara_read_sector_ok_130:
+__ishvara_read_sector_ok_129:
 xor ax, ax
 
-__ishvara_read_sector_end_130:
+__ishvara_read_sector_end_129:
 clc
 test ax, ax
-jnz __ishvara_fasm_if_144
+jnz __ishvara_fasm_if_143
 push kernel_load
 call __ishvara_printf
 jmp kernel_begin
 
-__ishvara_fasm_if_144:
+__ishvara_fasm_if_143:
 pop cx
-loop __ishvara_do_while_100
+loop __ishvara_do_while_99
 test ax, ax
-jz __ishvara_fasm_if_147
+jz __ishvara_fasm_if_146
 push error_krnlfile
 call __ishvara_printf
 call __ishvara_reboot
 ret
 
-__ishvara_fasm_if_147:
+__ishvara_fasm_if_146:
 ret
 
 __ishvara_reboot:
@@ -195,7 +192,7 @@ mov dh, [line]
 mov ax, 0x1301
 int 0x10
 cmp dh, 0x17
-jnz __ishvara_fasm_if_179
+jnz __ishvara_fasm_if_178
 mov bh, 0x02
 xor cx, cx
 mov ax, 0x601
@@ -203,7 +200,7 @@ mov dx, 0x184f
 int 0x10
 ret
 
-__ishvara_fasm_if_179:
+__ishvara_fasm_if_178:
 inc dh
 mov [line], dh
 ret
@@ -214,19 +211,19 @@ pop si
 push ax
 mov cx, -1
 
-__ishvara_do_while_189:
+__ishvara_do_while_188:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_189
+jnz __ishvara_do_while_188
 mov ax, cx
 ret
 loader_name db 'Nemesis Loader o_O', 0
 error_reading db 'error: read', 0
-kernel_found db '+kernel found', 0
+kernel_found db 'kernel found', 0
 error_finding db 'error: kernel not found', 0
 error_krnlfile db 'kernel not load', 0
-kernel_load db '+kernel load', 0
+kernel_load db 'kernel load', 0
 press_any_key db 'press any key', 0
 kernel_name db 'KERNEL', 0
 rb 0x200 - ($ - __ishvara_boot) - 2
