@@ -14,7 +14,6 @@
     "url": "git+https://github.com/putoutjs/ishvara.git"
   },
   "scripts": {
-    "nvm": "madrun nvm",
     "test": "madrun test",
     "watch:test": "madrun watch:test",
     "lint": "madrun lint",
@@ -22,7 +21,9 @@
     "lint:fresh": "madrun lint:fresh",
     "fix:lint": "madrun fix:lint",
     "coverage": "madrun coverage",
-    "report": "madrun report"
+    "report": "madrun report",
+    "build:boot": "madrun build:boot",
+    "build:boot:asm": "madrun build:boot:asm"
   },
   "dependencies": {
     "@putout/babel": "^4.0.1",
@@ -43,7 +44,9 @@
     "wabt": "^1.0.37",
     "yargs-parser": "^22.0.0"
   },
-  "keywords": ["putout"],
+  "keywords": [
+    "putout"
+  ],
   "devDependencies": {
     "@putout/plugin-printer": "^5.0.0",
     "@putout/test": "^13.2.3",
@@ -65,6 +68,7 @@
     "#plugin-fasm": "./packages/plugin-fasm/lib/index.js",
     "#plugin-ishvara": "./packages/plugin-ishvara/lib/index.js",
     "#plugin-optimizer-fasm": "./packages/plugin-optimizer-fasm/lib/index.js",
+    "#plugin-prepare-fasm": "./packages/plugin-prepare-fasm/lib/index.js",
     "#plugin-optimizer-wasm": "./packages/plugin-optimizer-wasm/lib/index.js",
     "#compiler-wasm": "./packages/compiler-wasm/compiler.js",
     "#compiler-fasm": "./packages/compiler-fasm/compiler.js",

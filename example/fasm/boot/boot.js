@@ -179,7 +179,7 @@ async function printf() {
     [line] = dh;
 }
 
-function getStringLength() {
+async function getStringLength() {
     pop(ax)
     pop(si);
     push(ax);

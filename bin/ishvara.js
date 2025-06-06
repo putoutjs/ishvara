@@ -39,10 +39,14 @@ if (error) {
 }
 
 if (args.output === 'bundle') {
-    console.log(codeFrameColumns(source, {}, {
-        highlightCode: true,
-        forceColor: true,
-    }));
+    if (RAW)
+        console.log(source);
+    else
+        console.log(codeFrameColumns(source, {}, {
+            highlightCode: true,
+            forceColor: true,
+        }));
+    
     process.exit();
 }
 
@@ -93,6 +97,8 @@ if (args.target === 'wast')
     write(name, 'wast', binary);
 else if (args.target === 'asm')
     write(name, 'asm', binary);
+
+process.exit(0);
 
 function write(input, extension, binary) {
     const {dir, name} = path.parse(input);
