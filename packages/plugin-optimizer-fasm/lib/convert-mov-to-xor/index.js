@@ -45,7 +45,7 @@ export const exclude = () => [
 ];
 
 export const match = () => ({
-    'mov(__a, 1)': ({__a}, path) => {
+    'mov(__a, 1)': (vars, path) => {
         if (is32(path))
             return true;
         
@@ -85,4 +85,3 @@ export const replace = () => ({
         }`;
     },
 });
-

@@ -61,4 +61,3 @@ test('optimizer-fasm: convert-mov-to-xor: transform: rax', (t) => {
     t.transform('rax');
     t.end();
 });
-
