@@ -1,4 +1,5 @@
 import {test} from 'supertape';
+import montag from 'montag';
 import {translate} from '#translator-fasm';
 
 test('ishvara: translator-fasm', async (t) => {
@@ -26,3 +27,30 @@ test('ishvara: translator-fasm: places', async (t) => {
     t.deepEqual(places, expected);
     t.end();
 });
+
+test('ishvara: translator-fasm: dump', async (t) => {
+    const source = 'mov eax, ecx';
+    const [, places] = await translate(source, {
+        type: 'dump',
+    });
+    
+    const expected = [];
+    
+    t.deepEqual(places, expected);
+    t.end();
+});
+
+test('ishvara: translator-fasm: dump: use32', async (t) => {
+    const source = montag`
+        use32;
+        mov eax, ecx
+    `;
+    
+    const [result] = await translate(source, {
+        type: 'dump',
+    });
+    
+    t.match(result, '89C8');
+    t.end();
+});
+
