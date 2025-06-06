@@ -1,3 +1,9 @@
+2025.06.06, v2.3.0
+
+feature:
+- 2d8c04b @putout/plugin-optimizer-fasm: remove-useless-nop: no next
+- a863c9b plugin-optimizer-fasm: remove-useless-nop
+
 2025.06.06, v2.2.27
 
 feature:
