@@ -4,8 +4,8 @@ const {
     callExpression,
     labeledStatement,
     identifier,
-    returnStatement,
 } = types;
+
 const {replaceWith, insertAfter} = operator;
 
 const getStart = (path, suffix) => {
@@ -131,4 +131,3 @@ function getNext(path) {
     
     return path.getNextSibling();
 }
-

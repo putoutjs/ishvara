@@ -16,3 +16,8 @@ test('optimizer-fasm: remove-useless-nop: transform', (t) => {
     t.transform('remove-useless-nop');
     t.end();
 });
+
+test('optimizer-fasm: remove-useless-nop: no report: no-next', (t) => {
+    t.noReport('no-next');
+    t.end();
+});
