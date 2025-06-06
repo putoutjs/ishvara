@@ -7,8 +7,17 @@ const checkFirst = (name) => (path) => {
     return first.name === name;
 };
 
+const checkStartsWith = (a) => (path) => {
+    const [first] = path.node.arguments;
+    const {name} = first;
+    
+    return name.startsWith(a);
+};
+
 const isEdx = checkFirst('edx');
 const isDx = checkFirst('dx');
+const is32 = checkStartsWith('e');
+const is64 = checkStartsWith('r');
 
 const isPrev = (instr) => (path) => {
     const prev = path.parentPath.getPrevSibling();
@@ -34,6 +43,18 @@ export const exclude = () => [
     'mov(ss, __a)',
     'mov(es, __a)',
 ];
+
+export const match = () => ({
+    'mov(__a, 1)': ({__a}, path) => {
+        if (is32(path))
+            return true;
+        
+        if (is64(path))
+            return true;
+        
+        return isDx(path);
+    },
+});
 
 export const replace = () => ({
     'mov(__a, 0)': (vars, path) => {
@@ -64,3 +85,4 @@ export const replace = () => ({
         }`;
     },
 });
+

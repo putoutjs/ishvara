@@ -52,7 +52,13 @@ test('optimizer-fasm: convert-mov-to-xor: no report: ds', (t) => {
     t.end();
 });
 
-test('optimizer-fasm: convert-mov-to-xor: transform: dh', (t) => {
-    t.transform('dh');
+test('optimizer-fasm: convert-mov-to-xor: no transform: dh', (t) => {
+    t.noTransform('dh');
     t.end();
 });
+
+test('optimizer-fasm: convert-mov-to-xor: transform: rax', (t) => {
+    t.transform('rax');
+    t.end();
+});
+
