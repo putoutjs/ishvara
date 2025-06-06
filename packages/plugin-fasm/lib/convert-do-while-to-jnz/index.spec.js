@@ -39,3 +39,11 @@ test('fasm: convert-do-while-to-jz: transform: convert-if-to-jmp', (t) => {
     });
     t.end();
 });
+
+test('fasm: convert-do-while-to-jz: transform: not', (t) => {
+    t.transform('not', {
+        convertIfToJmp,
+    });
+    t.end();
+});
+

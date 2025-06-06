@@ -31,6 +31,15 @@ export const replace = () => ({
         
         return `__ishvara_do_while_${line}: __body`;
     },
+    'do {__body} while (!__a)': ({__a, __body}, path) => {
+        const {line} = path.node.loc.start;
+        const expression = isCallExpression(__a) ? __a : template.ast(`test(${__a.name}, ${__a.name})`);
+        
+        __body.body.push(expressionStatement(expression));
+        __body.body.push(expressionStatement(template.ast(`jz(__ishvara_do_while_${line})`)));
+        
+        return `__ishvara_do_while_${line}: __body`;
+    },
     'do {__body} while (__a)': ({__a, __body}, path) => {
         const {line} = path.node.loc.start;
         const expression = isCallExpression(__a) ? __a : template.ast(`test(${__a.name}, ${__a.name})`);
