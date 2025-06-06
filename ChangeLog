@@ -1,3 +1,8 @@
+2025.06.06, v2.2.27
+
+feature:
+- 07ee976 ishvara: plugin-fasm: convert-do-while-to-jnz: not
+
 2025.06.05, v2.2.26
 
 feature:
