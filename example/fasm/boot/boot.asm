@@ -1,16 +1,3 @@
-__ishvara_getStringLength:
-pop ax
-pop si
-push ax
-mov cx, -1
-
-__ishvara_do_while_13:
-lodsb
-inc cx
-test al, al
-jnz __ishvara_do_while_13
-mov ax, cx
-ret
 org 0x7c00
 use16
 
@@ -39,6 +26,47 @@ bpbVolumeLabel db 'BOOT FLOPPY'
 bpbFileSystem db 'FAT12   '
 kernel_begin equ 0x7e00
 
+__ishvara_getStringLength:
+pop ax
+pop si
+push ax
+mov cx, -1
+
+__ishvara_do_while_41:
+lodsb
+inc cx
+test al, al
+jnz __ishvara_do_while_41
+mov ax, cx
+ret
+
+__ishvara_printf:
+pop si
+pop bp
+push si
+push bp
+call __ishvara_getStringLength
+mov cx, ax
+xor bh, bh
+mov bl, 2
+xor dl, dl
+mov dh, [line]
+mov ax, 0x1301
+int 0x10
+cmp dh, 0x17
+jnz __ishvara_fasm_if_67
+mov bh, 0x02
+xor cx, cx
+mov ax, 0x601
+mov dx, 0x184f
+int 0x10
+ret
+
+__ishvara_fasm_if_67:
+inc dh
+mov [line], dh
+ret
+
 __ishvara_start:
 xor ax, ax
 mov ds, ax
@@ -58,26 +86,26 @@ xor dl, dl
 mov dh, 1
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_62
+jnc __ishvara_read_sector_ok_83
 mov al, 1
-jmp __ishvara_read_sector_end_62
+jmp __ishvara_read_sector_end_83
 
-__ishvara_read_sector_ok_62:
+__ishvara_read_sector_ok_83:
 xor ax, ax
 
-__ishvara_read_sector_end_62:
+__ishvara_read_sector_end_83:
 clc
 test ax, ax
-jz __ishvara_fasm_if_77
+jz __ishvara_fasm_if_98
 push error_reading
 call __ishvara_printf
 call __ishvara_reboot
 ret
 
-__ishvara_fasm_if_77:
+__ishvara_fasm_if_98:
 mov bx, kernel_begin
 
-__ishvara_do_while_79:
+__ishvara_do_while_100:
 mov di, kernel_name
 push di
 call __ishvara_getStringLength
@@ -85,21 +113,21 @@ mov cx, ax
 mov si, bx
 repe cmpsb
 test cx, cx
-jz __ishvara_fasm_if_84
+jz __ishvara_fasm_if_105
 add bx, 0x20
 mov si, bx
 lodsb
 test al, al
-jnz __ishvara_fasm_if_89
+jnz __ishvara_fasm_if_110
 push error_finding
 call __ishvara_printf
 call __ishvara_reboot
 ret
 
-__ishvara_fasm_if_89:
-__ishvara_fasm_if_84:
+__ishvara_fasm_if_110:
+__ishvara_fasm_if_105:
 test cx, cx
-jnz __ishvara_do_while_79
+jnz __ishvara_do_while_100
 add si, 0x14
 lodsw
 mov [kernel_offset], ax
@@ -109,16 +137,16 @@ mov cx, 0x200
 cwd
 div cx
 test dx, dx
-jz __ishvara_fasm_if_109
+jz __ishvara_fasm_if_130
 inc al
 
-__ishvara_fasm_if_109:
+__ishvara_fasm_if_130:
 mov [kernel_sec_size], al
 push kernel_found
 call __ishvara_printf
 mov cx, 3
 
-__ishvara_do_while_114:
+__ishvara_do_while_135:
 push cx
 mov bx, kernel_begin
 mov ax, [kernel_offset]
@@ -142,44 +170,44 @@ mov ch, al
 pop bx
 pop dx
 cmp dx, 1
-jnz __ishvara_fasm_if_145_not_ok
+jnz __ishvara_fasm_if_166_not_ok
 mov dh, 1
-jmp __ishvara_fasm_if_145
+jmp __ishvara_fasm_if_166
 
-__ishvara_fasm_if_145_not_ok:
+__ishvara_fasm_if_166_not_ok:
 xor dh, dh
 
-__ishvara_fasm_if_145:
+__ishvara_fasm_if_166:
 mov al, [kernel_sec_size]
 xor dl, dl
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_145
+jnc __ishvara_read_sector_ok_166
 mov al, 1
-jmp __ishvara_read_sector_end_145
+jmp __ishvara_read_sector_end_166
 
-__ishvara_read_sector_ok_145:
+__ishvara_read_sector_ok_166:
 xor ax, ax
 
-__ishvara_read_sector_end_145:
+__ishvara_read_sector_end_166:
 clc
 test ax, ax
-jnz __ishvara_fasm_if_159
+jnz __ishvara_fasm_if_180
 push kernel_load
 call __ishvara_printf
 jmp kernel_begin
 
-__ishvara_fasm_if_159:
+__ishvara_fasm_if_180:
 pop cx
-loop __ishvara_do_while_114
+loop __ishvara_do_while_135
 test ax, ax
-jz __ishvara_fasm_if_161
+jz __ishvara_fasm_if_182
 push error_krnlfile
 call __ishvara_printf
 call __ishvara_reboot
 ret
 
-__ishvara_fasm_if_161:
+__ishvara_fasm_if_182:
 ret
 
 __ishvara_reboot:
@@ -187,36 +215,7 @@ push press_any_key
 call __ishvara_printf
 xor ax, ax
 int 0x16
-jmp far 0xFFFF:0x0000
-__ishvara_printf:
-pop si
-pop bp
-push si
-push bp
-call __ishvara_getStringLength
-mov cx, ax
-xor bh, bh
-mov bl, 2
-xor dl, dl
-mov dh, [line]
-mov ax, 0x1301
-int 0x10
-cmp dh, 0x17
-jnz __ishvara_fasm_if_194
-mov bh, 0x02
-xor cx, cx
-mov ax, 0x601
-mov dx, 0x184f
-int 0x10
-ret
-
-__ishvara_fasm_if_194:
-inc dh
-mov [line], dh
-ret
-
-__ishvara_external:
-loader_name db 'Nemesis Loader o_O', 0
+jmp far 0xFFFF:0x0000loader_name db 'Nemesis Loader o_O', 0
 error_reading db 'error: read', 0
 kernel_found db 'kernel found', 0
 error_finding db 'error: kernel not found', 0

@@ -66,7 +66,7 @@
     "#plugin-fasm": "./packages/plugin-fasm/lib/index.js",
     "#plugin-ishvara": "./packages/plugin-ishvara/lib/index.js",
     "#plugin-optimizer-fasm": "./packages/plugin-optimizer-fasm/lib/index.js",
-    "#plugin-prepare-fasm": "./packages/plugin-prepare-fasm/lib/index.js",
+    "#plugin-bundler-fasm": "./packages/plugin-bundler-fasm/lib/index.js",
     "#plugin-optimizer-wasm": "./packages/plugin-optimizer-wasm/lib/index.js",
     "#compiler-wasm": "./packages/compiler-wasm/compiler.js",
     "#compiler-fasm": "./packages/compiler-fasm/compiler.js",

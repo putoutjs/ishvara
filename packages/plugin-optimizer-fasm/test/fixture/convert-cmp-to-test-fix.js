@@ -1,4 +1,2 @@
-
-
-cmp(eax, 0);
+test(eax, eax);
 cmp([eax], 0);

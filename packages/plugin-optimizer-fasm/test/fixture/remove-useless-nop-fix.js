@@ -1,2 +1,1 @@
- __ishvara_fasm_if_144: nop();
-push(kernel_load);
+__ishvara_fasm_if_144: push(kernel_load);

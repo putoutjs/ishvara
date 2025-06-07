@@ -1,4 +1,6 @@
 import {org, use16, bios} from '#operator-fasm';
+import {getStringLength} from './get-string-length.js';
+import {printf} from './printf.js';
 
 org(0x7c00);
 use16();
@@ -158,40 +160,7 @@ async function reboot() {
     bios.reboot();
 }
 
-async function printf() {
-    pop(si);
-    pop(bp);
-    push(si);
-    cx = await getStringLength(bp);
-
-    bh = 0;
-    bl = 2; // green color ;)
-    dl = 0;
-    dh = [line];
-    bios.printLine();
-    if (dh === 23) {
-        bh = 0x02; // чорный фон, зеленые символы
-        bios.scroll();
-        return;
-    }
-
-    ++dh;
-    [line] = dh;
-}
-
-async function getStringLength() {
-    pop(ax)
-    pop(si);
-    push(ax);
-    cx = -1;
-
-    do {
-        lodsb();
-        ++cx;
-    } while (al)
-
-    return cx;
-}
+section: 'imports';
 
 loader_name.db  = 'Nemesis Loader o_O', 0;
 error_reading.db = 'error: read', 0;

@@ -31,10 +31,10 @@ const [name] = args._;
 const [error, source] = await bundle(name);
 
 if (error) {
-    const {line} = error.location.start;
-    const {fileName} = error;
+    const {line} = error.loc;
+    const {id} = error;
     
-    console.error(`file://${chalk.blue(fileName)}:${line}: ${chalk.red(error.message)}`);
+    console.error(`file://${chalk.blue(id)}:${line}: ${chalk.red(error.message)}`);
     process.exit(1);
 }
 
