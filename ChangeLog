@@ -1,3 +1,9 @@
+2025.06.07, v2.3.2
+
+feature:
+- 40d3439 ishvara: section: imports
+- 2111a06 ishvara: fasm: import
+
 2025.06.07, v2.3.1
 
 fix:
