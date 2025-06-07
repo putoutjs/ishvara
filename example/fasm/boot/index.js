@@ -1,6 +1,7 @@
 import {org, use16, bios} from '#operator-fasm';
 import {getStringLength} from './get-string-length.js';
 import {printf} from './printf.js';
+import {reboot} from './reboot.js';
 
 org(0x7c00);
 use16();
@@ -150,14 +151,6 @@ async function start() {
         await reboot();
         return;
     }
-}
-
-// Служебные функци o_O
-async function reboot() {
-    await printf(press_any_key);
-    // ждем нажатия на клаву ;)
-    bios.readChar();
-    bios.reboot();
 }
 
 section: 'imports';

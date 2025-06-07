@@ -1,19 +1,18 @@
 import {operator, types} from 'putout';
 
+const {isIdentifier} = types;
 const {
+    replaceWith,
     replaceWithMultiple,
     remove,
 } = operator;
 
-const {blockStatement} = types;
-
 export const report = () => `Move functions before section 'data'`;
 
 export const fix = ({label, fns}) => {
-    label.node.body = blockStatement([]);
     const nodes = [];
     
-    for (const fn of fns) {
+    for (const fn of fns.reverse()) {
         nodes.push(fn.node);
         remove(fn);
     }
@@ -49,3 +48,4 @@ export const traverse = ({store, pathStore, push}) => ({
         },
     },
 });
+
