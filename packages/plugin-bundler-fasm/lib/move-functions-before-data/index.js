@@ -1,8 +1,6 @@
-import {operator, types} from 'putout';
+import {operator} from 'putout';
 
-const {isIdentifier} = types;
 const {
-    replaceWith,
     replaceWithMultiple,
     remove,
 } = operator;
@@ -48,4 +46,3 @@ export const traverse = ({store, pathStore, push}) => ({
         },
     },
 });
-
