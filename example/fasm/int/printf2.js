@@ -1,8 +1,6 @@
-function printf2() { ;2 в bx должен быть адрес ascii строки
-    push(es);
-    push(bx);
-    push(cx);
-    push(di);
+function printf() { ;2 в bx должен быть адрес ascii строки
+    pusha();
+    
     ax = 0xb800;
     es = ax;
     si = bx;
@@ -29,7 +27,7 @@ function printf2() { ;2 в bx должен быть адрес ascii строк�
     cmp	[line],25
     jl	_nopoint2write
 
-    call	scrol
+    await scroll();
 
     dec	[line]
     jmp	_nopoint2write
@@ -38,15 +36,15 @@ function printf2() { ;2 в bx должен быть адрес ascii строк�
         cmp	al,_backspace
     jnz	_not_backspace
 
-    xor	al,al
-    mov	ah,[mincol]
-    cmp	ah,[col]
-    jnz	 not_sub_col
-    jmp	 _nopoint2write
+    al = 0;
+    ah = [mincol];
+    cmp(ah, [col]);
+    jnz(not_sub_col);
+    jmp(_nopoint2write);
     not_sub_col:
-        dec	[col]
-    dec	[col]
-    sub	di,2
+        --[col]
+    --[col]
+    di -= 2;
 
     _not_backspace:
         mov	ah,[bgcolor]
@@ -69,7 +67,7 @@ function printf2() { ;2 в bx должен быть адрес ascii строк�
     pop	cx
     pop	bx
     pop	es
-    iret
+    iret();
 }
 
 
@@ -82,5 +80,28 @@ function get_size() {
         lodsb
     } while (al)
     
-    pop	si
+    pop(si);
+}
+
+function scroll() {
+    pusha();
+
+    ax = 0xb800
+    ds = ax
+    es = ax
+    si = 80 * 2
+    di = 0;
+    cx = 80 * 24 * 2
+    rep.movsb();
+
+    ax = 0;
+    ds = ax;
+    ah = [bgcolor];
+    shl();
+    ah = 4;
+    ah += [textcolor]
+    cx = 80;
+    rep.stosw();
+    
+    popa();
 }

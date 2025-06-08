@@ -1,5 +1,5 @@
-import * as moveFunctionsBeforeData from './move-functions-before-data/index.js';
+import * as replaceSectionCodeWithFunctions from './replace-section-code-with-functions/index.js';
 
 export const rules = {
-    'move-functions-before-data': moveFunctionsBeforeData,
+    'replace-section-code-with-functions': replaceSectionCodeWithFunctions,
 };

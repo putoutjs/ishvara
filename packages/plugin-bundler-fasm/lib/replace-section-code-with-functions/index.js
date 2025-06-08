@@ -5,7 +5,7 @@ const {
     remove,
 } = operator;
 
-export const report = () => `Move functions before section 'data'`;
+export const report = () => `Replace section 'code' with functions`;
 
 export const fix = ({label, fns}) => {
     const nodes = [];

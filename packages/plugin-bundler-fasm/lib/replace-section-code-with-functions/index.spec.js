@@ -8,7 +8,7 @@ const test = createTest(import.meta.url, {
 });
 
 test('bundler-fasm: move-functions-before-data: report', (t) => {
-    t.report('move-functions-before-data', `Move functions before section 'data'`);
+    t.report('move-functions-before-data', `Replace section 'code' with functions`);
     t.end();
 });
 
