@@ -3,6 +3,7 @@ export async function getStringLength() {
     pop(si);
     push(ax);
     cx = -1;
+    cld();
 
     do {
         lodsb();
