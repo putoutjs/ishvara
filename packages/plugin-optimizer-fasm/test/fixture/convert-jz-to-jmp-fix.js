@@ -1,5 +1,5 @@
 xor(eax, eax);
-jmp(hello);
+
 hello: x();
 xor(eax, eax);
 

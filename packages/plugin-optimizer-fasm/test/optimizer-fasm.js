@@ -51,3 +51,8 @@ test('plugin-optimizer-fasm: transform: remove-useless-nop', (t) => {
     t.transform('remove-useless-nop');
     t.end();
 });
+
+test('plugin-optimizer-fasm: transform: remove-useless-jmp', (t) => {
+    t.transform('remove-useless-jmp');
+    t.end();
+});

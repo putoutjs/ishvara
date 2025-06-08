@@ -1,3 +1,4 @@
+import * as removeUselessJmp from './remove-useless-jmp/index.js';
 import * as removeUselessNop from './remove-useless-nop/index.js';
 import * as removeUselessCondition from './remove-useless-condition/index.js';
 import * as removeDuplicateOperations from './remove-duplicate-operations/index.js';
@@ -18,4 +19,5 @@ export const rules = {
     'remove-duplicate-operations': removeDuplicateOperations,
     'remove-useless-condition': removeUselessCondition,
     'remove-useless-nop': removeUselessNop,
+    'remove-useless-jmp': removeUselessJmp,
 };
