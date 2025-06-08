@@ -1,3 +1,8 @@
+2025.06.08, v2.3.4
+
+feature:
+- 824aae6 ishvara: plugin-optimizer-fasm: remove-useless-jmp: add
+
 2025.06.08, v2.3.3
 
 feature:
