@@ -34,6 +34,7 @@ if (error) {
     const {line} = error.loc || {
         line: 0,
     };
+    
     const {id} = error;
     
     console.error(`file://${chalk.blue(id)}:${line}: ${chalk.red(error.message)}`);
