@@ -1,10 +1,12 @@
-function printf() { ;2 в bx должен быть адрес ascii строки
+import {getStringLength} from '../get-string-length.js';
+
+function printf() {// ;2 в bx должен быть адрес ascii строки
     pusha();
     
     ax = 0xb800;
     es = ax;
+    cx = await getStringLength(bx);
     si = bx;
-    await get_size();
 
     al = _setcursor;
     bl = [col];
@@ -60,19 +62,6 @@ function printf() { ;2 в bx должен быть адрес ascii строки
     end_of_printf:
     popa();
     iret();
-}
-
-
-function get_size() {
-    push(si);
-    cx = -1;
-    
-    do {
-        ++cx;
-        lodsb
-    } while (al)
-    
-    pop(si);
 }
 
 function scroll() {
