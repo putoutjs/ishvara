@@ -9,9 +9,10 @@ export const SequenceExpression = (path, {traverse, maybe, write}) => {
     for (const [i, expression] of expressions.entries()) {
         traverse(expression);
         
-        if (isMemberExpression(expression))
+        if (isMemberExpression(expression) || n > 1 && i < n)
             write(',');
         
         maybe.write(i < n, ' ');
     }
 };
+

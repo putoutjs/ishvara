@@ -5,6 +5,7 @@ import {BlockStatement} from './visitors/block-statement.js';
 import {LabeledStatement} from './visitors/labeled-statement.js';
 import {ExpressionStatement} from './visitors/expression-statement/expression-statement.js';
 import {SequenceExpression} from './visitors/sequence-expression.js';
+import {AssignmentExpression} from './visitors/assignment-expression.js';
 
 export const print = (ast) => {
     return putoutPrint(ast, {
@@ -12,6 +13,7 @@ export const print = (ast) => {
             comments: false,
         },
         visitors: {
+            AssignmentExpression,
             CallExpression,
             MemberExpression,
             BlockStatement,

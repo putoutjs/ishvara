@@ -12,6 +12,9 @@ import {parseArgs, validateArgs} from '#cli-args';
 import {help} from '#cli-help';
 import * as ishvara from '#ishvara';
 import {bundle} from '../packages/bundler/index.js';
+import {prepareError} from '../packages/bundler/prepare-error.js';
+
+const id = (a) => a;
 
 const {O = 1, RAW} = process.env;
 const args = parseArgs(process.argv.slice(2));
@@ -31,13 +34,12 @@ const [name] = args._;
 const [error, source] = await bundle(name);
 
 if (error) {
-    const {line} = error.loc || {
-        line: 0,
-    };
+    const {message} = await prepareError(error);
     
-    const {id} = error;
+    const {line} = error.location?.start || error.loc;
+    const name = error.id || error.fileName;
     
-    console.error(`file://${chalk.blue(id)}:${line}: ${chalk.red(error.message)}`);
+    console.error(`file://${chalk.blue(name)}:${line}: ${chalk.red(message)}`);
     process.exit(1);
 }
 
@@ -109,3 +111,4 @@ function write(input, extension, binary) {
     
     writeFileSync(full, binary);
 }
+

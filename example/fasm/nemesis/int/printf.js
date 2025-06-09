@@ -1,6 +1,6 @@
 import {getStringLength} from '../get-string-length.js';
 
-function printf() {// ;2 в bx должен быть адрес ascii строки
+export function printf() {// ;2 в bx должен быть адрес ascii строки
     pusha();
     
     ax = 0xb800;
@@ -13,22 +13,22 @@ function printf() {// ;2 в bx должен быть адрес ascii строк
     bh = [line];
     int(0xff);
 
-    ;в bl;столбик
-    ;в bh;рядок
+    // в bl;столбик
+    // в bh;рядок
     print:
     lodsb
-    or	al,al
-    jz	end_of_printf
+    if (!al)
+        jmp(end_of_printf);
 
     if (al === _enter) {
-        ++[line];
+        inc([line]);
         [col] = 0;
         cmp([line], 25);
         jl(_nopoint2write);
 
         await scroll();
 
-        --[line]
+        dec([line]);
         jmp(_nopoint2write);
     }
     
@@ -39,8 +39,8 @@ function printf() {// ;2 в bx должен быть адрес ascii строк
         if (ah === [col])
             jmp(_nopoint2write);
 
-        --[col];
-        --[col];
+        dec([col]);
+        dec([col]);
         di -= 2;
     }
     
@@ -48,13 +48,13 @@ function printf() {// ;2 в bx должен быть адрес ascii строк
     ah <<= 4;
     ah += [textcolor]
     stosw();
-    ++[col]
+    inc([col]);
     
     _nopoint2write:
     al = _setcursor;
-    mov	bl, [col]
-    mov	bh, [line]
-    int	0xff
+    bl = [col];
+    bh = [line];
+    int(0xff);
 
     loop(print);
     jmp(end_of_printf);
@@ -78,8 +78,7 @@ function scroll() {
     ax = 0;
     ds = ax;
     ah = [bgcolor];
-    shl();
-    ah = 4;
+    ah <<= 4;
     ah += [textcolor]
     cx = 80;
     rep.stosw();

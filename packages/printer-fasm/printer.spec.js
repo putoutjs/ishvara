@@ -77,3 +77,31 @@ test('ishvara: printer-fasm: db', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test.only('ishvara: printer-fasm: db: couple', (t) => {
+    const source = montag`
+        hi.db['hello from Nemizida =)!!!'], 0xd, 0
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        hi db 'hello from Nemizida =)!!!', 0xd, 0\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: printer-fasm: AssignmentExpression', (t) => {
+    const source = montag`
+        es[0xff * 4] = ax;
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        mov [es:0xff * 4], ax\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
