@@ -1,3 +1,10 @@
+2025.06.09, v2.3.6
+
+feature:
+- 7979d17 ishvara: plugin-fasm: convert-if-to-jmp: rm unused
+- ddcb9f7 ishvara: convert-if-to-jmp: counter
+- 6807d1b ishvara: printer-fasm: assignment-expression
+
 2025.06.09, v2.3.5
 
 feature:
