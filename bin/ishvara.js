@@ -31,7 +31,9 @@ const [name] = args._;
 const [error, source] = await bundle(name);
 
 if (error) {
-    const {line} = error.loc;
+    const {line} = error.loc || {
+        line: 0,
+    };
     const {id} = error;
     
     console.error(`file://${chalk.blue(id)}:${line}: ${chalk.red(error.message)}`);
