@@ -78,7 +78,7 @@ test('ishvara: printer-fasm: db', (t) => {
     t.end();
 });
 
-test.only('ishvara: printer-fasm: db: couple', (t) => {
+test('ishvara: printer-fasm: db: couple', (t) => {
     const source = montag`
         hi.db['hello from Nemizida =)!!!'], 0xd, 0
     `;

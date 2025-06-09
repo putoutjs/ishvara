@@ -14,8 +14,6 @@ import * as ishvara from '#ishvara';
 import {bundle} from '../packages/bundler/index.js';
 import {prepareError} from '../packages/bundler/prepare-error.js';
 
-const id = (a) => a;
-
 const {O = 1, RAW} = process.env;
 const args = parseArgs(process.argv.slice(2));
 
@@ -111,4 +109,3 @@ function write(input, extension, binary) {
     
     writeFileSync(full, binary);
 }
-

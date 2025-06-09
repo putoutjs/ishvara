@@ -1,9 +1,9 @@
 function compare() {
     {
         cmp(eax, ebx);
-        jnz(__ishvara_fasm_if_5);
+        jnz(__ishvara_fasm_if_1);
         
         return 5;
     }
-    __ishvara_fasm_if_5: return 3;
+    __ishvara_fasm_if_1: return 3;
 }

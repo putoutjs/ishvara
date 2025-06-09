@@ -24,4 +24,3 @@ export const AssignmentExpression = (path, printer, semantics) => {
     write.space();
     traverse(right);
 };
-

@@ -8,24 +8,8 @@ const {
 
 const {replaceWith, insertAfter} = operator;
 
-const getStart = (path, suffix) => {
-    if (!path.node)
-        return suffix;
-    
-    const {loc} = path.node;
-    
-    if (loc)
-        return loc.start.line;
-    
-    const prev = path.getPrevSibling();
-    
-    return prev.node.loc.start.line;
-};
-
-const createName = (path, prefix) => {
-    const line = getStart(path, prefix);
-    
-    return `__ishvara_fasm_if_${line}`;
+const createName = (suffix) => {
+    return `__ishvara_fasm_if_${suffix}`;
 };
 
 export const report = () => `Use 'jmp' instead of 'if'`;
@@ -34,8 +18,8 @@ export const replace = ({options}) => {
     let {labelSuffix = 0} = options;
     
     return {
-        'if (__a === __b) return __c; else return __d': (vars, path) => {
-            const label = createName(path);
+        'if (__a === __b) return __c; else return __d': () => {
+            const label = createName(++labelSuffix);
             
             return `{
                 cmp(__a, __b);
@@ -47,7 +31,7 @@ export const replace = ({options}) => {
         },
         'if (__a === __b) __c': (vars, path) => {
             const next = getNext(path);
-            const name = createName(next);
+            const name = createName(++labelSuffix);
             
             createLabel(next, name);
             
@@ -58,7 +42,7 @@ export const replace = ({options}) => {
             }`;
         },
         'if (__a === __b) {__body}': (vars, path) => {
-            const name = createName(path);
+            const name = createName(++labelSuffix);
             const next = getNext(path);
             
             createLabel(next, name);
@@ -71,7 +55,7 @@ export const replace = ({options}) => {
         },
         'if (__a !== __b) __c': (vars, path) => {
             const next = getNext(path);
-            const name = createName(next, ++labelSuffix);
+            const name = createName(++labelSuffix);
             
             createLabel(next, name);
             
@@ -83,7 +67,7 @@ export const replace = ({options}) => {
         },
         'if (__a !== __b) {__body}': (vars, path) => {
             const next = getNext(path);
-            const name = createName(next);
+            const name = createName(++labelSuffix);
             
             createLabel(next, name);
             
@@ -95,7 +79,7 @@ export const replace = ({options}) => {
         },
         'if (__a === __b) __c; else __d': (vars, path) => {
             const next = getNext(path);
-            const name = createName(next);
+            const name = createName(++labelSuffix);
             
             createLabel(next, name);
             

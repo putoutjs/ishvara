@@ -15,4 +15,3 @@ export const SequenceExpression = (path, {traverse, maybe, write}) => {
         maybe.write(i < n, ' ');
     }
 };
-

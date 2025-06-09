@@ -61,3 +61,8 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: convert-do-while-to-jn
     });
     t.end();
 });
+
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: couple', (t) => {
+    t.transform('couple');
+    t.end();
+});

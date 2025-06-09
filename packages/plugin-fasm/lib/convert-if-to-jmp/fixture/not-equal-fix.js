@@ -1,10 +1,10 @@
 function printf() {
     {
         cmp(eax, 0);
-        jz(__ishvara_fasm_if_6);
+        jz(__ishvara_fasm_if_1);
         {
             ret;
         }
     }
-    __ishvara_fasm_if_6: eax = 1;
+    __ishvara_fasm_if_1: eax = 1;
 }
