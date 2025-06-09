@@ -1,3 +1,8 @@
+2025.06.09, v2.3.5
+
+feature:
+- f1f5b29 @putout/plugin-optimizer-fasm: remove-useless-ret: iret
+
 2025.06.08, v2.3.4
 
 feature:
