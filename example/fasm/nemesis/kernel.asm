@@ -34,14 +34,14 @@ hi db 'hello from Nemizida =)!!!', 0xd, 0
 
 __ishvara_int_table:
 test al, al
-jnz __ishvara_fasm_if_47
+jnz __ishvara_fasm_if_1
 jmp far 0xFFFF:0x0000
-__ishvara_fasm_if_47:
+__ishvara_fasm_if_1:
 cmp al, _printf
-jnz __ishvara_fasm_if_52
+jnz __ishvara_fasm_if_2
 jmp __ishvara_printf
 
-__ishvara_fasm_if_52:
+__ishvara_fasm_if_2:
 iret
 
 __ishvara_scroll:
@@ -79,12 +79,12 @@ int 0xff
 __ishvara_print:
 lodsb
 test al, al
-jnz __ishvara_fasm_if_94
+jnz __ishvara_fasm_if_3
 jmp __ishvara_end_of_printf
 
-__ishvara_fasm_if_94:
+__ishvara_fasm_if_3:
 cmp al, _enter
-jnz __ishvara_fasm_if_94
+jnz __ishvara_fasm_if_4
 inc [line]
 mov [col], 0
 cmp [line], 0x19
@@ -93,21 +93,21 @@ call __ishvara_scroll
 dec [line]
 jmp __ishvara__nopoint2write
 
-__ishvara_fasm_if_94:
+__ishvara_fasm_if_4:
 cmp al, _backspace
-jnz __ishvara_fasm_if_118
+jnz __ishvara_fasm_if_5
 xor al, al
 mov ah, [mincol]
 cmp ah, [col]
-jnz __ishvara_fasm_if_113
+jnz __ishvara_fasm_if_6
 jmp __ishvara__nopoint2write
 
-__ishvara_fasm_if_113:
+__ishvara_fasm_if_6:
 dec [col]
 dec [col]
 sub di, 2
 
-__ishvara_fasm_if_118:
+__ishvara_fasm_if_5:
 mov ah, [bgcolor]
 shl ah, 4
 add ah, [textcolor]
