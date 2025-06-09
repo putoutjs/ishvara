@@ -207,12 +207,13 @@ pop ax
 pop si
 push ax
 mov cx, -1
+cld
 
-__ishvara_do_while_189:
+__ishvara_do_while_190:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_189
+jnz __ishvara_do_while_190
 mov ax, cx
 ret
 loader_name db 'Nemesis Loader o_O', 0

@@ -9,6 +9,6 @@ export default {
     'fix:lint': () => run('lint', '--fix'),
     'coverage': async () => `c8 ${await run('test')}`,
     'report': () => 'c8 report --reporter=lcov',
-    'build:boot': () => './bin/ishvara.js -t fasm example/fasm/boot/index.js',
-    'build:boot:asm': () => './bin/ishvara.js -t asm example/fasm/boot/index.js',
+    'build:boot': () => './bin/ishvara.js -t fasm example/fasm/nemesis/boot/index.js',
+    'build:boot:asm': () => './bin/ishvara.js -t asm example/fasm/nemesis/boot/index.js',
 };
