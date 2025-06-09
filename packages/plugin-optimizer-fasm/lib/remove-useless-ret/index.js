@@ -10,6 +10,9 @@ export const match = () => ({
         const next = path.parentPath.getNextSibling();
         const prev = path.parentPath.getPrevSibling();
         
+        if (compare(prev, 'iret()'))
+            return true;
+        
         if (compare(prev, 'jmp(__a)'))
             return true;
         

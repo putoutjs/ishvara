@@ -31,3 +31,9 @@ test('optimizer-fasm: remove-useless-ret: transform: label', (t) => {
     t.transform('label');
     t.end();
 });
+
+test('optimizer-fasm: remove-useless-ret: transform: iret', (t) => {
+    t.transform('iret');
+    t.end();
+});
+
