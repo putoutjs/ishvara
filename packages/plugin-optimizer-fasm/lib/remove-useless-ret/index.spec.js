@@ -36,4 +36,3 @@ test('optimizer-fasm: remove-useless-ret: transform: iret', (t) => {
     t.transform('iret');
     t.end();
 });
-
