@@ -2,6 +2,7 @@ import {createTest} from '@putout/test';
 import * as plugin from './index.js';
 import * as convertDoWhileToJnz from '../convert-do-while-to-jnz/index.js';
 import * as extractLabeledBlock from '../extract-labeled-block/index.js';
+import * as splitStackOperations from '../split-stack-operations/index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
@@ -64,5 +65,12 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: convert-do-while-to-jn
 
 test('ishvara: plugin-fasm: convert-if-to-jmp: transform: couple', (t) => {
     t.transform('couple');
+    t.end();
+});
+
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: split-stack-operations', (t) => {
+    t.transform('split-stack-operations', {
+        splitStackOperations,
+    });
     t.end();
 });

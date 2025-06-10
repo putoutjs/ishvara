@@ -1,5 +1,5 @@
 import {org, use16, bios} from '#operator-fasm';
-import {printf} from './int/printf.js';
+import {printf} from './int/printf.ts';
 
 org(0x7e00);
 use16();
@@ -22,34 +22,33 @@ _secwrite.equ = 0xd;
 _enter.equ = 0xd;
 _backspace.equ = 0xe;
 
-cli();//подмена прерывания
-push(ax);
-push(es);
-ax = 0;
-es = ax;
-ax = int_table;
-es[0xff * 4] = ax;
-es[0xff * 4 + 2] = cs;
+function kernel(): iret {
+    cli();//подмена прерывания
+    push([ax, es]);
+    ax = 0;
+    es = ax;
+    ax = int_table;
+    es[0xff * 4] = ax;
+    es[0xff * 4 + 2] = cs;
 
-pop(es);
-pop(ax);
-sti();
+    pop(es);
+    pop(ax);
+    sti();
 
-al = _printf;
-bx = hi;
-int(0xff);
+    al = _printf;
+    bx = hi;
+    int(0xff);
 
-hi.db = 'hello from Nemizida =)!!!', 0xd, 0
+    hi.db = 'hello from Nemizida =)!!!', 0xd, 0
 
-int_table:
+    int_table:
+    if (!al)
+        bios.reboot();
 
-if (!al)
-    bios.reboot();
+    if (al === _printf)
+        jmp(printf);
 
-if (al === _printf)
-    jmp(printf);
-
-iret
+}
 
 section: 'code';
 

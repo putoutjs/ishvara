@@ -1,7 +1,17 @@
 import {types, operator} from 'putout';
 
-const {replaceWithMultiple} = operator;
-const {callExpression} = types;
+const {
+    expressionStatement,
+    labeledStatement,
+    blockStatement,
+    isLabeledStatement,
+    callExpression,
+} = types;
+
+const {
+    replaceWith,
+    replaceWithMultiple,
+} = operator;
 
 export const report = ({node}) => {
     const {callee} = node;
@@ -18,6 +28,17 @@ export const fix = (path) => {
     
     for (const element of elements) {
         nodes.push(callExpression(callee, [element]));
+    }
+    
+    const {parentPath} = path.parentPath;
+    
+    if (isLabeledStatement(parentPath)) {
+        const {label} = parentPath.node;
+        const expressions = nodes.map(expressionStatement);
+        
+        replaceWith(parentPath, labeledStatement(label, blockStatement(expressions)));
+        
+        return;
     }
     
     replaceWithMultiple(path, nodes);

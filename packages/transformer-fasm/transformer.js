@@ -6,6 +6,7 @@ import * as bundler from '#plugin-bundler-fasm';
 
 export const transform = (source) => {
     const {code: bundled} = putout(source, {
+        isTS: true,
         plugins: [
             ['ishvara/bundler-fasm', bundler],
         ],

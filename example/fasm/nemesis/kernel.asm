@@ -16,6 +16,8 @@ _secread equ 0xc
 _secwrite equ 0xd
 _enter equ 0xd
 _backspace equ 0xe
+
+__ishvara_kernel:
 cli
 push ax
 push es
@@ -36,6 +38,7 @@ __ishvara_int_table:
 test al, al
 jnz __ishvara_fasm_if_1
 jmp far 0xFFFF:0x0000
+
 __ishvara_fasm_if_1:
 cmp al, _printf
 jnz __ishvara_fasm_if_2
@@ -64,7 +67,10 @@ popa
 ret
 
 __ishvara_printf:
-pusha
+push es
+push bx
+push cx
+push di
 mov ax, 0xb800
 mov es, ax
 push bx
@@ -79,10 +85,7 @@ int 0xff
 __ishvara_print:
 lodsb
 test al, al
-jnz __ishvara_fasm_if_3
-jmp __ishvara_end_of_printf
-
-__ishvara_fasm_if_3:
+jz __ishvara_fasm_if_3
 cmp al, _enter
 jnz __ishvara_fasm_if_4
 inc [line]
@@ -121,8 +124,11 @@ mov bh, [line]
 int 0xff
 loop __ishvara_print
 
-__ishvara_end_of_printf:
-popa
+__ishvara_fasm_if_3:
+pop di
+pop cx
+pop bx
+pop es
 iret
 
 __ishvara_getStringLength:
@@ -132,11 +138,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_143:
+__ishvara_do_while_136:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_143
+jnz __ishvara_do_while_136
 mov ax, cx
 ret
 line db 3

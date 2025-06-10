@@ -16,3 +16,8 @@ test('compiler: split-stack-operations: transform', (t) => {
     t.transform('split-stack-operations');
     t.end();
 });
+
+test('compiler: split-stack-operations: transform: label', (t) => {
+    t.transform('label');
+    t.end();
+});
