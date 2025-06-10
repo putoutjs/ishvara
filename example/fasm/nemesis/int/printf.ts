@@ -48,7 +48,7 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
         inc([col]);
 
         _nopoint2write:
-            al = _setcursor;
+        al = _setcursor;
         bl = [col];
         bh = [line];
         int(0xff);

@@ -45,6 +45,51 @@ jnz __ishvara_fasm_if_2
 jmp __ishvara_printf
 
 __ishvara_fasm_if_2:
+cmp al, _setcursor
+jnz __ishvara_fasm_if_3
+jmp __ishvara_setCursor
+
+__ishvara_fasm_if_3:
+iret
+
+__ishvara_setCursor:
+push es
+push ax
+push dx
+mov ax, 0xb800
+mov es, ax
+mov [col], bl
+mov [line], bh
+xor bx, bx
+mov bl, [col]
+xor ax, ax
+mov al, [line]
+mov dx, 0x50
+mul dx
+add bx, ax
+mov al, 0xf
+mov dx, 0x03d4
+out dx, al
+mov al, bl
+mov dx, 0x03d5
+out dx, al
+mov al, 0xe
+mov dx, 0x03d4
+out dx, al
+mov al, bh
+mov dx, 0x03d5
+out dx, al
+xor dx, dx
+xor ax, ax
+mov dl, [line]
+imul dx, 0x50 * 2
+mov di, dx
+mov al, [col]
+imul ax, 2
+mov di, ax
+pop dx
+pop ax
+pop es
 iret
 
 __ishvara_scroll:
@@ -85,9 +130,9 @@ int 0xff
 __ishvara_print:
 lodsb
 test al, al
-jz __ishvara_fasm_if_3
+jz __ishvara_fasm_if_4
 cmp al, _enter
-jnz __ishvara_fasm_if_4
+jnz __ishvara_fasm_if_5
 inc [line]
 mov [col], 0
 cmp [line], 0x19
@@ -96,21 +141,21 @@ call __ishvara_scroll
 dec [line]
 jmp __ishvara__nopoint2write
 
-__ishvara_fasm_if_4:
+__ishvara_fasm_if_5:
 cmp al, _backspace
-jnz __ishvara_fasm_if_5
+jnz __ishvara_fasm_if_6
 xor al, al
 mov ah, [mincol]
 cmp ah, [col]
-jnz __ishvara_fasm_if_6
+jnz __ishvara_fasm_if_7
 jmp __ishvara__nopoint2write
 
-__ishvara_fasm_if_6:
+__ishvara_fasm_if_7:
 dec [col]
 dec [col]
 sub di, 2
 
-__ishvara_fasm_if_5:
+__ishvara_fasm_if_6:
 mov ah, [bgcolor]
 shl ah, 4
 add ah, [textcolor]
@@ -124,7 +169,7 @@ mov bh, [line]
 int 0xff
 loop __ishvara_print
 
-__ishvara_fasm_if_3:
+__ishvara_fasm_if_4:
 pop di
 pop cx
 pop bx
@@ -138,11 +183,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_136:
+__ishvara_do_while_188:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_136
+jnz __ishvara_do_while_188
 mov ax, cx
 ret
 line db 3

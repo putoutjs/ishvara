@@ -1,5 +1,6 @@
 import {org, use16, bios} from '#operator-fasm';
 import {printf} from './int/printf.ts';
+import {setCursor} from './int/set-cursor.ts';
 
 org(0x7e00);
 use16();
@@ -47,6 +48,9 @@ function kernel(): iret {
 
     if (al === _printf)
         jmp(printf);
+    
+    if (al === _setcursor)
+        jmp(setCursor);
 
 }
 
