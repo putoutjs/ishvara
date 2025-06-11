@@ -1,11 +1,12 @@
 import {readSourceLine} from './read-source-line.js';
 
 const {assign} = Object;
+const defaultLoc = {
+    line: 0,
+};
 
 export const prepareError = async (error) => {
-    const {loc = {
-        line: 0,
-    }, id} = error;
+    const {id, loc = defaultLoc} = error;
     
     const line = loc.line + 1;
     const sourceLine = await readSourceLine(id, line);

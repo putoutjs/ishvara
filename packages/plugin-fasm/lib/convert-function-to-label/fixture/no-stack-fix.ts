@@ -4,5 +4,5 @@ write: {
     ret();
 }
 clear: {
-    iret;
+    iret();
 }

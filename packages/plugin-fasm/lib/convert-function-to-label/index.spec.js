@@ -1,5 +1,6 @@
 import {createTest} from '@putout/test';
 import * as plugin from './index.js';
+import * as convertReturnToEax from '../convert-return-to-eax/index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
@@ -29,5 +30,12 @@ test('compiler: convert-function-to-label: transform: async', (t) => {
 
 test('compiler: convert-function-to-label: transform: no-stack', (t) => {
     t.transform('no-stack');
+    t.end();
+});
+
+test('compiler: convert-function-to-label: transform: return', (t) => {
+    t.transform('return', {
+        convertReturnToEax,
+    });
     t.end();
 });

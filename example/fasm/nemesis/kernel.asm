@@ -32,6 +32,7 @@ sti
 mov al, _printf
 mov bx, hi
 int 0xff
+jmp $
 hi db 'hello from Nemizida =)!!!', 0xd, 0
 
 __ishvara_int_table:
@@ -54,7 +55,6 @@ iret
 
 __ishvara_setCursor:
 push es
-push ax
 push dx
 mov ax, 0xb800
 mov es, ax
@@ -86,9 +86,7 @@ imul dx, 0x50 * 2
 mov di, dx
 mov al, [col]
 imul ax, 2
-mov di, ax
 pop dx
-pop ax
 pop es
 iret
 
@@ -126,6 +124,7 @@ mov al, _setcursor
 mov bl, [col]
 mov bh, [line]
 int 0xff
+mov di, ax
 
 __ishvara_print:
 lodsb
@@ -167,6 +166,7 @@ mov al, _setcursor
 mov bl, [col]
 mov bh, [line]
 int 0xff
+mov di, ax
 loop __ishvara_print
 
 __ishvara_fasm_if_4:
@@ -183,11 +183,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_188:
+__ishvara_do_while_189:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_188
+jnz __ishvara_do_while_189
 mov ax, cx
 ret
 line db 3

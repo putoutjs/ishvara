@@ -16,5 +16,5 @@ __ishvara_clear: {
     pop(di);
     pop(ax);
     pop(es);
-    iret;
+    iret();
 }

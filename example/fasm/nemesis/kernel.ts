@@ -39,6 +39,7 @@ function kernel(): iret {
     al = _printf;
     bx = hi;
     int(0xff);
+    jmp($);
 
     hi.db = 'hello from Nemizida =)!!!', 0xd, 0
 

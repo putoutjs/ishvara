@@ -8,5 +8,5 @@ write: {
 clear: {
     push([es, ax, di]);
     pop([di, ax, es]);
-    iret;
+    iret();
 }

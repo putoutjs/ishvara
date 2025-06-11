@@ -1,6 +1,8 @@
 import {types} from 'putout';
 
 const {
+    isCallExpression,
+    isReturnStatement,
     expressionStatement,
     identifier,
     arrayExpression,
@@ -10,7 +12,14 @@ const {
 
 export const report = () => `Use 'label' instead of 'function'`;
 
-export const filter = (path) => !isExportNamedDeclaration(path.parentPath);
+export const filter = (path) => {
+    if (isExportNamedDeclaration(path.parentPath))
+        return false;
+    
+    const last = path.node.body.body.at(-1);
+    
+    return !(isCallExpression(last) && last.callee.name === 'ret');
+};
 
 export const replace = () => ({
     'async function __a<__type_params>(__args): __b {__body}': convertFnToLabel(),
@@ -29,7 +38,8 @@ const convertFnToLabel = (ret) => ({__b, __type_params, __body}) => {
         __body,
     });
     
-    __body.body.push(expressionStatement(maybeRet(ret) || __b.typeName));
+    const iret = expressionStatement(maybeRet(ret) || callExpression(__b.typeName, []));
+    __body.body.push(iret);
     
     return '__a: __body';
 };
@@ -53,7 +63,13 @@ function addStackOperations({__body, __type_params = []}) {
         .reverse());
     
     __body.body.unshift(push);
-    __body.body.push(pop);
+    
+    const last = __body.body.at(-1);
+    
+    if (isReturnStatement(last))
+        __body.body.splice(-1, 1, pop, last);
+    else
+        __body.body.push(pop);
 }
 
 function createStackOperation(name, args) {

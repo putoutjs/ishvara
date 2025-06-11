@@ -10,6 +10,7 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
     bl = [col];
     bh = [line];
     int(0xff);
+    di = ax;
 
     // в bl;столбик
     // в bh;рядок
@@ -52,6 +53,7 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
         bl = [col];
         bh = [line];
         int(0xff);
+        di = ax;
 
         loop(print);
     }

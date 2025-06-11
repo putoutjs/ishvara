@@ -1,4 +1,4 @@
-export async function setCursor<es, ax, dx>(): iret {
+export async function setCursor<es, dx>(): iret {
 // в bl;столбик
 // в bh;рядок
 // ;bx = offset
@@ -45,7 +45,6 @@ export async function setCursor<es, ax, dx>(): iret {
     di = dx;
     al = [col];
     imul(ax, 2);
-    di = ax;
-    // в di возвращается положение курсора
-    // для дальнейшего вывода
+    
+    return ax;
 }
