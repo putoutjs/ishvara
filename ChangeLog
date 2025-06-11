@@ -1,3 +1,8 @@
+2025.06.11, v2.3.8
+
+feature:
+- 5300d47 plugin-fasm: convert-function-to-label: ret
+
 2025.06.10, v2.3.7
 
 feature:
