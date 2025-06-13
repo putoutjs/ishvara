@@ -45,6 +45,7 @@ export async function setCursor<es, dx>(): iret {
     di = dx;
     al = [col];
     imul(ax, 2);
+    di += ax;
     
-    return ax;
+    return di;
 }

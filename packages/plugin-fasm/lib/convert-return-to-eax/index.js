@@ -3,6 +3,8 @@ const i16 = [
     'bx',
     'cx',
     'dx',
+    'di',
+    'si',
 ];
 
 export const report = () => `Use 'eax' instead of 'return'`;

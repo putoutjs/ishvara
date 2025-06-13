@@ -21,3 +21,14 @@ test('fasm: convert-return-to-eax: transform: cx', (t) => {
     t.transform('cx');
     t.end();
 });
+
+test('fasm: convert-return-to-eax: transform: di', (t) => {
+    t.transform('di');
+    t.end();
+});
+
+test('fasm: convert-return-to-eax: transform: si', (t) => {
+    t.transform('si');
+    t.end();
+});
+

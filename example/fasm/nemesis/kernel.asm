@@ -86,8 +86,10 @@ imul dx, 0x50 * 2
 mov di, dx
 mov al, [col]
 imul ax, 2
+add di, ax
 pop dx
 pop es
+mov ax, di
 iret
 
 __ishvara_scroll:
@@ -183,11 +185,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_189:
+__ishvara_do_while_190:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_189
+jnz __ishvara_do_while_190
 mov ax, cx
 ret
 line db 3
