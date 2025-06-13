@@ -1,3 +1,8 @@
+2025.06.14, v2.3.9
+
+feature:
+- 7b96723 ishvara: plugin-fasm: convert-return-to-eax
+
 2025.06.11, v2.3.8
 
 feature:
