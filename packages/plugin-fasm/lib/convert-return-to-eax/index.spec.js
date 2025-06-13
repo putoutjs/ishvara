@@ -31,4 +31,3 @@ test('fasm: convert-return-to-eax: transform: si', (t) => {
     t.transform('si');
     t.end();
 });
-

@@ -6,7 +6,8 @@ const defaultLoc = {
 };
 
 export const prepareError = async (error) => {
-    const {id, loc = defaultLoc} = error;
+    const {id, loc = defaultLoc,
+    } = error;
     
     const line = loc.line + 1;
     const sourceLine = await readSourceLine(id, line);
