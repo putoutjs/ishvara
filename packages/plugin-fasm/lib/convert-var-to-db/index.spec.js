@@ -16,3 +16,8 @@ test('compiler: convert-var-to-db: transform', (t) => {
     t.transform('convert-var-to-db');
     t.end();
 });
+
+test('compiler: convert-var-to-db: transform: let', (t) => {
+    t.transform('let');
+    t.end();
+});

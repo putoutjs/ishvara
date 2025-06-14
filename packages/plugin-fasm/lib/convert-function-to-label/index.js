@@ -16,6 +16,14 @@ export const filter = (path) => {
     if (isExportNamedDeclaration(path.parentPath))
         return false;
     
+    if (path.node.params.length)
+        return false;
+    
+    const {returnType} = path.node;
+    
+    if (returnType && returnType.typeAnnotation.typeName.name !== 'iret')
+        return false;
+    
     const last = path.node.body.body.at(-1);
     
     return !(isCallExpression(last) && last.callee.name === 'ret');

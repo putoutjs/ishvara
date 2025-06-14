@@ -10,5 +10,5 @@
         push(szkernel_name);
         call(getStringLength);
     }
-    mov(ecx, eax);
+    mov(ecx, ax);
 }

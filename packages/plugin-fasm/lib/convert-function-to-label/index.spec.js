@@ -1,6 +1,7 @@
 import {createTest} from '@putout/test';
 import * as plugin from './index.js';
 import * as convertReturnToEax from '../convert-return-to-eax/index.js';
+import * as convertArgumentsToRegisters from '../convert-arguments-to-registers/index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
@@ -35,6 +36,20 @@ test('compiler: convert-function-to-label: transform: no-stack', (t) => {
 
 test('compiler: convert-function-to-label: transform: return', (t) => {
     t.transform('return', {
+        convertReturnToEax,
+    });
+    t.end();
+});
+
+test('compiler: convert-function-to-label: transform: convert-arguments-to-registers', (t) => {
+    t.transform('convert-arguments-to-registers', {
+        convertArgumentsToRegisters,
+    });
+    t.end();
+});
+
+test('compiler: convert-function-to-label: transform: convert-return-to-eax', (t) => {
+    t.transform('convert-return-to-eax', {
         convertReturnToEax,
     });
     t.end();

@@ -4,5 +4,5 @@
 }
 {
     await getStringLength(szkernel_name);
-    ecx = eax;
+    ecx = ax;
 }

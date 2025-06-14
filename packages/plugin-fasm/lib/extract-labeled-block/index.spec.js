@@ -16,3 +16,8 @@ test('fasm: extract-labeled-block: transform', (t) => {
     t.transform('extract-labeled-block');
     t.end();
 });
+
+test('fasm: extract-labeled-block: no report: nested-labels', (t) => {
+    t.noReport('nested-labels');
+    t.end();
+});

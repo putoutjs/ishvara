@@ -3,7 +3,7 @@ add: {
     const bx = 0x2;
     
     {
-        eax = ax + bx;
+        ax = ax + bx;
         ret();
     }
 }

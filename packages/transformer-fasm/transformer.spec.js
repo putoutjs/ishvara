@@ -4,7 +4,7 @@ import {transform} from './transformer.js';
 
 test('ishvara: transformer-fasm', (t) => {
     const [code] = transform(`
-        function add() {
+        function sum():i32 {
             const eax = 1;
             const ebx = 2;
             
@@ -13,7 +13,7 @@ test('ishvara: transformer-fasm', (t) => {
     `);
     
     const expected = montag`
-        __ishvara_add: {
+        __ishvara_sum: {
             mov(eax, 1);
             mov(ebx, 2);
             add(eax, ebx);
@@ -28,7 +28,7 @@ test('ishvara: transformer-fasm', (t) => {
 
 test('ishvara: transformer-fasm: arrow', (t) => {
     const [code] = transform(`
-        const add = () => {
+        const sum = (): i32 => {
             const eax = 1;
             const ebx = 2;
             
@@ -37,7 +37,7 @@ test('ishvara: transformer-fasm: arrow', (t) => {
     `);
     
     const expected = montag`
-        __ishvara_add: {
+        __ishvara_sum: {
             mov(eax, 1);
             mov(ebx, 2);
             add(eax, ebx);
@@ -52,7 +52,7 @@ test('ishvara: transformer-fasm: arrow', (t) => {
 
 test('ishvara: transformer-fasm: if', (t) => {
     const [code] = transform(`
-        function compare () {
+        function compare(): i32 {
             if (eax === ebx)
                 return 5;
             

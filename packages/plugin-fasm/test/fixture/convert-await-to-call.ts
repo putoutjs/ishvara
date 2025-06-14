@@ -5,6 +5,6 @@ async function write<es, ax, di>() {
     });
 }
 
-async function clear<es, ax, di>(a) {
+async function clear<es, ax, di>() {
 }
 

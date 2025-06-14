@@ -16,3 +16,8 @@ test('fasm: split-assign-await-with-assign-eax: transform', (t) => {
     t.transform('split-assign-await-with-assign-eax');
     t.end();
 });
+
+test('fasm: split-assign-await-with-assign-eax: transform: 8-bit', (t) => {
+    t.transform('8-bit');
+    t.end();
+});

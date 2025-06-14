@@ -1,0 +1,4 @@
+{
+    await getLine();
+    dl = al;
+}
