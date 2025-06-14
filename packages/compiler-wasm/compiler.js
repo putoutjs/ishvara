@@ -6,6 +6,7 @@ import {optimize} from '#optimizer-wasm';
 export const compile = async (source, options = {}) => {
     const {name, type = 'binary',
     } = options;
+    
     const [code, compilePlaces] = transform(source);
     
     if (compilePlaces.length)
