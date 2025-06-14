@@ -72,7 +72,6 @@ const getLatestLabeledStatement = (path) => {
     do {
         path = path.parentPath;
     } while (isLabeledStatement(path.parentPath));
-    
     return path;
 };
 
@@ -89,4 +88,3 @@ function getNext(path) {
     
     return path.getNextSibling();
 }
-
