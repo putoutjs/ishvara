@@ -6,57 +6,47 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
     cx = await getStringLength(bx);
     si = bx;
 
-    al = _setcursor;
-    bl = [col];
-    bh = [line];
-    int(0xff);
-    di = ax;
-
-    // в bl;столбик
-    // в bh;рядок
-    print:
-    lodsb();
-    
-    if (al !== 0) {
-        if (al === _enter) {
-            inc([line]);
-            [col] = 0;
-            cmp([line], 25);
-            jl(_nopoint2write);
-
-            await scroll();
-
-            dec([line]);
-            jmp(_nopoint2write);
-        }
-
-        if (al === _backspace) {
-            al = 0;
-            ah = [mincol];
-
-            if (ah === [col])
-                jmp(_nopoint2write);
-
-            dec([col]);
-            dec([col]);
-            di -= 2;
-        }
-
-        ah = [bgcolor];
-        ah <<= 4;
-        ah += [textcolor]
-        stosw();
-        inc([col]);
-
-        _nopoint2write:
+    do {
         al = _setcursor;
         bl = [col];
         bh = [line];
         int(0xff);
         di = ax;
 
-        loop(print);
-    }
+        lodsb();
+        
+        if (al) {
+            if (al === _enter) {
+                inc([line]);
+                [col] = 0;
+                cmp([line], 25);
+                jl(_nopoint2write);
+
+                await scroll();
+
+                dec([line]);
+                jmp(_nopoint2write);
+            }
+            if (al === _backspace) {
+                al = 0;
+                ah = [mincol];
+
+                if (ah === [col])
+                    jmp(_nopoint2write);
+
+                dec([col]);
+                dec([col]);
+                di -= 2;
+            }
+
+            ah = [bgcolor];
+            ah <<= 4;
+            ah += [textcolor]
+
+            stosw();
+            inc([col]);
+        }
+    } while (al);
 }
 
 function scroll() {

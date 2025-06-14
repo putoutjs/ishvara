@@ -122,13 +122,13 @@ push bx
 call __ishvara_getStringLength
 mov cx, ax
 mov si, bx
+
+__ishvara_do_while_134:
 mov al, _setcursor
 mov bl, [col]
 mov bh, [line]
 int 0xff
 mov di, ax
-
-__ishvara_print:
 lodsb
 test al, al
 jz __ishvara_fasm_if_4
@@ -137,10 +137,10 @@ jnz __ishvara_fasm_if_5
 inc [line]
 mov [col], 0
 cmp [line], 0x19
-jl __ishvara__nopoint2write
+jl _nopoint2write
 call __ishvara_scroll
 dec [line]
-jmp __ishvara__nopoint2write
+jmp _nopoint2write
 
 __ishvara_fasm_if_5:
 cmp al, _backspace
@@ -149,7 +149,7 @@ xor al, al
 mov ah, [mincol]
 cmp ah, [col]
 jnz __ishvara_fasm_if_7
-jmp __ishvara__nopoint2write
+jmp _nopoint2write
 
 __ishvara_fasm_if_7:
 dec [col]
@@ -163,15 +163,9 @@ add ah, [textcolor]
 stosw
 inc [col]
 
-__ishvara__nopoint2write:
-mov al, _setcursor
-mov bl, [col]
-mov bh, [line]
-int 0xff
-mov di, ax
-loop __ishvara_print
-
 __ishvara_fasm_if_4:
+test al, al
+jnz __ishvara_do_while_134
 pop di
 pop cx
 pop bx
@@ -185,11 +179,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_190:
+__ishvara_do_while_185:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_190
+jnz __ishvara_do_while_185
 mov ax, cx
 ret
 line db 3
