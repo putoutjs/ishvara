@@ -1,3 +1,9 @@
+2025.06.14, v2.3.10
+
+feature:
+- 43c4267 plugin-fasm: convert-if-to-jmp: nested labels
+- 699277b ishvara: apply-function-declaration
+
 2025.06.14, v2.3.9
 
 feature:
