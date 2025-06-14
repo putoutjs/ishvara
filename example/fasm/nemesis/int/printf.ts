@@ -1,4 +1,19 @@
 import {getStringLength} from '../get-string-length.js';
+import {
+    getLine,
+    incLine,
+    decLine,
+} from './position/line.ts';
+import {
+    getColumn,
+    setColumn,
+    decColumn,
+    incColumn,
+    getMinColumn,
+} from './position/column.ts';
+
+_enter.equ = 0xd;
+_backspace.equ = 0xe;
 
 export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен быть адрес ascii строки
     ax = 0xb800;
@@ -8,45 +23,44 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
 
     do {
         al = _setcursor;
-        bl = [col];
-        bh = [line];
+        bl = await getColumn();
+        bh = await getLine();
         int(0xff);
         di = ax;
 
         lodsb();
         
-        if (al) {
-            if (al === _enter) {
-                inc([line]);
-                [col] = 0;
-                cmp([line], 25);
-                jl(_nopoint2write);
-
+        if (al === _enter) {
+            await incLine();
+            bl = 0;
+            await setColumn();
+            
+            al = await getLine();
+            
+            if (al === 25) {
                 await scroll();
-
-                dec([line]);
-                jmp(_nopoint2write);
+                await decLine();
             }
-            if (al === _backspace) {
-                al = 0;
-                ah = [mincol];
+        }
+        
+        if (al === _backspace) {
+            ah = await getColumn();
+            al = await getMinColumn();
 
-                if (ah === [col])
-                    jmp(_nopoint2write);
-
-                dec([col]);
-                dec([col]);
+            if (ah !== al) {
+                await decColumn();
+                await decColumn();
                 di -= 2;
             }
-
-            ah = [bgcolor];
-            ah <<= 4;
-            ah += [textcolor]
-
-            stosw();
-            inc([col]);
         }
-    } while (al);
+
+        ah = [bgcolor];
+        ah <<= 4;
+        ah += [textcolor]
+
+        stosw();
+        await incColumn();
+    } while (--cx);
 }
 
 function scroll() {
@@ -70,3 +84,4 @@ function scroll() {
     
     popa();
 }
+

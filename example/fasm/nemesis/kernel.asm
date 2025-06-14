@@ -1,3 +1,5 @@
+_enter equ 0xd
+_backspace equ 0xe
 org 0x7e00
 use16
 _reboot equ 0
@@ -14,8 +16,6 @@ _getcursor equ 0xa
 _setminmaxcolline equ 0xb
 _secread equ 0xc
 _secwrite equ 0xd
-_enter equ 0xd
-_backspace equ 0xe
 
 __ishvara_kernel:
 cli
@@ -58,12 +58,11 @@ push es
 push dx
 mov ax, 0xb800
 mov es, ax
-mov [col], bl
-mov [line], bh
-xor bx, bx
-mov bl, [col]
-xor ax, ax
-mov al, [line]
+call __ishvara_setColumn
+call __ishvara_setLine
+mov al, bl
+xor ah, ah
+xor bh, bh
 mov dx, 0x50
 mul dx
 add bx, ax
@@ -81,10 +80,11 @@ mov dx, 0x03d5
 out dx, al
 xor dx, dx
 xor ax, ax
-mov dl, [line]
+call __ishvara_getLine
+mov dl, al
 imul dx, 0x50 * 2
 mov di, dx
-mov al, [col]
+call __ishvara_getColumn
 imul ax, 2
 add di, ax
 pop dx
@@ -123,54 +123,90 @@ call __ishvara_getStringLength
 mov cx, ax
 mov si, bx
 
-__ishvara_do_while_134:
+__ishvara_do_while_137:
 mov al, _setcursor
-mov bl, [col]
-mov bh, [line]
+call __ishvara_getColumn
+mov bl, al
+call __ishvara_getLine
+mov bh, al
 int 0xff
 mov di, ax
 lodsb
-test al, al
-jz __ishvara_fasm_if_4
 cmp al, _enter
+jnz __ishvara_fasm_if_4
+call __ishvara_incLine
+xor bl, bl
+call __ishvara_setColumn
+call __ishvara_getLine
+cmp al, 0x19
 jnz __ishvara_fasm_if_5
-inc [line]
-mov [col], 0
-cmp [line], 0x19
-jl _nopoint2write
 call __ishvara_scroll
-dec [line]
-jmp _nopoint2write
+call __ishvara_decLine
 
 __ishvara_fasm_if_5:
+__ishvara_fasm_if_4:
 cmp al, _backspace
 jnz __ishvara_fasm_if_6
-xor al, al
-mov ah, [mincol]
-cmp ah, [col]
-jnz __ishvara_fasm_if_7
-jmp _nopoint2write
+call __ishvara_getColumn
+mov ah, al
+call __ishvara_getMinColumn
+cmp ah, al
+jz __ishvara_fasm_if_7
+call __ishvara_decColumn
+call __ishvara_decColumn
+sub di, 2
 
 __ishvara_fasm_if_7:
-dec [col]
-dec [col]
-sub di, 2
+nop
 
 __ishvara_fasm_if_6:
 mov ah, [bgcolor]
 shl ah, 4
 add ah, [textcolor]
 stosw
-inc [col]
-
-__ishvara_fasm_if_4:
-test al, al
-jnz __ishvara_do_while_134
+call __ishvara_incColumn
+loop __ishvara_do_while_137
 pop di
 pop cx
 pop bx
 pop es
 iret
+
+__ishvara_getMinColumn:
+mov al, [mincol]
+ret
+
+__ishvara_setColumn:
+mov [col], bl
+ret
+
+__ishvara_decColumn:
+dec [col]
+ret
+
+__ishvara_incColumn:
+inc [col]
+ret
+
+__ishvara_getColumn:
+mov al, [col]
+ret
+
+__ishvara_setLine:
+mov [line], bh
+ret
+
+__ishvara_decLine:
+dec [line]
+ret
+
+__ishvara_incLine:
+inc [line]
+ret
+
+__ishvara_getLine:
+mov al, [line]
+ret
 
 __ishvara_getStringLength:
 pop ax
@@ -179,18 +215,15 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_185:
+__ishvara_do_while_222:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_185
+jnz __ishvara_do_while_222
 mov ax, cx
 ret
-line db 3
 minline db 0
 maxline db 0x18
-col db 0
-mincol db 0
 maxcol db 0x4f
 textcolor db 2
 bgcolor db 0
@@ -201,3 +234,7 @@ error_reading db 'error reading the file o_O', 0
 exec_addr dw $500
 old_ds dw 0
 old_es dw 0
+line db 3
+col db 0
+mincol db 0
+

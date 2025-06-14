@@ -4,6 +4,7 @@ const {
     callExpression,
     labeledStatement,
     identifier,
+    isLabeledStatement,
 } = types;
 
 const {replaceWith, insertAfter} = operator;
@@ -67,6 +68,14 @@ function createLabel(path, name) {
     replaceWith(path, label);
 }
 
+const getLatestLabeledStatement = (path) => {
+    do {
+        path = path.parentPath;
+    } while (isLabeledStatement(path.parentPath));
+    
+    return path;
+};
+
 function getNext(path) {
     const next = path.getNextSibling();
     
@@ -74,9 +83,10 @@ function getNext(path) {
         return next;
     
     if (path.parentPath.isLabeledStatement())
-        path = path.parentPath;
+        path = getLatestLabeledStatement(path);
     
     insertAfter(path, callExpression(identifier('nop'), []));
     
     return path.getNextSibling();
 }
+

@@ -19,9 +19,6 @@ _getcursor.equ = 0xa;
 _setminmaxcolline.equ = 0xb;
 _secread.equ = 0xc;
 _secwrite.equ = 0xd;
-//------------Клава--------
-_enter.equ = 0xd;
-_backspace.equ = 0xe;
 
 function kernel(): iret {
     cli();//подмена прерывания
@@ -60,11 +57,8 @@ section: 'code';
 
 
 //================= Данные ==========================
-line.db = 3;
 minline.db = 0;
 maxline.db = 24;
-col.db = 0;
-mincol.db = 0;
 maxcol.db = 79;
 textcolor.db = 2;
 bgcolor.db = 0;

@@ -1,18 +1,27 @@
+import {
+    getLine,
+    setLine,
+} from './position/line.ts';
+import {
+    getColumn,
+    setColumn,
+} from './position/column.ts';
+
 export async function setCursor<es, dx>(): iret {
-// в bl;столбик
-// в bh;рядок
 // ;bx = offset
     ax = 0xb800
     es = ax;
 
-    [col] = bl;
-    [line] = bh;
+    // в bl;столбик
+    await setColumn();
+    
+    // в bh;рядок
+    await setLine();
 
-    bx = 0;
-    bl = [col];
-    ax = 0;
+    al = bl;
+    ah = 0;
+    bh = 0;
 
-    al = [line];
     dx = 80;
     // calculate y offset
     mul(dx);  
@@ -40,10 +49,10 @@ export async function setCursor<es, dx>(): iret {
 
     dx = 0;
     ax = 0;
-    dl = [line];
+    dl = await getLine();
     imul(dx, 80 * 2);
     di = dx;
-    al = [col];
+    al = await getColumn();
     imul(ax, 2);
     di += ax;
     
