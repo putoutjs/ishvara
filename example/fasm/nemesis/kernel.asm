@@ -124,11 +124,11 @@ mov cx, ax
 mov si, bx
 
 __ishvara_do_while_137:
-mov al, _setcursor
 call __ishvara_getColumn
 mov bl, al
 call __ishvara_getLine
 mov bh, al
+mov al, _setcursor
 int 0xff
 mov di, ax
 lodsb
@@ -144,6 +144,8 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_5:
+jmp __ishvara_do_while_condition_137
+
 __ishvara_fasm_if_4:
 cmp al, _backspace
 jnz __ishvara_fasm_if_6
@@ -157,7 +159,7 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_7:
-nop
+jmp __ishvara_do_while_condition_137
 
 __ishvara_fasm_if_6:
 mov ah, [bgcolor]
@@ -165,6 +167,8 @@ shl ah, 4
 add ah, [textcolor]
 stosw
 call __ishvara_incColumn
+
+__ishvara_do_while_condition_137:
 loop __ishvara_do_while_137
 pop di
 pop cx
@@ -215,11 +219,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_222:
+__ishvara_do_while_226:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_222
+jnz __ishvara_do_while_226
 mov ax, cx
 ret
 minline db 0

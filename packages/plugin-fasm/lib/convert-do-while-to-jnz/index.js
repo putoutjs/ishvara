@@ -3,6 +3,7 @@ import {
     types,
     operator,
 } from 'putout';
+import {LabeledStatement} from '../../../printer-fasm/printer/visitors/labeled-statement.js';
 
 const {insertAfter, replaceWith} = operator;
 const {
@@ -11,6 +12,9 @@ const {
     isCallExpression,
     labeledStatement,
 } = types;
+
+const createStartLabel = (line) => `__ishvara_do_while_${line}`;
+const createConditionLabel = (line) => `__ishvara_do_while_condition_${line}`;
 
 export const report = () => `Use 'jnz' instead of 'do-while'`;
 
@@ -23,31 +27,54 @@ export const match = () => ({
 export const replace = () => ({
     'do {__body} while (--__a)': ({__body}, path) => {
         const {line} = path.node.loc.start;
-        const loopExpression = template.ast(`loop(__ishvara_do_while_${line})`);
+        const startLabel = createStartLabel(line);
+        const loopExpression = template.ast(`loop(${startLabel})`);
+        const conditionLabel = createConditionLabel(line);
         
-        __body.body.push(expressionStatement(loopExpression));
+        let conditionExpression = expressionStatement(loopExpression);
+        const wasContinue = maybeReplaceContinueWithJmp(path, conditionLabel);
         
+        if (wasContinue)
+            conditionExpression = labeledStatement(identifier(conditionLabel), conditionExpression);
+        
+        __body.body.push(conditionExpression);
         maybeReplaceBreak(path, line);
         
-        return `__ishvara_do_while_${line}: __body`;
+        return `${startLabel}: __body`;
     },
     'do {__body} while (!__a)': ({__a, __body}, path) => {
         const {line} = path.node.loc.start;
+        const startLabel = createStartLabel(line);
+        const conditionLabel = createConditionLabel(line);
         const expression = isCallExpression(__a) ? __a : template.ast(`test(${__a.name}, ${__a.name})`);
         
-        __body.body.push(expressionStatement(expression));
-        __body.body.push(expressionStatement(template.ast(`jz(__ishvara_do_while_${line})`)));
+        let conditionExpression = expressionStatement(expression);
+        const wasContinue = maybeReplaceContinueWithJmp(path, conditionLabel);
         
-        return `__ishvara_do_while_${line}: __body`;
+        if (wasContinue)
+            conditionExpression = labeledStatement(identifier(conditionLabel), conditionExpression);
+        
+        __body.body.push(conditionExpression);
+        __body.body.push(expressionStatement(template.ast(`jz(${startLabel})`)));
+        
+        return `${startLabel}: __body`;
     },
     'do {__body} while (__a)': ({__a, __body}, path) => {
         const {line} = path.node.loc.start;
+        const startLabel = createStartLabel(line);
+        const conditionLabel = createConditionLabel(line);
         const expression = isCallExpression(__a) ? __a : template.ast(`test(${__a.name}, ${__a.name})`);
         
-        __body.body.push(expressionStatement(expression));
-        __body.body.push(expressionStatement(template.ast(`jnz(__ishvara_do_while_${line})`)));
+        let conditionExpression = expressionStatement(expression);
+        const wasContinue = maybeReplaceContinueWithJmp(path, conditionLabel);
         
-        return `__ishvara_do_while_${line}: __body`;
+        if (wasContinue)
+            conditionExpression = labeledStatement(identifier(conditionLabel), conditionExpression);
+        
+        __body.body.push(conditionExpression);
+        __body.body.push(expressionStatement(template.ast(`jnz(${startLabel})`)));
+        
+        return `${startLabel}: __body`;
     },
 });
 
@@ -72,3 +99,16 @@ function maybeReplaceBreak(path, line) {
             insertAfter(path, labeledNode);
     }
 }
+
+function maybeReplaceContinueWithJmp(path, startLabel) {
+    let was = false;
+    
+    path.traverse({
+        ContinueStatement(path) {
+            path.replaceWithSourceString(`jmp(${startLabel})`);
+            was = true;
+        },
+    });
+    return was;
+}
+

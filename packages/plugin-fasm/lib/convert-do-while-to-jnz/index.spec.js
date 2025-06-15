@@ -46,3 +46,9 @@ test('fasm: convert-do-while-to-jz: transform: not', (t) => {
     });
     t.end();
 });
+
+test('fasm: convert-do-while-to-jz: transform: continue', (t) => {
+    t.transform('continue');
+    t.end();
+});
+

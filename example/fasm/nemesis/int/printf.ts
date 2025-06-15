@@ -41,6 +41,8 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
                 await scroll();
                 await decLine();
             }
+            
+            continue;
         }
         
         if (al === _backspace) {
@@ -52,6 +54,7 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
                 await decColumn();
                 di -= 2;
             }
+            continue;
         }
 
         ah = [bgcolor];
