@@ -1,3 +1,8 @@
+2025.06.15, v2.4.0
+
+feature:
+- 94a2319 @putout/plugin-fasm: convert-do-while-to-jnz: continue
+
 2025.06.15, v2.3.11
 
 feature:
