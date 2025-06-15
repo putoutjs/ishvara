@@ -3,7 +3,6 @@ import {types} from 'putout';
 const {
     isProgram,
     isBlockStatement,
-    blockStatement,
 } = types;
 
 export const report = (path) => {
@@ -45,4 +44,3 @@ function extractBody(path, other) {
     
     body.splice(index + 1, 0, ...other);
 }
-
