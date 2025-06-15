@@ -56,3 +56,8 @@ test('plugin-optimizer-fasm: transform: remove-useless-jmp', (t) => {
     t.transform('remove-useless-jmp');
     t.end();
 });
+
+test('plugin-optimizer-fasm: transform: merge-labels-of-duplicate-instructions', (t) => {
+    t.transform('merge-labels-of-duplicate-instructions');
+    t.end();
+});

@@ -31,4 +31,12 @@ export const replace = () => ({
             __a = ${eax};
         }`;
     },
+    '__a: __b = await __c(__args)': ({__b}) => {
+        const eax = getEax(__b.name);
+        
+        return `{
+            __a: await __c(__args);
+            __b = ${eax};
+        }`;
+    },
 });

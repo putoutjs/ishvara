@@ -22,9 +22,9 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
     si = bx;
 
     do {
-        al = _setcursor;
         bl = await getColumn();
         bh = await getLine();
+        al = _setcursor;
         int(0xff);
         di = ax;
 

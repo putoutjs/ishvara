@@ -1,3 +1,4 @@
+import * as mergeLabelsOfDuplicateInstructions from './merge-labels-of-duplicate-instructions/index.js';
 import * as removeUselessJmp from './remove-useless-jmp/index.js';
 import * as removeUselessNop from './remove-useless-nop/index.js';
 import * as removeUselessCondition from './remove-useless-condition/index.js';
@@ -20,4 +21,5 @@ export const rules = {
     'remove-useless-condition': removeUselessCondition,
     'remove-useless-nop': removeUselessNop,
     'remove-useless-jmp': removeUselessJmp,
+    'merge-labels-of-duplicate-instructions': mergeLabelsOfDuplicateInstructions,
 };

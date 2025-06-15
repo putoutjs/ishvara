@@ -57,7 +57,7 @@ export const rules = {
     'convert-assign-to-sub': convertAssignToSub,
     'convert-bios-clear-screen-to-int-10': convertBiosClearScreenToInt10,
     'convert-bios-print-line-to-int-10': convertBiosPrintLineToInt10,
-    'convert-do-while-to-jz': convertDoWhileToJnz,
+    'convert-do-while-to-jnz': convertDoWhileToJnz,
     'split-assign-await-with-assign-eax': splitAssignAwaitWithAssignEax,
     'convert-bios-scroll-to-int-10': convertBiosScrollToInt10,
     'convert-bios-read-char-to-int-16': convertBiosReadCharToInt16,

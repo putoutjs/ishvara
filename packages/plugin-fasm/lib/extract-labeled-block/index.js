@@ -1,8 +1,9 @@
 import {types} from 'putout';
 
 const {
-    isLabeledStatement,
     isProgram,
+    isBlockStatement,
+    blockStatement,
 } = types;
 
 export const report = (path) => {
@@ -14,26 +15,34 @@ export const report = (path) => {
 export const match = () => ({
     '__a: {__body}': (vars, path) => {
         const {parentPath} = path;
-        
-        if (isLabeledStatement(path.parentPath))
-            return false;
-        
         return !isProgram(parentPath);
     },
 });
-
 export const replace = () => ({
+    '__a: __b: {__body}': ({__body}, path) => {
+        const [first, ...other] = __body.body;
+        
+        if (!isBlockStatement(first)) {
+            path.node.body.body = first;
+            extractBody(path, other);
+        }
+        
+        return path;
+    },
     '__a: {__body}': ({__body}, path) => {
         const [first, ...other] = __body.body;
-        let index;
-        
-        try {
-            index = path.parentPath.node.body.indexOf(path.node);
-        } catch {}
         
         path.node.body = first;
-        path.parentPath.node.body.splice(index + 1, 0, ...other);
+        extractBody(path, other);
         
         return path;
     },
 });
+
+function extractBody(path, other) {
+    const index = path.parentPath.node.body.indexOf(path.node);
+    const {body} = path.parentPath.node;
+    
+    body.splice(index + 1, 0, ...other);
+}
+

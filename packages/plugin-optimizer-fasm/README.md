@@ -12,3 +12,4 @@ Transforms:
 - ✅[`remove-useless-condition`](https://putout.cloudcmd.io/#/gist/0aa4bd34bbcd79c44a0c6e601ab70144/ab04a3b4ab0572703392224c0a3f4af058260569);
 - ✅[`remove-useless-nop`](http://putout.cloudcmd.io/#/gist/c8e30a751bf179c3de9cd88ffc71d625/f9244a1032046ef98fdeb2f79d2419c2c9a1adcb);
 - ✅[`remove-useless-jmp`](https://putout.cloudcmd.io/#/gist/bdc2f1fdc6f8ffedbb94582cc5daae4b/b08c0cb3da1a2e12ed9b5b33585a487f48325d0a);
+- ✅[`merge-labels-of-duplicate-instructions`](https://putout.cloudcmd.io/#/gist/c84c8f82f4b2fa014507882c6c24e59d/c960d71c72159356d050727ef3fefa5ab0fa0474);
