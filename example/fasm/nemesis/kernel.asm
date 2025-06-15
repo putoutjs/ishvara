@@ -1,5 +1,3 @@
-_enter equ 0xd
-_backspace equ 0xe
 org 0x7e00
 use16
 _reboot equ 0
@@ -16,6 +14,8 @@ _getcursor equ 0xa
 _setminmaxcolline equ 0xb
 _secread equ 0xc
 _secwrite equ 0xd
+_backspace equ 0xe
+_enter equ 0xd
 
 __ishvara_kernel:
 cli
