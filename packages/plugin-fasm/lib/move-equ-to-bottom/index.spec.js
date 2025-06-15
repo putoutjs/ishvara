@@ -21,4 +21,3 @@ test('fasm: move-equ-to-bottom: no report after transform', (t) => {
     t.noReportAfterTransform('move-equ-to-bottom');
     t.end();
 });
-
