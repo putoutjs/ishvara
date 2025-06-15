@@ -1,3 +1,8 @@
+2025.06.15, v2.4.1
+
+feature:
+- 26ba4a6 ishvara: plugin-fasm: move-equ-to-bottom
+
 2025.06.15, v2.4.0
 
 feature:
