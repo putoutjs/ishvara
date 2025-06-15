@@ -1,3 +1,8 @@
+2025.06.15, v2.3.11
+
+feature:
+- df45154 ishvara: split-assign-await-with-assign-eax
+
 2025.06.14, v2.3.10
 
 feature:
