@@ -26,4 +26,3 @@ test('optimizer-fasm: remove-duplicate-operations: no report: call', (t) => {
     t.noReport('call');
     t.end();
 });
-

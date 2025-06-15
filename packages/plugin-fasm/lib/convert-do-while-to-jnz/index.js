@@ -3,7 +3,6 @@ import {
     types,
     operator,
 } from 'putout';
-import {LabeledStatement} from '../../../printer-fasm/printer/visitors/labeled-statement.js';
 
 const {insertAfter, replaceWith} = operator;
 const {
@@ -111,4 +110,3 @@ function maybeReplaceContinueWithJmp(path, startLabel) {
     });
     return was;
 }
-

@@ -51,4 +51,3 @@ test('fasm: convert-do-while-to-jz: transform: continue', (t) => {
     t.transform('continue');
     t.end();
 });
-

@@ -8,6 +8,7 @@ const ALLOWED_INSTRUCTIONS = [
 ];
 
 const {compare} = operator;
+
 const check = ({__a}, path) => {
     if (!ALLOWED_INSTRUCTIONS.includes(__a.name))
         return false;
