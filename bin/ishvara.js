@@ -32,6 +32,11 @@ const [name] = args._;
 const [error, source] = await bundle(name);
 
 if (error) {
+    if (!error.id) {
+        console.error(error.message);
+        process.exit(1);
+    }
+    
     if (error.code === 'UNRESOLVED_IMPORT') {
         console.error(`file://${chalk.blue(error.id)}: ${chalk.red(error.message)}`);
         process.exit(1);

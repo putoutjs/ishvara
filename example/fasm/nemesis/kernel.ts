@@ -1,4 +1,4 @@
-import {org, use16, bios} from '#operator-fasm';
+import {org, use16, bios, nemesis} from '#operator-fasm';
 import {printf} from './int/printf.ts';
 import {setCursor} from './int/set-cursor.ts';
 
@@ -33,12 +33,10 @@ function kernel(): iret {
     pop(ax);
     sti();
 
-    al = _printf;
-    bx = hi;
-    int(0xff);
+    nemesis.printf(hi);
     jmp($);
 
-    hi.db = 'hello from Nemizida =)!!!', 0xd, 0
+    hi.db = 'Hello from Nemesis =)!', 0xd, 0
 
     int_table:
     if (!al)

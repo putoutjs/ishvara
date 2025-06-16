@@ -87,6 +87,9 @@
     "#ishvara": "./packages/ishvara/ishvara.js"
   },
   "license": "MIT",
+  "workspaces": [
+    "externals/*"
+  ],
   "engines": {
     "node": ">=20"
   },

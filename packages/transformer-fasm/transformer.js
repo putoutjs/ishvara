@@ -12,7 +12,6 @@ export const transform = (source, config = defaultConfig) => {
     const {code: bundled} = putout(source, {
         isTS: true,
         plugins: [
-            ...config.plugins,
             ['ishvara/bundler-fasm', bundler],
         ],
     });
@@ -21,6 +20,7 @@ export const transform = (source, config = defaultConfig) => {
         fixCount: 4,
         isTS: true,
         plugins: [
+            ...config.plugins,
             ['remove-nested-blocks', removeNestedBlocks],
             ['ishvara/ishvara', ishvara],
             ['ishvara/fasm', fasm],

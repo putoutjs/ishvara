@@ -1,3 +1,4 @@
+import {nemesis} from '#operator-fasm';
 import {getStringLength} from '../get-string-length.js';
 import {
     getLine,
@@ -24,8 +25,12 @@ export async function printf<es, bx, cx, di>(): iret {// ;2 в bx должен �
     do {
         bl = await getColumn();
         bh = await getLine();
-        al = _setcursor;
-        int(0xff);
+        
+        nemesis.setCursor({
+            column: bl,
+            line: bh,
+        })
+        
         di = ax;
 
         lodsb();

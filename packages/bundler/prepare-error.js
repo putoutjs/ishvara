@@ -8,6 +8,13 @@ const defaultLoc = {
 export const prepareError = async (error) => {
     const {id, loc = defaultLoc} = error;
     
+    if (!id) {
+        assign(error, {
+            loc,
+        });
+        return error;
+    }
+    
     const line = loc.line + 1;
     const sourceLine = await readSourceLine(id, line);
     const message = error.message.replace('.', `: '${sourceLine}'`);
