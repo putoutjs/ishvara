@@ -11,7 +11,7 @@ export const match = () => ({
     '__a.eq(local.get(__b), __a.const(0))': ({__a}) => {
         return EQZ.includes(__a.name);
     },
-    '__a.eq(__a.const(0), local.get(__a))': ({__a}) => {
+    '__a.eq(__a.const(0), local.get(__b))': ({__a}) => {
         return EQZ.includes(__a.name);
     },
 });

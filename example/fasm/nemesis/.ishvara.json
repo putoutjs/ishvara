@@ -1,0 +1,5 @@
+{
+  "plugins": [
+    "@ishvara/plugin-fasm-nemesis"
+  ]
+}

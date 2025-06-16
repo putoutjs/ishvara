@@ -3,8 +3,7 @@
 import {writeFileSync} from 'node:fs';
 import process from 'node:process';
 import {stat} from 'node:fs/promises';
-import {join} from 'node:path';
-import * as path from 'node:path';
+import path, {join} from 'node:path';
 import {codeFrameColumns} from '@putout/babel';
 import chalk from 'chalk';
 import {run} from '#runner-wasm';
@@ -13,6 +12,7 @@ import {help} from '#cli-help';
 import * as ishvara from '#ishvara';
 import {bundle} from '../packages/bundler/index.js';
 import {prepareError} from '../packages/bundler/prepare-error.js';
+import {parseConfig} from '../packages/cli-args/parse-config.js';
 
 const {O = 1, RAW} = process.env;
 const args = parseArgs(process.argv.slice(2));
@@ -46,6 +46,13 @@ if (error) {
     process.exit(1);
 }
 
+const [errorOptions, config] = await parseConfig(name);
+
+if (errorOptions) {
+    console.error(errorOptions);
+    process.exit(1);
+}
+
 if (args.output === 'bundle') {
     if (RAW)
         console.log(source);
@@ -63,6 +70,7 @@ const [binary, compilePlaces] = await ishvara.compile(source, {
     type: args.output,
     target: args.target,
     optimization: Boolean(Number(O)),
+    config,
 });
 
 if (compilePlaces.length) {
@@ -114,3 +122,4 @@ function write(input, extension, binary) {
     
     writeFileSync(full, binary);
 }
+

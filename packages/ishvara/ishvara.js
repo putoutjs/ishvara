@@ -7,6 +7,7 @@ export const compile = async (source, options) => {
         type,
         name,
         optimization,
+        config,
     } = options;
     
     if (target === 'wasm')

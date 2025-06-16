@@ -12,7 +12,6 @@ export const validateArgs = async (args, {log, exit, stat}) => {
     }
     
     const [name] = args._;
-    
     const [error] = await tryToCatch(stat, name);
     
     if (error) {
