@@ -8,6 +8,7 @@ test('ishvara: cli-args: parse-args', (t) => {
         '-t',
         'fasm',
     ]);
+    
     const expected = {
         _: [],
         o: 'assembly',

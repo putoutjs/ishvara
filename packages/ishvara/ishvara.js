@@ -1,3 +1,4 @@
+import {config} from 'node:process';
 import * as wasm from '#compiler-wasm';
 import * as fasm from '#compiler-fasm';
 

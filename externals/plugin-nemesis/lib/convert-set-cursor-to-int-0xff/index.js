@@ -7,7 +7,7 @@ const {extract} = operator;
 export const report = () => `Use '0xff' instead of 'nemesis.setCursor'`;
 
 export const replace = () => ({
-    'nemesis.setCursor(__object)': ({__object}, path) => {
+    'nemesis.setCursor(__object)': ({__object}) => {
         const {column, line} = parseArgs(__object);
         
         return `{
@@ -35,4 +35,3 @@ function parseArgs({properties}) {
     
     return result;
 }
-
