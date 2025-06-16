@@ -8,7 +8,7 @@ export const parseConfig = async (name, {readConfig = _readConfig} = {}) => {
     const [error, options] = await tryToCatch(readConfig, configPath);
     
     if (error.code === 'ERR_MODULE_NOT_FOUND')
-        return [null, {}];
+        return [null, { }];
     
     return [error, options];
 };
@@ -16,4 +16,3 @@ export const parseConfig = async (name, {readConfig = _readConfig} = {}) => {
 async function _readConfig(configPath) {
     return await import(configPath);
 }
-

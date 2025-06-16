@@ -22,4 +22,3 @@ test('ishvara: cli-options: parse-options: options', async (t) => {
     t.equal(error, originalError);
     t.end();
 });
-

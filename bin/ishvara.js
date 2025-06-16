@@ -122,4 +122,3 @@ function write(input, extension, binary) {
     
     writeFileSync(full, binary);
 }
-

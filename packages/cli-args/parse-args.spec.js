@@ -2,7 +2,12 @@ import {test} from 'supertape';
 import {parseArgs} from './parse-args.js';
 
 test('ishvara: cli-args: parse-args', (t) => {
-    const result = parseArgs(['-o', 'assembly', '-t', 'fasm']);
+    const result = parseArgs([
+        '-o',
+        'assembly',
+        '-t',
+        'fasm',
+    ]);
     const expected = {
         _: [],
         o: 'assembly',
