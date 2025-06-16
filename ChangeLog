@@ -1,3 +1,10 @@
+2025.06.16, v2.4.2
+
+feature:
+- 229ffe0 ishvara: plugin-nemesis: add
+- 9177e26 ishvara: read config
+- ac1bc22 ishvara: readConfig: add
+
 2025.06.15, v2.4.1
 
 feature:
