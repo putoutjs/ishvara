@@ -9,9 +9,10 @@ export const compile = async (source, options = {}) => {
         type = 'binary',
         optimization = true,
         target = 'fasm',
+        config,
     } = options;
     
-    const [code, compilePlaces] = transform(source);
+    const [code, compilePlaces] = transform(source, config);
     
     if (compilePlaces.length)
         return [code, compilePlaces];

@@ -20,5 +20,6 @@ export const compile = async (source, options) => {
         type,
         target,
         optimization,
+        config,
     });
 };

@@ -17,3 +17,24 @@ test('ishvara: asm', async (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: asm: config', async (t) => {
+    const source = 'const a = 2; eax = 1';
+    const [result] = await compile(source, {
+        target: 'asm',
+        config: {
+            plugins: [
+                'remove-unused-variables',
+            ],
+        },
+    });
+    
+    const expected = montag`
+        xor eax, eax
+        inc eax
+        \n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

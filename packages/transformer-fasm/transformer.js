@@ -4,10 +4,15 @@ import * as fasm from '#plugin-fasm';
 import * as ishvara from '#plugin-ishvara';
 import * as bundler from '#plugin-bundler-fasm';
 
-export const transform = (source) => {
+const defaultConfig = {
+    plugins: [],
+};
+
+export const transform = (source, config = defaultConfig) => {
     const {code: bundled} = putout(source, {
         isTS: true,
         plugins: [
+            ...config.plugins,
             ['ishvara/bundler-fasm', bundler],
         ],
     });
