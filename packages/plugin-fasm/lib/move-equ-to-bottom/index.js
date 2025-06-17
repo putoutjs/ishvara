@@ -2,12 +2,14 @@ import {operator} from 'putout';
 
 const {remove, insertAfter} = operator;
 
-export const report = () => `Move 'equ' to end`;
+export const report = () => `Move 'equ' to bottom`;
 
 export const fix = ({path, last}) => {
-    const {node} = path;
-    insertAfter(last, node);
-    remove(path);
+    const {node} = path.parentPath;
+    const programPath = path.scope.getProgramParent().path;
+    
+    programPath.node.body.push(node);
+    remove(path.parentPath);
 };
 
 export const traverse = ({listStore, push}) => ({
@@ -15,7 +17,11 @@ export const traverse = ({listStore, push}) => ({
     'Program': {
         exit() {
             const all = listStore();
-            const last = all.at(-1);
+            
+            if (!all.length)
+                return;
+            
+            const last = getLast(all);
             
             for (const path of all) {
                 const prev = path.parentPath.getPrevSibling();
@@ -31,3 +37,14 @@ export const traverse = ({listStore, push}) => ({
         },
     },
 });
+
+function getLast(all) {
+    const lastEqu = all.at(-1);
+    const last = lastEqu.parentPath.getNextSibling();
+    
+    if (last.node)
+        return last;
+    
+    return lastEqu;
+}
+

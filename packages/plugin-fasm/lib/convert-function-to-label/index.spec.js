@@ -54,3 +54,9 @@ test('compiler: convert-function-to-label: transform: convert-return-to-eax', (t
     });
     t.end();
 });
+
+test('compiler: convert-function-to-label: transform: early-return', (t) => {
+    t.transform('early-return');
+    t.end();
+});
+

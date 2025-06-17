@@ -6,6 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 test('ishvara: cli-options: parse-options', async (t) => {
     const [, result] = await parseConfig(__filename);
+    
     const expected = {};
     
     t.deepEqual(result, expected);

@@ -1,29 +1,11 @@
 org 0x7e00
 use16
-_reboot equ 0
-_get_char equ 1
-_printf equ 2
-_find_file equ 3
-_exec equ 4
-_find_first equ 5
-_color equ 6
-_setcursor equ 7
-_gets equ 8
-_cls equ 9
-_getcursor equ 0xa
-_setminmaxcolline equ 0xb
-_secread equ 0xc
-_secwrite equ 0xd
-_backspace equ 0xe
-_enter equ 0xd
-
-__ishvara_kernel:
 cli
 push ax
 push es
 xor ax, ax
 mov es, ax
-mov ax, __ishvara_int_table
+mov ax, __ishvara_intTable
 mov [es:0xff * 4], ax
 mov [es:0xff * 4 + 2], cs
 pop es
@@ -35,7 +17,7 @@ int 0xff
 jmp $
 hi db 'Hello from Nemesis =)!', 0xd, 0
 
-__ishvara_int_table:
+__ishvara_intTable:
 test al, al
 jnz __ishvara_fasm_if_1
 jmp far 0xFFFF:0x0000
@@ -43,12 +25,14 @@ jmp far 0xFFFF:0x0000
 __ishvara_fasm_if_1:
 cmp al, _printf
 jnz __ishvara_fasm_if_2
-jmp __ishvara_printf
+call __ishvara_printf
+iret
 
 __ishvara_fasm_if_2:
 cmp al, _setcursor
 jnz __ishvara_fasm_if_3
-jmp __ishvara_setCursor
+call __ishvara_setCursor
+iret
 
 __ishvara_fasm_if_3:
 iret
@@ -90,25 +74,6 @@ add di, ax
 pop dx
 pop es
 mov ax, di
-iret
-
-__ishvara_scroll:
-pusha
-mov ax, 0xb800
-mov ds, ax
-mov es, ax
-mov si, 0x50 * 2
-xor di, di
-mov cx, 0x50 * 0x18 * 2
-rep movsb
-xor ax, ax
-mov ds, ax
-mov ah, [bgcolor]
-shl ah, 4
-add ah, [textcolor]
-mov cx, 0x50
-rep stosw
-popa
 ret
 
 __ishvara_printf:
@@ -123,7 +88,7 @@ call __ishvara_getStringLength
 mov cx, ax
 mov si, bx
 
-__ishvara_do_while_136:
+__ishvara_do_while_118:
 call __ishvara_getColumn
 mov bl, al
 call __ishvara_getLine
@@ -144,7 +109,7 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_5:
-jmp __ishvara_do_while_condition_136
+jmp __ishvara_do_while_condition_118
 
 __ishvara_fasm_if_4:
 cmp al, _backspace
@@ -159,7 +124,7 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_7:
-jmp __ishvara_do_while_condition_136
+jmp __ishvara_do_while_condition_118
 
 __ishvara_fasm_if_6:
 mov ah, [bgcolor]
@@ -168,13 +133,32 @@ add ah, [textcolor]
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_136:
-loop __ishvara_do_while_136
+__ishvara_do_while_condition_118:
+loop __ishvara_do_while_118
 pop di
 pop cx
 pop bx
 pop es
-iret
+ret
+
+__ishvara_scroll:
+pusha
+mov ax, 0xb800
+mov ds, ax
+mov es, ax
+mov si, 0x50 * 2
+xor di, di
+mov cx, 0x50 * 0x18 * 2
+rep movsb
+xor ax, ax
+mov ds, ax
+mov ah, [bgcolor]
+shl ah, 4
+add ah, [textcolor]
+mov cx, 0x50
+rep stosw
+popa
+ret
 
 __ishvara_getMinColumn:
 mov al, [mincol]
@@ -219,11 +203,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_229:
+__ishvara_do_while_233:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_229
+jnz __ishvara_do_while_233
 mov ax, cx
 ret
 minline db 0
@@ -241,4 +225,20 @@ old_es dw 0
 line db 3
 col db 0
 mincol db 0
+_enter equ 0xd
+_backspace equ 0xe
+_reboot equ 0
+_get_char equ 1
+_printf equ 2
+_find_file equ 3
+_exec equ 4
+_find_first equ 5
+_color equ 6
+_setcursor equ 7
+_gets equ 8
+_cls equ 9
+_getcursor equ 0xa
+_setminmaxcolline equ 0xb
+_secread equ 0xc
+_secwrite equ 0xd
 

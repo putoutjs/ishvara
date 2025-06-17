@@ -1,5 +1,6 @@
-import {types} from 'putout';
+import {types, operator} from 'putout';
 
+const {replaceWith} = operator;
 const {
     isCallExpression,
     isReturnStatement,
@@ -40,11 +41,18 @@ export const replace = () => ({
     'async function __a(__args) {__body}': convertFnToLabel('ret'),
 });
 
-const convertFnToLabel = (ret) => ({__b, __type_params, __body}) => {
+const convertFnToLabel = (ret) => ({__b, __type_params, __body}, path) => {
     addStackOperations({
         __type_params,
         __body,
     });
+    
+    if (__b)
+        path.traverse({
+            ReturnStatement(path) {
+                path.replaceWithSourceString('iret()');
+            },
+        });
     
     const iret = expressionStatement(maybeRet(ret) || callExpression(__b.typeName, []));
     __body.body.push(iret);
@@ -88,3 +96,4 @@ function createStackOperation(name, args) {
     
     return expressionStatement(callExpression(callee, params));
 }
+

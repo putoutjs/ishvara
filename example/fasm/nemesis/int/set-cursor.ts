@@ -7,8 +7,8 @@ import {
     setColumn,
 } from './position/column.ts';
 
-export async function setCursor<es, dx>(): iret {
-// ;bx = offset
+export async function setCursor<es, dx>() {
+    // bx = offset
     ax = 0xb800
     es = ax;
 

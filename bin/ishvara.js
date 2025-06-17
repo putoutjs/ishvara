@@ -32,6 +32,8 @@ const [name] = args._;
 const [error, source] = await bundle(name);
 
 if (error) {
+    console.log(error);
+    
     if (!error.id) {
         console.error(error.message);
         process.exit(1);
@@ -80,6 +82,7 @@ const [binary, compilePlaces] = await ishvara.compile(source, {
 
 if (compilePlaces.length) {
     console.error(compilePlaces);
+    console.log(binary);
     process.exit(1);
 }
 

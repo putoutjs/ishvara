@@ -19,7 +19,7 @@ export const parseConfig = (name, overrides = {}) => {
     if (!error)
         return [null, options];
     
-    if (error.code === 'ERR_MODULE_NOT_FOUND')
+    if (error.code === 'MODULE_NOT_FOUND')
         return [null, { }];
     
     return [error, options];

@@ -1,58 +1,27 @@
-import {org, use16, bios, nemesis} from '#operator-fasm';
-import {printf} from './int/printf.ts';
-import {setCursor} from './int/set-cursor.ts';
+import {org, use16, nemesis} from '#operator-fasm';
+import {intTable} from './int/int-table.ts'
 
 org(0x7e00);
 use16();
 
-_reboot.equ = 0;
-_get_char.equ = 1;
-_printf.equ = 2;
-_find_file.equ = 3;
-_exec.equ = 4;
-_find_first.equ = 5;
-_color.equ = 6;
-_setcursor.equ = 7;
-_gets.equ = 8;
-_cls.equ = 9;
-_getcursor.equ = 0xa;
-_setminmaxcolline.equ = 0xb;
-_secread.equ = 0xc;
-_secwrite.equ = 0xd;
+cli();//подмена прерывания
+push([ax, es]);
 
-function kernel(): iret {
-    cli();//подмена прерывания
-    push([ax, es]);
-    ax = 0;
-    es = ax;
-    ax = int_table;
-    es[0xff * 4] = ax;
-    es[0xff * 4 + 2] = cs;
+ax = 0;
+es = ax;
+ax = intTable;
+es[0xff * 4] = ax;
+es[0xff * 4 + 2] = cs;
 
-    pop(es);
-    pop(ax);
-    sti();
+pop([es, ax])
+sti();
 
-    nemesis.printf(hi);
-    jmp($);
+nemesis.printf(hi);
+jmp($);
 
-    hi.db = 'Hello from Nemesis =)!', 0xd, 0
-
-    int_table:
-    if (!al)
-        bios.reboot();
-
-    if (al === _printf)
-        jmp(printf);
-    
-    if (al === _setcursor)
-        jmp(setCursor);
-
-}
+hi.db = 'Hello from Nemesis =)!', 0xd, 0
 
 section: 'code';
-
-
 
 //================= Данные ==========================
 minline.db = 0;
