@@ -59,4 +59,3 @@ test('compiler: convert-function-to-label: transform: early-return', (t) => {
     t.transform('early-return');
     t.end();
 });
-

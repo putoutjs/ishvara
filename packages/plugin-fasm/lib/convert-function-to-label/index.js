@@ -1,6 +1,5 @@
-import {types, operator} from 'putout';
+import {types} from 'putout';
 
-const {replaceWith} = operator;
 const {
     isCallExpression,
     isReturnStatement,
@@ -96,4 +95,3 @@ function createStackOperation(name, args) {
     
     return expressionStatement(callExpression(callee, params));
 }
-

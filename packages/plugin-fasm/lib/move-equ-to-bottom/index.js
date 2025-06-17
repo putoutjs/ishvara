@@ -1,10 +1,10 @@
 import {operator} from 'putout';
 
-const {remove, insertAfter} = operator;
+const {remove} = operator;
 
 export const report = () => `Move 'equ' to bottom`;
 
-export const fix = ({path, last}) => {
+export const fix = ({path}) => {
     const {node} = path.parentPath;
     const programPath = path.scope.getProgramParent().path;
     
@@ -47,4 +47,3 @@ function getLast(all) {
     
     return lastEqu;
 }
-
