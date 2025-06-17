@@ -1,3 +1,8 @@
+2025.06.17, v2.4.3
+
+feature:
+- e615b08 ishvara: move iret to int-table
+
 2025.06.16, v2.4.2
 
 feature:
