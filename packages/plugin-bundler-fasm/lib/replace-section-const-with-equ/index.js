@@ -1,10 +1,8 @@
-import {operator, types} from 'putout';
+import {operator} from 'putout';
 
-const {isMemberExpression} = types;
 const {
     replaceWithMultiple,
     remove,
-    compare,
 } = operator;
 
 export const report = () => `Replace section 'const' with 'equ'`;
@@ -49,4 +47,3 @@ export const traverse = ({store, pathStore, push}) => ({
         },
     },
 });
-

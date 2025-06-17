@@ -21,4 +21,3 @@ test('bundler-fasm: replace-section-code-with-functions: no report: no-section-c
     t.noReport('no-section-code');
     t.end();
 });
-

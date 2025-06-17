@@ -20,10 +20,8 @@ export const fix = ({label, fns}) => {
 export const traverse = ({store, pathStore, push}) => ({
     LabeledStatement(path) {
         const {node} = path;
-        const {
-            label,
-            body,
-        } = node;
+        const {label, body} = node;
+        
         const {name} = label;
         
         if (name === 'section' && body.expression.value === 'code')
