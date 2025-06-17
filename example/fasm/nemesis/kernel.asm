@@ -14,8 +14,30 @@ sti
 mov al, 2
 mov bx, hi
 int 0xff
+mov al, 4
+mov bx, sh3ll
+int 0xff
 jmp $
 hi db 'Hello from Nemesis =)!', 0xd, 0
+buf rb 0x10
+not_f db 'sh3ll not found :(!', 0
+sh3ll db 'SH3LL '
+_secwrite equ 0xd
+_secread equ 0xc
+_setminmaxcolline equ 0xb
+_getcursor equ 0xa
+_cls equ 9
+_gets equ 8
+_setcursor equ 7
+_color equ 6
+_find_first equ 5
+_exec equ 4
+_find_file equ 3
+_printf equ 2
+_get_char equ 1
+_reboot equ 0
+_backspace equ 0xe
+_enter equ 0xd
 
 __ishvara_intTable:
 test al, al
@@ -88,7 +110,7 @@ call __ishvara_getStringLength
 mov cx, ax
 mov si, bx
 
-__ishvara_do_while_118:
+__ishvara_do_while_122:
 call __ishvara_getColumn
 mov bl, al
 call __ishvara_getLine
@@ -109,7 +131,7 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_5:
-jmp __ishvara_do_while_condition_118
+jmp __ishvara_do_while_condition_122
 
 __ishvara_fasm_if_4:
 cmp al, _backspace
@@ -124,7 +146,7 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_7:
-jmp __ishvara_do_while_condition_118
+jmp __ishvara_do_while_condition_122
 
 __ishvara_fasm_if_6:
 mov ah, [bgcolor]
@@ -133,8 +155,8 @@ add ah, [textcolor]
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_118:
-loop __ishvara_do_while_118
+__ishvara_do_while_condition_122:
+loop __ishvara_do_while_122
 pop di
 pop cx
 pop bx
@@ -203,11 +225,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_233:
+__ishvara_do_while_237:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_233
+jnz __ishvara_do_while_237
 mov ax, cx
 ret
 minline db 0
@@ -225,20 +247,4 @@ old_es dw 0
 line db 3
 col db 0
 mincol db 0
-_enter equ 0xd
-_backspace equ 0xe
-_reboot equ 0
-_get_char equ 1
-_printf equ 2
-_find_file equ 3
-_exec equ 4
-_find_first equ 5
-_color equ 6
-_setcursor equ 7
-_gets equ 8
-_cls equ 9
-_getcursor equ 0xa
-_setminmaxcolline equ 0xb
-_secread equ 0xc
-_secwrite equ 0xd
 

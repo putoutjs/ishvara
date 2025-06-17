@@ -4,7 +4,7 @@ import {intTable} from './int/int-table.ts'
 org(0x7e00);
 use16();
 
-cli();//подмена прерывания
+cli();
 push([ax, es]);
 
 ax = 0;
@@ -17,10 +17,16 @@ pop([es, ax])
 sti();
 
 nemesis.printf(hi);
+nemesis.exec(sh3ll);
+
 jmp($);
 
-hi.db = 'Hello from Nemesis =)!', 0xd, 0
+hi.db = 'Hello from Nemesis =)!', 0xd, 0;
+buf.rb = 0x10;
+not_f.db = 'sh3ll not found :(!', 0;
+sh3ll.db = 'SH3LL ';
 
+section: 'const';
 section: 'code';
 
 //================= Данные ==========================

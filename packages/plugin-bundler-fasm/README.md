@@ -3,3 +3,4 @@
 Transforms:
 
 - ✅[`replace-section-code-with-functions`](https://putout.cloudcmd.io/#/gist/d921a3f8d8d5cbb74375e7249072f90b/5b89930d7d76e64104a670e0fbda8c76d3dfddd2);
+- ✅[`replace-section-const-with-equ`](https://putout.cloudcmd.io/#/gist/ec655a05b5566519b46e77aa10fad1e3/94da259261f1a4011c29bbf42e922acb3d2b02e3);

@@ -3,16 +3,22 @@ import * as plugin from './index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
-        ['move-functions-before-data', plugin],
+        ['replace-section-code-with-functions', plugin],
     ],
 });
 
-test('bundler-fasm: move-functions-before-data: report', (t) => {
-    t.report('move-functions-before-data', `Replace section 'code' with functions`);
+test('bundler-fasm: replace-section-code-with-functions: report', (t) => {
+    t.report('replace-section-code-with-functions', `Replace section 'code' with functions`);
     t.end();
 });
 
-test('bundler-fasm: move-functions-before-data: transform', (t) => {
-    t.transform('move-functions-before-data');
+test('bundler-fasm: replace-section-code-with-functions: transform', (t) => {
+    t.transform('replace-section-code-with-functions');
     t.end();
 });
+
+test('bundler-fasm: replace-section-code-with-functions: no report: no-section-code', (t) => {
+    t.noReport('no-section-code');
+    t.end();
+});
+

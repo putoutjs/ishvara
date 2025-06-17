@@ -1,18 +1,20 @@
-import {operator} from 'putout';
+import {operator, types} from 'putout';
 
+const {isMemberExpression} = types;
 const {
     replaceWithMultiple,
     remove,
+    compare,
 } = operator;
 
-export const report = () => `Replace section 'code' with functions`;
+export const report = () => `Replace section 'const' with 'equ'`;
 
-export const fix = ({label, fns}) => {
+export const fix = ({label, list}) => {
     const nodes = [];
     
-    for (const fn of fns.reverse()) {
-        nodes.push(fn.node);
-        remove(fn);
+    for (const current of list.reverse()) {
+        nodes.push(current.node);
+        remove(current);
     }
     
     replaceWithMultiple(label, nodes);
@@ -20,32 +22,31 @@ export const fix = ({label, fns}) => {
 export const traverse = ({store, pathStore, push}) => ({
     LabeledStatement(path) {
         const {node} = path;
-        const {
-            label,
-            body,
-        } = node;
+        const {label, body} = node;
+        
         const {name} = label;
         
-        if (name === 'section' && body.expression.value === 'code')
+        if (name === 'section' && body.expression.value === 'const')
             store('label', path);
     },
-    FunctionDeclaration: pathStore,
-    Program: {
+    '__a.equ = __b': pathStore,
+    'Program': {
         exit(path) {
             const [label] = store();
-            const fns = pathStore();
+            const list = pathStore();
             
             if (!label)
                 return;
             
-            if (!fns.length)
+            if (!list.length)
                 return;
             
             push({
                 path,
                 label,
-                fns,
+                list,
             });
         },
     },
 });
+

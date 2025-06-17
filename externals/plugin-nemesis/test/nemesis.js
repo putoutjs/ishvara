@@ -21,3 +21,8 @@ test('plugin-nemesis: transform: convert-set-cursor-to-int-0xff', (t) => {
     t.transform('convert-set-cursor-to-int-0xff');
     t.end();
 });
+
+test('plugin-nemesis: transform: convert-exec-to-int-0xff', (t) => {
+    t.transform('convert-exec-to-int-0xff');
+    t.end();
+});

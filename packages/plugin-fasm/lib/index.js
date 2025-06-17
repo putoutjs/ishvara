@@ -1,4 +1,3 @@
-import * as moveEquToBottom from './move-equ-to-bottom/index.js';
 import * as convertArgumentsToRegisters from './convert-arguments-to-registers/index.js';
 import * as convertTernaryToIf from './convert-ternary-to-if/index.js';
 import * as convertStrncmpToRepeCmpsb from './convert-strncmp-to-repe-cmpsb/index.js';
@@ -67,5 +66,4 @@ export const rules = {
     'convert-strncmp-to-repe-cmpsb': convertStrncmpToRepeCmpsb,
     'convert-ternary-to-if': convertTernaryToIf,
     'convert-arguments-to-registers': convertArgumentsToRegisters,
-    'move-equ-to-bottom': moveEquToBottom,
 };

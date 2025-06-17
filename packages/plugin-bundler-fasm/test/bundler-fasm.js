@@ -11,3 +11,8 @@ test('plugin-bundler-fasm: transform: replace-section-code-with-functions', (t) 
     t.transform('replace-section-code-with-functions');
     t.end();
 });
+
+test('plugin-bundler-fasm: transform: replace-section-const-with-equ', (t) => {
+    t.transform('replace-section-const-with-equ');
+    t.end();
+});

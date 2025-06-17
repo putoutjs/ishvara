@@ -141,8 +141,3 @@ test('plugin-fasm: transform: convert-arguments-to-registers', (t) => {
     t.transform('convert-arguments-to-registers');
     t.end();
 });
-
-test('plugin-fasm: transform: move-equ-to-bottom', (t) => {
-    t.transform('move-equ-to-bottom');
-    t.end();
-});
