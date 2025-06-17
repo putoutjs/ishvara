@@ -1,3 +1,8 @@
+2025.06.17, v2.4.4
+
+feature:
+- a26bcc6 ishvara: plugin-bundler: replace-section-code-with-functions
+
 2025.06.17, v2.4.3
 
 feature:
