@@ -105,3 +105,19 @@ test('ishvara: printer-fasm: AssignmentExpression', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
+    const source = montag`
+        mov(al, [
+            backgroundColor,
+        ]);
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        mov al, [backgroundColor]\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

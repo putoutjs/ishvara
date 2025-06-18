@@ -1,22 +1,22 @@
 let col = 0;
-let mincol = 0;
+const minCol = 0;
 
-export async function getColumn(): i8 {
-    return [col]
+export function getColumn(): i8 {
+    return [col];
 }
 
-export async function incColumn() {
+export function incColumn() {
     inc([col]);
 }
 
-export async function decColumn() {
+export function decColumn() {
     dec([col]);
 }
 
-export async function setColumn() {
+export function setColumn() {
     [col] = bl;
 }
 
-export async function getMinColumn(): i8 {
-    return [mincol]
+export function getMinColumn(): i8 {
+    return [minCol];
 }

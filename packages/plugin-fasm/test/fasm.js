@@ -141,3 +141,8 @@ test('plugin-fasm: transform: convert-arguments-to-registers', (t) => {
     t.transform('convert-arguments-to-registers');
     t.end();
 });
+
+test('plugin-fasm: transform: apply-types', (t) => {
+    t.transform('apply-types');
+    t.end();
+});

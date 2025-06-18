@@ -1,17 +1,17 @@
 let line = 3;
 
-export async function getLine(): i8 {
-    return [line]
+export function getLine(): i8 {
+    return [line];
 }
 
-export async function incLine() {
+export function incLine() {
     inc([line]);
 }
 
-export async function decLine() {
+export function decLine() {
     dec([line]);
 }
 
-export async function setLine() {
+export function setLine() {
     [line] = bh;
 }

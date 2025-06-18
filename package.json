@@ -23,7 +23,8 @@
     "coverage": "madrun coverage",
     "report": "madrun report",
     "build:boot": "madrun build:boot",
-    "build:nemesis": "madrun build:nemesis"
+    "build:nemesis": "madrun build:nemesis",
+    "build:nemesis:all": "madrun build:nemesis:all"
   },
   "dependencies": {
     "@putout/babel": "^4.0.1",

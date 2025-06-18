@@ -11,6 +11,7 @@ export const print = (ast) => {
     return putoutPrint(ast, {
         semantics: {
             comments: false,
+            maxElementLengthInOneLine: 100,
         },
         visitors: {
             AssignmentExpression,

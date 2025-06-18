@@ -1,5 +1,5 @@
 {
-  "plugins": [
-    "@ishvara/plugin-nemesis"
-  ]
+    "plugins": [
+        "@ishvara/plugin-nemesis"
+    ]
 }

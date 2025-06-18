@@ -1,5 +1,21 @@
 org 0x7e00
 use16
+_secwrite equ 0xd
+_secread equ 0xc
+_setminmaxcolline equ 0xb
+_getcursor equ 0xa
+_cls equ 9
+_gets equ 8
+_setcursor equ 7
+_color equ 6
+_find_first equ 5
+_exec equ 4
+_find_file equ 3
+_printf equ 2
+_get_char equ 1
+_reboot equ 0
+_backspace equ 0xe
+_enter equ 0xd
 cli
 push ax
 push es
@@ -18,26 +34,6 @@ mov al, 4
 mov bx, sh3ll
 int 0xff
 jmp $
-hi db 'Hello from Nemesis =)!', 0xd, 0
-buf rb 0x10
-not_f db 'sh3ll not found :(!', 0
-sh3ll db 'SH3LL '
-_secwrite equ 0xd
-_secread equ 0xc
-_setminmaxcolline equ 0xb
-_getcursor equ 0xa
-_cls equ 9
-_gets equ 8
-_setcursor equ 7
-_color equ 6
-_find_first equ 5
-_exec equ 4
-_find_file equ 3
-_printf equ 2
-_get_char equ 1
-_reboot equ 0
-_backspace equ 0xe
-_enter equ 0xd
 
 __ishvara_intTable:
 test al, al
@@ -71,10 +67,9 @@ push ax
 push di
 mov ax, 0xb800
 mov es, ax
-xor ax, ax
-mov ah, [bgcolor]
-shl ah, 4
-mov ah, [textcolor]
+call __ishvara_getColor
+mov ah, al
+xor al, al
 xor di, di
 mov cx, 0x19 * 0x50
 rep stosw
@@ -137,7 +132,7 @@ call __ishvara_getStringLength
 mov cx, ax
 mov si, bx
 
-__ishvara_do_while_143:
+__ishvara_do_while_137:
 call __ishvara_getColumn
 mov bl, al
 call __ishvara_getLine
@@ -158,7 +153,7 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_6:
-jmp __ishvara_do_while_condition_143
+jmp __ishvara_do_while_condition_137
 
 __ishvara_fasm_if_5:
 cmp al, _backspace
@@ -173,17 +168,18 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_8:
-jmp __ishvara_do_while_condition_143
+jmp __ishvara_do_while_condition_137
 
 __ishvara_fasm_if_7:
-mov ah, [bgcolor]
-shl ah, 4
-add ah, [textcolor]
+mov bl, al
+call __ishvara_getColor
+mov ah, al
+mov al, bl
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_143:
-loop __ishvara_do_while_143
+__ishvara_do_while_condition_137:
+loop __ishvara_do_while_137
 pop di
 pop cx
 pop bx
@@ -201,16 +197,38 @@ mov cx, 0x50 * 0x18 * 2
 rep movsb
 xor ax, ax
 mov ds, ax
-mov ah, [bgcolor]
-shl ah, 4
-add ah, [textcolor]
+mov ah, al
+call __ishvara_getColor
+xchg al, ah
 mov cx, 0x50
 rep stosw
 popa
 ret
 
+__ishvara_getColor:
+mov al, [backgroundColor]
+shl al, 4
+add al, [textColor]
+ret
+
+__ishvara_setTextColor:
+mov [textColor], al
+ret
+
+__ishvara_getTextColor:
+mov al, [textColor]
+ret
+
+__ishvara_getBackgroundColor:
+mov al, [backgroundColor]
+ret
+
+__ishvara_setBackgroundColor:
+mov [backgroundColor], al
+ret
+
 __ishvara_getMinColumn:
-mov al, [mincol]
+mov al, [minCol]
 ret
 
 __ishvara_setColumn:
@@ -252,26 +270,30 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_258:
+__ishvara_do_while_280:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_258
+jnz __ishvara_do_while_280
 mov ax, cx
 ret
+hi db 'Hello from Nemesis =)!', 0xd, 0
+sh3ll db 'SH3LL ', 0
+buf rb 0x10
+not_f db 'sh3ll not found :(!', 0
 minline db 0
 maxline db 0x18
 maxcol db 0x4f
-textcolor db 2
-bgcolor db 0
 file_offset dw 0
 file_size dw 0
 file_sec_size db 0
-error_reading db 'error reading the file o_O', 0
-exec_addr dw $500
+error_reading2 db 'error reading the file o_O', 0
+exec_addr dw 0x500
 old_ds dw 0
-old_es dw 0
+old_esi dw 0
 line db 3
 col db 0
-mincol db 0
+minCol db 0
+textColor db 2
+backgroundColor db 0
 

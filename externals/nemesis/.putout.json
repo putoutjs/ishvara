@@ -1,7 +1,13 @@
 {
-  "rules": {
-    "extract-sequence-expressions": "off",
-    "assignment/convert-to-declaration": "off",
-    "labels/remove-unuse": "off"
-  }
+    "rules": {
+        "apply-arrow": "off",
+        "extract-sequence-expressions": "off",
+        "assignment/convert-to-declaration": "off",
+        "labels/remove-unuse": "off",
+        "nodejs/declare": "off",
+        "remove-unused-expressions": "off",
+        "remove-unused-variables": "off",
+        "typescript/remove-useless-types-from-constants": "off",
+        "declare-before-reference": "off"
+    }
 }

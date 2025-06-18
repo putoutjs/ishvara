@@ -1,4 +1,8 @@
-import {org, use16, bios} from '#operator-fasm';
+import {
+    org,
+    use16,
+    bios,
+} from '#operator-fasm';
 import {getStringLength} from '../get-string-length.js';
 import {printf} from './printf.js';
 import {reboot} from './reboot.js';
@@ -7,9 +11,8 @@ org(0x7c00);
 use16();
 boot: jmp(start);
 line.db = 0;
-
 // Standard BIOS Parameter Block, "BPB".   ;
-bpbOEM.db  = 'nemesis ';
+bpbOEM.db = 'nemesis ';
 bpbSectSize.dw = 512;
 bpbClustSize.db = 1;
 bpbReservedSec.dw = 1;
@@ -23,7 +26,6 @@ bpbHeads.dw = 2;
 bpbHiddenSect.dd = 0;
 kernel_offset.dw = 0;
 kernel_size.dw = 0;
-
 // extended BPB for FAT12/FAT16   ;
 bpbDriveNo.db = 0;
 kernel_sec_size.db = 0;
@@ -41,11 +43,11 @@ async function start() {
     ss = ax;
     --ax;
     sp = 0x7c00;
-
+    
     bios.clearScreen();
-
+    
     await printf(loader_name);
-
+    
     ax = bios.readSector({
         count: 1,
         buffer: kernel_begin,
@@ -56,8 +58,9 @@ async function start() {
     });
     
     if (ax) {
-        await printf(error_reading)
+        await printf(error_reading);
         await reboot();
+        
         return;
     }
     
@@ -67,7 +70,7 @@ async function start() {
         di = kernel_name;
         ax = await getStringLength(di);
         cx = strncmp(bx, di, ax);
-
+        
         if (cx) {
             bx += 0x20;
             si = bx;
@@ -77,11 +80,11 @@ async function start() {
                 // в корне ядра нет :(
                 await printf(error_finding);
                 await reboot();
+                
                 return;
             }
         }
     } while (cx);
-    
     si += 0x14;
     lodsw();
     [kernel_offset] = ax;
@@ -90,18 +93,18 @@ async function start() {
     cx = 0x200;
     cwd();
     div(cx);
-
+    
     if (dx)
         ++al;
-
+    
     [kernel_sec_size] = al;
     await printf(kernel_found);
-
-    cx = 3
+    
+    cx = 3;
     // Грузим ядро
     do {
         push(cx);
-
+        
         bx = kernel_begin; // ;$a000 ;buffer
         ax = [kernel_offset];
         al -= 2;
@@ -109,14 +112,15 @@ async function start() {
         mul(cx);
         ax += 0x4200;
         cwd(); // необязательно... но, мало ли... лучше
-        div(cx) // пропишем, что б потом неожиданностей небыло...
+        div(cx);
+        // пропишем, что б потом неожиданностей небыло...
         // получаем количество секторов в ax
         cx = 18; //дорожка
         cwd();
         div(cx);
         // в ax номер дорожки
         // в dx номер сектора на дорожке
-        ++dl
+        ++dl;
         cl = dl; // номер сектора
         dx = ax; // смотрим парная ли дорожка
         push(dx);
@@ -127,7 +131,7 @@ async function start() {
         // дискетук a.k.a головке один
         pop(bx);
         pop(dx);
-
+        
         dh = dx === 1 ? 1 : 0;
         ax = bios.readSector({
             count: [kernel_sec_size],
@@ -149,20 +153,20 @@ async function start() {
     if (ax) {
         await printf(error_krnlfile);
         await reboot();
+        
         return;
     }
 }
 
 section: 'imports';
+(loader_name.db = 'Nemesis Loader o_O', 0);
+(error_reading.db = 'error: read', 0);
+(kernel_found.db = 'kernel found', 0);
+(error_finding.db = 'error: kernel not found', 0);
+(error_krnlfile.db = 'kernel not load', 0);
+(kernel_load.db = 'kernel load', 0);
+(press_any_key.db = 'press any key', 0);
+(kernel_name.db = 'KERNEL', 0);
 
-loader_name.db  = 'Nemesis Loader o_O', 0;
-error_reading.db = 'error: read', 0;
-kernel_found.db = 'kernel found', 0;
-error_finding.db = 'error: kernel not found', 0;
-error_krnlfile.db  = 'kernel not load', 0;
-kernel_load.db = 'kernel load', 0;
-press_any_key.db = 'press any key', 0;
-kernel_name.db = 'KERNEL', 0;
-
-rb, 0x200 - ($ - boot) - 2;
+(rb, 0x200 - ($ - boot) - 2);
 db(0x55, 0xaa);

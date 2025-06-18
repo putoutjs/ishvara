@@ -11,4 +11,7 @@ export default {
     'report': () => 'c8 report --reporter=lcov',
     'build:boot': () => './bin/ishvara.js -t fasm example/fasm/nemesis/boot/index.js',
     'build:nemesis': () => './bin/ishvara.js -t asm externals/nemesis/kernel.ts',
+    'build:nemesis:all': () => [
+        './bin/ishvara.js -t fasm externals/nemesis/kernel.ts',
+    ].join('&&'),
 };

@@ -1,3 +1,4 @@
+import * as applyTypes from './apply-types/index.js';
 import * as convertArgumentsToRegisters from './convert-arguments-to-registers/index.js';
 import * as convertTernaryToIf from './convert-ternary-to-if/index.js';
 import * as convertStrncmpToRepeCmpsb from './convert-strncmp-to-repe-cmpsb/index.js';
@@ -19,7 +20,6 @@ import * as convertDeclarationToToMov from './convert-declaration-to-mov/index.j
 import * as convertMovToAdd from './convert-mov-to-add/index.js';
 import * as convertReturnToEax from './convert-return-to-eax/index.js';
 import * as applyInc from './apply-inc/index.js';
-import * as convertVarToDb from './convert-var-to-db/index.js';
 import * as moveVarsToBottom from './move-vars-to-bottom/index.js';
 import * as convEquCallToMember from './convert-equ-call-to-member/index.js';
 import * as convertDecToHex from './convert-dec-to-hex/index.js';
@@ -34,7 +34,6 @@ import * as convertFunctionToLabel from './convert-function-to-label/index.js';
 
 export const rules = {
     'move-vars-to-bottom': moveVarsToBottom,
-    'convert-vars-to-db': convertVarToDb,
     'convert-dec-to-hex': convertDecToHex,
     'convert-equ-call-to-member': convEquCallToMember,
     'convert-assign-to-member': convertAssignToMember,
@@ -66,4 +65,5 @@ export const rules = {
     'convert-strncmp-to-repe-cmpsb': convertStrncmpToRepeCmpsb,
     'convert-ternary-to-if': convertTernaryToIf,
     'convert-arguments-to-registers': convertArgumentsToRegisters,
+    'apply-types': applyTypes,
 };

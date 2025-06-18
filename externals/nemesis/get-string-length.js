@@ -1,14 +1,14 @@
-export async function getStringLength() {
-    pop(ax)
+export function getStringLength() {
+    pop(ax);
     pop(si);
     push(ax);
     cx = -1;
     cld();
-
+    
     do {
         lodsb();
         ++cx;
-    } while (al)
-
+    } while (al);
+    
     return cx;
 }

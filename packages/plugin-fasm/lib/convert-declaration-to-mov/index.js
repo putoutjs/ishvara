@@ -1,11 +1,17 @@
 import {types} from 'putout';
+import {isRegister} from '../regs.js';
 
 const {isExportDeclaration} = types;
 
 export const report = () => `Use 'mov' instead of 'const'`;
 
 export const match = () => ({
-    'const __a = __b': (vars, path) => !isExportDeclaration(path.parentPath),
+    'const __a = __b': ({__a}, path) => {
+        if (!isRegister(__a.name))
+            return false;
+        
+        return !isExportDeclaration(path.parentPath);
+    },
 });
 
 export const replace = () => ({

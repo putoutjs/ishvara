@@ -8,6 +8,7 @@ import {intTable} from './int/int-table.ts';
 org(0x7e00);
 use16();
 
+section: 'const';
 cli();
 push([ax, es]);
 
@@ -25,34 +26,24 @@ nemesis.printf(hi);
 nemesis.exec(sh3ll);
 
 jmp($);
-hi.db = 'Hello from Nemesis =)!', 0xd, 0;
-buf.rb = 0x10;
-not_f.db = 'sh3ll not found :(!', 0;
-sh3ll.db = 'SH3LL ';
 
-section: 'const';
 section: 'code';
+const hi = [
+    'Hello from Nemesis =)!',
+    0xd,
+];
 
-//================= Данные ==========================
-minline.db = 0;
-maxline.db = 24;
-maxcol.db = 79;
-textcolor.db = 2;
-bgcolor.db = 0;
-file_offset.dw = 0;
-file_size.dw = 0;
-file_sec_size.db = 0;
-error_reading.db = 'error reading the file o_O', 0;
-exec_addr.dw = $500;
-old_ds.dw = 0;
-old_es.dw = 0;
-///ascii_pic db '      __________',$d
-///          db   ".'`   |     |`'.",$d
-///          db   "|     '-----'  |",$d
-///          db   "|              |",$d
-///          db   "|  .--------.  |",$d
-///          db   "|  |n3m1z1d4|  |",$d
-///          db   "|  |-- OS --|  |",$d
-///          db   "|  |--0.01--|  |",$d
-///          db   "|  ;--------;  |",$d
-///
+const sh3ll = 'SH3LL ';
+
+let buf: rb = 0x10;
+const not_f = 'sh3ll not found :(!';
+let minline = 0;
+let maxline = 24;
+let maxcol = 79;
+let file_offset: i16 = 0;
+let file_size: i16 = 0;
+let file_sec_size = 0;
+let error_reading2 = 'error reading the file o_O';
+let exec_addr: i16 = 0x500;
+let old_ds: i16 = 0;
+let old_esi: i16 = 0;

@@ -24,3 +24,8 @@ test('fasm: convert-declaration-to-mov: transform: apply-equality', (t) => {
     });
     t.end();
 });
+
+test('fasm: convert-declaration-to-mov: no report: not-reg', (t) => {
+    t.noReport('not-reg');
+    t.end();
+});
