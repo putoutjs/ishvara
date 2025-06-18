@@ -20,11 +20,10 @@ export function setTextColor() {
 }
 
 export function getColor(): i8 {
-    al = [
-        backgroundColor,
-    ];
+    al = [backgroundColor];
     al <<= 4;
     al += [textColor];
     
     return al;
 }
+

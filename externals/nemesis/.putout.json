@@ -1,4 +1,9 @@
 {
+    "printer": ["putout", {
+        "semantics": {
+            "maxElementLengthInOneLine": 100
+        }
+    }],
     "rules": {
         "apply-arrow": "off",
         "extract-sequence-expressions": "off",
