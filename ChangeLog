@@ -1,3 +1,9 @@
+2025.06.19, v2.4.6
+
+feature:
+- 3154976 ishvara: remove-useless-xchg
+- d7cfe9f ishvara: preserve al before call
+
 2025.06.19, v2.4.5
 
 feature:
