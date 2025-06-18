@@ -121,3 +121,29 @@ test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test.only('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
+    const source = montag`
+         __ishvara_reboot: {
+            push(press_any_key);
+            call(__ishvara_printf);
+                // ждем нажатия на клаву ;)
+            xor(ax, ax);
+            int(0x16);
+            jmp.far('0xFFFF:0x0000');
+        }
+        org(0x7c00);
+        
+        mov(al, [
+            backgroundColor,
+        ]);
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        mov al, [backgroundColor]\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

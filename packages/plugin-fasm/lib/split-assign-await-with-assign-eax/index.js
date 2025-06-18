@@ -1,23 +1,13 @@
-const REGS_8BIT = [
-    'al',
-    'bl',
-    'cl',
-    'dl',
-    'ah',
-    'bh',
-    'ch',
-    'dh',
-];
-
-const is8bit = (name) => {
-    return REGS_8BIT.includes(name);
-};
+import {is32bit, is8bit} from '../regs.js';
 
 export const report = () => `Get result from 'eax'`;
 
 const getEax = (name) => {
     if (is8bit(name))
         return 'al';
+    
+    if (is32bit(name))
+        return 'eax';
     
     return 'ax';
 };
@@ -27,16 +17,18 @@ export const replace = () => ({
         const eax = getEax(__a.name);
         
         return `{
-            await __b(__args);
             __a = ${eax};
+            await __b(__args);
+            xchg(__a, ${eax});
         }`;
     },
     '__a: __b = await __c(__args)': ({__b}) => {
         const eax = getEax(__b.name);
         
         return `{
-            __a: await __c(__args);
             __b = ${eax};
+            __a: await __c(__args);
+            xchg(__b, ${eax});
         }`;
     },
 });

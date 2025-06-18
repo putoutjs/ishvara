@@ -64,10 +64,11 @@ ret
 __ishvara_fasm_if_1:
 mov bx, kernel_begin
 
-__ishvara_do_while_65:
+__ishvara_do_while_66:
 mov di, kernel_name
 push di
 call __ishvara_getStringLength
+xchg ax, ax
 mov cx, ax
 mov si, bx
 repe cmpsb
@@ -86,7 +87,7 @@ ret
 __ishvara_fasm_if_6:
 __ishvara_fasm_if_5:
 test cx, cx
-jnz __ishvara_do_while_65
+jnz __ishvara_do_while_66
 add si, 0x14
 lodsw
 mov [kernel_offset], ax
@@ -105,7 +106,7 @@ push kernel_found
 call __ishvara_printf
 mov cx, 3
 
-__ishvara_do_while_100:
+__ishvara_do_while_102:
 push cx
 mov bx, kernel_begin
 mov ax, [kernel_offset]
@@ -141,14 +142,14 @@ mov al, [kernel_sec_size]
 xor dl, dl
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_131
+jnc __ishvara_read_sector_ok_133
 mov al, 1
-jmp __ishvara_read_sector_end_131
+jmp __ishvara_read_sector_end_133
 
-__ishvara_read_sector_ok_131:
+__ishvara_read_sector_ok_133:
 xor ax, ax
 
-__ishvara_read_sector_end_131:
+__ishvara_read_sector_end_133:
 clc
 test ax, ax
 jnz __ishvara_fasm_if_8
@@ -158,7 +159,7 @@ jmp kernel_begin
 
 __ishvara_fasm_if_8:
 pop cx
-loop __ishvara_do_while_100
+loop __ishvara_do_while_102
 test ax, ax
 jz __ishvara_fasm_if_3
 push error_krnlfile
@@ -179,9 +180,10 @@ __ishvara_printf:
 pop si
 pop bp
 push si
+mov cx, ax
 push bp
 call __ishvara_getStringLength
-mov cx, ax
+xchg cx, ax
 xor bh, bh
 mov bl, 2
 xor dl, dl
@@ -209,11 +211,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_190:
+__ishvara_do_while_194:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_190
+jnz __ishvara_do_while_194
 mov ax, cx
 ret
 loader_name db 'Nemesis Loader o_O', 0
@@ -222,8 +224,8 @@ kernel_found db 'kernel found', 0
 error_finding db 'error: kernel not found', 0
 error_krnlfile db 'kernel not load', 0
 kernel_load db 'kernel load', 0
-press_any_key db 'press any key', 0
 kernel_name db 'KERNEL', 0
+press_any_key db 'press any key', 0
 rb 0x200 - ($ - __ishvara_boot) - 2
 db 0x55, 0xaa
 

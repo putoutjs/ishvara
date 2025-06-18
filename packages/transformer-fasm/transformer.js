@@ -8,7 +8,13 @@ const defaultConfig = {
     plugins: [],
 };
 
-export const transform = (source, config = defaultConfig) => {
+const parseConfig = (config) => ({
+    ...defaultConfig,
+    ...config,
+});
+
+export const transform = (source, config) => {
+    const {plugins} = parseConfig(config);
     const {code: bundled} = putout(source, {
         isTS: true,
         plugins: [
@@ -20,7 +26,7 @@ export const transform = (source, config = defaultConfig) => {
         fixCount: 4,
         isTS: true,
         plugins: [
-            ...config.plugins,
+            ...plugins,
             ['remove-nested-blocks', removeNestedBlocks],
             ['ishvara/ishvara', ishvara],
             ['ishvara/fasm', fasm],

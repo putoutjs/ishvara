@@ -158,15 +158,16 @@ async function start() {
     }
 }
 
-section: 'imports';
-(loader_name.db = 'Nemesis Loader o_O', 0);
-(error_reading.db = 'error: read', 0);
-(kernel_found.db = 'kernel found', 0);
-(error_finding.db = 'error: kernel not found', 0);
-(error_krnlfile.db = 'kernel not load', 0);
-(kernel_load.db = 'kernel load', 0);
-(press_any_key.db = 'press any key', 0);
-(kernel_name.db = 'KERNEL', 0);
+section: 'code';
+
+const loader_name = 'Nemesis Loader o_O';
+const error_reading = 'error: read';
+const kernel_found = 'kernel found';
+const error_finding = 'error: kernel not found';
+const error_krnlfile = 'kernel not load';
+const kernel_load = 'kernel load';
+const kernel_name = 'KERNEL';
+press_any_key.db = 'press any key', 0;
 
 (rb, 0x200 - ($ - boot) - 2);
 db(0x55, 0xaa);
