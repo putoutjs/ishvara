@@ -6,6 +6,7 @@ const {
     isExportNamedDeclaration,
     isFunction,
 } = types;
+
 const {extract} = operator;
 
 const TYPES = {
