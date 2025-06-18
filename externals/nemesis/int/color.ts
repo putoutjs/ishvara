@@ -6,9 +6,7 @@ export function setBackgroundColor() {
 }
 
 export function getBackgroundColor(): i8 {
-    return [
-        backgroundColor,
-    ];
+    return [backgroundColor];
 }
 
 export function getTextColor(): i8 {
@@ -26,4 +24,3 @@ export function getColor(): i8 {
     
     return al;
 }
-

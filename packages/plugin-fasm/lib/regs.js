@@ -105,4 +105,3 @@ export const is8bit = (name) => {
 export const is32bit = (name) => {
     return REGS_32BIT.includes(name);
 };
-

@@ -122,7 +122,7 @@ test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
     t.end();
 });
 
-test.only('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
+test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
     const source = montag`
          __ishvara_reboot: {
             push(press_any_key);
