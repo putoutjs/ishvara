@@ -75,3 +75,32 @@ test('ishvara: transformer-fasm: if', (t) => {
     t.equal(code, expected);
     t.end();
 });
+
+test('ishvara: transformer-fasm: empty config', (t) => {
+    const source = montag`
+        function compare(): i32 {
+            if (eax === ebx)
+                return 5;
+            
+            return 3;
+        }
+    `;
+    
+    const config = {};
+    const [code] = transform(source, config);
+    
+    const expected = montag`
+       __ishvara_compare: {
+           cmp(eax, ebx);
+           jnz(__ishvara_fasm_if_1);
+           mov(eax, 5);
+           ret();
+           __ishvara_fasm_if_1: mov(eax, 3);
+           ret();
+           ret();
+       }\n
+    `;
+    
+    t.equal(code, expected);
+    t.end();
+});
