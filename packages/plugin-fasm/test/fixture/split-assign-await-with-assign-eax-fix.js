@@ -1,14 +1,16 @@
 {
+    mov(cx, ax);
     {
         push(szkernel_name);
         call(getStringLength);
     }
-    mov(cx, ax);
+    xchg(cx, ax);
 }
 {
+    mov(ecx, eax);
     {
         push(szkernel_name);
         call(getStringLength);
     }
-    mov(ecx, ax);
+    xchg(ecx, eax);
 }

@@ -1,4 +1,5 @@
 {
-    hello: await getLine();
     dl = al;
+    hello: await getLine();
+    xchg(dl, al);
 }

@@ -1,3 +1,4 @@
+import * as removeUselessXchg from './remove-useless-xchg/index.js';
 import * as mergeLabelsOfDuplicateInstructions from './merge-labels-of-duplicate-instructions/index.js';
 import * as removeUselessJmp from './remove-useless-jmp/index.js';
 import * as removeUselessNop from './remove-useless-nop/index.js';
@@ -22,4 +23,5 @@ export const rules = {
     'remove-useless-nop': removeUselessNop,
     'remove-useless-jmp': removeUselessJmp,
     'merge-labels-of-duplicate-instructions': mergeLabelsOfDuplicateInstructions,
+    'remove-useless-xchg': removeUselessXchg,
 };

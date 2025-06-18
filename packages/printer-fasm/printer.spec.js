@@ -121,6 +121,7 @@ test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
     t.equal(result, expected);
     t.end();
 });
+<<<<<<< HEAD
 
 test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
     const source = montag`

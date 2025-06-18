@@ -61,3 +61,8 @@ test('plugin-optimizer-fasm: transform: merge-labels-of-duplicate-instructions',
     t.transform('merge-labels-of-duplicate-instructions');
     t.end();
 });
+
+test('plugin-optimizer-fasm: transform: remove-useless-xchg', (t) => {
+    t.transform('remove-useless-xchg');
+    t.end();
+});

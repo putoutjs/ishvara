@@ -1,8 +1,10 @@
 {
-    await getStringLength(szkernel_name);
     cx = ax;
+    await getStringLength(szkernel_name);
+    xchg(cx, ax);
 }
 {
+    ecx = eax;
     await getStringLength(szkernel_name);
-    ecx = ax;
+    xchg(ecx, eax);
 }
