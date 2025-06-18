@@ -1,6 +1,7 @@
 import {bios} from '#operator-fasm';
-import {printf} from './printf/index.ts';
+import {printf} from './printf';
 import {setCursor} from './set-cursor.ts';
+import {clearScreen} from './clear-screen.ts';
 
 _reboot.equ = 0;
 _get_char.equ = 1;
@@ -20,14 +21,19 @@ _secwrite.equ = 0xd;
 export async function intTable(): iret {
     if (!al)
         bios.reboot();
-
+    
     if (al === _printf) {
         await printf();
         return;
     }
-
+    
     if (al === _setcursor) {
         await setCursor();
+        return;
+    }
+    
+    if (al === _cls) {
+        await clearScreen();
         return;
     }
 }

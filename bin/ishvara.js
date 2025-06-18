@@ -82,7 +82,6 @@ const [binary, compilePlaces] = await ishvara.compile(source, {
 
 if (compilePlaces.length) {
     console.error(compilePlaces);
-    console.log(binary);
     process.exit(1);
 }
 
