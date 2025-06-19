@@ -70,7 +70,7 @@ mov es, ax
 mov ah, al
 call __ishvara_getColor
 xchg ah, al
-xor al, al
+mov al, 0
 xor di, di
 mov cx, 0x19 * 0x50
 rep stosw
@@ -90,8 +90,8 @@ mov es, ax
 call __ishvara_setColumn
 call __ishvara_setLine
 mov al, bl
-xor ah, ah
-xor bh, bh
+mov ah, 0
+mov bh, 0
 mov dx, 0x50
 mul dx
 add bx, ax
@@ -149,7 +149,7 @@ lodsb
 cmp al, _enter
 jnz __ishvara_fasm_if_5
 call __ishvara_incLine
-xor bl, bl
+mov bl, 0
 call __ishvara_setColumn
 call __ishvara_getLine
 cmp al, 0x19

@@ -34,6 +34,9 @@ const isHight = (a) => a.endsWith('h');
 
 const checkNext = ({__a, __b, __c}, path) => {
     if (__a.name === 'mov') {
+        if (!isNumericLiteral(__c))
+            return false;
+        
         const reg = NEXT_REG[__b.name];
         
         if (!reg)
@@ -101,3 +104,4 @@ const removeNext = ({__a, __b, __c}, path) => {
     
     return `mov(${reg}, 0)`;
 };
+

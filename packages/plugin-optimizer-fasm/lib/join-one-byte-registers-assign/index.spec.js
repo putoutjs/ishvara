@@ -31,3 +31,9 @@ test('optimizer-fasm: join-one-byte-registers-assign: transform: mov', (t) => {
     t.transform('mov');
     t.end();
 });
+
+test('optimizer-fasm: join-one-byte-registers-assign: no report: not-number', (t) => {
+    t.noReport('not-number');
+    t.end();
+});
+
