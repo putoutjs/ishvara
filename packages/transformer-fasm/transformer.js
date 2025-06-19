@@ -23,7 +23,7 @@ export const transform = (source, config) => {
     });
     
     const {code, places} = putout(bundled, {
-        fixCount: 4,
+        fixCount: 5,
         isTS: true,
         plugins: [
             ...plugins,

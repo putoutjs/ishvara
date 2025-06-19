@@ -10,7 +10,8 @@
         "coverage",
         "**/fixture",
         "**/*.config.*",
-        "**/printer-*"
+        "**/printer-*",
+        "**/nemesis"
     ],
     "branches": 100,
     "lines": 100,

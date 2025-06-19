@@ -5,7 +5,9 @@ const {
     isCallExpression,
 } = types;
 
-export const report = () => `Use 'mov()' instead of '='`;
+export const report = (path) => {
+    return `Use 'mov()' instead of '=' in '${path}'`;
+};
 
 export const match = () => ({
     '__a = __b': ({__a, __b}) => {

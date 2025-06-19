@@ -8,12 +8,17 @@ const test = createTest(import.meta.url, {
 });
 
 test('compiler: convert-assign-to-mov: report', (t) => {
-    t.report('convert-assign-to-mov', `Use 'mov()' instead of '='`);
+    t.report('convert-assign-to-mov', `Use 'mov()' instead of '=' in 'es = ax'`);
     t.end();
 });
 
 test('compiler: convert-assign-to-mov: no report: member', (t) => {
     t.noReport('member');
+    t.end();
+});
+
+test('compiler: convert-assign-to-mov: no report after transform: member', (t) => {
+    t.noReportAfterTransform('member');
     t.end();
 });
 

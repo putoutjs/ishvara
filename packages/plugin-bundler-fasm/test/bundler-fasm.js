@@ -16,3 +16,8 @@ test('plugin-bundler-fasm: transform: replace-section-const-with-equ', (t) => {
     t.transform('replace-section-const-with-equ');
     t.end();
 });
+
+test('plugin-bundler-fasm: transform: replace-section-data-with-let', (t) => {
+    t.transform('replace-section-data-with-let');
+    t.end();
+});

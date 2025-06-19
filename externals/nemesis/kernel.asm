@@ -67,8 +67,9 @@ push ax
 push di
 mov ax, 0xb800
 mov es, ax
-call __ishvara_getColor
 mov ah, al
+call __ishvara_getColor
+xchg ah, al
 xor al, al
 xor di, di
 mov cx, 0x19 * 0x50
@@ -108,8 +109,9 @@ mov dx, 0x03d5
 out dx, al
 xor dx, dx
 xor ax, ax
-call __ishvara_getLine
 mov dl, al
+call __ishvara_getLine
+xchg dl, al
 imul dx, 0x50 * 2
 mov di, dx
 call __ishvara_getColumn
@@ -127,16 +129,19 @@ push cx
 push di
 mov ax, 0xb800
 mov es, ax
+mov cx, ax
 push bx
 call __ishvara_getStringLength
-mov cx, ax
+xchg cx, ax
 mov si, bx
-
-__ishvara_do_while_137:
-call __ishvara_getColumn
 mov bl, al
-call __ishvara_getLine
+
+__ishvara_do_while_129:
+call __ishvara_getColumn
+xchg bl, al
 mov bh, al
+call __ishvara_getLine
+xchg bh, al
 mov al, 7
 int 0xff
 mov di, ax
@@ -153,13 +158,14 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_6:
-jmp __ishvara_do_while_condition_137
+jmp __ishvara_do_while_condition_129
 
 __ishvara_fasm_if_5:
 cmp al, _backspace
 jnz __ishvara_fasm_if_7
-call __ishvara_getColumn
 mov ah, al
+call __ishvara_getColumn
+xchg ah, al
 call __ishvara_getMinColumn
 cmp ah, al
 jz __ishvara_fasm_if_8
@@ -168,18 +174,19 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_8:
-jmp __ishvara_do_while_condition_137
+jmp __ishvara_do_while_condition_129
 
 __ishvara_fasm_if_7:
 mov bl, al
-call __ishvara_getColor
 mov ah, al
+call __ishvara_getColor
+xchg ah, al
 mov al, bl
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_137:
-loop __ishvara_do_while_137
+__ishvara_do_while_condition_129:
+loop __ishvara_do_while_129
 pop di
 pop cx
 pop bx
@@ -270,30 +277,30 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_280:
+__ishvara_do_while_272:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_280
+jnz __ishvara_do_while_272
 mov ax, cx
 ret
-hi db 'Hello from Nemesis =)!', 0xd, 0
-sh3ll db 'SH3LL ', 0
-buf rb 0x10
-not_f db 'sh3ll not found :(!', 0
-minline db 0
-maxline db 0x18
-maxcol db 0x4f
-file_offset dw 0
-file_size dw 0
-file_sec_size db 0
-error_reading2 db 'error reading the file o_O', 0
-exec_addr dw 0x500
-old_ds dw 0
 old_esi dw 0
-line db 3
-col db 0
-minCol db 0
-textColor db 2
+old_ds dw 0
+exec_addr dw 0x500
+error_reading2 db 'error reading the file o_O', 0
+file_sec_size db 0
+file_size dw 0
+file_offset dw 0
+maxcol db 0x4f
+maxline db 0x18
+minline db 0
+not_f db 'sh3ll not found :(!', 0
+buf rb 0x10
+sh3ll db 'SH3LL ', 0
+hi db 'Hello from Nemesis =)!', 0xd, 0
 backgroundColor db 0
+textColor db 2
+minCol db 0
+col db 0
+line db 3
 

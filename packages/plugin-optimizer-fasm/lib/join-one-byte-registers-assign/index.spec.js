@@ -21,3 +21,9 @@ test('optimizer-fasm: join-one-byte-registers-assign: transform: xor', (t) => {
     t.transform('xor');
     t.end();
 });
+
+test('optimizer-fasm: join-one-byte-registers-assign: no report: different', (t) => {
+    t.noReport('different');
+    t.end();
+});
+
