@@ -9,6 +9,15 @@ import {reboot} from './reboot.js';
 
 org(0x7c00);
 use16();
+
+const loader_name = 'Nemesis Loader o_O';
+const error_reading = 'error: read';
+const kernel_found = 'kernel found';
+const error_finding = 'error: kernel not found';
+const error_krnlfile = 'kernel not load';
+const kernel_load = 'kernel load';
+const kernel_name = 'KERNEL';
+
 boot: jmp(start);
 line.db = 0;
 // Standard BIOS Parameter Block, "BPB".   ;
@@ -159,15 +168,7 @@ async function start() {
 }
 
 section: 'code';
-const loader_name = 'Nemesis Loader o_O';
-const error_reading = 'error: read';
-const kernel_found = 'kernel found';
-const error_finding = 'error: kernel not found';
-const error_krnlfile = 'kernel not load';
-const kernel_load = 'kernel load';
-const kernel_name = 'KERNEL';
-
-(press_any_key.db = 'press any key', 0);
+section: 'data';
 
 (rb, 0x200 - ($ - boot) - 2);
 db(0x55, 0xaa);

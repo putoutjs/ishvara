@@ -10,8 +10,34 @@ export default {
     'coverage': async () => `c8 ${await run('test')}`,
     'report': () => 'c8 report --reporter=lcov',
     'build:boot': () => './bin/ishvara.js -t fasm externals/nemesis/boot/index.js',
-    'build:nemesis': () => './bin/ishvara.js -t asm externals/nemesis/kernel.ts',
-    'build:nemesis:all': () => [
-        './bin/ishvara.js -t fasm externals/nemesis/kernel.ts',
-    ].join('&&'),
+    'build:boot:fasm': () => ishvara({
+        targets: ['fsm'],
+        src: 'externals/nemesis/boot/index.js',
+    }),
+    'build:boot:asm': () => ishvara({
+        targets: ['asm'],
+        src: 'externals/nemesis/boot/index.js',
+    }),
+    'build:boot': () => run(['build:bood:*']),
+    'build:nemesis': () => run(['build:nemesis:*']),
+    'build:nemesis:asm': () => ishvara({
+        targets: ['asm'],
+        src: 'externals/nemesis/kernel.ts',
+    }),
+    'build:nemesis:fasm': () => ishvara({
+        targets: ['fasm'],
+        src: 'externals/nemesis/kernel.ts',
+    }),
 };
+
+function ishvara({targets, src}) {
+    const result = [];
+    
+    for (const target of targets) {
+        const cmd = `./bin/ishvara.js -t ${target} ${src}`;
+        result.push(cmd);
+    }
+    
+    return result.join('&&');
+}
+
