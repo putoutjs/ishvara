@@ -1,4 +1,4 @@
-import {bios} from '#operator-fasm';
+import {bios} from '@ishvara/operator-fasm';
 
 bios.readChar();
 ax = bios.readChar();

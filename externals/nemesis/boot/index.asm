@@ -39,20 +39,19 @@ push loader_name
 call __ishvara_printf
 mov al, 1
 mov bx, kernel_begin
-mov cl, 2
-xor ch, ch
-xor dl, dl
+mov cx, 2
+mov dl, 0
 mov dh, 1
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_48
+jnc __ishvara_read_sector_ok_49
 mov al, 1
-jmp __ishvara_read_sector_end_48
+jmp __ishvara_read_sector_end_49
 
-__ishvara_read_sector_ok_48:
+__ishvara_read_sector_ok_49:
 xor ax, ax
 
-__ishvara_read_sector_end_48:
+__ishvara_read_sector_end_49:
 clc
 test ax, ax
 jz __ishvara_fasm_if_1
@@ -64,11 +63,10 @@ ret
 __ishvara_fasm_if_1:
 mov bx, kernel_begin
 
-__ishvara_do_while_66:
+__ishvara_do_while_67:
 mov di, kernel_name
 push di
 call __ishvara_getStringLength
-xchg ax, ax
 mov cx, ax
 mov si, bx
 repe cmpsb
@@ -87,7 +85,7 @@ ret
 __ishvara_fasm_if_6:
 __ishvara_fasm_if_5:
 test cx, cx
-jnz __ishvara_do_while_66
+jnz __ishvara_do_while_67
 add si, 0x14
 lodsw
 mov [kernel_offset], ax
@@ -106,7 +104,7 @@ push kernel_found
 call __ishvara_printf
 mov cx, 3
 
-__ishvara_do_while_102:
+__ishvara_do_while_103:
 push cx
 mov bx, kernel_begin
 mov ax, [kernel_offset]
@@ -135,21 +133,21 @@ mov dh, 1
 jmp __ishvara_fasm_if_7
 
 __ishvara_fasm_if_7_not_ok:
-xor dh, dh
+mov dh, 0
 
 __ishvara_fasm_if_7:
 mov al, [kernel_sec_size]
-xor dl, dl
+mov dl, 0
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_133
+jnc __ishvara_read_sector_ok_134
 mov al, 1
-jmp __ishvara_read_sector_end_133
+jmp __ishvara_read_sector_end_134
 
-__ishvara_read_sector_ok_133:
+__ishvara_read_sector_ok_134:
 xor ax, ax
 
-__ishvara_read_sector_end_133:
+__ishvara_read_sector_end_134:
 clc
 test ax, ax
 jnz __ishvara_fasm_if_8
@@ -159,7 +157,7 @@ jmp kernel_begin
 
 __ishvara_fasm_if_8:
 pop cx
-loop __ishvara_do_while_102
+loop __ishvara_do_while_103
 test ax, ax
 jz __ishvara_fasm_if_3
 push error_krnlfile
@@ -184,9 +182,8 @@ mov cx, ax
 push bp
 call __ishvara_getStringLength
 xchg cx, ax
-xor bh, bh
-mov bl, 2
-xor dl, dl
+mov bx, 2
+mov dl, 0
 mov dh, [line]
 mov ax, 0x1301
 int 0x10
@@ -218,13 +215,13 @@ test al, al
 jnz __ishvara_do_while_194
 mov ax, cx
 ret
-loader_name db 'Nemesis Loader o_O', 0
-error_reading db 'error: read', 0
-kernel_found db 'kernel found', 0
-error_finding db 'error: kernel not found', 0
-error_krnlfile db 'kernel not load', 0
-kernel_load db 'kernel load', 0
 kernel_name db 'KERNEL', 0
+kernel_load db 'kernel load', 0
+error_krnlfile db 'kernel not load', 0
+error_finding db 'error: kernel not found', 0
+kernel_found db 'kernel found', 0
+error_reading db 'error: read', 0
+loader_name db 'Nemesis Loader o_O', 0
 press_any_key db 'press any key', 0
 rb 0x200 - ($ - __ishvara_boot) - 2
 db 0x55, 0xaa

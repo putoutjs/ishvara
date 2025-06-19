@@ -3,7 +3,7 @@ import {
     use16,
     bios,
     imports,
-} from '#operator-fasm';
+} from '@ishvara/operator-fasm';
 
 async function getStringLength() {
     pop(ax);

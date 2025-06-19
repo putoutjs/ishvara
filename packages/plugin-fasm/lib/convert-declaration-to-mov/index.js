@@ -1,5 +1,5 @@
 import {types} from 'putout';
-import {isRegister} from '../regs.js';
+import {isRegister} from '@ishvara/operator-fasm/regs';
 
 const {isExportDeclaration} = types;
 

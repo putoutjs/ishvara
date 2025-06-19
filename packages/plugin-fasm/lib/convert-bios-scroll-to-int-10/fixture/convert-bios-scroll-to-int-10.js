@@ -1,6 +1,5 @@
-import {bios} from '#operator-fasm';
+import {bios} from '@ishvara/operator-fasm';
 
 bios.scroll();
-
 
 ax = bios.scroll();

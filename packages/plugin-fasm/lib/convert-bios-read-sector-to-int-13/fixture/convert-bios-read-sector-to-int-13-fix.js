@@ -1,4 +1,4 @@
-import {bios} from '#operator-fasm';
+import {bios} from '@ishvara/operator-fasm';
 
 {
     ah = 2;

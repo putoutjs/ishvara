@@ -18,6 +18,11 @@ test('fasm: remove-useless-declarations: transform', (t) => {
     t.end();
 });
 
+test('fasm: remove-useless-declarations: transform: namespace', (t) => {
+    t.transform('namespace');
+    t.end();
+});
+
 test('fasm: remove-useless-declarations: transform: export', (t) => {
     const source = montag`
         export {

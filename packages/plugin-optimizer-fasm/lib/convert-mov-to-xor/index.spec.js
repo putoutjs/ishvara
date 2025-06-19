@@ -61,3 +61,8 @@ test('optimizer-fasm: convert-mov-to-xor: transform: rax', (t) => {
     t.transform('rax');
     t.end();
 });
+
+test('optimizer-fasm: convert-mov-to-xor: no report: 8-bit', (t) => {
+    t.noReport('8-bit');
+    t.end();
+});

@@ -1,6 +1,11 @@
-import {operator} from 'putout';
+import {operator, types} from 'putout';
 
-const {remove, compare} = operator;
+const {isNumericLiteral} = types;
+const {
+    remove,
+    compare,
+    getTemplateValues,
+} = operator;
 
 const NEXT_REG = {
     al: 'ah',
@@ -24,11 +29,11 @@ const REG = {
     dh: 'dx',
 };
 
+const isLow = (a) => a.endsWith('l');
+const isHight = (a) => a.endsWith('h');
+
 const checkNext = ({__a, __b, __c}, path) => {
     if (__a.name === 'mov') {
-        if (__c.value && __c.value !== 0xff)
-            return false;
-        
         const reg = NEXT_REG[__b.name];
         
         if (!reg)
@@ -36,7 +41,16 @@ const checkNext = ({__a, __b, __c}, path) => {
         
         const next = path.parentPath.getNextSibling();
         
-        return compare(next, `mov(${reg}, ${__c.value})`);
+        if (compare(next, `mov(${reg}, ${__c.value})`))
+            return true;
+        
+        if (isLow(__b.name) && compare(next, `mov(${reg}, 0)`))
+            return true;
+        
+        if (isHight(__b.name) && isNumericLiteral(__c, {value: 0}) && compare(next, `mov(${reg}, __a)`))
+            return true;
+        
+        return __c.value && __c.value === 0xff;
     }
     
     if (__a.name === 'xor') {
@@ -67,16 +81,23 @@ export const replace = () => ({
 });
 
 const removeNext = ({__a, __b, __c}, path) => {
-    const next = path.parentPath.getNextSibling();
+    const nextPath = path.parentPath.getNextSibling();
     const reg = REG[__b.name];
+    const nextValues = getTemplateValues(nextPath.node.expression, 'mov(__a, __b)');
     
-    remove(next);
+    remove(nextPath);
     
     if (__a.name === 'xor')
         return `xor(${reg}, ${reg})`;
     
     if (__c.value === 0xff)
         return `mov(${reg}, 0xffff)`;
+    
+    if (isLow(__b.name))
+        return `mov(${reg}, ${__c.value})`;
+    
+    if (isHight(__b.name))
+        return `mov(${reg}, ${nextValues.__b.value})`;
     
     return `mov(${reg}, 0)`;
 };

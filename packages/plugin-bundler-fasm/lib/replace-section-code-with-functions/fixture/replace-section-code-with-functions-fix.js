@@ -3,7 +3,7 @@ import {
     use16,
     bios,
     imports,
-} from '#operator-fasm';
+} from '@ishvara/operator-fasm';
 
 org(0x7c00);
 

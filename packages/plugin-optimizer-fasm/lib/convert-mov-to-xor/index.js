@@ -1,4 +1,5 @@
 import {operator} from 'putout';
+import {is8bit} from '@ishvara/operator-fasm/regs';
 
 const {compare} = operator;
 
@@ -45,6 +46,7 @@ export const exclude = () => [
 ];
 
 export const match = () => ({
+    'mov(__a, 0)': ({__a}) => !is8bit(__a.name),
     'mov(__a, 1)': (vars, path) => {
         if (is32(path))
             return true;

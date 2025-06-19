@@ -1,1 +1,1 @@
-import {use32} from "#operator-fasm";
+import {use32} from '@ishvara/operator-fasm';

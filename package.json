@@ -46,7 +46,8 @@
     "try-to-catch": "^3.0.1",
     "typescript": "^5.8.3",
     "wabt": "^1.0.37",
-    "yargs-parser": "^22.0.0"
+    "yargs-parser": "^22.0.0",
+    "@ishvara/operator-fasm": "*"
   },
   "keywords": [
     "putout"
@@ -87,7 +88,7 @@
     "#transformer-fasm": "./packages/transformer-fasm/transformer.js",
     "#runner-wasm": "./packages/runner-wasm/runner.js",
     "#operator-wasm": "./packages/operator-wasm/index.js",
-    "#operator-fasm": "./packages/operator-fasm/index.js",
+    "#operator-fasm": "./externals/operator-fasm/index.ts",
     "#ishvara": "./packages/ishvara/ishvara.js"
   },
   "license": "MIT",

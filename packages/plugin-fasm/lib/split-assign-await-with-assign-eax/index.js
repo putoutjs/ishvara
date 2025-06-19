@@ -1,4 +1,4 @@
-import {is32bit, is8bit} from '../regs.js';
+import {is32bit, is8bit} from '@ishvara/operator-fasm/regs';
 
 export const report = () => `Get result from 'eax'`;
 

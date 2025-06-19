@@ -9,7 +9,7 @@ export default {
     'fix:lint': () => run('lint', '--fix'),
     'coverage': async () => `c8 ${await run('test')}`,
     'report': () => 'c8 report --reporter=lcov',
-    
+    'build:boot': () => run('build:boot:*'),
     'build:boot:fasm': () => ishvara({
         targets: ['fsm'],
         src: 'externals/nemesis/boot/index.js',
@@ -18,7 +18,6 @@ export default {
         targets: ['asm'],
         src: 'externals/nemesis/boot/index.js',
     }),
-    'build:boot': () => run('build:bood:*'),
     'build:nemesis': () => run('build:nemesis:*'),
     'build:nemesis:asm': () => ishvara({
         targets: ['asm'],
