@@ -5,12 +5,12 @@ import {
     incLine,
     decLine,
 } from '../position/line.ts';
+import {getMinColumn} from '../position/min-max-col-line.ts';
 import {
     getColumn,
     setColumn,
     decColumn,
     incColumn,
-    getMinColumn,
 } from '../position/column.ts';
 import {scroll} from './scroll.ts';
 import {getColor} from '../color.ts';
@@ -73,3 +73,4 @@ export async function printf<es, bx, cx, di>() {
         await incColumn();
     } while (--cx);
 }
+

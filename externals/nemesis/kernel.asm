@@ -59,6 +59,11 @@ call __ishvara_clearScreen
 iret
 
 __ishvara_fasm_if_4:
+cmp al, _setminmaxcolline
+jnz __ishvara_fasm_if_5
+call __ishvara_minMaxColLine
+
+__ishvara_fasm_if_5:
 iret
 
 __ishvara_clearScreen:
@@ -136,7 +141,7 @@ xchg cx, ax
 mov si, bx
 mov bl, al
 
-__ishvara_do_while_129:
+__ishvara_do_while_134:
 call __ishvara_getColumn
 xchg bl, al
 mov bh, al
@@ -147,36 +152,36 @@ int 0xff
 mov di, ax
 lodsb
 cmp al, _enter
-jnz __ishvara_fasm_if_5
+jnz __ishvara_fasm_if_6
 call __ishvara_incLine
 mov bl, 0
 call __ishvara_setColumn
 call __ishvara_getLine
 cmp al, 0x19
-jnz __ishvara_fasm_if_6
+jnz __ishvara_fasm_if_7
 call __ishvara_scroll
 call __ishvara_decLine
 
-__ishvara_fasm_if_6:
-jmp __ishvara_do_while_condition_129
+__ishvara_fasm_if_7:
+jmp __ishvara_do_while_condition_134
 
-__ishvara_fasm_if_5:
+__ishvara_fasm_if_6:
 cmp al, _backspace
-jnz __ishvara_fasm_if_7
+jnz __ishvara_fasm_if_8
 mov ah, al
 call __ishvara_getColumn
 xchg ah, al
 call __ishvara_getMinColumn
 cmp ah, al
-jz __ishvara_fasm_if_8
+jz __ishvara_fasm_if_9
 call __ishvara_decColumn
 call __ishvara_decColumn
 sub di, 2
 
-__ishvara_fasm_if_8:
-jmp __ishvara_do_while_condition_129
+__ishvara_fasm_if_9:
+jmp __ishvara_do_while_condition_134
 
-__ishvara_fasm_if_7:
+__ishvara_fasm_if_8:
 mov bl, al
 mov ah, al
 call __ishvara_getColor
@@ -185,8 +190,8 @@ mov al, bl
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_129:
-loop __ishvara_do_while_129
+__ishvara_do_while_condition_134:
+loop __ishvara_do_while_134
 pop di
 pop cx
 pop bx
@@ -234,10 +239,6 @@ __ishvara_setBackgroundColor:
 mov [backgroundColor], al
 ret
 
-__ishvara_getMinColumn:
-mov al, [minCol]
-ret
-
 __ishvara_setColumn:
 mov [col], bl
 ret
@@ -252,6 +253,17 @@ ret
 
 __ishvara_getColumn:
 mov al, [col]
+ret
+
+__ishvara_minMaxColLine:
+mov [minCol], bl
+mov [maxCol], cl
+mov [minLine], bh
+mov [maxLine], ch
+ret
+
+__ishvara_getMinColumn:
+mov al, [minCol]
 ret
 
 __ishvara_setLine:
@@ -277,11 +289,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_272:
+__ishvara_do_while_288:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_272
+jnz __ishvara_do_while_288
 mov ax, cx
 ret
 old_esi dw 0
@@ -291,16 +303,16 @@ error_reading2 db 'error reading the file o_O', 0
 file_sec_size db 0
 file_size dw 0
 file_offset dw 0
-maxcol db 0x4f
-maxline db 0x18
-minline db 0
 not_f db 'sh3ll not found :(!', 0
 buf rb 0x10
 sh3ll db 'SH3LL ', 0
 hi db 'Hello from Nemesis =)!', 0xd, 0
 backgroundColor db 0
 textColor db 2
-minCol db 0
 col db 0
+maxCol db 0x4f
+minCol db 0
+maxLine db 0x18
+minLine db 0
 line db 3
 

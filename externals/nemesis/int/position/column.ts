@@ -1,5 +1,4 @@
 let col = 0;
-const minCol = 0;
 
 export function getColumn(): i8 {
     return [col];
@@ -15,8 +14,4 @@ export function decColumn() {
 
 export function setColumn() {
     [col] = bl;
-}
-
-export function getMinColumn(): i8 {
-    return [minCol];
 }

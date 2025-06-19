@@ -38,9 +38,6 @@ const sh3ll = 'SH3LL ';
 
 let buf: rb = 0x10;
 const not_f = 'sh3ll not found :(!';
-let minline = 0;
-let maxline = 24;
-let maxcol = 79;
 let file_offset: i16 = 0;
 let file_size: i16 = 0;
 let file_sec_size = 0;
