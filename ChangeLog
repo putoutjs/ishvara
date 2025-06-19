@@ -1,3 +1,8 @@
+2025.06.19, v2.5.1
+
+fix:
+- 61dcaed ishvara: plugin-optimizer-fasm: join-one-byte-registers
+
 2025.06.19, v2.5.0
 
 feature:
