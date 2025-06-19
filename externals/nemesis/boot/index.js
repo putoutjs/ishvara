@@ -169,6 +169,5 @@ async function start() {
 
 section: 'code';
 section: 'data';
-
 (rb, 0x200 - ($ - boot) - 2);
 db(0x55, 0xaa);
