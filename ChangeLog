@@ -1,3 +1,9 @@
+2025.06.19, v2.5.0
+
+feature:
+- 70681d0 ishvara: join-one-byte-registers
+- 06f8dd5 replace-section-data-with-let: add
+
 2025.06.19, v2.4.6
 
 feature:
