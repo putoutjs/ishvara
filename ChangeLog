@@ -1,3 +1,8 @@
+2025.06.21, v2.5.4
+
+fix:
+- 01babcc ishvara: plugin-nemesis: convert-printf-to-int-0xff
+
 2025.06.21, v2.5.3
 
 feature:
