@@ -288,11 +288,9 @@ __ishvara_fasm_if_13:
 jmp __ishvara_do_while_condition_559
 
 __ishvara_fasm_if_12:
-mov bl, al
 mov ah, al
 call __ishvara_getColor
 xchg ah, al
-mov al, bl
 stosw
 call __ishvara_incColumn
 
@@ -395,11 +393,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_713:
+__ishvara_do_while_711:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_713
+jnz __ishvara_do_while_711
 mov ax, cx
 ret
 old_esi dw 0

@@ -65,9 +65,7 @@ export async function printf<es, bx, cx, di>() {
             continue;
         }
         
-        bl = al;
         ah = await getColor();
-        al = bl;
         
         stosw();
         await incColumn();
