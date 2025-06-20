@@ -1,3 +1,4 @@
+import * as convertAssignToAnd from './convert-assign-to-and/index.js';
 import * as applyTypes from './apply-types/index.js';
 import * as convertArgumentsToRegisters from './convert-arguments-to-registers/index.js';
 import * as convertTernaryToIf from './convert-ternary-to-if/index.js';
@@ -64,4 +65,5 @@ export const rules = {
     'convert-ternary-to-if': convertTernaryToIf,
     'convert-arguments-to-registers': convertArgumentsToRegisters,
     'apply-types': applyTypes,
+    'convert-assign-to-and': convertAssignToAnd,
 };

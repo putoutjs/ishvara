@@ -31,3 +31,8 @@ test('compiler: convert-assign-to-mov: no report: call', (t) => {
     t.noReport('call');
     t.end();
 });
+
+test('compiler: convert-assign-to-mov: no report: ptr', (t) => {
+    t.noReport('ptr');
+    t.end();
+});

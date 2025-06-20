@@ -106,6 +106,20 @@ test('ishvara: printer-fasm: AssignmentExpression', (t) => {
     t.end();
 });
 
+test('ishvara: printer-fasm: AssignmentExpression: byte ptr', (t) => {
+    const source = montag`
+         dl = es[bx];
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        mov dl, [es:bx]\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
 test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
     const source = montag`
         mov(al, [

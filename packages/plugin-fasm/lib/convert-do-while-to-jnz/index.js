@@ -16,7 +16,6 @@ const {
     expressionStatement,
     isCallExpression,
     labeledStatement,
-    isIdentifier,
 } = types;
 
 const createStartLabel = (line) => `__ishvara_do_while_${line}`;
@@ -131,4 +130,3 @@ function maybeReplaceContinueWithJmp(path, startLabel) {
     });
     return was;
 }
-

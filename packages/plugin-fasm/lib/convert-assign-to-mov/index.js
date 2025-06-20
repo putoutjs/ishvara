@@ -14,6 +14,9 @@ export const match = () => ({
         if (isMemberExpression(__a))
             return false;
         
+        if (isMemberExpression(__b))
+            return false;
+        
         return !isCallExpression(__b);
     },
 });

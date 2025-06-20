@@ -146,3 +146,7 @@ test('plugin-fasm: transform: apply-types', (t) => {
     t.transform('apply-types');
     t.end();
 });
+test('plugin-fasm: transform: convert-assign-to-and', (t) => {
+    t.transform('convert-assign-to-and');
+    t.end();
+})

@@ -13,6 +13,8 @@
         "remove-unused-expressions": "off",
         "remove-unused-variables": "off",
         "typescript/remove-useless-types-from-constants": "off",
-        "declare-before-reference": "off"
+        "declare-before-reference": "off",
+        "promises/remove-useless-await": "off",
+        "promises/remove-useless-async": "off"
     }
 }

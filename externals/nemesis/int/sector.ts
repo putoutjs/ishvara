@@ -13,10 +13,20 @@ let dma_command = 0x46;
 DMA_COMMAND_READ.equ = 0x4a;
 DMA_COMMAND_WRITE.equ = 0x46;
 
+RESET_CONTROLLER.equ = 4;
+USE_DMA.equ = 8;
+RUN_MOTOR.equ = 16;
+FLOPPY.equ = 0;
+
+async function wait() {
+    cx = 3500;
+    loop($);
+}
+
 // шлем байт из ah fdc
-function out_fdc() {
+async function out_fdc() {
     dx = 0x3f4;
- // адрес порта регистра статуса
+    // адрес порта регистра статуса
     do {
         io.in(al, dx); //и данные
     } while (al === 128);
@@ -25,7 +35,7 @@ function out_fdc() {
     io.out(dx, al);
 }
 
-function in_fdc() {
+async function in_fdc() {
     dx = 0x3f4;
     do {
         io.in(al, dx);
@@ -40,7 +50,7 @@ function in_fdc() {
 // ch - номер дорожки
 // dl - номер накопителя(0 для дискеты первой)
 // dh - головка
-export function readSector() {
+export async function readSector() {
     if (cl > 0x12)
         return 1;
     
@@ -56,25 +66,20 @@ export function readSector() {
     
     secreading: dec([sec_quantity]);
     sti();
-}/*
-mov	dx,0x3f2
-mov	al,28;2,3 and 4th bits
-;4+8+16
-;сброс контролера(2)
-;юзаем DMA       (3)
-;запускаем мотор (4)
-out	dx,al;шлем команду, ждем разгона мотора
-mov	cx,3500
-loop	$;мутим задержку несколько мс
-mov	ah,15;номер кода
-call	out_fdc;посылаем контроллеру НГМД
-xor	ah,ah;номер накопителя(дискета ;))
-;mov      ah,[drive]
-call	out_fdc
-;xor     ah,ah;номер дорожки
-mov	 ah,[track_number]
-call	out_fdc
-call	wait_interrupt;ожидаем прерывания от нгдм
+    dx = 0x3f2;
+    al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
+    io.out(dx, al);
+    await wait();
+    ah = 15; // номер кода
+    await out_fdc(); // посылаем контроллеру НГМД
+    ah = FLOPPY; //номер накопителя(дискета ;))
+    await out_fdc();
+    ah = [track_number];
+    await out_fdc();
+    await wait_interrupt(); //ожидаем прерывания от нгдм
+}
+
+/*
 mov	cx,1750;счетчик цикла задержки
 loop	$
 mov	al,[dma_command];0x4a;для записи 0x46
@@ -176,22 +181,17 @@ jnz	 secreading
 end_of_secreading:
     iret;
 
-;---------------------------------------------------------
-    wait_interrupt:;ждем прирывание нгмд; управление статусом
-;прерывания 6 в байте статуса BIOS
-push	es
-mov	ax,0x40;Сегмент области данных BIOS
-mov	es,ax;помещаем в es
-mov	bx,0x3e;смещение для байта статуса
-wait_interrupt_again:
-    mov	dl,[es:bx];получаем байт
-test	dl,0x80;проверяем бит 7
-jz	wait_interrupt_again
-and	dl,01111111b;сбрасываем бит 7
-mov	[es:bx],dl;заменяем байт стутуса
-pop	es
-ret
-
-;Функция связи с контроллером нгмд
- */
-
+*/
+// ждем прирывание нгмд; управление статусом
+async function wait_interrupt<es>() {
+    // прерывания 6 в байте статуса BIOS
+    ax = 0x40; // Сегмент области данных BIOS
+    es = ax; //помещаем в es
+    bx = 0x3e; //смещение для байта статуса
+    do {
+        dl = es[bx];
+    } while (dl === 0x80);
+    // проверяем бит 7
+    dl &= 0b1_111_111; //сбрасываем бит 7
+    es[bx] = dl; //заменяем байт стутуса
+}
