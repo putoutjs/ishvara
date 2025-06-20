@@ -1,6 +1,6 @@
 {
   "name": "ishvara",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "type": "module",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Compile JavaScript to WASM",
