@@ -1,6 +1,13 @@
 import {getLine, setLine} from './position/line.ts';
 import {getColumn, setColumn} from './position/column.ts';
 
+export async function getCursor() {
+    al = await getColumn();
+    ah = await getLine();
+    
+    return ax;
+}
+
 export async function setCursor<es, dx>() {
     // bx = offset
     ax = 0xb800;

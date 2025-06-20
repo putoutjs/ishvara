@@ -1,6 +1,6 @@
 import {bios} from '#operator-fasm';
 import {printf} from './printf';
-import {setCursor} from './set-cursor.ts';
+import {getCursor, setCursor} from './cursor.ts';
 import {clearScreen} from './clear-screen.ts';
 import {minMaxColLine} from './position/min-max-col-line.ts';
 
@@ -38,6 +38,13 @@ export async function intTable(): iret {
         return;
     }
     
-    if (al === _setminmaxcolline)
+    if (al === _setminmaxcolline) {
         await minMaxColLine();
+        return;
+    }
+    
+    if (al === _getcursor) {
+        await getCursor();
+        return;
+    }
 }

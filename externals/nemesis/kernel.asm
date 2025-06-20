@@ -62,8 +62,15 @@ __ishvara_fasm_if_4:
 cmp al, _setminmaxcolline
 jnz __ishvara_fasm_if_5
 call __ishvara_minMaxColLine
+iret
 
 __ishvara_fasm_if_5:
+cmp al, _getcursor
+jnz __ishvara_fasm_if_6
+call __ishvara_getCursor
+iret
+
+__ishvara_fasm_if_6:
 iret
 
 __ishvara_clearScreen:
@@ -127,6 +134,13 @@ pop es
 mov ax, di
 ret
 
+__ishvara_getCursor:
+call __ishvara_getColumn
+mov ah, al
+call __ishvara_getLine
+xchg ah, al
+ret
+
 __ishvara_printf:
 push es
 push bx
@@ -141,7 +155,7 @@ xchg cx, ax
 mov si, bx
 mov bl, al
 
-__ishvara_do_while_134:
+__ishvara_do_while_148:
 call __ishvara_getColumn
 xchg bl, al
 mov bh, al
@@ -152,36 +166,36 @@ int 0xff
 mov di, ax
 lodsb
 cmp al, _enter
-jnz __ishvara_fasm_if_6
+jnz __ishvara_fasm_if_7
 call __ishvara_incLine
 mov bl, 0
 call __ishvara_setColumn
 call __ishvara_getLine
 cmp al, 0x19
-jnz __ishvara_fasm_if_7
+jnz __ishvara_fasm_if_8
 call __ishvara_scroll
 call __ishvara_decLine
 
-__ishvara_fasm_if_7:
-jmp __ishvara_do_while_condition_134
+__ishvara_fasm_if_8:
+jmp __ishvara_do_while_condition_148
 
-__ishvara_fasm_if_6:
+__ishvara_fasm_if_7:
 cmp al, _backspace
-jnz __ishvara_fasm_if_8
+jnz __ishvara_fasm_if_9
 mov ah, al
 call __ishvara_getColumn
 xchg ah, al
 call __ishvara_getMinColumn
 cmp ah, al
-jz __ishvara_fasm_if_9
+jz __ishvara_fasm_if_10
 call __ishvara_decColumn
 call __ishvara_decColumn
 sub di, 2
 
-__ishvara_fasm_if_9:
-jmp __ishvara_do_while_condition_134
+__ishvara_fasm_if_10:
+jmp __ishvara_do_while_condition_148
 
-__ishvara_fasm_if_8:
+__ishvara_fasm_if_9:
 mov bl, al
 mov ah, al
 call __ishvara_getColor
@@ -190,8 +204,8 @@ mov al, bl
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_134:
-loop __ishvara_do_while_134
+__ishvara_do_while_condition_148:
+loop __ishvara_do_while_148
 pop di
 pop cx
 pop bx
@@ -289,11 +303,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_288:
+__ishvara_do_while_302:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_288
+jnz __ishvara_do_while_302
 mov ax, cx
 ret
 old_esi dw 0
