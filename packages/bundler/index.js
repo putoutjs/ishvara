@@ -16,6 +16,7 @@ export async function bundle(filePath) {
         treeshake: false,
         external: [
             '#operator-fasm',
+            '@ishvara/operator-fasm',
         ],
         plugins: [
             resolve({

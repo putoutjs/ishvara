@@ -36,4 +36,3 @@ test('optimizer-fasm: join-one-byte-registers-assign: no report: not-number', (t
     t.noReport('not-number');
     t.end();
 });
-

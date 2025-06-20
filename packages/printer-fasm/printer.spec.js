@@ -121,3 +121,19 @@ test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-fasm: in/out', (t) => {
+    const source = montag`
+        io.in(al, dx);
+        io.out(al, dx);
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        in al, dx
+        out al, dx\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

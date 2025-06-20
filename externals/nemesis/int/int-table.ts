@@ -3,6 +3,7 @@ import {printf} from './printf';
 import {getCursor, setCursor} from './cursor.ts';
 import {clearScreen} from './clear-screen.ts';
 import {minMaxColLine} from './position/min-max-col-line.ts';
+import {readSector} from './sector';
 
 _reboot.equ = 0;
 _get_char.equ = 1;
@@ -45,6 +46,11 @@ export async function intTable(): iret {
     
     if (al === _getcursor) {
         await getCursor();
+        return;
+    }
+    
+    if (al === _secread) {
+        await readSector();
         return;
     }
 }

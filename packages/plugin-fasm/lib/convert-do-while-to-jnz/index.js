@@ -4,12 +4,19 @@ import {
     operator,
 } from 'putout';
 
-const {insertAfter, replaceWith} = operator;
+const {
+    insertAfter,
+    replaceWith,
+    compare,
+    extract,
+} = operator;
+
 const {
     identifier,
     expressionStatement,
     isCallExpression,
     labeledStatement,
+    isIdentifier,
 } = types;
 
 const createStartLabel = (line) => `__ishvara_do_while_${line}`;
@@ -62,7 +69,8 @@ export const replace = () => ({
         const {line} = path.node.loc.start;
         const startLabel = createStartLabel(line);
         const conditionLabel = createConditionLabel(line);
-        const expression = isCallExpression(__a) ? __a : template.ast(`test(${__a.name}, ${__a.name})`);
+        const [one, two] = parseWhileArgs(__a);
+        const expression = isCallExpression(__a) ? __a : template.ast(`test(${one}, ${two})`);
         
         let conditionExpression = expressionStatement(expression);
         const wasContinue = maybeReplaceContinueWithJmp(path, conditionLabel);
@@ -76,6 +84,19 @@ export const replace = () => ({
         return `${startLabel}: __body`;
     },
 });
+
+const parseWhileArgs = (__a) => {
+    if (compare(__a, '__a === __b'))
+        return [
+            extract(__a.left),
+            extract(__a.right),
+        ];
+    
+    return [
+        __a.name,
+        __a.name,
+    ];
+};
 
 function maybeReplaceBreak(path, line) {
     let wasBreak = false;
@@ -110,3 +131,4 @@ function maybeReplaceContinueWithJmp(path, startLabel) {
     });
     return was;
 }
+

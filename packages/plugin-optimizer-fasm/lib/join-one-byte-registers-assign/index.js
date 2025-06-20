@@ -104,4 +104,3 @@ const removeNext = ({__a, __b, __c}, path) => {
     
     return `mov(${reg}, 0)`;
 };
-

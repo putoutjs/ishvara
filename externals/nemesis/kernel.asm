@@ -14,6 +14,8 @@ _find_file equ 3
 _printf equ 2
 _get_char equ 1
 _reboot equ 0
+DMA_COMMAND_WRITE equ 0x46
+DMA_COMMAND_READ equ 0x4a
 _backspace equ 0xe
 _enter equ 0xd
 cli
@@ -71,7 +73,62 @@ call __ishvara_getCursor
 iret
 
 __ishvara_fasm_if_6:
+cmp al, _secread
+jnz __ishvara_fasm_if_7
+call __ishvara_readSector
 iret
+
+__ishvara_fasm_if_7:
+iret
+
+__ishvara_readSector:
+cmp cl, 0x12
+jle __ishvara_fasm_if_8
+mov ax, 1
+ret
+
+__ishvara_fasm_if_8:
+cmp dh, 1
+jle __ishvara_fasm_if_9
+mov ax, 2
+ret
+
+__ishvara_fasm_if_9:
+__ishvara_secread_all_good:
+mov [sec_quantity], ah
+mov [secbuffer], bx
+mov [sec_number], cl
+mov [track_number], ch
+mov [drive], dl
+mov [head], dh
+
+__ishvara_secreading:
+dec [sec_quantity]
+sti
+ret
+
+__ishvara_in_fdc:
+mov dx, 0x3f4
+
+__ishvara_do_while_392:
+in al, dx
+test al, 0x80
+jnz __ishvara_do_while_392
+inc dx
+in al, dx
+ret
+
+__ishvara_out_fdc:
+mov dx, 0x3f4
+
+__ishvara_do_while_408:
+in al, dx
+test al, 0x80
+jnz __ishvara_do_while_408
+inc dx
+mov al, ah
+out dx, al
+ret
 
 __ishvara_clearScreen:
 push es
@@ -155,7 +212,7 @@ xchg cx, ax
 mov si, bx
 mov bl, al
 
-__ishvara_do_while_148:
+__ishvara_do_while_489:
 call __ishvara_getColumn
 xchg bl, al
 mov bh, al
@@ -166,36 +223,36 @@ int 0xff
 mov di, ax
 lodsb
 cmp al, _enter
-jnz __ishvara_fasm_if_7
+jnz __ishvara_fasm_if_10
 call __ishvara_incLine
 mov bl, 0
 call __ishvara_setColumn
 call __ishvara_getLine
 cmp al, 0x19
-jnz __ishvara_fasm_if_8
+jnz __ishvara_fasm_if_11
 call __ishvara_scroll
 call __ishvara_decLine
 
-__ishvara_fasm_if_8:
-jmp __ishvara_do_while_condition_148
+__ishvara_fasm_if_11:
+jmp __ishvara_do_while_condition_489
 
-__ishvara_fasm_if_7:
+__ishvara_fasm_if_10:
 cmp al, _backspace
-jnz __ishvara_fasm_if_9
+jnz __ishvara_fasm_if_12
 mov ah, al
 call __ishvara_getColumn
 xchg ah, al
 call __ishvara_getMinColumn
 cmp ah, al
-jz __ishvara_fasm_if_10
+jz __ishvara_fasm_if_13
 call __ishvara_decColumn
 call __ishvara_decColumn
 sub di, 2
 
-__ishvara_fasm_if_10:
-jmp __ishvara_do_while_condition_148
+__ishvara_fasm_if_13:
+jmp __ishvara_do_while_condition_489
 
-__ishvara_fasm_if_9:
+__ishvara_fasm_if_12:
 mov bl, al
 mov ah, al
 call __ishvara_getColor
@@ -204,8 +261,8 @@ mov al, bl
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_148:
-loop __ishvara_do_while_148
+__ishvara_do_while_condition_489:
+loop __ishvara_do_while_489
 pop di
 pop cx
 pop bx
@@ -303,11 +360,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_302:
+__ishvara_do_while_643:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_302
+jnz __ishvara_do_while_643
 mov ax, cx
 ret
 old_esi dw 0
@@ -321,6 +378,15 @@ not_f db 'sh3ll not found :(!', 0
 buf rb 0x10
 sh3ll db 'SH3LL ', 0
 hi db 'Hello from Nemesis =)!', 0xd, 0
+dma_command db 0x46
+secread_com db 0xE6
+head db 0
+drive db 0
+track_number db 0
+sec_number db 0
+secbuffer dw 0
+sec_quantity db 0
+stutus_buffer rb 7
 backgroundColor db 0
 textColor db 2
 col db 0

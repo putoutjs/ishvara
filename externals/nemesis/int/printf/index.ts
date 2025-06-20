@@ -73,4 +73,3 @@ export async function printf<es, bx, cx, di>() {
         await incColumn();
     } while (--cx);
 }
-

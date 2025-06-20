@@ -1,5 +1,6 @@
 import {isNext} from '@putout/printer/is';
 import {isJmpFar, printJmpFar} from './print-jmp-far.js';
+import {isInOut, printInOut} from './print-in-out.js';
 
 export const ExpressionStatement = (path, printer) => {
     const {
@@ -14,6 +15,13 @@ export const ExpressionStatement = (path, printer) => {
     if (isJmpFar(expression)) {
         printJmpFar(expression, printer);
         maybe.print.breakline(isNext(path));
+        
+        return;
+    }
+    
+    if (isInOut(expression)) {
+        printInOut(expression, printer);
+        print.breakline();
         
         return;
     }

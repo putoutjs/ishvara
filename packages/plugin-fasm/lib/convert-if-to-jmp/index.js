@@ -19,6 +19,18 @@ export const replace = ({options}) => {
     let {labelSuffix = 0} = options;
     
     return {
+        'if (__a > __b) __c': (vars, path) => {
+            const next = getNext(path);
+            const name = createName(++labelSuffix);
+            
+            createLabel(next, name);
+            
+            return `{
+                cmp(__a, __b);
+                jle(${name});
+                __c;
+            }`;
+        },
         'if (__a === __b) __c': (vars, path) => {
             const next = getNext(path);
             const name = createName(++labelSuffix);
