@@ -36,8 +36,8 @@ sti
 mov al, 2
 mov bx, hi
 int 0xff
-mov al, 4
-mov bx, sh3ll
+mov al, 2
+mov bx, shell
 int 0xff
 jmp $
 
@@ -257,21 +257,26 @@ mov al, 7
 int 0xff
 mov di, ax
 lodsb
-cmp al, _enter
+test al, al
 jnz __ishvara_fasm_if_10
+ret
+
+__ishvara_fasm_if_10:
+cmp al, _enter
+jnz __ishvara_fasm_if_11
 call __ishvara_incLine
 mov bl, 0
 call __ishvara_setColumn
 call __ishvara_getLine
 cmp al, 0x19
-jnz __ishvara_fasm_if_11
+jnz __ishvara_fasm_if_14
 call __ishvara_scroll
 call __ishvara_decLine
 
-__ishvara_fasm_if_11:
+__ishvara_fasm_if_14:
 jmp __ishvara_do_while_condition_559
 
-__ishvara_fasm_if_10:
+__ishvara_fasm_if_11:
 cmp al, _backspace
 jnz __ishvara_fasm_if_12
 mov ah, al
@@ -286,9 +291,9 @@ sub di, 2
 
 __ishvara_fasm_if_13:
 jmp __ishvara_do_while_condition_559
+mov ah, al
 
 __ishvara_fasm_if_12:
-mov ah, al
 call __ishvara_getColor
 xchg ah, al
 stosw
@@ -393,11 +398,11 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_711:
+__ishvara_do_while_714:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_711
+jnz __ishvara_do_while_714
 mov ax, cx
 ret
 old_esi dw 0
@@ -409,8 +414,8 @@ file_size dw 0
 file_offset dw 0
 not_f db 'sh3ll not found :(!', 0
 buf rb 0x10
-sh3ll db 'SH3LL ', 0
 hi db 'Hello from Nemesis =)!', 0xd, 0
+shell db 'SH3LL ', 0
 dma_command db 0x46
 secread_com db 0xE6
 head db 0

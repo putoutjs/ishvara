@@ -9,6 +9,7 @@ org(0x7e00);
 use16();
 
 section: 'const';
+
 cli();
 push([ax, es]);
 
@@ -22,19 +23,19 @@ es[0xff * 4 + 2] = cs;
 pop([es, ax]);
 sti();
 
-nemesis.printf(hi);
-nemesis.exec(sh3ll);
-
-jmp($);
-
-section: 'code';
-section: 'data';
+const shell = 'SH3LL ';
 const hi = [
     'Hello from Nemesis =)!',
     0xd,
 ];
 
-const sh3ll = 'SH3LL ';
+nemesis.printf(hi);
+nemesis.exec(shell);
+
+jmp($);
+
+section: 'code';
+section: 'data';
 
 let buf: rb = 0x10;
 const not_f = 'sh3ll not found :(!';

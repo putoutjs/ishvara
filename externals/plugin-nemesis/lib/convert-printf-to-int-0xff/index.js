@@ -5,7 +5,7 @@ import {PRINTF} from '../api.js';
 export const replace = () => ({
     'nemesis.printf(__a)': `{
         al = ${PRINTF}
-        bx = hi;
+        bx = __a;
         int(0xff);
     }`,
 });
