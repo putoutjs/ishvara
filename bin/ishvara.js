@@ -147,13 +147,14 @@ function write(input, extension, binary) {
     const full = `${join(dir, name)}.${extension}`;
     
     writeFileSync(full, binary);
+    log(args, `💾 ${full}\n\n`);
 }
 
 function log({quiet}, message, {withDivider} = {}) {
     if (quiet)
         return;
     
-    process.stdout.write(String(message));
+    process.stdout.write(message);
     
     if (withDivider) {
         const divider = Array(35 - message.length).join('.');

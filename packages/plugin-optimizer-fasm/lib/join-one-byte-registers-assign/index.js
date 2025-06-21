@@ -30,7 +30,7 @@ const REG = {
 };
 
 const isLow = (a) => a.endsWith('l');
-const isHight = (a) => a.endsWith('h');
+const isHigh = (a) => a.endsWith('h');
 
 const checkNext = ({__a, __b, __c}, path) => {
     if (__a.name === 'mov') {
@@ -50,7 +50,7 @@ const checkNext = ({__a, __b, __c}, path) => {
         if (isLow(__b.name) && compare(next, `mov(${reg}, 0)`))
             return true;
         
-        if (isHight(__b.name) && isNumericLiteral(__c, {value: 0}) && compare(next, `mov(${reg}, __a)`))
+        if (isHigh(__b.name) && isNumericLiteral(__c, {value: 0}) && compare(next, `mov(${reg}, __a)`))
             return true;
         
         return __c.value && __c.value === 0xff;
@@ -99,7 +99,7 @@ const removeNext = ({__a, __b, __c}, path) => {
     if (isLow(__b.name))
         return `mov(${reg}, ${__c.value})`;
     
-    if (isHight(__b.name))
+    if (isHigh(__b.name))
         return `mov(${reg}, ${nextValues.__b.value})`;
     
     return `mov(${reg}, 0)`;
