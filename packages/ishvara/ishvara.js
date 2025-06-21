@@ -8,6 +8,7 @@ export const compile = async (source, options) => {
         name,
         optimization,
         config,
+        onStageChange,
     } = options;
     
     if (target === 'wasm')
@@ -22,5 +23,6 @@ export const compile = async (source, options) => {
         target,
         optimization,
         config,
+        onStageChange,
     });
 };

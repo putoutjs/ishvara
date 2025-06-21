@@ -192,7 +192,7 @@ call __ishvara_out_fdc
 mov ax, 0xffff
 call __ishvara_wait_interrupt
 mov cx, 7
-mov bx, stutus_buffer
+mov bx, status_buffer
 
 __ishvara_do_while_250:
 call __ishvara_in_fdc
@@ -496,7 +496,7 @@ track_number db 0
 sec_number db 0
 secbuffer dw 0
 sec_quantity db 0
-stutus_buffer rb 7
+status_buffer rb 7
 backgroundColor db 0
 textColor db 2
 col db 0

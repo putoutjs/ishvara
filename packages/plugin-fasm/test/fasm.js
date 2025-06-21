@@ -151,7 +151,8 @@ test('plugin-fasm: transform: convert-assign-to-and', (t) => {
     t.transform('convert-assign-to-and');
     t.end();
 });
+
 test('plugin-fasm: transform: convert-assign-to-or', (t) => {
     t.transform('convert-assign-to-or');
     t.end();
-})
+});

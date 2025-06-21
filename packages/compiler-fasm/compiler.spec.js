@@ -27,3 +27,27 @@ test('ishvara: compiler-fasm: optimized: no optimization', async (t) => {
     t.equal(code, source);
     t.end();
 });
+
+test('ishvara: compiler-fasm: optimized: onStageChanged', async (t) => {
+    const source = 'mov(eax, 0x1);\n';
+    const result = [];
+    const onStageChange = (a, b) => result.push([a, b]);
+    
+    await compile(source, {
+        type: 'optimized',
+        optimization: false,
+        onStageChange,
+    });
+    
+    const expected = [
+        ['Transform', {
+            last: false,
+        }],
+        ['Optimize', {
+            last: true,
+        }],
+    ];
+    
+    t.deepEqual(result, expected);
+    t.end();
+});

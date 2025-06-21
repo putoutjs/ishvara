@@ -6,7 +6,6 @@ const {
     identifier,
     isLabeledStatement,
     isBinaryExpression,
-    isMemberExpression,
     isArrayExpression,
 } = types;
 
@@ -127,4 +126,3 @@ function getNext(path) {
     
     return path.getNextSibling();
 }
-

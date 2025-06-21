@@ -20,3 +20,26 @@ test('ishvara: cli-args: parse-args', (t) => {
     t.deepEqual(result, expected);
     t.end();
 });
+
+test('ishvara: cli-args: parse-args: quiet', (t) => {
+    const result = parseArgs([
+        '-o',
+        'assembly',
+        '-t',
+        'fasm',
+        '-q',
+    ]);
+    
+    const expected = {
+        _: [],
+        o: 'assembly',
+        output: 'assembly',
+        t: 'fasm',
+        target: 'fasm',
+        q: true,
+        quiet: true,
+    };
+    
+    t.deepEqual(result, expected);
+    t.end();
+});

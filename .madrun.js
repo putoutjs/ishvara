@@ -11,7 +11,7 @@ export default {
     'report': () => 'c8 report --reporter=lcov',
     'build:boot': () => run('build:boot:*'),
     'build:boot:fasm': () => ishvara({
-        targets: ['fsm'],
+        targets: ['fasm'],
         src: 'externals/nemesis/boot/index.js',
     }),
     'build:boot:asm': () => ishvara({

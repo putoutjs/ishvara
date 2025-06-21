@@ -14,6 +14,16 @@ import {bundle} from '../packages/bundler/index.js';
 import {prepareError} from '../packages/bundler/prepare-error.js';
 import {parseConfig} from '../packages/cli-args/parse-config.js';
 
+const onStageChange = (args) => (stage, {last}) => {
+    log(args, '✅ \n');
+    log(args, stage, {
+        withDivider: true,
+    });
+    
+    if (last)
+        log(args, '✅ \n\n');
+};
+
 const {O = 1, RAW} = process.env;
 const args = parseArgs(process.argv.slice(2));
 
@@ -29,6 +39,14 @@ await validateArgs(args, {
 });
 
 const [name] = args._;
+
+log(args, `🔎 ${name}\n`);
+log(args, `🚀 ${args.target}\n\n`);
+
+log(args, 'Bundle', {
+    withDivider: true,
+});
+
 const [error, source] = await bundle(name);
 
 if (error) {
@@ -78,6 +96,7 @@ const [binary, compilePlaces] = await ishvara.compile(source, {
     target: args.target,
     optimization: Boolean(Number(O)),
     config,
+    onStageChange: onStageChange(args),
 });
 
 if (compilePlaces.length) {
@@ -128,4 +147,16 @@ function write(input, extension, binary) {
     const full = `${join(dir, name)}.${extension}`;
     
     writeFileSync(full, binary);
+}
+
+function log({quiet}, message, {withDivider} = {}) {
+    if (quiet)
+        return;
+    
+    process.stdout.write(String(message));
+    
+    if (withDivider) {
+        const divider = Array(35 - message.length).join('.');
+        process.stdout.write(divider);
+    }
 }
