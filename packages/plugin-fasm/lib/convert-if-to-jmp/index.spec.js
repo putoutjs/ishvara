@@ -78,6 +78,11 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: more', (t) => {
     t.end();
 });
 
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: else', (t) => {
+    t.transform('else');
+    t.end();
+});
+
 test('ishvara: plugin-fasm: convert-if-to-jmp: transform: split-stack-operations', (t) => {
     t.transform('split-stack-operations', {
         splitStackOperations,

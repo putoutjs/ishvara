@@ -63,10 +63,10 @@ test('ishvara: transformer-fasm: if', (t) => {
     const expected = montag`
        __ishvara_compare: {
            cmp(eax, ebx);
-           jnz(__ishvara_fasm_if_1);
+           jnz(__ishvara_fasm_if_end_1);
            mov(eax, 5);
            ret();
-           __ishvara_fasm_if_1: mov(eax, 3);
+           __ishvara_fasm_if_end_1: mov(eax, 3);
            ret();
            ret();
        }\n
@@ -92,10 +92,10 @@ test('ishvara: transformer-fasm: empty config', (t) => {
     const expected = montag`
        __ishvara_compare: {
            cmp(eax, ebx);
-           jnz(__ishvara_fasm_if_1);
+           jnz(__ishvara_fasm_if_end_1);
            mov(eax, 5);
            ret();
-           __ishvara_fasm_if_1: mov(eax, 3);
+           __ishvara_fasm_if_end_1: mov(eax, 3);
            ret();
            ret();
        }\n

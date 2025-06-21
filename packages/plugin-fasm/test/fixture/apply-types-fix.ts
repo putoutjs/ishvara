@@ -19,13 +19,13 @@ buf.rb[0x10];
 export const compare = (eax) => {
     {
         cmp(eax, 0);
-        jnz(__ishvara_fasm_if_1);
+        jnz(__ishvara_fasm_if_end_1);
         {
             mov(ax, 1);
             ret();
         }
     }
-    __ishvara_fasm_if_1: mov(ax, 0);
+    __ishvara_fasm_if_end_1: mov(ax, 0);
     ret();
 };
 

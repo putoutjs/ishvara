@@ -6,6 +6,7 @@
     }],
     "rules": {
         "apply-arrow": "off",
+        "declare": "off",
         "extract-sequence-expressions": "off",
         "assignment/convert-to-declaration": "off",
         "labels/remove-unuse": "off",

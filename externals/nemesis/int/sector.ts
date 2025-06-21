@@ -1,6 +1,6 @@
 import {io} from '@ishvara/operator-fasm';
 
-let stutus_buffer: rb = 7;
+let status_buffer: rb = 7;
 let sec_quantity = 0;
 let secbuffer: i16 = 0;
 let sec_number = 0;
@@ -16,12 +16,8 @@ DMA_COMMAND_WRITE.equ = 0x46;
 RESET_CONTROLLER.equ = 4;
 USE_DMA.equ = 8;
 RUN_MOTOR.equ = 16;
-FLOPPY.equ = 0;
 
-async function wait() {
-    cx = 3500;
-    loop($);
-}
+FLOPPY.equ = 0;
 
 // шлем байт из ah fdc
 async function out_fdc() {
@@ -64,117 +60,118 @@ export async function readSector() {
     [drive] = dl;
     [head] = dh;
     
-    secreading: dec([sec_quantity]);
-    sti();
-    dx = 0x3f2;
-    al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
-    io.out(dx, al);
-    await wait();
-    ah = 15; // номер кода
-    await out_fdc(); // посылаем контроллеру НГМД
-    ah = FLOPPY; //номер накопителя(дискета ;))
-    await out_fdc();
-    ah = [track_number];
-    await out_fdc();
-    await wait_interrupt(); //ожидаем прерывания от нгдм
+    do {
+        dec([sec_quantity]);
+        sti();
+        dx = 0x3f2;
+        al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
+        io.out(dx, al);
+        await waitLong();
+        ah = 15; // номер кода
+        await out_fdc(); // посылаем контроллеру НГМД
+        ah = FLOPPY; //номер накопителя (дискета ;))
+        await out_fdc();
+        ah = [track_number];
+        await out_fdc();
+        await wait_interrupt(); //ожидаем прерывания от нгдм
+        await waitShort();
+        al = [dma_command];
+        //0x4a;для записи 0x46
+        // код чтения данных контроллера нмгд
+        io.out(12, al); // посылаем код по 2-ум адресам
+        io.out(11, al); // вычисляем адрес буфера
+        ax = [secbuffer]; // смещение буфера в ds
+        bx = ds;
+        cl = 4; //готовим вращения старшего нибла
+        rol(bx, cl); //вращаем младшие 4 бита
+        dl = bl;
+        dl &= 0xf; //чистим старший нибл в dl
+        bl &= 0xf0; //чистим младший нибл в bl
+        ax &= bx;
+        jnc(no_carry);
+        // если небыло переноса
+        // то страници в dl
+        ++dl; // увеличиваем dl, если был перенос
+        no_carry: io.out(4, al);
+        // посылаем младший байт адреса
+        al = ah; // сдвигаем старший байт
+        io.out(4, al); //посылаем младший байт адреса
+        al = dl; //засылаем номер страницы
+        io.out(0x81, al);
+        //посылаем номер страницы
+        // конец инициализации
+        ax = 0x200 - 1; //значение счетчика
+        io.out(5, al); //посылаем младший байт
+        al = ah; // готовим старший байт
+        io.out(5, al); //посылаем старший байт
+        al = 2; //готовим разрешение канала 2
+        io.out(10, al); //DMA ожидает данные
+        ah = [secread_com]; // 0xE6;0x66;код чтения одного сектора
+        await out_fdc();
+        //посылаем команду контроллеру нмгд
+        ah = [head];
+        // head/drive по форумуле
+        // 00000hdd, поэтому если головка 1
+        // ;то в ah будет 4=2^2
+        ah <<= 2;
+        await out_fdc();
+        
+        ah = [track_number];
+        await out_fdc();
+        
+        ah = [head];
+        await out_fdc();
+        ah = [sec_number];
+        await out_fdc();
+        
+        ah = 2; // 0x200 [es:bx+3];код размера сектора
+        await out_fdc();
+        
+        ah = 0x12; //[es:bx+4];номер конца дорожки
+        await out_fdc();
+        
+        ah = 0x1B; // [es:bx+5];длина сдвига
+        await out_fdc();
+        ah = 0xFF;
+        //[es:bx+6];длина данных
+        // неиспользуется потому, что
+        // размер сектора задан!
+        await out_fdc();
+        await wait_interrupt();
+        // читаем результируюющие байты
+        cx = 7; // берем 7 байтов статуса
+        bx = status_buffer;
+        do {
+            await in_fdc(); //получаем байт
+            [bx] = al; // помещаем в буфер
+            ++bx; // указываем на следующий байт буфера
+        } while (--cx);
+        // выключаем мотор
+        dx = 0x3f2;
+        al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
+        io.out(dx, al); // посылаем новую установку
+        [secbuffer] += 0x200;
+        inc([sec_number]);
+        
+        if ([sec_number] > 0x12) {
+            inc([track_number]);
+            [sec_number] = 1;
+        } else {
+            al = 0;
+        }
+        
+        al |= [sec_quantity];
+    } while (al);
 }
 
 /*
-mov	cx,1750;счетчик цикла задержки
-loop	$
-mov	al,[dma_command];0x4a;для записи 0x46
-;код чтения данных контроллера нмгд
-out	12,al;посылаем код по 2-ум адресам
-out	11,al;вычисляем адрес буфера
-mov	ax,[secbuffer];смещение буфера в ds
-mov	bx,ds
-mov	cl,4;готовим вращения старшего нибла
-rol	bx,cl;вращаем младшие 4 бита
-mov	dl,bl
-and	dl,0xf;чистим старший нибл в dl
-and	bl,0xf0;чистим младший нибл в bl
-add	ax,bx
-jnc	no_carry;если небыло переноса
-;то страници в dl
-inc	dl;увеличиваем dl, если был перенос
-no_carry:
-    out	4,al;посылаем младший байт адреса
-mov	al,ah;сдвигаем старший байт
-out	4,al;посылаем младший байт адреса
-mov	al,dl;засылаем номер страницы
-out	0x81,al;посылаем номер страницы
-;конец ебаной инициализации
-mov	 ax,0x200-1;значение счетчика
-out	 5,al;посылаем младший байт
-mov	 al,ah;готовим старший байт
-out	 5,al;посылаем старший байт
-mov	 al,2;готовим разрешение канала 2
-out	 10,al;DMA ожидает данные
-;получаем указатель на базу диска
-;mov      al,0x1e;номер вектора
-;указывающего на таблицу
-;mov      ah,0x35;номер функции
-;int       0x21
-;Код выше идет лесом потому, что ебаного доса у нас
-;нет, и вообще пошол он сука нахуй >:(!
-;mov      ax,[es:0x1e*4]
-
-;mov       bx,0x1e*4;es у нас и так ноль ;)!
-    
-    mov	  ah,[secread_com];0xE6;0x66;код чтения одного сектора
-call	  out_fdc;посылаем команду контроллеру нмгд
-;xor       ah,ah;номер головки и накопителя
-mov	  ah,[head];head/drive по форумуле
-;00000hdd, поэтому если головка 1
-;то в ah будет 4=2^2
-shl	  ah,2
-call	  out_fdc
-;xor       ah,ah;номер цилиндра
-mov	   ah,[track_number]
-call	  out_fdc
-;xor       ah,ah;номер головки
-;mov        ah,0
-mov	   ah,[head]
-call	  out_fdc
-;mov       ah,1;номер записи
-mov	   ah,[sec_number]
-call	  out_fdc
-mov	  ah,2;0x200 [es:bx+3];код размера сектора
-call	  out_fdc
-mov	  ah,0x12;[es:bx+4];номер конца дорожки
-
-call	  out_fdc
-mov	  ah,0x1B;[es:bx+5];длина сдвига
-call	  out_fdc
-mov	  ah,0xFF;[es:bx+6];длина данных
-;неиспользуется потому, что
-;размер сектора задан!
-call	  out_fdc
-call	  wait_interrupt
-;читаем результируюющие байты
-mov	  cx,7;берем 7 байтов статуса
-mov	  bx,stutus_buffer
-next:
-    call	  in_fdc;получаем байт
-mov	  [bx],al;помещаем в буфер
-inc	  bx;указываем на следующий байт буфера
-loop	  next;повторяем операцию
-;выключаем мотор
-mov	  dx,0x3f2
-mov	  al,12;оставляем биты 3 и 4
-out	  dx,al;посылаем новую установку
-
-;jmp      [secbuffer]
-
-add	 [secbuffer],0x200
-
-inc	 [sec_number]
 cmp	 [sec_number],0x12
 jle	 not_new_track
 inc	 [track_number]
 mov	 [sec_number],1
 not_new_track:
     xor	 al,al
+
 or	 [sec_quantity],al
 jnz	 secreading
 
@@ -194,4 +191,14 @@ async function wait_interrupt<es>() {
     // проверяем бит 7
     dl &= 0b1_111_111; //сбрасываем бит 7
     es[bx] = dl; //заменяем байт стутуса
+}
+
+async function waitLong() {
+    cx = 3500;
+    loop($);
+}
+
+async function waitShort() {
+    cx = 1750;
+    loop($);
 }

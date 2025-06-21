@@ -5,73 +5,100 @@ const {
     labeledStatement,
     identifier,
     isLabeledStatement,
+    isBinaryExpression,
+    isMemberExpression,
+    isArrayExpression,
 } = types;
 
-const {replaceWith, insertAfter} = operator;
+const {
+    replaceWith,
+    insertAfter,
+    extract,
+} = operator;
 
-const createName = (suffix) => {
-    return `__ishvara_fasm_if_${suffix}`;
+const createName = (suffix, type) => {
+    return `__ishvara_fasm_if_${type}_${suffix}`;
 };
 
 export const report = () => `Use 'jmp' instead of 'if'`;
+export const match = () => ({
+    'if (__a) __b': ({__a}) => isBinaryExpression(__a),
+});
 
 export const replace = ({options}) => {
     let {labelSuffix = 0} = options;
     
     return {
-        'if (__a > __b) __c': (vars, path) => {
+        'if (__a) __b': (vars, path) => {
             const next = getNext(path);
-            const name = createName(++labelSuffix);
+            const name = createName(++labelSuffix, 'end');
+            const [first, second, jnz] = parseTest(path);
             
             createLabel(next, name);
             
             return `{
-                cmp(__a, __b);
-                jle(${name});
-                __c;
+                cmp(${first}, ${second});
+                ${jnz}(${name});
+                __b;
             }`;
         },
-        'if (__a === __b) __c': (vars, path) => {
+        'if (__a) __b; else __c': (vars, path) => {
             const next = getNext(path);
-            const name = createName(++labelSuffix);
+            const suffix = ++labelSuffix;
+            const endLabel = createName(suffix, 'end');
+            const elseLabel = createName(suffix, 'else');
+            const [first, second, jnz] = parseTest(path);
             
-            createLabel(next, name);
+            createLabel(next, endLabel);
             
             return `{
-                cmp(__a, __b);
-                jnz(${name});
+                cmp(${first}, ${second});
+                ${jnz}(${elseLabel});
+                __b;
+                jmp(${endLabel});
+                ${elseLabel}:
                 __c;
-            }`;
-        },
-        'if (__a !== __b) __c': (vars, path) => {
-            const next = getNext(path);
-            const name = createName(++labelSuffix);
-            
-            createLabel(next, name);
-            
-            return `{
-                cmp(__a, __b);
-                jz(${name});
-                __c;
-            }`;
-        },
-        'if (__a === __b) __c; else __d': (vars, path) => {
-            const next = getNext(path);
-            const name = createName(++labelSuffix);
-            
-            createLabel(next, name);
-            
-            return `{
-                cmp(__a, __b);
-                jnz(${name}_not_ok);
-                __c;
-                jmp(${name});
-                ${name}_not_ok:
-                __d;
             }`;
         },
     };
 };
+
+function parseOperator(operator) {
+    if (operator === '===')
+        return 'jnz';
+    
+    if (operator === '!==')
+        return 'jz';
+    
+    if (operator === '>')
+        return 'jle';
+    
+    throw Error(`☝️Looks like operator '${operator}' not supported`);
+}
+
+const maybeBraces = (node, value) => {
+    if (isArrayExpression(node))
+        return `[${value}]`;
+    
+    return value;
+};
+
+function parseTest(path) {
+    const {
+        left,
+        right,
+        operator,
+    } = path.node.test;
+    
+    const extractedLeft = extract(left);
+    const extractedRight = extract(right);
+    
+    return [
+        maybeBraces(left, extractedLeft),
+        maybeBraces(right, extractedRight),
+        parseOperator(operator),
+    ];
+}
 
 function createLabel(path, name) {
     const labelName = identifier(name);
@@ -100,3 +127,4 @@ function getNext(path) {
     
     return path.getNextSibling();
 }
+

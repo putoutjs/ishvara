@@ -13,7 +13,7 @@ let exec_addr: i16 = 0x500;
 let old_ds: i16 = 0;
 let old_esi: i16 = 0;
 
-const hi = ['Hello from Nemesis =)!', 0xd]
+const hi = ['Hello from Nemesis =)!', 0xd];
 let buf: rb = 0x10;
 
 export const compare = (eax) => {
