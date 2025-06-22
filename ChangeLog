@@ -1,3 +1,11 @@
+2025.06.22, v2.6.0
+
+feature:
+- 6608917 ishvara: plugin-nemesis: convert-read-sector-to-int-0xff
+- 70ef92a ishvara: improve error handling
+- ebaa93e ishvara: add ability to log
+- ac72c23 ishvara: add ability to log
+
 2025.06.21, v2.5.5
 
 feature:
