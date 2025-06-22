@@ -5,11 +5,11 @@ export function getColumn(): i8 {
 }
 
 export function incColumn() {
-    inc([col]);
+    [++col];
 }
 
 export function decColumn() {
-    dec([col]);
+    [--col];
 }
 
 export function setColumn() {

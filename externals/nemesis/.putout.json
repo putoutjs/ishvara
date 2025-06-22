@@ -11,6 +11,7 @@
         "assignment/convert-to-declaration": "off",
         "labels/remove-unuse": "off",
         "nodejs/declare": "off",
+        "putout": "off",
         "remove-unused-expressions": "off",
         "remove-unused-variables": "off",
         "typescript/remove-useless-types-from-constants": "off",

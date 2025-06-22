@@ -3,7 +3,8 @@ import {printf} from './printf';
 import {getCursor, setCursor} from './cursor.ts';
 import {clearScreen} from './clear-screen.ts';
 import {minMaxColLine} from './position/min-max-col-line.ts';
-import {readSector} from './sector';
+import {readSector} from './sector.ts';
+import {findFile} from './find-file.ts';
 
 _reboot.equ = 0;
 _get_char.equ = 1;
@@ -23,6 +24,11 @@ _secwrite.equ = 0xd;
 export async function intTable(): iret {
     if (!al)
         bios.reboot();
+    
+    if (al === _find_file) {
+        await findFile();
+        return;
+    }
     
     if (al === _printf) {
         await printf();
@@ -54,3 +60,4 @@ export async function intTable(): iret {
         return;
     }
 }
+

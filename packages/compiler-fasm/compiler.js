@@ -17,10 +17,12 @@ export const compile = async (source, options = {}) => {
     
     const emitStateChange = (a) => onStageChange(a, {
         last: false,
+        places: [],
     });
     
     const emitLastStateChange = (a) => onStageChange(a, {
         last: true,
+        places: [],
     });
     
     const [code, compilePlaces] = transform(source, config);

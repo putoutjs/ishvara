@@ -19,27 +19,6 @@ RUN_MOTOR.equ = 16;
 
 FLOPPY.equ = 0;
 
-// шлем байт из ah fdc
-async function out_fdc() {
-    dx = 0x3f4;
-    // адрес порта регистра статуса
-    do {
-        io.in(al, dx); //и данные
-    } while (al === 128);
-    ++dx;
-    al = ah;
-    io.out(dx, al);
-}
-
-async function in_fdc() {
-    dx = 0x3f4;
-    do {
-        io.in(al, dx);
-    } while (al === 128);
-    ++dx;
-    io.in(al, dx);
-}
-
 // ah - кол-во секторов
 // bx - buffer
 // cl - номер сектора
@@ -61,7 +40,7 @@ export async function readSector() {
     [head] = dh;
     
     do {
-        dec([sec_quantity]);
+        [--sec_quantity];
         sti();
         dx = 0x3f2;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
@@ -134,11 +113,11 @@ export async function readSector() {
         await out_fdc();
         ah = 0xFF;
         //[es:bx+6];длина данных
-        // неиспользуется потому, что
+        // не используется потому, что
         // размер сектора задан!
         await out_fdc();
         await wait_interrupt();
-        // читаем результируюющие байты
+        // читаем результирующие байты
         cx = 7; // берем 7 байтов статуса
         bx = status_buffer;
         do {
@@ -151,10 +130,10 @@ export async function readSector() {
         al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
         io.out(dx, al); // посылаем новую установку
         [secbuffer] += 0x200;
-        inc([sec_number]);
+        [--sec_number];
         
         if ([sec_number] > 0x12) {
-            inc([track_number]);
+            [--track_number];
             [sec_number] = 1;
         } else {
             al = 0;
@@ -164,22 +143,7 @@ export async function readSector() {
     } while (al);
 }
 
-/*
-cmp	 [sec_number],0x12
-jle	 not_new_track
-inc	 [track_number]
-mov	 [sec_number],1
-not_new_track:
-    xor	 al,al
-
-or	 [sec_quantity],al
-jnz	 secreading
-
-end_of_secreading:
-    iret;
-
-*/
-// ждем прирывание нгмд; управление статусом
+// ждем прерывание нгмд; управление статусом
 async function wait_interrupt<es>() {
     // прерывания 6 в байте статуса BIOS
     ax = 0x40; // Сегмент области данных BIOS
@@ -202,3 +166,25 @@ async function waitShort() {
     cx = 1750;
     loop($);
 }
+
+// шлем байт из ah fdc
+async function out_fdc() {
+    dx = 0x3f4;
+    // адрес порта регистра статуса
+    do {
+        io.in(al, dx); //и данные
+    } while (al === 128);
+    ++dx;
+    al = ah;
+    io.out(dx, al);
+}
+
+async function in_fdc() {
+    dx = 0x3f4;
+    do {
+        io.in(al, dx);
+    } while (al === 128);
+    ++dx;
+    io.in(al, dx);
+}
+
