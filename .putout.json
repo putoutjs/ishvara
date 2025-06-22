@@ -1,7 +1,8 @@
 {
     "rules": {
         "github/set-node-versions": "off",
-        "putout": "on"
+        "putout": "on",
+        "typescript/find-file": "off"
     },
     "ignore": ["example"]
 }
