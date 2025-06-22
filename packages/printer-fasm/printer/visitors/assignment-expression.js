@@ -43,5 +43,5 @@ export const AssignmentExpression = (path, printer, semantics) => {
         return;
     }
     
-    return visitors.MemberExpression(path, printer, semantics);
+    return visitors.AssignmentExpression(path, printer, semantics);
 };

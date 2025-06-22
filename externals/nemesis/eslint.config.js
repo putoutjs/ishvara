@@ -10,6 +10,7 @@ export default defineConfig([
             '@typescript-eslint/no-unused-expressions': 'off',
             'no-undef': 'off',
             'prefer-const': 'off',
+            'no-constant-condition': 'off',
         },
     },
 ]);

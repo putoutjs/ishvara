@@ -2,7 +2,7 @@ import {
     org,
     use16,
     nemesis,
-} from '#operator-fasm';
+} from '@ishvara/operator-fasm';
 import {intTable} from './int/int-table.ts';
 
 org(0x7e00);

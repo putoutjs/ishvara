@@ -1,3 +1,5 @@
+import {nemesis} from '@ishvara/operator-fasm';
+
 // в bx кладем имя файла(ascii)
 export async function findFile() {
     // Считываем сектор, в котором находятся записи об
@@ -7,25 +9,33 @@ export async function findFile() {
     push(bx);
     do {
         push(cx);
+        al = nemesis.readSector({
+            count: 1,
+            buffer: 0x7c00,
+            sector: 2,
+            track: 0,
+            head: 1,
+        });
         
-        al = _secread; //reading the sector
-        ah = 1; // how much sectors? 1
-        bx = 0x7c00; // buffer
-        cl = 2; // sector
-        ch = 0; // track;
-        dx = 1; // головка 1(вторая)
-        int(0xff);
+        if (!al)
+            break;
         
         pop(cx);
-        jnc(find_file_in_fat1);
-        clc();
-    } while (--cx);
-    pop(di);
-    pop(cx);
-    al = 0;
+    } while(--cx);
     
-    find_file_in_fat1: si = 0x7c00;
-}/*
+    if (al) {
+        pop(di);
+        pop(cx);
+        al = 0;
+        
+        return;
+    }
+    
+    si = 0x7c00;
+    do {
+    } while(true);
+}
+/*
 ;---------------------------------------------
     find_file_in_fat1:
 mov	si,0x7c00

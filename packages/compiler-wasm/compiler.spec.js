@@ -114,11 +114,11 @@ test('ishvara: compiler-wasm: optimized: onStageChanged', async (t) => {
     });
     
     const expected = [
-        ['Transform', {
+        ['transform', {
             last: false,
             places: [],
         }],
-        ['Optimize', {
+        ['optimize', {
             last: true,
             places: [],
         }],

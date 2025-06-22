@@ -15,8 +15,10 @@ import {prepareError} from '../packages/bundler/prepare-error.js';
 import {parseConfig} from '../packages/cli-args/parse-config.js';
 
 const onStageChange = (args) => (stage, {last, places}) => {
+    const line = stage[0].toUpperCase() + stage.slice(1);
+    
     log(args, '✅ \n');
-    log(args, stage, {
+    log(args, line, {
         withDivider: true,
     });
     
@@ -34,6 +36,12 @@ const onStageChange = (args) => (stage, {last, places}) => {
     
     for (const {message, position} of places) {
         const {line, column} = position;
+        
+        if (stage === 'translate') {
+            console.error(`${chalk.blue(`${line}:${column}`)}: ${chalk.red(message)}`);
+            continue;
+        }
+        
         console.error(`file://${chalk.blue(`${fullName}:${line}:${column}`)}: ${chalk.red(message)}`);
     }
     
@@ -95,6 +103,8 @@ if (errorOptions) {
 }
 
 if (args.output === 'bundle') {
+    log(args, `✅ \n\n`);
+    
     if (RAW)
         console.log(source);
     else
@@ -116,6 +126,8 @@ const [binary] = await ishvara.compile(source, {
 });
 
 if (args.output) {
+    log('✅ \n\n');
+    
     if (args.output === 'binary' || RAW)
         process.stdout.write(binary);
     else
@@ -172,3 +184,4 @@ function log({quiet}, message, {withDivider} = {}) {
         process.stdout.write(divider);
     }
 }
+

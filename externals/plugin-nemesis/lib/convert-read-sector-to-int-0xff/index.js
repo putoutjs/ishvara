@@ -1,4 +1,5 @@
 import {types, operator} from 'putout';
+import {is8bit} from '@ishvara/operator-fasm/regs';
 
 export const report = () => `Use '0xff' instead of 'nemesis.readSector()'`;
 
@@ -12,8 +13,9 @@ export const match = () => ({
 });
 
 export const replace = () => ({
-    '__a = nemesis.readSector(__object)': ({__object}, path) => {
+    '__a = nemesis.readSector(__object)': ({__object, __a}, path) => {
         const {line} = path.node.loc.start;
+        const reg = parseReg(__a.name);
         const {
             count = 1,
             buffer = 0,
@@ -31,15 +33,16 @@ export const replace = () => ({
             dl = ${disk};
             dh = ${head}; 
             ${createReadSector(line)}
-            mov(__a, ax);
+            mov(__a, ${reg});
         }`;
     },
-    '__a = nemesis.readSector()': (vars, path) => {
+    '__a = nemesis.readSector()': ({__a, __reg}, path) => {
         const {line} = path.node.loc.start;
+        const reg = parseReg(__a.name);
         
         return `{
             ${createReadSector(line)}
-            mov(__a, ax);
+            mov(__a, ${reg});
         }`;
     },
     'nemesis.readSector()': (vars, path) => {
@@ -60,6 +63,13 @@ function createReadSector(line) {
         __ishvara_read_sector_end_${line}:
         clc();
     }`;
+}
+
+function parseReg(name) {
+    if (is8bit(name))
+        return 'al';
+    
+    return 'ax';
 }
 
 function parseArgs(properties) {

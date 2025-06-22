@@ -17,12 +17,7 @@ export const compile = async (source, options = {}) => {
         places: [],
     });
     
-    const emitLastStateChange = (a) => onStageChange(a, {
-        last: true,
-        places: [],
-    });
-    
-    const emitErrorStateChange = (a, places) => onStageChange(a, {
+    const emitLastStateChange = (a, places = []) => onStageChange(a, {
         last: true,
         places,
     });
@@ -30,7 +25,7 @@ export const compile = async (source, options = {}) => {
     const [code, compilePlaces] = transform(source);
     
     if (compilePlaces.length) {
-        emitErrorStateChange('Transform', compilePlaces);
+        emitLastStateChange('Transform', compilePlaces);
         return [code, compilePlaces];
     }
     
@@ -39,11 +34,11 @@ export const compile = async (source, options = {}) => {
         return [code, compilePlaces];
     }
     
-    emitStateChange('Transform');
+    emitStateChange('transform');
     const [optimized, optimizedPlaces] = optimize(code);
     
     if (/optimize/.test(type)) {
-        emitLastStateChange('Optimize');
+        emitLastStateChange('optimize');
         return [optimized, optimizedPlaces];
     }
     
@@ -56,18 +51,12 @@ export const compile = async (source, options = {}) => {
             [],
         ];
     
-    emitStateChange('Print');
+    emitStateChange('print');
     const [binary, places] = await translate(assembly, {
         name,
         type,
     });
     
-    if (places.length) {
-        emitErrorStateChange('Translate', places);
-        
-        return [binary, places];
-    }
-    
-    emitStateChange('Translate');
+    emitLastStateChange('translate', places);
     return [binary, places];
 };

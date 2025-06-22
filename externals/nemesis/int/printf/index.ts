@@ -1,4 +1,4 @@
-import {nemesis} from '#operator-fasm';
+import {nemesis} from '@ishvara/operator-fasm';
 import {getStringLength} from '../../get-string-length.js';
 import {
     getLine,

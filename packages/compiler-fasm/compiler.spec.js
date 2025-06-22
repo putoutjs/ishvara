@@ -40,11 +40,39 @@ test('ishvara: compiler-fasm: optimized: onStageChanged', async (t) => {
     });
     
     const expected = [
-        ['Transform', {
+        ['transform', {
             last: false,
+            places: [],
         }],
-        ['Optimize', {
+        ['optimize', {
             last: true,
+            places: [],
+        }],
+    ];
+    
+    t.deepEqual(result, expected);
+    t.end();
+});
+
+test('ishvara: compiler-fasm: optimized: onStageChanged: error', async (t) => {
+    const source = 'mov(eax, 0x1);\n';
+    const result = [];
+    const onStageChange = (a, b) => result.push([a, b]);
+    
+    await compile(source, {
+        type: 'optimized',
+        optimization: false,
+        onStageChange,
+    });
+    
+    const expected = [
+        ['transform', {
+            last: false,
+            places: [],
+        }],
+        ['optimize', {
+            last: true,
+            places: [],
         }],
     ];
     

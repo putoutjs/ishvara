@@ -20,8 +20,10 @@ test('ishvara: translator-fasm: places', async (t) => {
     
     const expected = [{
         message: `illegal instruction: '(module)'`,
-        column: 0,
-        line: 2,
+        position: {
+            column: 0,
+            line: 2,
+        },
     }];
     
     t.deepEqual(places, expected);
