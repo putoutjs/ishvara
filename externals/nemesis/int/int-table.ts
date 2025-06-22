@@ -60,4 +60,3 @@ export async function intTable(): iret {
         return;
     }
 }
-

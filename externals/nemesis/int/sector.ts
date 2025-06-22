@@ -18,7 +18,6 @@ USE_DMA.equ = 8;
 RUN_MOTOR.equ = 16;
 
 FLOPPY.equ = 0;
-
 // ah - кол-во секторов
 // bx - buffer
 // cl - номер сектора
@@ -40,7 +39,9 @@ export async function readSector() {
     [head] = dh;
     
     do {
-        [--sec_quantity];
+        [
+            --sec_quantity,
+        ];
         sti();
         dx = 0x3f2;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
@@ -130,10 +131,14 @@ export async function readSector() {
         al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
         io.out(dx, al); // посылаем новую установку
         [secbuffer] += 0x200;
-        [--sec_number];
+        [
+            --sec_number,
+        ];
         
         if ([sec_number] > 0x12) {
-            [--track_number];
+            [
+                --track_number,
+            ];
             [sec_number] = 1;
         } else {
             al = 0;
@@ -187,4 +192,3 @@ async function in_fdc() {
     ++dx;
     io.in(al, dx);
 }
-

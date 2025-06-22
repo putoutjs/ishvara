@@ -5,11 +5,15 @@ export function getLine(): i8 {
 }
 
 export function incLine() {
-    [++line];
+    [
+        ++line,
+    ];
 }
 
 export function decLine() {
-    [--line];
+    [
+        --line,
+    ];
 }
 
 export function setLine() {

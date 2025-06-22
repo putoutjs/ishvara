@@ -9,7 +9,7 @@ export async function findFile() {
         push(cx);
         
         al = _secread; //reading the sector
-        ah = 1;// how much sectors? 1
+        ah = 1; // how much sectors? 1
         bx = 0x7c00; // buffer
         cl = 2; // sector
         ch = 0; // track;
@@ -19,16 +19,13 @@ export async function findFile() {
         pop(cx);
         jnc(find_file_in_fat1);
         clc();
-    } while(--cx);
-    
+    } while (--cx);
     pop(di);
     pop(cx);
     al = 0;
     
-    find_file_in_fat1:
-    si = 0x7c00;
-}
-/*
+    find_file_in_fat1: si = 0x7c00;
+}/*
 ;---------------------------------------------
     find_file_in_fat1:
 mov	si,0x7c00
@@ -85,3 +82,4 @@ pop	cx
 mov	al,1;Ничо не нашли o_O ...
 iret
 */
+

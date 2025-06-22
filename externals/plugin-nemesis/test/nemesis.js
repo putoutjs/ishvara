@@ -26,7 +26,8 @@ test('plugin-nemesis: transform: convert-exec-to-int-0xff', (t) => {
     t.transform('convert-exec-to-int-0xff');
     t.end();
 });
+
 test('plugin-nemesis: transform: convert-read-sector-to-int-0xff', (t) => {
     t.transform('convert-read-sector-to-int-0xff');
     t.end();
-})
+});
