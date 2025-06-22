@@ -96,11 +96,8 @@ const removeNext = ({__a, __b, __c}, path) => {
     if (__c.value === 0xff)
         return `mov(${reg}, 0xffff)`;
     
-    if (isLow(__b.name))
-        return `mov(${reg}, ${__c.value})`;
-    
     if (isHigh(__b.name))
         return `mov(${reg}, ${nextValues.__b.value})`;
     
-    return `mov(${reg}, 0)`;
+    return `mov(${reg}, ${__c.value})`;
 };
