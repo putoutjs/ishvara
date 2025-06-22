@@ -1,6 +1,6 @@
 import {test} from 'supertape';
 import montag from 'montag';
-import {compile} from './ishvara.js';
+import {compile} from '#ishvara';
 
 test('ishvara: asm', async (t) => {
     const source = 'eax = 1';
@@ -36,5 +36,32 @@ test('ishvara: asm: config', async (t) => {
     `;
     
     t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: wasm: onStageChanged', async (t) => {
+    const source = 'function add(a, b) {return a + b};\n';
+    const result = [];
+    const onStageChange = (a, b) => result.push([a, b]);
+    
+    await compile(source, {
+        type: 'optimized',
+        optimization: false,
+        onStageChange,
+        target: 'wasm',
+    });
+    
+    const expected = [
+        ['Transform', {
+            last: false,
+            places: [],
+        }],
+        ['Optimize', {
+            last: true,
+            places: [],
+        }],
+    ];
+    
+    t.deepEqual(result, expected);
     t.end();
 });

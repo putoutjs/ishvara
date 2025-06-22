@@ -6,7 +6,7 @@
         "bin",
         "**/example",
         "*.config.js",
-        ".*",
+        "**/.*",
         "coverage",
         "**/fixture",
         "**/*.config.*",

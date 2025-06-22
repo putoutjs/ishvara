@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import {writeFileSync} from 'node:fs';
-import process from 'node:process';
+import process, {cwd, exit} from 'node:process';
 import {stat} from 'node:fs/promises';
 import path, {join} from 'node:path';
 import {codeFrameColumns} from '@putout/babel';
@@ -14,14 +14,30 @@ import {bundle} from '../packages/bundler/index.js';
 import {prepareError} from '../packages/bundler/prepare-error.js';
 import {parseConfig} from '../packages/cli-args/parse-config.js';
 
-const onStageChange = (args) => (stage, {last}) => {
+const onStageChange = (args) => (stage, {last, places}) => {
     log(args, '✅ \n');
     log(args, stage, {
         withDivider: true,
     });
     
-    if (last)
+    if (!last)
+        return;
+    
+    if (!places.length) {
         log(args, '✅ \n\n');
+        return;
+    }
+    
+    log(args, '❌ \n\n');
+    
+    const fullName = join(cwd(), name);
+    
+    for (const {message, position} of places) {
+        const {line, column} = position;
+        console.error(`file://${chalk.blue(`${fullName}:${line}:${column}`)}: ${chalk.red(message)}`);
+    }
+    
+    exit(1);
 };
 
 const {O = 1, RAW} = process.env;
@@ -90,7 +106,7 @@ if (args.output === 'bundle') {
     process.exit();
 }
 
-const [binary, compilePlaces] = await ishvara.compile(source, {
+const [binary] = await ishvara.compile(source, {
     name,
     type: args.output,
     target: args.target,
@@ -98,11 +114,6 @@ const [binary, compilePlaces] = await ishvara.compile(source, {
     config,
     onStageChange: onStageChange(args),
 });
-
-if (compilePlaces.length) {
-    console.error(compilePlaces);
-    process.exit(1);
-}
 
 if (args.output) {
     if (args.output === 'binary' || RAW)

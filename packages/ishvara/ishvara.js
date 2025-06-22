@@ -16,6 +16,7 @@ export const compile = async (source, options) => {
             type,
             name,
             optimization,
+            onStageChange,
         });
     
     return await fasm.compile(source, {

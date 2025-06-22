@@ -101,3 +101,29 @@ test('ishvara: compiler-wasm: optimize', async (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: compiler-wasm: optimized: onStageChanged', async (t) => {
+    const source = 'function add(a, b) {return a + b};\n';
+    const result = [];
+    const onStageChange = (a, b) => result.push([a, b]);
+    
+    await compile(source, {
+        type: 'optimized',
+        optimization: false,
+        onStageChange,
+    });
+    
+    const expected = [
+        ['Transform', {
+            last: false,
+            places: [],
+        }],
+        ['Optimize', {
+            last: true,
+            places: [],
+        }],
+    ];
+    
+    t.deepEqual(result, expected);
+    t.end();
+});
