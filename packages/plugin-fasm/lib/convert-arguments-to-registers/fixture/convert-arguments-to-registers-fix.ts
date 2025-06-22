@@ -1,17 +1,25 @@
 async function setColumn() {
+    push(bp);
+    mov(bp, sp);
     {
-        pop(bx);
-        pop(ax);
-        push(bx);
+        mov(ax, [bp + 2]);
+        mov([col], ax);
     }
-    [col] = al;
+    pop(bp);
+    add(sp, 2);
 }
 
 async function setLine() {
+    push(bp);
+    mov(bp, sp);
     {
-        pop(bx);
-        pop(ax);
-        push(bx);
+        mov(ax, [bp + 2]);
+        mov([line], ax);
     }
-    [line] = ax;
+    pop(bp);
+    add(sp, 4);
+}
+
+async function get() {
+    return 5;
 }

@@ -3,6 +3,7 @@ import {types} from '@putout/babel';
 const {
     isMemberExpression,
     isCallExpression,
+    isArrayExpression,
 } = types;
 
 export const report = (path) => {
@@ -11,6 +12,9 @@ export const report = (path) => {
 
 export const match = () => ({
     '__a = __b': ({__a, __b}) => {
+        if (isArrayExpression(__a) && isArrayExpression(__b))
+            return false;
+        
         if (isMemberExpression(__a))
             return false;
         

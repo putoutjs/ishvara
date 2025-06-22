@@ -36,7 +36,7 @@ export const replace = () => ({
             mov(__a, ${reg});
         }`;
     },
-    '__a = nemesis.readSector()': ({__a, __reg}, path) => {
+    '__a = nemesis.readSector()': ({__a}, path) => {
         const {line} = path.node.loc.start;
         const reg = parseReg(__a.name);
         

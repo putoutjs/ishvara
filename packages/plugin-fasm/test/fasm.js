@@ -156,3 +156,13 @@ test('plugin-fasm: transform: convert-assign-to-or', (t) => {
     t.transform('convert-assign-to-or');
     t.end();
 });
+
+test('plugin-fasm: transform: apply-registers', (t) => {
+    t.transform('apply-registers');
+    t.end();
+});
+
+test('plugin-fasm: transform: remove-useless-braces', (t) => {
+    t.transform('remove-useless-braces');
+    t.end();
+});

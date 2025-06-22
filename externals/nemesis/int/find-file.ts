@@ -1,6 +1,5 @@
 import {nemesis} from '@ishvara/operator-fasm';
 
-// в bx кладем имя файла(ascii)
 export async function findFile() {
     // Считываем сектор, в котором находятся записи об
     // именах файлах и данных о них и ищем название
@@ -21,7 +20,7 @@ export async function findFile() {
             break;
         
         pop(cx);
-    } while(--cx);
+    } while (--cx);
     
     if (al) {
         pop(di);
@@ -32,10 +31,7 @@ export async function findFile() {
     }
     
     si = 0x7c00;
-    do {
-    } while(true);
-}
-/*
+}/*
 ;---------------------------------------------
     find_file_in_fat1:
 mov	si,0x7c00

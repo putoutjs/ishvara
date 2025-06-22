@@ -114,7 +114,6 @@ xor ax, ax
 
 __ishvara_read_sector_end_167:
 clc
-mov al, ax
 test al, al
 jnz __ishvara_fasm_if_end_12
 jmp __ishvara_ishvara_do_while_break_165

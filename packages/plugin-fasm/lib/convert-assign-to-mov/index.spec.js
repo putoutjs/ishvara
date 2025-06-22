@@ -1,5 +1,6 @@
 import {createTest} from '@putout/test';
 import * as plugin from './index.js';
+import * as convertArgumentsToRegisters from '../convert-arguments-to-registers/index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
@@ -24,6 +25,13 @@ test('compiler: convert-assign-to-mov: no report after transform: member', (t) =
 
 test('compiler: convert-assign-to-mov: transform', (t) => {
     t.transform('convert-assign-to-mov');
+    t.end();
+});
+
+test('compiler: convert-assign-to-mov: transform: args', (t) => {
+    t.transform('args', {
+        convertArgumentsToRegisters,
+    });
     t.end();
 });
 

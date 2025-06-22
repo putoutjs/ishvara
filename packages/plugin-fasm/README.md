@@ -4,6 +4,7 @@ Transforms:
 
 - ✅[`add-label-refix`](https://putout.cloudcmd.io/#/gist/2123b2e3a71354a60f65e11e5f809c24/19c063b0fd95f2198f76daf43c466c3ad846e37a);
 - ✅[`apply-cmp`](https://putout.cloudcmd.io/#/gist/d1520a4277ef2149bfc98d777108d400/99853b56f55c65c8e965d06740127d78288f5aa7);
+- ✅[`apply-registers`](https://putout.cloudcmd.io/#/gist/7219eaf624623d9a80d3e8f90bb3a498/8f2606c8f5ef483ed9ec5cecbaaa041e6e327455);
 - ✅[`convert-var-to-db`](https://putout.cloudcmd.io/#/gist/971e8392f06e8fc4bb287269c784e910/c8f3691bbf325ad3b278f300cdeba731fdfc9558);
 - ✅[`move-vars-to-bottom`](https://putout.cloudcmd.io/#/gist/3e3b83e6e23650d819e56b88f961051c/89ef3eafd926e14736ddc244d044de47709c8b69);
 - ✅[`move-equ-to-bottom`](https://putout.cloudcmd.io/#/gist/de37a39902edaa97b981d7484dd67052/70c423b9d177774482bd4dacbafd8723defb2f3a);
@@ -37,3 +38,4 @@ Transforms:
 - ✅[`split-assign-await-with-assign-eax`](https://putout.cloudcmd.io/#/gist/ad1520cf5e626eb1cc01befa9e900cd1/9392f49641b09d50ea2d29d514b3ab253b21897c);
 - ✅[`apply-inc`](https://putout.cloudcmd.io/#/gist/467983456ef5496f892e74d0972f56a7/f1836597cb21bd7955f6fd62412ff360ad2cafc8);
 - ✅[`remove-useless-declarations`](https://putout.cloudcmd.io/#/gist/9045b99fbb58a53047dec060d3f143cf/d858e357b7b1e01f366943ed8887e8dc26bb37d8);
+- ✅[`remove-useless-braces`](https://putout.cloudcmd.io/#/gist/140689014540d48d501c1fa50b3694ca/e1521db4f951c38c17a6c3af46456c47f1f3a1a8);

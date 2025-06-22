@@ -1,3 +1,5 @@
+import * as removeUselessBraces from './remove-useless-braces/index.js';
+import * as applyRegisters from './apply-registers/index.js';
 import * as convertAssignToOr from './convert-assign-to-or/index.js';
 import * as convertAssignToAnd from './convert-assign-to-and/index.js';
 import * as applyTypes from './apply-types/index.js';
@@ -68,4 +70,6 @@ export const rules = {
     'apply-types': applyTypes,
     'convert-assign-to-and': convertAssignToAnd,
     'convert-assign-to-or': convertAssignToOr,
+    'apply-registers': applyRegisters,
+    'remove-useless-braces': removeUselessBraces,
 };

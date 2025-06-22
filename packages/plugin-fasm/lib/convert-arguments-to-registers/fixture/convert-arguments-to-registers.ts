@@ -1,7 +1,11 @@
 async function setColumn(newColumn: i8) {
-    [col] = newColumn;
+    [col] = [newColumn];
 }
 
-async function setLine(newLine: i16) {
-    [line] = newLine;
+async function setLine(newLine, newColumn) {
+    [line] = [newLine];
+}
+
+async function get() {
+    return 5;
 }

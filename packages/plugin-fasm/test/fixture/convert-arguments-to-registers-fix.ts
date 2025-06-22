@@ -1,18 +1,16 @@
 __ishvara_setColumn: {
-    {
-        pop(bx);
-        pop(ax);
-        push(bx);
-    }
-    mov([col], al);
+    push(bp);
+    mov(bp, sp);
+    mov([col], bp + 2);
+    pop(bp);
+    add(sp, 2);
     ret();
 }
 __ishvara_setLine: {
-    {
-        pop(bx);
-        pop(ax);
-        push(bx);
-    }
-    mov([line], ax);
+    push(bp);
+    mov(bp, sp);
+    mov([line], bp + 2);
+    pop(bp);
+    add(sp, 2);
     ret();
 }

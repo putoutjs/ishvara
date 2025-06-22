@@ -21,4 +21,3 @@ test('nemesis: convert-read-sector-to-int-0xff: transform: al', (t) => {
     t.transform('al');
     t.end();
 });
-

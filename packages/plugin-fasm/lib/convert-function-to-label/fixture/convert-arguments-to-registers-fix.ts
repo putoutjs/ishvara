@@ -1,9 +1,8 @@
 setColumn: {
-    {
-        pop(bx);
-        pop(ax);
-        push(bx);
-    }
-    [col] = al;
+    push(bp);
+    mov(bp, sp);
+    [col] = bp + 2;
+    pop(bp);
+    add(sp, 2);
     ret();
 }
