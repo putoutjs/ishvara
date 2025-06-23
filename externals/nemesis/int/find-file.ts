@@ -35,26 +35,21 @@ export async function findFile() {
     }
     
     si = 0x7c00;
-    find_file_in_fat:
-    pop(di);
+    find_file_in_fat: pop(di);
     push(di);
     push(si);
     
-    _strcmp:
-    lodsb();
+    _strcmp: lodsb();
     cmp([di], al);
     jnz(_strcmp_end);
     ++di;
     jmp(_strcmp);
     // не нашли если
-    _strcmp_end:
-    pop(si);
-    
+    _strcmp_end: pop(si);
     cmp(al, 0x20);
     jnz(not_equal);
     al = 0;
-    not_equal:
-    or(al, al);
+    not_equal: or(al, al);
     jz(find_all_good);
     si += 0x20;
     lodsb();
@@ -63,8 +58,7 @@ export async function findFile() {
     --si;
     jmp(find_file_in_fat);
     
-    find_all_good:
-    si += 0x1a;
+    find_all_good: si += 0x1a;
     lodsw();
     [file_offset] = ax;
     lodsw();
@@ -75,15 +69,13 @@ export async function findFile() {
     or(dl, dl);
     jz(_dl0);
     ++al;
-    _dl0:
-    [file_sec_size] = al;
+    _dl0: [file_sec_size] = al;
     pop(di);
     pop(cx);
     al = 0;
     ret;
     // нашли =)!!!
-    file_not_found:
-    pop(di);
+    file_not_found: pop(di);
     pop(cx);
     
     al = 1; // Ничего не нашли o_O ...
