@@ -16,6 +16,7 @@ const {
     expressionStatement,
     isCallExpression,
     labeledStatement,
+    isBooleanLiteral,
 } = types;
 
 const createStartLabel = (line) => `__ishvara_do_while_${line}`;
@@ -68,7 +69,7 @@ export const replace = () => ({
         const {line} = path.node.loc.start;
         const startLabel = createStartLabel(line);
         const conditionLabel = createConditionLabel(line);
-        const [one, two] = parseWhileArgs(__a);
+        const [one, two, jnz] = parseWhileArgs(__a);
         const expression = isCallExpression(__a) ? __a : template.ast(`test(${one}, ${two})`);
         
         let conditionExpression = expressionStatement(expression);
@@ -77,23 +78,34 @@ export const replace = () => ({
         if (wasContinue)
             conditionExpression = labeledStatement(identifier(conditionLabel), conditionExpression);
         
-        __body.body.push(conditionExpression);
-        __body.body.push(expressionStatement(template.ast(`jnz(${startLabel})`)));
+        if (!isBooleanLiteral(__a))
+            __body.body.push(conditionExpression);
+        
+        __body.body.push(expressionStatement(template.ast(`${jnz}(${startLabel})`)));
         
         return `${startLabel}: __body`;
     },
 });
 
 const parseWhileArgs = (__a) => {
+    if (isBooleanLiteral(__a) && __a.value)
+        return [
+            'al',
+            'al',
+            'jmp',
+        ];
+    
     if (compare(__a, '__a === __b'))
         return [
             extract(__a.left),
             extract(__a.right),
+            'jnz',
         ];
     
     return [
         __a.name,
         __a.name,
+        'jnz',
     ];
 };
 
@@ -130,3 +142,4 @@ function maybeReplaceContinueWithJmp(path, startLabel) {
     });
     return was;
 }
+
