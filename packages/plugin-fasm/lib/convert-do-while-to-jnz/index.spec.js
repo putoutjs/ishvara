@@ -57,7 +57,7 @@ test('fasm: convert-do-while-to-jz: transform: equal', (t) => {
     t.end();
 });
 
-test('fasm: convert-do-while-to-jz: transform: true', (t) => {
-    t.transform('true');
+test('fasm: convert-do-while-to-jz: transform: boolean', (t) => {
+    t.transform('boolean');
     t.end();
 });

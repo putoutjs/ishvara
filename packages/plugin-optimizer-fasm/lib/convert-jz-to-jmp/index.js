@@ -11,6 +11,8 @@ export const report = (path) => `Avoid useless '${path.node.callee.name}'`;
 export const match = () => ({
     'jz(__a)': check,
     'jnz(__a)': check,
+    'je(__a)': check,
+    'jne(__a)': check,
 });
 
 export const replace = () => ({
@@ -23,6 +25,15 @@ export const replace = () => ({
         return 'jmp(__a)';
     },
     'jnz(__a)': '',
+    'jne(__a)': '',
+    'je(__a)': (vars, path) => {
+        const prev = path.parentPath.getPrevSibling();
+        
+        if (compare(prev, 'cmp(__a, __a)'))
+            remove(prev);
+        
+        return 'jmp(__a)';
+    },
 });
 
 const check = (vars, path) => {
@@ -40,6 +51,9 @@ const check = (vars, path) => {
         return isSameReg(testReg, xorReg);
     }
     
+    if (isPrevCmp(prev))
+        return true;
+    
     if (isPrevTest(prev) && compare(prevPrev, '__a: xor(__b, __b)')) {
         const {__a} = getTemplateValues(prev.node.expression, 'test(__a, __a)');
         const {__b} = getTemplateValues(prevPrev, '__a: xor(__b, __b)');
@@ -51,6 +65,7 @@ const check = (vars, path) => {
 };
 
 const isPrevTest = (path) => compare(path, 'test(__a, __a)');
+const isPrevCmp = (path) => compare(path, 'cmp(__a, __a)');
 
 const isPrevXor = (path) => compare(path, 'xor(__a, __a)');
 

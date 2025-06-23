@@ -31,3 +31,9 @@ test('optimizer-fasm: convert-jz-to-jmp: transform: same-name', (t) => {
     t.transform('same-name');
     t.end();
 });
+
+test('optimizer-fasm: convert-jz-to-jmp: transform: cmp', (t) => {
+    t.transform('cmp');
+    t.end();
+});
+

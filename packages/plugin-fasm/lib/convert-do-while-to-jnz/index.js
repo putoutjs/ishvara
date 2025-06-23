@@ -69,8 +69,8 @@ export const replace = () => ({
         const {line} = path.node.loc.start;
         const startLabel = createStartLabel(line);
         const conditionLabel = createConditionLabel(line);
-        const [one, two, jnz] = parseWhileArgs(__a);
-        const expression = isCallExpression(__a) ? __a : template.ast(`test(${one}, ${two})`);
+        const [one, two, jnz, test] = parseWhileArgs(__a);
+        const expression = isCallExpression(__a) ? __a : template.ast(`${test}(${one}, ${two})`);
         
         let conditionExpression = expressionStatement(expression);
         const wasContinue = maybeReplaceContinueWithJmp(path, conditionLabel);
@@ -78,9 +78,7 @@ export const replace = () => ({
         if (wasContinue)
             conditionExpression = labeledStatement(identifier(conditionLabel), conditionExpression);
         
-        if (!isBooleanLiteral(__a))
-            __body.body.push(conditionExpression);
-        
+        __body.body.push(conditionExpression);
         __body.body.push(expressionStatement(template.ast(`${jnz}(${startLabel})`)));
         
         return `${startLabel}: __body`;
@@ -92,7 +90,16 @@ const parseWhileArgs = (__a) => {
         return [
             'al',
             'al',
-            'jmp',
+            'je',
+            'cmp',
+        ];
+    
+    if (isBooleanLiteral(__a) && !__a.value)
+        return [
+            'al',
+            'al',
+            'jne',
+            'cmp',
         ];
     
     if (compare(__a, '__a === __b'))
@@ -100,12 +107,14 @@ const parseWhileArgs = (__a) => {
             extract(__a.left),
             extract(__a.right),
             'jnz',
+            'test',
         ];
     
     return [
         __a.name,
         __a.name,
         'jnz',
+        'test',
     ];
 };
 
