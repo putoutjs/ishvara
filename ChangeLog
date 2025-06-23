@@ -1,3 +1,10 @@
+2025.06.23, v2.6.1
+
+feature:
+- dd61391 ishvara: plugin-fasm: convert-do-while-to-jnz: true
+- 8afcc92 ishvara: plugin-fasm: apply-registers
+- e6fbfd1 ishvara: plugin-nemesis: convert-read-sector-to-int-0xff
+
 2025.06.22, v2.6.0
 
 feature:
