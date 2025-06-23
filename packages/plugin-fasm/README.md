@@ -5,7 +5,6 @@ Transforms:
 - ✅[`add-label-refix`](https://putout.cloudcmd.io/#/gist/2123b2e3a71354a60f65e11e5f809c24/19c063b0fd95f2198f76daf43c466c3ad846e37a);
 - ✅[`apply-cmp`](https://putout.cloudcmd.io/#/gist/d1520a4277ef2149bfc98d777108d400/99853b56f55c65c8e965d06740127d78288f5aa7);
 - ✅[`apply-registers`](https://putout.cloudcmd.io/#/gist/7219eaf624623d9a80d3e8f90bb3a498/8f2606c8f5ef483ed9ec5cecbaaa041e6e327455);
-- ✅[`convert-var-to-db`](https://putout.cloudcmd.io/#/gist/971e8392f06e8fc4bb287269c784e910/c8f3691bbf325ad3b278f300cdeba731fdfc9558);
 - ✅[`move-vars-to-bottom`](https://putout.cloudcmd.io/#/gist/3e3b83e6e23650d819e56b88f961051c/89ef3eafd926e14736ddc244d044de47709c8b69);
 - ✅[`move-equ-to-bottom`](https://putout.cloudcmd.io/#/gist/de37a39902edaa97b981d7484dd67052/70c423b9d177774482bd4dacbafd8723defb2f3a);
 - ✅[`convert-equ-call-to-member`](https://putout.cloudcmd.io/#/gist/94c8110db310e6979c2fdc1c9311337a/6a17fab68cdf7adbd17952b7fead658599489c9c);
@@ -24,6 +23,7 @@ Transforms:
 - ✅[`convert-bios-read-sector-int-13`](https://putout.cloudcmd.io/#/gist/6ae8820756ba1af043f93f3bdb49360e/a575cf6f5432ca215838795c2617c161f2b981cb);
 - ✅[`convert-bios-scroll-to-int-10`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/95520a650428a2defd77a65ffc255a073540d902);
 - ✅[`convert-bios-reboot-to-jmp-far`](https://putout.cloudcmd.io/#/gist/44a87987c4d6d3130b5004f8818a3454/4c6dd61184b46c60b8d8dc653232d567238ea865);
+- ✅[`convert-const-to-equ`](https://putout.cloudcmd.io/#/gist/c0d18aa7138e0e238d41051a2929311a/b45ad43ce7738390f6af9479536b145fdaebf84c);
 - ✅[`convert-strncmp-to-repe-cmsb`](https://putout.cloudcmd.io/#/gist/397388e71e71442d3dd5bebd3a424da6/8eb60aaaf4b5afb85f87ddcd0af51266db158263);
 - ✅[`convert-ternary-to-if`](https://putout.cloudcmd.io/#/gist/4a48fb3a515ef5947032f344b65a0db3/18cf1b250156953febbb8ac5652ce8f40b1192b7);
 - ✅[`convert-function-to-label`](https://putout.cloudcmd.io/#/gist/415829430c67b2824c26901b2cc89fb0/ed8a2186889a0135302bbb64fee0a9ce2d084800);

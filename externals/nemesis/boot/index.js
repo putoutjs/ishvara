@@ -10,13 +10,13 @@ import {reboot} from './reboot.js';
 org(0x7c00);
 use16();
 
-const loader_name = 'Nemesis Loader o_O';
-const error_reading = 'error: read';
-const kernel_found = 'kernel found';
-const error_finding = 'error: kernel not found';
-const error_krnlfile = 'kernel not load';
-const kernel_load = 'kernel load';
-const kernel_name = 'KERNEL';
+let loader_name = 'Nemesis Loader o_O';
+let error_reading = 'error: read';
+let kernel_found = 'kernel found';
+let error_finding = 'error: kernel not found';
+let error_krnlfile = 'kernel not load';
+let kernel_load = 'kernel load';
+let kernel_name = 'KERNEL';
 
 boot: jmp(start);
 line.db = 0;
@@ -43,7 +43,7 @@ bpbID.dd = 1;
 bpbVolumeLabel.db = 'BOOT FLOPPY';
 bpbFileSystem.db = 'FAT12   ';
 
-kernel_begin.equ = 0x7e00;
+const kernel_begin = 0x7e00;
 
 async function start() {
     ax = 0; // initialize all the necessary

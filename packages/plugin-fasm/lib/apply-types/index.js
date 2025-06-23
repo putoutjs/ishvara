@@ -28,8 +28,7 @@ export const filter = (path) => {
 };
 
 export const replace = () => ({
-    'let __a: __b = __c': convert,
-    'const __a = __array': (vars, path) => {
+    'let __a = __array': (vars, path) => {
         const values = [];
         const elementsPath = path.get('declarations.0.init');
         
@@ -46,7 +45,8 @@ export const replace = () => ({
         
         return `__a.db = ${values.join(',')}, 0`;
     },
-    'const __a = __c': convert,
+    'let __a: __b = __c': convert,
+    'let __a = __c': convert,
 });
 
 function convert({__b, __c}) {

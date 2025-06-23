@@ -16,3 +16,9 @@ test('bundler-fasm: replace-section-data-with-let: transform', (t) => {
     t.transform('replace-section-data-with-let');
     t.end();
 });
+
+test('bundler-fasm: replace-section-data-with-let: no report: const', (t) => {
+    t.noReport('const');
+    t.end();
+});
+

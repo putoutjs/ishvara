@@ -22,11 +22,11 @@ let file_offset: i16 = 0;
 let maxcol = 79;
 let maxline = 24;
 let minline = 0;
-const not_f = 'sh3ll not found :(!';
+let not_f = 'sh3ll not found :(!';
 let buf: rb = 0x10;
-const sh3ll = 'SH3LL ';
+let sh3ll = 'SH3LL ';
 
-const hi = [
+let hi = [
     'Hello from Nemesis =)!',
     0xd,
 ];

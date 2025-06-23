@@ -22,8 +22,8 @@ es[0xff * 4 + 2] = cs;
 pop([es, ax]);
 sti();
 
-const shell = 'SH3LL ';
-const hi = [
+let shell = 'SH3LL ';
+let hi = [
     'Hello from Nemesis =)!',
     0xd,
 ];
@@ -36,7 +36,7 @@ jmp($);
 section: 'code';
 section: 'data';
 let buf: rb = 0x10;
-const not_f = 'sh3ll not found :(!';
+let not_f = 'sh3ll not found :(!';
 let file_offset: i16 = 0;
 let file_size: i16 = 0;
 let file_sec_size = 0;

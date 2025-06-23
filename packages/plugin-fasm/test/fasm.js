@@ -166,3 +166,7 @@ test('plugin-fasm: transform: remove-useless-braces', (t) => {
     t.transform('remove-useless-braces');
     t.end();
 });
+test('plugin-fasm: transform: convert-const-to-equ', (t) => {
+    t.transform('convert-const-to-equ');
+    t.end();
+})

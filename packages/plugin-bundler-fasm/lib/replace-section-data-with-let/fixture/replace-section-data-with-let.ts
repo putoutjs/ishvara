@@ -1,15 +1,15 @@
 org(0x7e00);
 use16();
 
-const hi = [
+let hi = [
     'Hello from Nemesis =)!',
     0xd,
 ];
 
-const sh3ll = 'SH3LL ';
+let sh3ll = 'SH3LL ';
 
 let buf: rb = 0x10;
-const not_f = 'sh3ll not found :(!';
+let not_f = 'sh3ll not found :(!';
 let minline = 0;
 let maxline = 24;
 let maxcol = 79;

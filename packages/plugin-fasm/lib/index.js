@@ -1,3 +1,4 @@
+import * as convertConstToEqu from './convert-const-to-equ/index.js';
 import * as removeUselessBraces from './remove-useless-braces/index.js';
 import * as applyRegisters from './apply-registers/index.js';
 import * as convertAssignToOr from './convert-assign-to-or/index.js';
@@ -72,4 +73,5 @@ export const rules = {
     'convert-assign-to-or': convertAssignToOr,
     'apply-registers': applyRegisters,
     'remove-useless-braces': removeUselessBraces,
+    'convert-const-to-equ': convertConstToEqu,
 };

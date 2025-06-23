@@ -1,6 +1,15 @@
 org(0x7e00);
 use16();
 
+const hi = [
+    'Hello from Nemesis =)!',
+    0xd,
+];
+
+const sh3ll = 'SH3LL ';
+
+const not_f = 'sh3ll not found :(!';
+
 cli();
 push(ax);
 push(es);
@@ -22,14 +31,7 @@ let file_offset: i16 = 0;
 let maxcol = 79;
 let maxline = 24;
 let minline = 0;
-const not_f = 'sh3ll not found :(!';
 let buf: rb = 0x10;
-const sh3ll = 'SH3LL ';
-
-const hi = [
-    'Hello from Nemesis =)!',
-    0xd,
-];
 
 function get() {
     const eax = 3;

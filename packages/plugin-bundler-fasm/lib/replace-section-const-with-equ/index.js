@@ -28,6 +28,12 @@ export const traverse = ({store, pathStore, push}) => ({
             store('label', path);
     },
     '__a.equ = __b': pathStore,
+    VariableDeclaration(path) {
+        if (path.node.kind !== 'const')
+            return;
+        
+        pathStore(path);
+    },
     'Program': {
         exit(path) {
             const [label] = store();

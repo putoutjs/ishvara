@@ -126,8 +126,6 @@ const [binary] = await ishvara.compile(source, {
 });
 
 if (args.output) {
-    log(args, '✅ \n\n');
-    
     if (args.output === 'binary' || RAW)
         process.stdout.write(binary);
     else

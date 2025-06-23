@@ -28,6 +28,9 @@ export const traverse = ({store, pathStore, push}) => ({
             store('label', path);
     },
     VariableDeclaration: (path) => {
+        if (path.node.kind !== 'let')
+            return;
+        
         if (isProgram(path.parentPath))
             pathStore(path);
     },
