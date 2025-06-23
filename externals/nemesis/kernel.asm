@@ -96,7 +96,7 @@ mov di, bx
 push di
 push bx
 
-__ishvara_do_while_223:
+__ishvara_do_while_107:
 push cx
 mov ah, 1
 mov bx, 0x7c00
@@ -105,24 +105,24 @@ mov dl, 0
 mov dh, 1
 mov al, 0xc
 int 0xff
-jnc __ishvara_read_sector_ok_225
+jnc __ishvara_read_sector_ok_109
 mov al, 1
-jmp __ishvara_read_sector_end_225
+jmp __ishvara_read_sector_end_109
 
-__ishvara_read_sector_ok_225:
+__ishvara_read_sector_ok_109:
 xor ax, ax
 
-__ishvara_read_sector_end_225:
+__ishvara_read_sector_end_109:
 clc
 test al, al
 jnz __ishvara_fasm_if_end_12
-jmp __ishvara_ishvara_do_while_break_223
+jmp __ishvara_ishvara_do_while_break_107
 
 __ishvara_fasm_if_end_12:
 pop cx
-loop __ishvara_do_while_223
+loop __ishvara_do_while_107
 
-__ishvara_ishvara_do_while_break_223:
+__ishvara_ishvara_do_while_break_107:
 test al, al
 jz __ishvara_fasm_if_end_9
 pop di
@@ -132,15 +132,68 @@ ret
 
 __ishvara_fasm_if_end_9:
 mov si, 0x7c00
+
+__ishvara_find_file_in_fat:
+pop di
+push di
+push si
+
+__ishvara__strcmp:
+lodsb
+cmp [di], al
+jnz __ishvara__strcmp_end
+inc di
+jmp __ishvara__strcmp
+
+__ishvara__strcmp_end:
+pop si
+cmp al, 0x20
+jnz __ishvara_not_equal
+mov al, 0
+
+__ishvara_not_equal:
+or al, al
+jz __ishvara_find_all_good
+add si, 0x20
+lodsb
+or al, al
+jz __ishvara_file_not_found
+dec si
+jmp __ishvara_find_file_in_fat
+
+__ishvara_find_all_good:
+add si, 0x1a
+lodsw
+mov [file_offset], ax
+lodsw
+mov [file_size], ax
+mov bx, 0x200
+cwd
+div bx
+or dl, dl
+jz __ishvara__dl0
+inc al
+
+__ishvara__dl0:
+mov [file_sec_size], al
+pop di
+pop cx
+mov al, 0
+ret
+
+__ishvara_file_not_found:
+pop di
+pop cx
+mov al, 1
 ret
 
 __ishvara_in_fdc:
 mov dx, 0x3f4
 
-__ishvara_do_while_308:
+__ishvara_do_while_179:
 in al, dx
 test al, 0x80
-jnz __ishvara_do_while_308
+jnz __ishvara_do_while_179
 inc dx
 in al, dx
 ret
@@ -148,10 +201,10 @@ ret
 __ishvara_out_fdc:
 mov dx, 0x3f4
 
-__ishvara_do_while_319:
+__ishvara_do_while_190:
 in al, dx
 test al, 0x80
-jnz __ishvara_do_while_319
+jnz __ishvara_do_while_190
 inc dx
 mov al, ah
 out dx, al
@@ -173,10 +226,10 @@ mov ax, 0x40
 mov es, ax
 mov bx, 0x3e
 
-__ishvara_do_while_344:
+__ishvara_do_while_215:
 mov dl, [es:bx]
 test dl, 0x80
-jnz __ishvara_do_while_344
+jnz __ishvara_do_while_215
 and dl, 0x7f
 mov [es:bx], dl
 pop es
@@ -203,7 +256,7 @@ mov [track_number], ch
 mov [drive], dl
 mov [head], dh
 
-__ishvara_do_while_431:
+__ishvara_do_while_243:
 dec [sec_quantity]
 sti
 mov dx, 0x3f2
@@ -266,11 +319,11 @@ call __ishvara_wait_interrupt
 mov cx, 7
 mov bx, status_buffer
 
-__ishvara_do_while_514:
+__ishvara_do_while_326:
 call __ishvara_in_fdc
 mov [bx], al
 inc bx
-loop __ishvara_do_while_514
+loop __ishvara_do_while_326
 mov dx, 0x3f2
 mov al, RESET_CONTROLLER + USE_DMA
 out dx, al
@@ -288,7 +341,7 @@ mov al, 0
 __ishvara_fasm_if_end_13:
 or al, [sec_quantity]
 test al, al
-jnz __ishvara_do_while_431
+jnz __ishvara_do_while_243
 ret
 
 __ishvara_clearScreen:
@@ -373,7 +426,7 @@ xchg cx, ax
 mov si, bx
 mov bl, al
 
-__ishvara_do_while_615:
+__ishvara_do_while_427:
 call __ishvara_getColumn
 xchg bl, al
 mov bh, al
@@ -395,7 +448,7 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_end_15:
-jmp __ishvara_do_while_condition_615
+jmp __ishvara_do_while_condition_427
 
 __ishvara_fasm_if_end_14:
 cmp al, _backspace
@@ -411,7 +464,7 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_end_17:
-jmp __ishvara_do_while_condition_615
+jmp __ishvara_do_while_condition_427
 
 __ishvara_fasm_if_end_16:
 mov ah, al
@@ -420,8 +473,8 @@ xchg ah, al
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_615:
-loop __ishvara_do_while_615
+__ishvara_do_while_condition_427:
+loop __ishvara_do_while_427
 pop di
 pop cx
 pop bx
@@ -519,24 +572,24 @@ push ax
 mov cx, -1
 cld
 
-__ishvara_do_while_775:
+__ishvara_do_while_587:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_775
+jnz __ishvara_do_while_587
 mov ax, cx
 ret
 old_esi dw 0
 old_ds dw 0
 exec_addr dw 0x500
 error_reading2 db 'error reading the file o_O', 0
-file_sec_size db 0
-file_size dw 0
-file_offset dw 0
 not_f db 'sh3ll not found :(!', 0
 buf rb 0x10
 hi db 'Hello from Nemesis =)!', 0xd, 0
 shell db 'SH3LL ', 0
+file_sec_size db 0
+file_size dw 0
+file_offset dw 0
 dma_command db 0x46
 secread_com db 0xE6
 head db 0
