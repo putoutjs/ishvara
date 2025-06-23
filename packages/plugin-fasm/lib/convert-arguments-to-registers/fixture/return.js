@@ -1,7 +1,5 @@
-export function getStringLength() {
-    pop(ax);
-    pop(si);
-    push(ax);
+async function getStringLength(str) {
+    si = [str];
     cx = -1;
     cld();
     

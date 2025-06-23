@@ -1,5 +1,5 @@
 import {nemesis} from '@ishvara/operator-fasm';
-import {getStringLength} from '../../get-string-length.js';
+import {getStringLength} from '../../string/get-string-length.js';
 import {
     getLine,
     incLine,

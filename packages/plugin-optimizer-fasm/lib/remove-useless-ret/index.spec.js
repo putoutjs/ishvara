@@ -36,3 +36,8 @@ test('optimizer-fasm: remove-useless-ret: transform: iret', (t) => {
     t.transform('iret');
     t.end();
 });
+
+test('optimizer-fasm: remove-useless-ret: transform: size', (t) => {
+    t.transform('size');
+    t.end();
+});

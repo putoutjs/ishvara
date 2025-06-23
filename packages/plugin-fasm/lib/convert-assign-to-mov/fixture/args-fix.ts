@@ -1,7 +1,6 @@
 async function get() {
     push(bp);
     mov(bp, sp);
-    mov([bp + 4], [bp + 2]);
+    mov([bp + 6], [bp + 4]);
     pop(bp);
-    add(sp, 4);
 }

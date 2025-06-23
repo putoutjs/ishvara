@@ -96,7 +96,7 @@ mov di, bx
 push di
 push bx
 
-__ishvara_do_while_107:
+__ishvara_do_while_109:
 push cx
 mov ah, 1
 mov bx, 0x7c00
@@ -105,24 +105,24 @@ mov dl, 0
 mov dh, 1
 mov al, 0xc
 int 0xff
-jnc __ishvara_read_sector_ok_109
+jnc __ishvara_read_sector_ok_111
 mov al, 1
-jmp __ishvara_read_sector_end_109
+jmp __ishvara_read_sector_end_111
 
-__ishvara_read_sector_ok_109:
+__ishvara_read_sector_ok_111:
 xor ax, ax
 
-__ishvara_read_sector_end_109:
+__ishvara_read_sector_end_111:
 clc
 test al, al
 jnz __ishvara_fasm_if_end_12
-jmp __ishvara_ishvara_do_while_break_107
+jmp __ishvara_ishvara_do_while_break_109
 
 __ishvara_fasm_if_end_12:
 pop cx
-loop __ishvara_do_while_107
+loop __ishvara_do_while_109
 
-__ishvara_ishvara_do_while_break_107:
+__ishvara_ishvara_do_while_break_109:
 test al, al
 jz __ishvara_fasm_if_end_9
 pop di
@@ -190,10 +190,10 @@ ret
 __ishvara_in_fdc:
 mov dx, 0x3f4
 
-__ishvara_do_while_179:
+__ishvara_do_while_181:
 in al, dx
 test al, 0x80
-jnz __ishvara_do_while_179
+jnz __ishvara_do_while_181
 inc dx
 in al, dx
 ret
@@ -201,10 +201,10 @@ ret
 __ishvara_out_fdc:
 mov dx, 0x3f4
 
-__ishvara_do_while_190:
+__ishvara_do_while_192:
 in al, dx
 test al, 0x80
-jnz __ishvara_do_while_190
+jnz __ishvara_do_while_192
 inc dx
 mov al, ah
 out dx, al
@@ -226,10 +226,10 @@ mov ax, 0x40
 mov es, ax
 mov bx, 0x3e
 
-__ishvara_do_while_215:
+__ishvara_do_while_217:
 mov dl, [es:bx]
 test dl, 0x80
-jnz __ishvara_do_while_215
+jnz __ishvara_do_while_217
 and dl, 0x7f
 mov [es:bx], dl
 pop es
@@ -256,7 +256,7 @@ mov [track_number], ch
 mov [drive], dl
 mov [head], dh
 
-__ishvara_do_while_243:
+__ishvara_do_while_245:
 dec [sec_quantity]
 sti
 mov dx, 0x3f2
@@ -319,11 +319,11 @@ call __ishvara_wait_interrupt
 mov cx, 7
 mov bx, status_buffer
 
-__ishvara_do_while_326:
+__ishvara_do_while_328:
 call __ishvara_in_fdc
 mov [bx], al
 inc bx
-loop __ishvara_do_while_326
+loop __ishvara_do_while_328
 mov dx, 0x3f2
 mov al, RESET_CONTROLLER + USE_DMA
 out dx, al
@@ -341,7 +341,7 @@ mov al, 0
 __ishvara_fasm_if_end_13:
 or al, [sec_quantity]
 test al, al
-jnz __ishvara_do_while_243
+jnz __ishvara_do_while_245
 ret
 
 __ishvara_clearScreen:
@@ -426,7 +426,7 @@ xchg cx, ax
 mov si, bx
 mov bl, al
 
-__ishvara_do_while_427:
+__ishvara_do_while_429:
 call __ishvara_getColumn
 xchg bl, al
 mov bh, al
@@ -448,7 +448,7 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_end_15:
-jmp __ishvara_do_while_condition_427
+jmp __ishvara_do_while_condition_429
 
 __ishvara_fasm_if_end_14:
 cmp al, _backspace
@@ -464,7 +464,7 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_end_17:
-jmp __ishvara_do_while_condition_427
+jmp __ishvara_do_while_condition_429
 
 __ishvara_fasm_if_end_16:
 mov ah, al
@@ -473,8 +473,8 @@ xchg ah, al
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_427:
-loop __ishvara_do_while_427
+__ishvara_do_while_condition_429:
+loop __ishvara_do_while_429
 pop di
 pop cx
 pop bx
@@ -566,9 +566,9 @@ mov al, [line]
 ret
 
 __ishvara_getStringLength:
-pop ax
-pop si
-push ax
+push bp
+mov bp, sp
+mov si, [bp + 4]
 mov cx, -1
 cld
 
@@ -577,8 +577,9 @@ lodsb
 inc cx
 test al, al
 jnz __ishvara_do_while_587
+pop bp
 mov ax, cx
-ret
+ret 2
 old_esi dw 0
 old_ds dw 0
 exec_addr dw 0x500

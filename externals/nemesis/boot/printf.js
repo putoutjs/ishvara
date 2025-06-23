@@ -1,5 +1,5 @@
 import {bios} from '#operator-fasm';
-import {getStringLength} from '../get-string-length.js';
+import {getStringLength} from '../string/get-string-length.js';
 
 export async function printf() {
     pop(si);

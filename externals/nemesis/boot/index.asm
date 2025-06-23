@@ -202,19 +202,20 @@ mov [line], dh
 ret
 
 __ishvara_getStringLength:
-pop ax
-pop si
-push ax
+push bp
+mov bp, sp
+mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_194:
+__ishvara_do_while_192:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_194
+jnz __ishvara_do_while_192
+pop bp
 mov ax, cx
-ret
+ret 2
 kernel_name db 'KERNEL', 0
 kernel_load db 'kernel load', 0
 error_krnlfile db 'kernel not load', 0

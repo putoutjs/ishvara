@@ -5,7 +5,10 @@ import {
 } from 'putout';
 
 const {rename} = operator;
-const {expressionStatement} = types;
+const {
+    expressionStatement,
+    isReturnStatement,
+} = types;
 
 const createExpression = (a) => {
     return expressionStatement(template.ast(a));
@@ -19,24 +22,33 @@ export const match = () => ({
 export const replace = () => ({
     'async function __a(__args) {__body}': ({__body, __args}, path) => {
         const bytes = 2;
-        const stackSize = bytes * __args.length;
+        const startCount = 2;
         
         __body.body.unshift(...[
             createExpression('push(bp)'),
             createExpression('mov(bp, sp)'),
         ]);
         
-        __body.body.push(...[
-            createExpression('pop(bp)'),
-            createExpression(`add(sp, ${stackSize})`),
-        ]);
+        const last = __body.body.at(-1);
         
-        for (const [i, arg] of __args.entries()) {
+        const popEBP = createExpression('pop(bp)');
+        
+        if (isReturnStatement(last))
+            __body.body.splice(-1, 0, popEBP);
+        else
+            __body.body.push(popEBP);
+        
+        const params = path.get('params');
+        
+        for (const [i, param] of params.entries()) {
+            const arg = param.node;
             const {name} = getType(arg);
-            rename(path, arg.name, `bp + ${bytes * (i + 1)}`);
-            path.__ishvara_type = name;
+            
+            rename(path, arg.name, `bp + ${bytes * (i + startCount)}`);
+            param.__ishvara_type = name;
         }
         
+        path.__ishvara_args_size = bytes * __args.length;
         path.node.params = [];
         
         return path;

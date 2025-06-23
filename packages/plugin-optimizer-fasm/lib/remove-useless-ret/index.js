@@ -13,6 +13,9 @@ export const match = () => ({
         if (compare(next, 'iret()'))
             return true;
         
+        if (compare(next, 'ret(__a)'))
+            return true;
+        
         if (compare(prev, 'iret()'))
             return true;
         

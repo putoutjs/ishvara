@@ -3,7 +3,7 @@ import {
     use16,
     bios,
 } from '#operator-fasm';
-import {getStringLength} from '../get-string-length.js';
+import {getStringLength} from '../string/get-string-length.js';
 import {printf} from './printf.js';
 import {reboot} from './reboot.js';
 

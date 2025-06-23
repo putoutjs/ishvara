@@ -8,6 +8,7 @@ const {
     arrayExpression,
     callExpression,
     isExportNamedDeclaration,
+    numericLiteral,
 } = types;
 
 export const report = () => `Use 'label' instead of 'function'`;
@@ -53,13 +54,24 @@ const convertFnToLabel = (ret) => ({__b, __type_params, __body}, path) => {
             },
         });
     
-    const iret = expressionStatement(maybeRet(ret) || callExpression(__b.typeName, []));
+    const iret = expressionStatement(maybeRet(ret, path) || callExpression(__b.typeName, []));
     __body.body.push(iret);
     
     return '__a: __body';
 };
 
-const maybeRet = (name) => name && callExpression(identifier(name), []);
+const maybeRet = (name, path) => {
+    if (!name)
+        return false;
+    
+    const count = path.__ishvara_args_size;
+    const args = [];
+    
+    if (count)
+        args.push(numericLiteral(count));
+    
+    return callExpression(identifier(name), args);
+};
 
 function addStackOperations({__body, __type_params = []}) {
     const args = [];
