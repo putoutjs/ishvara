@@ -21,4 +21,3 @@ test('bundler-fasm: replace-section-data-with-let: no report: const', (t) => {
     t.noReport('const');
     t.end();
 });
-

@@ -36,4 +36,3 @@ test('optimizer-fasm: convert-jz-to-jmp: transform: cmp', (t) => {
     t.transform('cmp');
     t.end();
 });
-

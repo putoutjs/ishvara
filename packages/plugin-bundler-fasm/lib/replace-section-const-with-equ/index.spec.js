@@ -21,4 +21,3 @@ test('bundler-fasm: replace-section-const-with-equ: transform: const', (t) => {
     t.transform('const');
     t.end();
 });
-
