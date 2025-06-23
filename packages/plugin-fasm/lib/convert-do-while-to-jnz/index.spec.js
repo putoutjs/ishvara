@@ -61,4 +61,3 @@ test('fasm: convert-do-while-to-jz: transform: true', (t) => {
     t.transform('true');
     t.end();
 });
-
