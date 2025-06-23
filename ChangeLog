@@ -1,3 +1,11 @@
+2025.06.23, v2.6.2
+
+feature:
+- 6156f74 ishvara: plugin-fasm: convert-arguments-to-registers: add esp -> ret size
+- 8095442 nemesis: find-file
+- 2c11137 @ishvara/plugin-fasm: convert-const-to-equ
+- c3c694e plugin-fasm: convet-do-while-to-jnz: false
+
 2025.06.23, v2.6.1
 
 feature:
