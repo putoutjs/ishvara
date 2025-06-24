@@ -38,9 +38,7 @@ export const replace = () => ({
         
         const popEBP = createExpression('pop(bp)');
         
-        if (isReturnStatement(last))
-            __body.body.splice(-1, 0, popEBP);
-        else
+        if (!isReturnStatement(last))
             __body.body.push(popEBP);
         
         const params = path.get('params');

@@ -1,6 +1,7 @@
-GREEN_ON_BLACK equ 2
 org 0x7c00
 use16
+kernel_begin equ 0x7e00
+GREEN_ON_BLACK equ 2
 
 __ishvara_boot:
 jmp __ishvara_start
@@ -25,7 +26,6 @@ bpbSignature db 0x29
 bpbID dd 1
 bpbVolumeLabel db 'BOOT FLOPPY'
 bpbFileSystem db 'FAT12   '
-kernel_begin equ 0x7e00
 
 __ishvara_start:
 xor ax, ax
@@ -45,14 +45,14 @@ mov dl, 0
 mov dh, 1
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_51
+jnc __ishvara_read_sector_ok_50
 mov al, 1
-jmp __ishvara_read_sector_end_51
+jmp __ishvara_read_sector_end_50
 
-__ishvara_read_sector_ok_51:
+__ishvara_read_sector_ok_50:
 xor ax, ax
 
-__ishvara_read_sector_end_51:
+__ishvara_read_sector_end_50:
 clc
 test ax, ax
 jz __ishvara_fasm_if_end_1
@@ -64,7 +64,7 @@ ret
 __ishvara_fasm_if_end_1:
 mov bx, kernel_begin
 
-__ishvara_do_while_69:
+__ishvara_do_while_68:
 mov di, kernel_name
 push di
 call __ishvara_getStringLength
@@ -72,21 +72,21 @@ mov cx, ax
 mov si, bx
 repe cmpsb
 test cx, cx
-jz __ishvara_fasm_if_end_5
+jz __ishvara_fasm_if_end_4
 add bx, 0x20
 mov si, bx
 lodsb
 test al, al
-jnz __ishvara_fasm_if_end_6
+jnz __ishvara_fasm_if_end_5
 push error_finding
 call __ishvara_printf
 call __ishvara_reboot
 ret
 
-__ishvara_fasm_if_end_6:
 __ishvara_fasm_if_end_5:
+__ishvara_fasm_if_end_4:
 test cx, cx
-jnz __ishvara_do_while_69
+jnz __ishvara_do_while_68
 add si, 0x14
 lodsw
 mov [kernel_offset], ax
@@ -105,7 +105,7 @@ push kernel_found
 call __ishvara_printf
 mov cx, 3
 
-__ishvara_do_while_105:
+__ishvara_do_while_104:
 push cx
 mov bx, kernel_begin
 mov ax, [kernel_offset]
@@ -129,36 +129,36 @@ mov ch, al
 pop bx
 pop dx
 cmp dx, 1
-jnz __ishvara_fasm_if_else_7
+jnz __ishvara_fasm_if_else_6
 mov dh, 1
-jmp __ishvara_fasm_if_end_7
+jmp __ishvara_fasm_if_end_6
 
-__ishvara_fasm_if_else_7:
+__ishvara_fasm_if_else_6:
 mov dh, 0
 
-__ishvara_fasm_if_end_7:
+__ishvara_fasm_if_end_6:
 mov al, [kernel_sec_size]
 mov dl, 0
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_136
+jnc __ishvara_read_sector_ok_135
 mov al, 1
-jmp __ishvara_read_sector_end_136
+jmp __ishvara_read_sector_end_135
 
-__ishvara_read_sector_ok_136:
+__ishvara_read_sector_ok_135:
 xor ax, ax
 
-__ishvara_read_sector_end_136:
+__ishvara_read_sector_end_135:
 clc
 test ax, ax
-jnz __ishvara_fasm_if_end_8
+jnz __ishvara_fasm_if_end_7
 push kernel_load
 call __ishvara_printf
 jmp kernel_begin
 
-__ishvara_fasm_if_end_8:
+__ishvara_fasm_if_end_7:
 pop cx
-loop __ishvara_do_while_105
+loop __ishvara_do_while_104
 test ax, ax
 jz __ishvara_fasm_if_end_3
 push error_krnlfile
@@ -181,24 +181,15 @@ mov cx, ax
 push ax
 call __ishvara_getStringLength
 xchg cx, ax
+mov ax, [bp + 4]
 push bp
-mov ax, 0x1301
 mov bx, GREEN_ON_BLACK
 mov dh, [line]
 mov dl, 0
 mov bp, ax
+mov ax, 0x1301
 int 0x10
 pop bp
-cmp dh, 0x17
-jnz __ishvara_fasm_if_end_4
-mov bh, GREEN_ON_BLACK
-xor cx, cx
-mov ax, 0x601
-mov dx, 0x184f
-int 0x10
-ret
-
-__ishvara_fasm_if_end_4:
 inc dh
 mov [line], dh
 pop bp
@@ -211,13 +202,13 @@ mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_190:
+__ishvara_do_while_180:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_190
-pop bp
+jnz __ishvara_do_while_180
 mov ax, cx
+pop bp
 ret 2
 kernel_name db 'KERNEL', 0
 kernel_load db 'kernel load', 0
@@ -227,5 +218,6 @@ kernel_found db 'kernel found', 0
 error_reading db 'error: read', 0
 loader_name db 'Nemesis Loader o_O', 0
 press_any_key db 'press any key', 0
+rb 0x200 - ($ - __ishvara_boot) - 2
 db 0x55, 0xaa
 

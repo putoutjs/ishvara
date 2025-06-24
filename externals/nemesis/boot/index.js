@@ -10,6 +10,8 @@ import {reboot} from './reboot.js';
 org(0x7c00);
 use16();
 
+section: 'const';
+
 let loader_name = 'Nemesis Loader o_O';
 let error_reading = 'error: read';
 let kernel_found = 'kernel found';
@@ -165,5 +167,5 @@ async function start() {
 
 section: 'code';
 section: 'data';
-//(rb, 0x200 - ($ - boot) - 2);
+(rb, 0x200 - ($ - boot) - 2);
 db(0x55, 0xaa);

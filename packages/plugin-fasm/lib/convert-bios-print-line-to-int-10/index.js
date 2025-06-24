@@ -21,13 +21,13 @@ export const replace = () => ({
         
         return `{
             push(bp);
-            ax = 0x1301;
             bh = ${page};
             bl = ${color};
             cx = ${count};
             dh = ${line};
             dl = ${column}; 
             bp = __a;
+            ax = 0x1301;
             int(0x10);
             pop(bp);
         }`;

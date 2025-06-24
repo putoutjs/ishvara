@@ -6,7 +6,7 @@ const GREEN_ON_BLACK = 2;
 export async function printf(string) {
     ax = [string];
     cx = await getStringLength(ax);
-    
+    ax = [string];
     bios.printLine(ax, {
         count: cx,
         line: [line],
