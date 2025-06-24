@@ -1,3 +1,8 @@
+2025.06.24, v2.6.3
+
+feature:
+- b05fb4c ishvara: plugin-fasm: convert-arguments-to-registers
+
 2025.06.23, v2.6.2
 
 feature:
