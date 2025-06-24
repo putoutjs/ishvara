@@ -1,3 +1,4 @@
+GREEN_ON_BLACK equ 2
 org 0x7c00
 use16
 
@@ -44,14 +45,14 @@ mov dl, 0
 mov dh, 1
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_49
+jnc __ishvara_read_sector_ok_51
 mov al, 1
-jmp __ishvara_read_sector_end_49
+jmp __ishvara_read_sector_end_51
 
-__ishvara_read_sector_ok_49:
+__ishvara_read_sector_ok_51:
 xor ax, ax
 
-__ishvara_read_sector_end_49:
+__ishvara_read_sector_end_51:
 clc
 test ax, ax
 jz __ishvara_fasm_if_end_1
@@ -63,7 +64,7 @@ ret
 __ishvara_fasm_if_end_1:
 mov bx, kernel_begin
 
-__ishvara_do_while_67:
+__ishvara_do_while_69:
 mov di, kernel_name
 push di
 call __ishvara_getStringLength
@@ -85,7 +86,7 @@ ret
 __ishvara_fasm_if_end_6:
 __ishvara_fasm_if_end_5:
 test cx, cx
-jnz __ishvara_do_while_67
+jnz __ishvara_do_while_69
 add si, 0x14
 lodsw
 mov [kernel_offset], ax
@@ -104,7 +105,7 @@ push kernel_found
 call __ishvara_printf
 mov cx, 3
 
-__ishvara_do_while_103:
+__ishvara_do_while_105:
 push cx
 mov bx, kernel_begin
 mov ax, [kernel_offset]
@@ -140,14 +141,14 @@ mov al, [kernel_sec_size]
 mov dl, 0
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_134
+jnc __ishvara_read_sector_ok_136
 mov al, 1
-jmp __ishvara_read_sector_end_134
+jmp __ishvara_read_sector_end_136
 
-__ishvara_read_sector_ok_134:
+__ishvara_read_sector_ok_136:
 xor ax, ax
 
-__ishvara_read_sector_end_134:
+__ishvara_read_sector_end_136:
 clc
 test ax, ax
 jnz __ishvara_fasm_if_end_8
@@ -157,13 +158,11 @@ jmp kernel_begin
 
 __ishvara_fasm_if_end_8:
 pop cx
-loop __ishvara_do_while_103
+loop __ishvara_do_while_105
 test ax, ax
 jz __ishvara_fasm_if_end_3
 push error_krnlfile
 call __ishvara_printf
-call __ishvara_reboot
-ret
 
 __ishvara_fasm_if_end_3:
 ret
@@ -175,21 +174,24 @@ xor ax, ax
 int 0x16
 jmp far 0xFFFF:0x0000
 __ishvara_printf:
-pop si
-pop bp
-push si
-mov cx, ax
 push bp
+mov bp, sp
+mov ax, [bp + 4]
+mov cx, ax
+push ax
 call __ishvara_getStringLength
 xchg cx, ax
-mov bx, 2
-mov dl, 0
-mov dh, [line]
+push bp
 mov ax, 0x1301
+mov bx, GREEN_ON_BLACK
+mov dh, [line]
+mov dl, 0
+mov bp, ax
 int 0x10
+pop bp
 cmp dh, 0x17
 jnz __ishvara_fasm_if_end_4
-mov bh, 0x02
+mov bh, GREEN_ON_BLACK
 xor cx, cx
 mov ax, 0x601
 mov dx, 0x184f
@@ -199,7 +201,8 @@ ret
 __ishvara_fasm_if_end_4:
 inc dh
 mov [line], dh
-ret
+pop bp
+ret 2
 
 __ishvara_getStringLength:
 push bp
@@ -208,11 +211,11 @@ mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_192:
+__ishvara_do_while_190:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_192
+jnz __ishvara_do_while_190
 pop bp
 mov ax, cx
 ret 2
@@ -224,6 +227,5 @@ kernel_found db 'kernel found', 0
 error_reading db 'error: read', 0
 loader_name db 'Nemesis Loader o_O', 0
 press_any_key db 'press any key', 0
-rb 0x200 - ($ - __ishvara_boot) - 2
 db 0x55, 0xaa
 

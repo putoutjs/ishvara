@@ -1,4 +1,4 @@
-import {bios} from '#operator-fasm';
+import {bios} from '@ishvara/operator-fasm';
 import {printf} from './printf.js';
 
 let press_any_key = 'press any key';

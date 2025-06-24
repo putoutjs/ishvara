@@ -6,6 +6,10 @@ const RET = 'ret()';
 export const report = () => `Avoid useless 'ret'`;
 
 export const match = () => ({
+    'ret(__a)': ({__a}, path) => {
+        const next = path.parentPath.getNextSibling();
+        return compare(next, `ret(${__a.value})`);
+    },
     [RET]: (vars, path) => {
         const next = path.parentPath.getNextSibling();
         const prev = path.parentPath.getPrevSibling();
@@ -34,4 +38,5 @@ export const match = () => ({
 
 export const replace = () => ({
     [RET]: '',
+    'ret(__a)': '',
 });

@@ -2,7 +2,7 @@ import {
     org,
     use16,
     bios,
-} from '#operator-fasm';
+} from '@ishvara/operator-fasm';
 import {getStringLength} from '../string/get-string-length.js';
 import {printf} from './printf.js';
 import {reboot} from './reboot.js';
@@ -46,8 +46,8 @@ bpbFileSystem.db = 'FAT12   ';
 const kernel_begin = 0x7e00;
 
 async function start() {
-    ax = 0; // initialize all the necessary
-    ds = ax; // registers.
+    ax = 0;
+    ds = ax;
     es = ax;
     ss = ax;
     --ax;
@@ -122,7 +122,7 @@ async function start() {
         ax += 0x4200;
         cwd(); // необязательно... но, мало ли... лучше
         div(cx);
-        // пропишем, что б потом неожиданностей небыло...
+        // пропишем, что б потом неожиданностей не было...
         // получаем количество секторов в ax
         cx = 18; //дорожка
         cwd();
@@ -137,7 +137,7 @@ async function start() {
         bx = 2;
         div(bx);
         ch = al;
-        // дискетук a.k.a головке один
+        // дискету a.k.a головке один
         pop(bx);
         pop(dx);
         
@@ -159,15 +159,11 @@ async function start() {
         pop(cx);
     } while (--cx);
     
-    if (ax) {
+    if (ax)
         await printf(error_krnlfile);
-        await reboot();
-        
-        return;
-    }
 }
 
 section: 'code';
 section: 'data';
-(rb, 0x200 - ($ - boot) - 2);
+//(rb, 0x200 - ($ - boot) - 2);
 db(0x55, 0xaa);

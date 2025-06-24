@@ -36,7 +36,7 @@ export const REGS_32BIT = [
     'r15d',
 ];
 
-const x16 = [
+const REGS_16BIT = [
     'ax',
     'bx',
     'cx',
@@ -91,7 +91,7 @@ const segment = [
 export const regs = [
     ...x64,
     ...REGS_32BIT,
-    ...x16,
+    ...REGS_16BIT,
     ...REGS_8BIT,
     ...segment,
 ];
@@ -100,6 +100,10 @@ export const isRegister = (a) => regs.includes(a);
 
 export const is8bit = (name) => {
     return REGS_8BIT.includes(name);
+};
+
+export const is16bit = (name) => {
+    return REGS_16BIT.includes(name);
 };
 
 export const is32bit = (name) => {

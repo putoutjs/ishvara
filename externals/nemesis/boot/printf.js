@@ -1,24 +1,17 @@
-import {bios} from '#operator-fasm';
+import {bios} from '@ishvara/operator-fasm';
 import {getStringLength} from '../string/get-string-length.js';
 
-export async function printf() {
-    pop(si);
-    pop(bp);
-    push(si);
-    cx = await getStringLength(bp);
+const GREEN_ON_BLACK = 2;
+
+export async function printf(string) {
+    ax = [string];
+    cx = await getStringLength(ax);
     
-    bh = 0;
-    bl = 2; // green color ;)
-    dl = 0;
-    dh = [line];
-    bios.printLine();
-    
-    if (dh === 23) {
-        bh = 0x02; // чорный фон, зеленые символы
-        bios.scroll();
-        
-        return;
-    }
+    bios.printLine(ax, {
+        count: cx,
+        line: [line],
+        color: GREEN_ON_BLACK,
+    });
     
     ++dh;
     [line] = dh;

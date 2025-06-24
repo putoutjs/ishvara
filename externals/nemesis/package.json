@@ -32,6 +32,7 @@
     "madrun"
   ],
   "devDependencies": {
+    "@ishvara/operator-fasm": "*",
     "@putout/eslint-flat": "^3.0.0",
     "@putout/plugin-nodejs": "*",
     "@putout/plugin-remove-unused-expressions": "*",

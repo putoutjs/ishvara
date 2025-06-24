@@ -4,7 +4,7 @@ import * as removeUselessJmp from './remove-useless-jmp/index.js';
 import * as removeUselessNop from './remove-useless-nop/index.js';
 import * as removeUselessCondition from './remove-useless-condition/index.js';
 import * as removeDuplicateOperations from './remove-duplicate-operations/index.js';
-import * as joinOneByteRegistersAssign from './join-one-byte-registers-assign/index.js';
+import * as joinOneByteRegistersAssign from './merge-one-byte-reg-assign/index.js';
 import * as removeUselessMov from './remove-useless-mov/index.js';
 import * as convertJzToJmp from './convert-jz-to-jmp/index.js';
 import * as convertCmpToTest from './convert-cmp-to-test/index.js';

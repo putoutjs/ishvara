@@ -3,8 +3,13 @@ import {
     types,
     operator,
 } from 'putout';
+import {is16bit} from '@ishvara/operator-fasm/regs';
 
-const {rename} = operator;
+const {
+    replaceWithMultiple,
+    rename,
+} = operator;
+
 const {
     expressionStatement,
     isReturnStatement,
@@ -48,8 +53,12 @@ export const replace = () => ({
             param.__ishvara_type = name;
         }
         
-        path.__ishvara_args_size = bytes * __args.length;
+        const argsSize = bytes * __args.length;
+        
+        path.__ishvara_args_size = argsSize;
         path.node.params = [];
+        
+        replaceReturn(path, argsSize);
         
         return path;
     },
@@ -60,4 +69,26 @@ function getType({typeAnnotation}) {
         return 'i16';
     
     return typeAnnotation.typeAnnotation.typeName;
+}
+
+function replaceReturn(path, argsSize) {
+    path.traverse({
+        ReturnStatement(path) {
+            const statements = [
+                expressionStatement(template.ast('pop(bp)')),
+                expressionStatement(template.ast(`ret(${argsSize})`)),
+            ];
+            
+            const {argument} = path.node;
+            
+            if (argument) {
+                const {name} = argument;
+                
+                if (is16bit(name))
+                    statements.unshift(expressionStatement(template.ast(`mov(ax, ${name})`)));
+            }
+            
+            replaceWithMultiple(path, statements);
+        },
+    });
 }

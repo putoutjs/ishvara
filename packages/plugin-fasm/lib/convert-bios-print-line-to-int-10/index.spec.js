@@ -16,3 +16,8 @@ test('fasm: convert-bios-print-line-to-int-10: transform', (t) => {
     t.transform('convert-bios-print-line-to-int-10');
     t.end();
 });
+
+test('fasm: convert-bios-print-line-to-int-10: transform: object', (t) => {
+    t.transform('object');
+    t.end();
+});

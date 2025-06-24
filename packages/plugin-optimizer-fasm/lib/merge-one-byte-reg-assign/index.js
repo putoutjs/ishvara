@@ -5,6 +5,7 @@ const {
     remove,
     compare,
     getTemplateValues,
+    extract,
 } = operator;
 
 const NEXT_REG = {
@@ -97,7 +98,7 @@ const removeNext = ({__a, __b, __c}, path) => {
         return `mov(${reg}, 0xffff)`;
     
     if (isHigh(__b.name))
-        return `mov(${reg}, ${nextValues.__b.value})`;
+        return `mov(${reg}, ${extract(nextValues.__b)})`;
     
     return `mov(${reg}, ${__c.value})`;
 };

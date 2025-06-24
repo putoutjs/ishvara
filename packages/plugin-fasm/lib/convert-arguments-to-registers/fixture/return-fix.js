@@ -10,6 +10,8 @@ getStringLength: {
         ++cx;
     } while (al)
     pop(bp);
-    return cx;
+    mov(ax, cx);
+    pop(bp);
+    ret(2);
     ret(2);
 }
