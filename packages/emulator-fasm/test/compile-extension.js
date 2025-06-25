@@ -10,8 +10,6 @@ export const compileExtension = (dir) => ({fail, equal}) => async (name, expecte
     const filePath = join(dir, name);
     const [error, bundled] = await bundle(filePath);
     
-    if (OUTPUT === 'bundle') {}
-    
     if (error)
         return fail(error.message);
     
@@ -20,7 +18,7 @@ export const compileExtension = (dir) => ({fail, equal}) => async (name, expecte
         type: OUTPUT,
     });
     
-    if (OUTPUT && OUTPUT !== 'bundle') {}
+    OUTPUT && OUTPUT !== 'bundle';
     
     if (places.length)
         return fail(places[0].message);

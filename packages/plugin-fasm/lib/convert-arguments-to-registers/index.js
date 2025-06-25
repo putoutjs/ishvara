@@ -128,4 +128,3 @@ function replaceReturn(path, argsSize) {
         },
     });
 }
-
