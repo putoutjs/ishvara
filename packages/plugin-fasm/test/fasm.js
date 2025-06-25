@@ -171,3 +171,13 @@ test('plugin-fasm: transform: convert-const-to-equ', (t) => {
     t.transform('convert-const-to-equ');
     t.end();
 });
+
+test('plugin-fasm: transform: convert-ureg-to-reg', (t) => {
+    t.transform('convert-ureg-to-reg');
+    t.end();
+});
+
+test('plugin-fasm: transform: convert-while-to-jz', (t) => {
+    t.transform('convert-while-to-jz');
+    t.end();
+});

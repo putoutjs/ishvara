@@ -59,3 +59,8 @@ test('compiler: convert-function-to-label: transform: early-return', (t) => {
     t.transform('early-return');
     t.end();
 });
+
+test('compiler: convert-function-to-label: no report: ureg', (t) => {
+    t.noReport('ureg');
+    t.end();
+});

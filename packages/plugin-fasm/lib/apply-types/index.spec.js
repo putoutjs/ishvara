@@ -16,3 +16,8 @@ test('fasm: apply-types: transform', (t) => {
     t.transform('apply-types');
     t.end();
 });
+
+test('fasm: apply-types: no report: ureg', (t) => {
+    t.noReport('ureg');
+    t.end();
+});

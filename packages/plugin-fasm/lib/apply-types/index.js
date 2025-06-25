@@ -5,6 +5,7 @@ const {
     isTSStringKeyword,
     isExportNamedDeclaration,
     isFunction,
+    isProgram,
 } = types;
 
 const {extract} = operator;
@@ -19,6 +20,9 @@ const TYPES = {
 export const report = () => `Use 'db' instead of 'i8'`;
 
 export const filter = (path) => {
+    if (!isProgram(path.parentPath))
+        return;
+    
     const {init} = path.node.declarations[0];
     
     if (isFunction(init))

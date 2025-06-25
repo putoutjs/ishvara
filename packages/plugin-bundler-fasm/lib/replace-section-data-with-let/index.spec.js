@@ -8,7 +8,7 @@ const test = createTest(import.meta.url, {
 });
 
 test('bundler-fasm: replace-section-data-with-let: report', (t) => {
-    t.report('replace-section-data-with-let', `Replace section 'data' with 'equ'`);
+    t.report('replace-section-data-with-let', `Replace section 'data' with 'let'`);
     t.end();
 });
 

@@ -29,3 +29,8 @@ test('fasm: convert-declaration-to-mov: no report: not-reg', (t) => {
     t.noReport('not-reg');
     t.end();
 });
+
+test('fasm: convert-declaration-to-mov: transform: let', (t) => {
+    t.transform('let');
+    t.end();
+});

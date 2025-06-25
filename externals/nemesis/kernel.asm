@@ -577,8 +577,8 @@ lodsb
 inc cx
 test al, al
 jnz __ishvara_do_while_587
-pop bp
 mov ax, cx
+pop bp
 ret 2
 old_esi dw 0
 old_ds dw 0

@@ -40,3 +40,8 @@ test('fasm: convert-arguments-to-registers: transform: early-return', (t) => {
     });
     t.end();
 });
+
+test('fasm: convert-arguments-to-registers: no report: ureg', (t) => {
+    t.noReport('ureg');
+    t.end();
+});

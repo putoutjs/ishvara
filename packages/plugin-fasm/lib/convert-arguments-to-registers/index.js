@@ -22,21 +22,32 @@ const createExpression = (a) => {
 export const report = () => `Use 'regs' instead of 'args'`;
 
 export const match = () => ({
-    'async function __a(__args) {__body}': ({__args}) => __args.length,
+    'async function __a(__args) {__body}': ({__args}, path) => {
+        const {returnType} = path.node;
+        
+        if (returnType && returnType.typeAnnotation.typeName.name === 'ureg')
+            return false;
+        
+        return __args.length;
+    },
 });
+
 export const replace = () => ({
     'async function __a(__args) {__body}': ({__body, __args}, path) => {
         const bytes = 2;
         const startCount = 2;
         
+        const ebp = getRegister(path, 'ebp');
+        const esp = getRegister(path, 'esp');
+        
         __body.body.unshift(...[
-            createExpression('push(bp)'),
-            createExpression('mov(bp, sp)'),
+            createExpression(`push(${ebp})`),
+            createExpression(`mov(${ebp}, ${esp})`),
         ]);
         
         const last = __body.body.at(-1);
         
-        const popEBP = createExpression('pop(bp)');
+        const popEBP = createExpression(`pop(${ebp})`);
         
         if (!isReturnStatement(last))
             __body.body.push(popEBP);
@@ -47,7 +58,7 @@ export const replace = () => ({
             const arg = param.node;
             const {name} = getType(arg);
             
-            rename(path, arg.name, `bp + ${bytes * (i + startCount)}`);
+            rename(path, arg.name, `${ebp} + ${bytes * (i + startCount)}`);
             param.__ishvara_type = name;
         }
         
@@ -58,15 +69,42 @@ export const replace = () => ({
         
         replaceReturn(path, argsSize);
         
+        delete path.node.returnType;
         return path;
     },
 });
+
+const REG = {
+    i16: {
+        ebp: 'bp',
+        esp: 'sp',
+    },
+    i32: {
+        ebp: 'rbp',
+        esp: 'rsp',
+    },
+    i64: {
+        ebp: 'rbp',
+        esp: 'rsp',
+    },
+};
+
+function getRegister(path, reg) {
+    const {returnType} = path.node;
+    
+    if (!returnType)
+        return REG.i16[reg];
+    
+    const {name} = path.node.returnType.typeAnnotation.typeName;
+    
+    return REG[name][reg];
+}
 
 function getType({typeAnnotation}) {
     if (!typeAnnotation)
         return 'i16';
     
-    return typeAnnotation.typeAnnotation.typeName;
+    return typeAnnotation.typeAnnotation.typeName.name;
 }
 
 function replaceReturn(path, argsSize) {
@@ -90,3 +128,4 @@ function replaceReturn(path, argsSize) {
         },
     });
 }
+

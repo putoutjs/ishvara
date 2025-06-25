@@ -31,6 +31,8 @@ Transforms:
 - ✅[`convert-return-to-eax`](https://putout.cloudcmd.io/#/gist/72dfce2332d04829b70703b389464840/75d1d02c87506a2125e44ee24797240293a3a27b);
 - ✅[`convert-await-to-call`](https://putout.cloudcmd.io/#/gist/0ec93b79f05e36b8ed54e79acd5813d1/e1210ac63069d81dd5f679b324ad82b49a2f25ad);
 - ✅[`convert-do-while-to-jnz`](https://putout.cloudcmd.io/#/gist/fe11c0afb23c53585fcb55189593a07a/f194c349cd774d5ab49e0e198c2855e1bb8be6ac);
+- ✅[`convert-while-to-jz`](https://putout.cloudcmd.io/#/gist/6be739dd8e167c8a1b1a72a1830a4920/c24d22911ea61d74fb5391c4cc31821da4055116);
+- ✅[`converg-ureg-to-reg`](https://putout.cloudcmd.io/#/gist/794275bc0cf83432615333b1e41f1975/bac80042b461cb09d8f83402de6fd1f1dafb465c);
 - ✅[`convert-mov-to-add`](https://putout.cloudcmd.io/#/gist/2f03076ac9a794c880fcbadcc1cd502d/145f3e930f9514b79adc47076354f2203476607f);
 - ✅[`convert-declaration-to-mov`](https://putout.cloudcmd.io/#/gist/184b75da1a92ae554b522d004c520017/689ff370e4b20204957a22f499d6f963614b7afb);
 - ✅[`extract-labeled-block`](https://putout.cloudcmd.io/#/gist/033921790a761eef2361aa8b4708e29e/e0e0eb1aa41791c2c01e858f7c198f1a408c6418);

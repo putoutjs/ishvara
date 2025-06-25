@@ -1,14 +1,12 @@
-export async function getStringLength(): i64 {
-    pop(rax);
-    pop(rsi);
-    push(rax);
-    rcx = -1;
+export async function getStringLength(str): ureg {
+    let usi = [str];
+    let ucx = -1;
     cld();
 
     do {
         lodsb();
-        ++rcx;
+        ++ucx;
     } while (al);
 
-    return rcx;
+    return ucx;
 }

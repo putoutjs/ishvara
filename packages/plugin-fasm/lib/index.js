@@ -1,3 +1,5 @@
+import * as convertWhileToJz from './convert-while-to-jz/index.js';
+import * as convertUregToReg from './convert-ureg-to-reg/index.js';
 import * as convertConstToEqu from './convert-const-to-equ/index.js';
 import * as removeUselessBraces from './remove-useless-braces/index.js';
 import * as applyRegisters from './apply-registers/index.js';
@@ -74,4 +76,6 @@ export const rules = {
     'apply-registers': applyRegisters,
     'remove-useless-braces': removeUselessBraces,
     'convert-const-to-equ': convertConstToEqu,
+    'convert-ureg-to-reg': convertUregToReg,
+    'convert-while-to-jz': convertWhileToJz,
 };

@@ -25,7 +25,10 @@ export const replace = () => ({
         
         if (fnPath) {
             const {returnType} = fnPath.node;
-            delete fnPath.node.returnType;
+            
+            if (!fnPath.node.params.length)
+                delete fnPath.node.returnType;
+            
             const name = parseType(fnPath, returnType);
             
             const reg = getReg(name);

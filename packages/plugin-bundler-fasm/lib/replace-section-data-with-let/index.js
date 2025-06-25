@@ -7,7 +7,7 @@ const {
     remove,
 } = operator;
 
-export const report = () => `Replace section 'data' with 'equ'`;
+export const report = () => `Replace section 'data' with 'let'`;
 
 export const fix = ({label, list}) => {
     const nodes = [];

@@ -12,8 +12,12 @@ export const match = () => ({
         
         return !isExportDeclaration(path.parentPath);
     },
+    'let __a = __b': ({__a}) => {
+        return isRegister(__a.name);
+    },
 });
 
 export const replace = () => ({
     'const __a = __b': 'mov(__a, __b)',
+    'let __a = __b': 'mov(__a, __b)',
 });
