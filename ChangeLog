@@ -1,3 +1,9 @@
+2025.06.26, v2.7.0
+
+feature:
+- b76ee18 ishvara: emulator: ureg
+- 5c0fa7e ishvara: emulator-fasm: bundle
+
 2025.06.25, v2.6.4
 
 fix:
