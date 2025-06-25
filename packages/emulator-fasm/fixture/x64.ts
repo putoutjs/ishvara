@@ -1,3 +1,5 @@
+import {getStringLength} from './x64/get-string-length.ts';
+
 format.ELF64.executable = 3;
 segment.readable.executable;
 entry.$;
@@ -21,4 +23,5 @@ syscall();
 
 segment.readable.writeable;
 
+section: 'code';
 section: 'data';

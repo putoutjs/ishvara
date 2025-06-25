@@ -10,7 +10,7 @@ import {run} from '#runner-wasm';
 import {parseArgs, validateArgs} from '#cli-args';
 import {help} from '#cli-help';
 import * as ishvara from '#ishvara';
-import {bundle} from '../packages/bundler/index.js';
+import {bundle} from '#bundler';
 import {prepareError} from '../packages/bundler/prepare-error.js';
 import {parseConfig} from '../packages/cli-args/parse-config.js';
 

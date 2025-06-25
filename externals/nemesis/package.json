@@ -14,6 +14,9 @@
     "type": "git",
     "url": "git+https://github.com/coderaiser/putout.git"
   },
+  "exports": {
+    "./get-string-length": "./string/get-string-length.js"
+  },
   "scripts": {
     "test": "madrun test",
     "watch:test": "madrun watch:test",
