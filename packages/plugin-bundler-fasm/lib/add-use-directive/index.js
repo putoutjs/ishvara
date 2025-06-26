@@ -27,4 +27,3 @@ const createDirective = (name) => (vars, path) => {
     
     return path;
 };
-
