@@ -21,3 +21,7 @@ test('plugin-bundler-fasm: transform: replace-section-data-with-let', (t) => {
     t.transform('replace-section-data-with-let');
     t.end();
 });
+test('plugin-bundler-fasm: transform: add-use-directive', (t) => {
+    t.transform('add-use-directive');
+    t.end();
+})

@@ -1,5 +1,3 @@
-'use 64';
-
 import {getStringLength} from './string/get-string-length.ts';
 
 format.ELF64.executable;
