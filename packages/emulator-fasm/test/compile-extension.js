@@ -7,7 +7,7 @@ import {run} from '../emulator.js';
 
 const {RAW, OUTPUT} = process.env;
 
-export const compileExtension = (dir) => ({fail, pass, equal}) => async (name, expected) => {
+export const compileExtension = (dir) => ({fail, equal}) => async (name, expected) => {
     const filePath = join(dir, name);
     const [error, bundled] = await bundle(filePath);
     
@@ -41,4 +41,3 @@ export const compileExtension = (dir) => ({fail, pass, equal}) => async (name, e
     
     return equal(result, expected);
 };
-

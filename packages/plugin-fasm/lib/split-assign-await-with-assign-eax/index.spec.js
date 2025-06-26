@@ -31,4 +31,3 @@ test('fasm: split-assign-await-with-assign-eax: transform: label', (t) => {
     t.transform('label');
     t.end();
 });
-

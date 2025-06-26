@@ -50,4 +50,3 @@ test('fasm: convert-args-to-regs: transform: 32-bit', (t) => {
     t.transform('32-bit');
     t.end();
 });
-
