@@ -1,29 +1,28 @@
 'use 64';
 
-import {getStringLength} from './x64/get-string-length.ts';
+import {getStringLength} from './string/get-string-length.ts';
 
-format.ELF64.executable = 3;
+format.ELF64.executable;
 segment.readable.executable;
 entry.$;
 
 section: 'const';
 
 let msg = ['Hello 64-bit world!', 0xA];
-const msg_size = 20;
 
 // sys_write
-edx = msg_size;
+rdx = await getStringLength(msg);
 rsi = msg;
-edi = 1;
-eax = 1;
+rdi = 1;
+rax = 1;
 syscall();
 
 //sys_exit
-edi = 0;
-eax = 60;
+rdi = 0;
+rax = 60;
 syscall();
 
-segment.readable.writeable;
-
 section: 'code';
+
+segment.readable.writeable;
 section: 'data';

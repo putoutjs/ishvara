@@ -1,14 +1,21 @@
 import {join} from 'node:path';
 import process from 'node:process';
+import {codeFrameColumns} from '@putout/babel';
 import * as ishvara from '#ishvara';
 import {bundle} from '#bundler';
 import {run} from '../emulator.js';
 
-const {OUTPUT} = process.env;
+const {RAW, OUTPUT} = process.env;
 
-export const compileExtension = (dir) => ({fail, equal}) => async (name, expected) => {
+export const compileExtension = (dir) => ({fail, pass, equal}) => async (name, expected) => {
     const filePath = join(dir, name);
     const [error, bundled] = await bundle(filePath);
+    
+    if (OUTPUT === 'bundle')
+        console.log(codeFrameColumns(bundled, {}, {
+            highlightCode: true,
+            forceColor: true,
+        }));
     
     if (error)
         return fail(error.message);
@@ -18,15 +25,20 @@ export const compileExtension = (dir) => ({fail, equal}) => async (name, expecte
         type: OUTPUT,
     });
     
-    OUTPUT && OUTPUT !== 'bundle';
+    if (OUTPUT && OUTPUT !== 'bundle')
+        if (RAW)
+            console.log(binary);
+        else
+            console.log(codeFrameColumns(binary, {}, {
+                highlightCode: true,
+                forceColor: true,
+            }));
     
     if (places.length)
         return fail(places[0].message);
-    
-    if (OUTPUT)
-        return fail('output');
     
     const result = await run(binary);
     
     return equal(result, expected);
 };
+

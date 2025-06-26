@@ -8,6 +8,7 @@ import {is16bit} from '@ishvara/operator-fasm/regs';
 const {
     replaceWithMultiple,
     rename,
+    compare,
 } = operator;
 
 const {
@@ -34,7 +35,7 @@ export const match = () => ({
 
 export const replace = () => ({
     'async function __a(__args) {__body}': ({__body, __args}, path) => {
-        const bytes = 2;
+        const bytes = getByes(path);
         const startCount = 2;
         
         const ebp = getRegister(path, 'ebp');
@@ -46,11 +47,13 @@ export const replace = () => ({
         ]);
         
         const last = __body.body.at(-1);
-        
         const popEBP = createExpression(`pop(${ebp})`);
         
         if (!isReturnStatement(last))
-            __body.body.push(popEBP);
+            if (compare(last, 'ret()'))
+                __body.body.splice(-1, 0, popEBP);
+            else
+                __body.body.push(popEBP);
         
         const params = path.get('params');
         
@@ -80,14 +83,31 @@ const REG = {
         esp: 'sp',
     },
     i32: {
-        ebp: 'rbp',
-        esp: 'rsp',
+        ebp: 'ebp',
+        esp: 'esp',
     },
     i64: {
         ebp: 'rbp',
         esp: 'rsp',
     },
 };
+
+const BYTES = {
+    i16: 2,
+    i32: 4,
+    i64: 8,
+};
+
+function getByes(path) {
+    const {returnType} = path.node;
+    
+    if (!returnType)
+        return 2;
+    
+    const {name} = path.node.returnType.typeAnnotation.typeName;
+    
+    return BYTES[name];
+}
 
 function getRegister(path, reg) {
     const {returnType} = path.node;

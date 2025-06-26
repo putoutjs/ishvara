@@ -21,3 +21,9 @@ test('bundler-fasm: replace-section-const-with-equ: transform: const', (t) => {
     t.transform('const');
     t.end();
 });
+
+test('bundler-fasm: replace-section-const-with-equ: transform: no-const', (t) => {
+    t.transform('no-const');
+    t.end();
+});
+

@@ -42,9 +42,6 @@ export const traverse = ({store, pathStore, push}) => ({
             if (!label)
                 return;
             
-            if (!list.length)
-                return;
-            
             push({
                 path,
                 label,

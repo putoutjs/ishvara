@@ -12,12 +12,12 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('fasm: convert-arguments-to-registers: report', (t) => {
+test('fasm: convert-args-to-regs: report: convert-arguments-to-registers', (t) => {
     t.report('convert-arguments-to-registers', `Use 'regs' instead of 'args'`);
     t.end();
 });
 
-test('fasm: convert-arguments-to-registers: transform', (t) => {
+test('fasm: convert-args-to-regs: transform: convert-arguments-to-registers', (t) => {
     t.transform('convert-arguments-to-registers', {
         removeUselessBraces,
         applyRegisters,
@@ -25,14 +25,14 @@ test('fasm: convert-arguments-to-registers: transform', (t) => {
     t.end();
 });
 
-test('fasm: convert-arguments-to-registers: transform: return', (t) => {
+test('fasm: convert-args-to-regs: transform: return', (t) => {
     t.transform('return', {
         convertFunctionToLabel,
     });
     t.end();
 });
 
-test('fasm: convert-arguments-to-registers: transform: early-return', (t) => {
+test('fasm: convert-args-to-regs: transform: early-return', (t) => {
     t.transform('early-return', {
         convertFunctionToLabel,
         convertPrintLineToInt10,
@@ -41,7 +41,13 @@ test('fasm: convert-arguments-to-registers: transform: early-return', (t) => {
     t.end();
 });
 
-test('fasm: convert-arguments-to-registers: no report: ureg', (t) => {
+test('fasm: convert-args-to-regs: no report: ureg', (t) => {
     t.noReport('ureg');
     t.end();
 });
+
+test('fasm: convert-args-to-regs: transform: 32-bit', (t) => {
+    t.transform('32-bit');
+    t.end();
+});
+

@@ -181,3 +181,4 @@ test('plugin-fasm: transform: convert-while-to-jz', (t) => {
     t.transform('convert-while-to-jz');
     t.end();
 });
+

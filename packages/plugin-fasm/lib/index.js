@@ -6,7 +6,7 @@ import * as applyRegisters from './apply-registers/index.js';
 import * as convertAssignToOr from './convert-assign-to-or/index.js';
 import * as convertAssignToAnd from './convert-assign-to-and/index.js';
 import * as applyTypes from './apply-types/index.js';
-import * as convertArgumentsToRegisters from './convert-arguments-to-registers/index.js';
+import * as convertArgumentsToRegisters from './convert-args-to-regs/index.js';
 import * as convertTernaryToIf from './convert-ternary-to-if/index.js';
 import * as convertStrncmpToRepeCmpsb from './convert-strncmp-to-repe-cmpsb/index.js';
 import * as convertBiosRebootToJmpFar from './convert-bios-reboot-to-jmp-far/index.js';

@@ -22,7 +22,13 @@ test('fasm: split-assign-await-with-assign-eax: transform: 8-bit', (t) => {
     t.end();
 });
 
+test('fasm: split-assign-await-with-assign-eax: transform: 64-bit', (t) => {
+    t.transform('64-bit');
+    t.end();
+});
+
 test('fasm: split-assign-await-with-assign-eax: transform: label', (t) => {
     t.transform('label');
     t.end();
 });
+

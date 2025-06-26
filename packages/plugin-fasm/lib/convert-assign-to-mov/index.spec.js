@@ -1,6 +1,6 @@
 import {createTest} from '@putout/test';
 import * as plugin from './index.js';
-import * as convertArgumentsToRegisters from '../convert-arguments-to-registers/index.js';
+import * as convertArgumentsToRegisters from '../convert-args-to-regs/index.js';
 
 const test = createTest(import.meta.url, {
     plugins: [
