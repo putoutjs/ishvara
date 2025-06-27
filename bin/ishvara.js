@@ -168,4 +168,3 @@ function log({quiet}, message, {withDivider} = {}) {
         process.stdout.write(divider);
     }
 }
-

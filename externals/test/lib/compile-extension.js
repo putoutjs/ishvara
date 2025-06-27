@@ -53,5 +53,6 @@ export const compileExtension = (dir, {run, target}) => ({fail, equal}) => async
     }
     
     const result = await run(binary);
+    
     return equal(result, expected);
 };
