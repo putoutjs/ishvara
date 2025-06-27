@@ -1,4 +1,4 @@
-import {getStringLength} from './string/get-string-length.ts';
+import {getStringLength} from 'nemesis/get-string-length';
 
 format.ELF64.executable;
 segment.readable.executable;
@@ -6,19 +6,16 @@ entry.$;
 
 section: 'const';
 
-let msg = ['Hello 64-bit world!', 0xA];
+let message = ['Hello 64-bit world!', 0xA];
 
-// sys_write
-rdx = await getStringLength(msg);
-rsi = msg;
-rdi = 1;
-rax = 1;
-syscall();
+rdx = await getStringLength(message);
 
-//sys_exit
-rdi = 0;
-rax = 60;
-syscall();
+linux.write({
+    message,
+    length: rdx,
+})
+
+linux.exit(0);
 
 section: 'code';
 

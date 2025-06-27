@@ -1,5 +1,5 @@
 import {bios} from '@ishvara/operator-fasm';
-import {getStringLength} from '../string/get-string-length.js';
+import {getStringLength} from '../string/get-string-length.ts';
 
 const GREEN_ON_BLACK = 2;
 

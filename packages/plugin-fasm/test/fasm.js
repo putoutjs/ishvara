@@ -181,3 +181,13 @@ test('plugin-fasm: transform: convert-while-to-jz', (t) => {
     t.transform('convert-while-to-jz');
     t.end();
 });
+
+test('plugin-fasm: transform: convert-linux-write-to-syscall', (t) => {
+    t.transform('convert-linux-write-to-syscall');
+    t.end();
+});
+
+test('plugin-fasm: transform: convert-linux-exit-to-syscall', (t) => {
+    t.transform('convert-linux-exit-to-syscall');
+    t.end();
+});

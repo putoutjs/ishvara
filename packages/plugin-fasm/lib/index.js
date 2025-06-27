@@ -1,3 +1,5 @@
+import * as convertLinuxExitToSyscall from './convert-linux-exit-to-syscall/index.js';
+import * as convertLinuxWriteToSyscall from './convert-linux-write-to-syscall/index.js';
 import * as convertWhileToJz from './convert-while-to-jz/index.js';
 import * as convertUregToReg from './convert-ureg-to-reg/index.js';
 import * as convertConstToEqu from './convert-const-to-equ/index.js';
@@ -78,4 +80,6 @@ export const rules = {
     'convert-const-to-equ': convertConstToEqu,
     'convert-ureg-to-reg': convertUregToReg,
     'convert-while-to-jz': convertWhileToJz,
+    'convert-linux-write-to-syscall': convertLinuxWriteToSyscall,
+    'convert-linux-exit-to-syscall': convertLinuxExitToSyscall,
 };

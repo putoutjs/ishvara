@@ -45,14 +45,14 @@ mov dl, 0
 mov dh, 1
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_50
+jnc __ishvara_read_sector_ok_52
 mov al, 1
-jmp __ishvara_read_sector_end_50
+jmp __ishvara_read_sector_end_52
 
-__ishvara_read_sector_ok_50:
+__ishvara_read_sector_ok_52:
 xor ax, ax
 
-__ishvara_read_sector_end_50:
+__ishvara_read_sector_end_52:
 clc
 test ax, ax
 jz __ishvara_fasm_if_end_1
@@ -64,7 +64,7 @@ ret
 __ishvara_fasm_if_end_1:
 mov bx, kernel_begin
 
-__ishvara_do_while_68:
+__ishvara_do_while_70:
 mov di, kernel_name
 push di
 call __ishvara_getStringLength
@@ -86,7 +86,7 @@ ret
 __ishvara_fasm_if_end_5:
 __ishvara_fasm_if_end_4:
 test cx, cx
-jnz __ishvara_do_while_68
+jnz __ishvara_do_while_70
 add si, 0x14
 lodsw
 mov [kernel_offset], ax
@@ -105,7 +105,7 @@ push kernel_found
 call __ishvara_printf
 mov cx, 3
 
-__ishvara_do_while_104:
+__ishvara_do_while_106:
 push cx
 mov bx, kernel_begin
 mov ax, [kernel_offset]
@@ -141,14 +141,14 @@ mov al, [kernel_sec_size]
 mov dl, 0
 mov ah, 2
 int 0x13
-jnc __ishvara_read_sector_ok_135
+jnc __ishvara_read_sector_ok_137
 mov al, 1
-jmp __ishvara_read_sector_end_135
+jmp __ishvara_read_sector_end_137
 
-__ishvara_read_sector_ok_135:
+__ishvara_read_sector_ok_137:
 xor ax, ax
 
-__ishvara_read_sector_end_135:
+__ishvara_read_sector_end_137:
 clc
 test ax, ax
 jnz __ishvara_fasm_if_end_7
@@ -158,7 +158,7 @@ jmp kernel_begin
 
 __ishvara_fasm_if_end_7:
 pop cx
-loop __ishvara_do_while_104
+loop __ishvara_do_while_106
 test ax, ax
 jz __ishvara_fasm_if_end_3
 push error_krnlfile
@@ -202,11 +202,11 @@ mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_180:
+__ishvara_do_while_182:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_180
+jnz __ishvara_do_while_182
 mov ax, cx
 pop bp
 ret 2
