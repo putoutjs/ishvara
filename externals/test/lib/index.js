@@ -3,13 +3,15 @@ import {fileURLToPath} from 'node:url';
 import {extend} from 'supertape';
 import {compileExtension} from './compile-extension.js';
 
-export const createTest = (url) => {
+export const createTest = (url, {run}) => {
     const __filename = fileURLToPath(url);
     const dir = dirname(__filename);
     const dirFixture = join(dir, 'fixture');
     
     const test = extend({
-        compile: compileExtension(dirFixture),
+        compile: compileExtension(dirFixture, {
+            run,
+        }),
     });
     
     return {

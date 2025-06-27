@@ -12,11 +12,11 @@ export default {
     'build:boot': () => run('build:boot:*'),
     'build:boot:fasm': () => ishvara({
         targets: ['fasm'],
-        src: 'externals/nemesis/boot/index.js',
+        src: 'externals/nemesis/boot/bundler.js',
     }),
     'build:boot:asm': () => ishvara({
         targets: ['asm'],
-        src: 'externals/nemesis/boot/index.js',
+        src: 'externals/nemesis/boot/bundler.js',
     }),
     'build:nemesis': () => run('build:nemesis:*'),
     'build:nemesis:asm': () => ishvara({

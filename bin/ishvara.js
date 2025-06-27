@@ -6,12 +6,12 @@ import {stat} from 'node:fs/promises';
 import path, {join} from 'node:path';
 import {codeFrameColumns} from '@putout/babel';
 import chalk from 'chalk';
+import {bundle} from '@ishvara/bundler';
+import {prepareError} from '@ishvara/bundler/prepare-error';
 import {run} from '#runner-wasm';
 import {parseArgs, validateArgs} from '#cli-args';
 import {help} from '#cli-help';
 import * as ishvara from '#ishvara';
-import {bundle} from '#bundler';
-import {prepareError} from '../packages/bundler/prepare-error.js';
 import {parseConfig} from '../packages/cli-args/parse-config.js';
 
 const onStageChange = (args) => (stage, {last, places}) => {
@@ -182,3 +182,4 @@ function log({quiet}, message, {withDivider} = {}) {
         process.stdout.write(divider);
     }
 }
+

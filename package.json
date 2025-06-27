@@ -30,6 +30,7 @@
     "build:nemesis:fasm": "madrun build:nemesis:fasm"
   },
   "dependencies": {
+    "@ishvara/bundler": "*",
     "@putout/babel": "^4.0.1",
     "@putout/plugin-esm": "^4.5.0",
     "@putout/plugin-remove-nested-blocks": "^9.0.0",
@@ -64,12 +65,12 @@
     "montag": "^1.2.1",
     "nodemon": "^3.0.1",
     "redlint": "^4.2.1",
-    "supertape": "^11.1.0"
+    "supertape": "^11.1.0",
+    "@ishvara/test": "*"
   },
   "imports": {
     "#cli-args": "./packages/cli-args/index.js",
     "#cli-help": "./packages/cli-help/help.js",
-    "#bundler": "./packages/bundler/index.js",
     "#plugin-wasm": "./packages/plugin-wasm/lib/index.js",
     "#plugin-fasm": "./packages/plugin-fasm/lib/index.js",
     "#plugin-ishvara": "./packages/plugin-ishvara/lib/index.js",
@@ -82,6 +83,7 @@
     "#optimizer-wasm": "./packages/optimizer-wasm/optimizer.js",
     "#printer-wasm": "./packages/printer-wasm/printer.js",
     "#printer-fasm": "./packages/printer-fasm/printer.js",
+    "#emulator-fasm": "./packages/emulator-fasm/emulator.js",
     "#translator-wasm": "./packages/translator-wasm/translator.js",
     "#test-wasm": "./packages/test-wasm/test.js",
     "#translator-fasm": "./packages/translator-fasm/translator.js",

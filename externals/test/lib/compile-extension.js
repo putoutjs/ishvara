@@ -1,13 +1,12 @@
 import {join} from 'node:path';
 import process from 'node:process';
 import {codeFrameColumns} from '@putout/babel';
-import * as ishvara from '#ishvara';
-import {bundle} from '#bundler';
-import {run} from '../emulator.js';
+import * as ishvara from 'ishvara';
+import {bundle} from '@ishvara/bundler';
 
 const {RAW, OUTPUT} = process.env;
 
-export const compileExtension = (dir) => ({fail, equal}) => async (name, expected) => {
+export const compileExtension = (dir, {run}) => ({fail, equal}) => async (name, expected) => {
     const filePath = join(dir, name);
     const [error, bundled] = await bundle(filePath);
     
