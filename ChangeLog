@@ -1,3 +1,8 @@
+2025.06.27, v2.7.3
+
+feature:
+- 58a9f51 ishvara: plugin-fasm: convert-linux-write-to-syscall
+
 2025.06.27, v2.7.2
 
 feature:
