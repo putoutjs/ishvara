@@ -6,7 +6,7 @@ import {bundle} from '@ishvara/bundler';
 
 const {RAW, OUTPUT} = process.env;
 
-export const compileExtension = (dir, {run}) => ({fail, equal}) => async (name, expected) => {
+export const compileExtension = (dir, {run, target}) => ({fail, equal}) => async (name, expected, main, args) => {
     const filePath = join(dir, name);
     const [error, bundled] = await bundle(filePath);
     
@@ -20,7 +20,7 @@ export const compileExtension = (dir, {run}) => ({fail, equal}) => async (name, 
         return fail(error.message);
     
     const [binary, places] = await ishvara.compile(bundled, {
-        target: 'fasm',
+        target,
         type: OUTPUT,
     });
     
@@ -36,7 +36,22 @@ export const compileExtension = (dir, {run}) => ({fail, equal}) => async (name, 
     if (places.length)
         return fail(places[0].message);
     
-    const result = await run(binary);
+    if (target === 'wasm') {
+        const result = [];
+        const wasm = await run(binary, {
+            console: {
+                log: (a) => {
+                    result.push(a);
+                    return a;
+                },
+            },
+        });
+        
+        wasm[main](...args);
+        
+        return equal(result.join('\n'), expected);
+    }
     
+    const result = await run(binary);
     return equal(result, expected);
 };

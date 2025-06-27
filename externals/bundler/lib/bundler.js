@@ -7,6 +7,12 @@ import {prepareError} from './prepare-error.js';
 const isString = (a) => typeof a === 'string';
 
 export async function bundle(filePath) {
+    const external = [
+        '#operator-fasm',
+        '#operator-wasm',
+        '@ishvara/operator-fasm',
+    ];
+    
     // create a bundle
     const [error, bundleResult] = await tryToCatch(rollup, {
         input: filePath,
@@ -14,10 +20,7 @@ export async function bundle(filePath) {
             format: 'esm',
         },
         treeshake: false,
-        external: [
-            '#operator-fasm',
-            '@ishvara/operator-fasm',
-        ],
+        external,
         plugins: [
             resolve({
                 extensions: ['.ts'],

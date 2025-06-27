@@ -31,24 +31,22 @@
   },
   "dependencies": {
     "@ishvara/bundler": "*",
+    "@ishvara/operator-fasm": "*",
     "@putout/babel": "^4.0.1",
     "@putout/plugin-esm": "^4.5.0",
     "@putout/plugin-remove-nested-blocks": "^9.0.0",
     "@putout/printer": "^15.0.0",
-    "@rollup/plugin-node-resolve": "^16.0.1",
     "@typescript-eslint/typescript-estree": "^8.32.1",
     "chalk": "^5.4.1",
     "fasm.js": "^1.0.7",
     "hexdump-nodejs": "^0.1.0",
     "iced-x86": "^1.21.0",
     "putout": "^40.1.9",
-    "rollup": "^4.0.0",
     "try-catch": "^3.0.1",
     "try-to-catch": "^3.0.1",
     "typescript": "^5.8.3",
     "wabt": "^1.0.37",
-    "yargs-parser": "^22.0.0",
-    "@ishvara/operator-fasm": "*"
+    "yargs-parser": "^22.0.0"
   },
   "keywords": [
     "putout"
@@ -83,7 +81,7 @@
     "#optimizer-wasm": "./packages/optimizer-wasm/optimizer.js",
     "#printer-wasm": "./packages/printer-wasm/printer.js",
     "#printer-fasm": "./packages/printer-fasm/printer.js",
-    "#emulator-fasm": "./packages/emulator-fasm/emulator.js",
+    "#runner-fasm": "./packages/runner-fasm/runner.js",
     "#translator-wasm": "./packages/translator-wasm/translator.js",
     "#test-wasm": "./packages/test-wasm/test.js",
     "#translator-fasm": "./packages/translator-fasm/translator.js",

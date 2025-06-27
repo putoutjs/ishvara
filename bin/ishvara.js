@@ -8,7 +8,6 @@ import {codeFrameColumns} from '@putout/babel';
 import chalk from 'chalk';
 import {bundle} from '@ishvara/bundler';
 import {prepareError} from '@ishvara/bundler/prepare-error';
-import {run} from '#runner-wasm';
 import {parseArgs, validateArgs} from '#cli-args';
 import {help} from '#cli-help';
 import * as ishvara from '#ishvara';
@@ -138,23 +137,10 @@ if (args.output) {
 }
 
 if (!args.output)
-    if (args.target === 'fasm') {
+    if (args.target === 'fasm')
         write(name, 'bin', binary);
-    } else if (args.target === 'wasm') {
+    else if (args.target === 'wasm')
         write(name, 'wasm', binary);
-        
-        const y = run(binary, {
-            console: {
-                log: (a) => {
-                    console.log('wasm:', a);
-                    return a;
-                },
-            },
-        });
-        
-        if (y.x)
-            console.log('js', y.x(1, 2));
-    }
 
 if (args.target === 'wast')
     write(name, 'wast', binary);
