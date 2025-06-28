@@ -16,7 +16,7 @@ Transforms:
 - ✅[`convert-assign-to-shl`](https://putout.cloudcmd.io/#/gist/e7b609200727bb78cfa073c0c1220c46/da0309ac125855533f7e0baa332b0670fd46f6b2);
 - ✅[`convert-assign-to-add`](https://putout.cloudcmd.io/#/gist/0e35a6cf08cb74aafa30810133bfa062/91f9cdf97b3884747e1c0a0b9521a8fc6cd067b2);
 - ✅[`convert-assign-to-or`](https://putout.cloudcmd.io/#/gist/a456caa9f956fdb8b19f21065de96209/c411fb6937fd37d5d97cd72a2740b897b0c30092);
-- ✅[`convert-arguments-to-registers`](https://putout.cloudcmd.io/#/gist/7d76d789c35b33dfacc149e32214537f/c35a2f0fe80b6a4c00bbb99249562069d072fc64);
+- ✅[`convert-args-to-regs`](https://putout.cloudcmd.io/#/gist/7d76d789c35b33dfacc149e32214537f/c35a2f0fe80b6a4c00bbb99249562069d072fc64);
 - ✅[`convert-bios-clear-screen-to-int-10`](https://putout.cloudcmd.io/#/gist/602d579a76cf38b5927f0207ee4bcf98/a31a08ce34e4a83ca909a9afc2ec76533ded8c82);
 - ✅[`convert-bios-print-line-to-int-10`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/24b97107a50d00df0f012fed507d47aafb5109e2);
 - ✅[`convert-bios-read-char-to-int-16`](https://putout.cloudcmd.io/#/gist/d87efe4df8f505162e7d922c4fbacd9b/af89e4d564811f38b703f482469f5d874a17bad0);

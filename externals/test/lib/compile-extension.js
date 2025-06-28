@@ -24,7 +24,7 @@ export const compileExtension = (dir, {run, target}) => ({fail, equal}) => async
         type: OUTPUT,
     });
     
-    if (OUTPUT && OUTPUT !== 'bundle')
+    if (OUTPUT && OUTPUT !== 'bundle') {
         if (RAW)
             console.log(binary);
         else
@@ -32,6 +32,9 @@ export const compileExtension = (dir, {run, target}) => ({fail, equal}) => async
                 highlightCode: true,
                 forceColor: true,
             }));
+        
+        return fail('output');
+    }
     
     if (places.length)
         return fail(places[0].message);

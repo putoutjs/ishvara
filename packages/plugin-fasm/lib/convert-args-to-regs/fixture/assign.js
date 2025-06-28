@@ -1,12 +1,13 @@
 async function getStringLength(str) {
-    si = str;
-    cx = -1;
+    let usi = str;
+    let ucx = -1;
+
     cld();
-    
+
     do {
         lodsb();
-        ++cx;
+        ++ucx;
     } while (al);
-    
-    return cx;
+
+    return ucx;
 }

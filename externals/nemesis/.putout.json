@@ -17,6 +17,7 @@
         "typescript/remove-useless-types-from-constants": "off",
         "declare-before-reference": "off",
         "promises/remove-useless-await": "off",
-        "promises/remove-useless-async": "off"
+        "promises/remove-useless-async": "off",
+        "remove-useless-variables/rename": "off"
     }
 }

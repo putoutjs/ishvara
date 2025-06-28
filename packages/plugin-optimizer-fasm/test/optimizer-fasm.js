@@ -66,3 +66,8 @@ test('plugin-optimizer-fasm: transform: remove-useless-xchg', (t) => {
     t.transform('remove-useless-xchg');
     t.end();
 });
+
+test('plugin-optimizer-fasm: transform: apply-lodsb', (t) => {
+    t.transform('apply-lodsb');
+    t.end();
+});

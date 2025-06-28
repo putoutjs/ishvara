@@ -1,9 +1,9 @@
 async function setColumn(newColumn: i8) {
-    [col] = [newColumn];
+    col = newColumn;
 }
 
 async function setLine(newLine, newColumn) {
-    [line] = [newLine];
+    line = newLine;
 }
 
 async function get() {

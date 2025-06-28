@@ -1,20 +1,14 @@
 async function setColumn() {
     push(bp);
     mov(bp, sp);
-    {
-        mov(ax, [bp + 4]);
-        mov([col], ax);
-    }
+    col = [bp + 4];
     pop(bp);
 }
 
 async function setLine() {
     push(bp);
     mov(bp, sp);
-    {
-        mov(ax, [bp + 4]);
-        mov([line], ax);
-    }
+    line = [bp + 4];
     pop(bp);
 }
 

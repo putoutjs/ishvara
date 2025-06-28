@@ -1,3 +1,4 @@
+import * as applyLodsb from './apply-lodsb/index.js';
 import * as removeUselessXchg from './remove-useless-xchg/index.js';
 import * as mergeLabelsOfDuplicateInstructions from './merge-labels-of-duplicate-instructions/index.js';
 import * as removeUselessJmp from './remove-useless-jmp/index.js';
@@ -12,6 +13,7 @@ import * as removeUselessRet from './remove-useless-ret/index.js';
 import * as convertMovToXor from './convert-mov-to-xor/index.js';
 
 export const rules = {
+    'apply-lodsb': applyLodsb,
     'convert-mov-to-xor': convertMovToXor,
     'remove-useless-ret': removeUselessRet,
     'convert-cmp-to-test': convertCmpToTest,

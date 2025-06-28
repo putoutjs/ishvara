@@ -13,7 +13,7 @@ printf: {
     }
     
     ++dh;
-    [line] = dh;
+    line = dh;
     pop(bp);
     ret(2);
 }

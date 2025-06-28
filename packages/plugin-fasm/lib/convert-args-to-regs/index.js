@@ -35,7 +35,7 @@ export const match = () => ({
 
 export const replace = () => ({
     'async function __a(__args) {__body}': ({__body, __args}, path) => {
-        const bytes = getByes(path);
+        const bytes = getBytes(path);
         const startCount = 2;
         
         const ebp = getRegister(path, 'ebp');
@@ -61,7 +61,7 @@ export const replace = () => ({
             const arg = param.node;
             const {name} = getType(arg);
             
-            rename(path, arg.name, `${ebp} + ${bytes * (i + startCount)}`);
+            rename(path, arg.name, `[${ebp} + ${bytes * (i + startCount)}]`);
             param.__ishvara_type = name;
         }
         
@@ -98,7 +98,7 @@ const BYTES = {
     i64: 8,
 };
 
-function getByes(path) {
+function getBytes(path) {
     const {returnType} = path.node;
     
     if (!returnType)

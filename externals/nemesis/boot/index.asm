@@ -202,11 +202,11 @@ mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_182:
+__ishvara_do_while_183:
 lodsb
 inc cx
 test al, al
-jnz __ishvara_do_while_182
+jnz __ishvara_do_while_183
 mov ax, cx
 pop bp
 ret 2

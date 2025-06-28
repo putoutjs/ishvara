@@ -2,6 +2,7 @@
 
 Transforms:
 
+- ✅[`apply-lodsb`](https://putout.cloudcmd.io/#/gist/a68eea4d5c924a359ac0aea23d302eb9/40dc03da2148c6f751fbb216d6884c7f79ad92c4);
 - ✅[`convert-cmp-to-test`](https://putout.cloudcmd.io/#/gist/abcb985d118b501a8c4e3bdbc0cb2c24/530029e4df82bbab0590679d9d21212ed51b485d);
 - ✅[`convert-mov-to-xor`](https://putout.cloudcmd.io/#/gist/4c51bf6ba61b95c0eed96c271be058be/b9a1fc091fcfa0e71ebfe01bef609616092cf3fe);
 - ✅[`convert-jz-to-jmp`](https://putout.cloudcmd.io/#/gist/c4d7131fdfd26cdf6aabc6d8025166ec/b8baa6e498f8dce88c79b852ca7e4489f82ac003);

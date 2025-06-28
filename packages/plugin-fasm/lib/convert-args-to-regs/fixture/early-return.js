@@ -1,7 +1,7 @@
 import {bios} from '@ishvara/operator-fasm';
 
 async function printf(string) {
-    ax = [string];
+    ax = string;
     
     if (dh === 23) {
         bh = GREEN_ON_BLACK;
@@ -11,5 +11,5 @@ async function printf(string) {
     }
     
     ++dh;
-    [line] = dh;
+    line = dh;
 }
