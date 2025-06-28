@@ -17,6 +17,11 @@ test('fasm: apply-types: transform', (t) => {
     t.end();
 });
 
+test('fasm: apply-types: transform: i64', (t) => {
+    t.transform('i64');
+    t.end();
+});
+
 test('fasm: apply-types: no report: ureg', (t) => {
     t.noReport('ureg');
     t.end();

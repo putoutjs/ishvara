@@ -9,7 +9,7 @@ getStringLength: {
         lodsb();
         ++cx;
     } while (al)
-    mov(ax, cx);
+    ax = cx;
     pop(bp);
     ret(2);
     ret(2);

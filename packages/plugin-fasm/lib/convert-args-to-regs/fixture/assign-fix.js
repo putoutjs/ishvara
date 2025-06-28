@@ -10,6 +10,7 @@ async function getStringLength() {
         lodsb();
         ++cx;
     } while (al)
+    mov(ax, cx);
     pop(bp);
     ret(2);
 }

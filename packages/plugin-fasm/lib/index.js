@@ -1,3 +1,4 @@
+import * as splitBinaryExpression from './split-binary-expression/index.js';
 import * as convertLinuxExitToSyscall from './convert-linux-exit-to-syscall/index.js';
 import * as convertLinuxWriteToSyscall from './convert-linux-write-to-syscall/index.js';
 import * as convertWhileToJz from './convert-while-to-jz/index.js';
@@ -82,4 +83,5 @@ export const rules = {
     'convert-while-to-jz': convertWhileToJz,
     'convert-linux-write-to-syscall': convertLinuxWriteToSyscall,
     'convert-linux-exit-to-syscall': convertLinuxExitToSyscall,
+    'split-binary-expression': splitBinaryExpression,
 };

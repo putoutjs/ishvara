@@ -191,3 +191,8 @@ test('plugin-fasm: transform: convert-linux-exit-to-syscall', (t) => {
     t.transform('convert-linux-exit-to-syscall');
     t.end();
 });
+
+test('plugin-fasm: transform: split-binary-expression', (t) => {
+    t.transform('split-binary-expression');
+    t.end();
+});

@@ -14,6 +14,7 @@ const TYPES = {
     i8: 'db',
     i16: 'dw',
     i32: 'dd',
+    i64: 'dq',
     rb: 'rb',
 };
 

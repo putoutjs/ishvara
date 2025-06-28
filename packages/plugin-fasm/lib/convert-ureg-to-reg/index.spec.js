@@ -21,3 +21,9 @@ test('fasm: convert-ureg-to-reg: transform: no-directive', (t) => {
     t.transform('no-directive');
     t.end();
 });
+
+test('fasm: convert-ureg-to-reg: transform: no-type', (t) => {
+    t.transform('no-type');
+    t.end();
+});
+

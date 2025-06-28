@@ -3,7 +3,10 @@ __ishvara_add: {
     mov(ebx, 0x2);
     
     {
-        mov(ax, eax + ebx);
+        {
+            mov(ax, eax);
+            add(ax, ebx);
+        }
         ret();
     }
 }

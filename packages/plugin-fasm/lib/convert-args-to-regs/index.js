@@ -3,7 +3,6 @@ import {
     types,
     operator,
 } from 'putout';
-import {is16bit} from '@ishvara/operator-fasm/regs';
 
 const {
     replaceWithMultiple,
@@ -15,6 +14,8 @@ const {
     expressionStatement,
     isReturnStatement,
 } = types;
+
+const isEax = (name) => /[re]?a[xl]/.test(name);
 
 const createExpression = (a) => {
     return expressionStatement(template.ast(a));
@@ -73,20 +74,24 @@ export const replace = () => ({
         replaceReturn(path, argsSize);
         
         delete path.node.returnType;
+        
         return path;
     },
 });
 
 const REG = {
     i16: {
+        eax: 'ax',
         ebp: 'bp',
         esp: 'sp',
     },
     i32: {
+        eax: 'eax',
         ebp: 'ebp',
         esp: 'esp',
     },
     i64: {
+        eax: 'rax',
         ebp: 'rbp',
         esp: 'rsp',
     },
@@ -127,21 +132,20 @@ function getType({typeAnnotation}) {
     return typeAnnotation.typeAnnotation.typeName.name;
 }
 
-function replaceReturn(path, argsSize) {
-    path.traverse({
+function replaceReturn(fnPath, argsSize) {
+    fnPath.traverse({
         ReturnStatement(path) {
             const statements = [
-                expressionStatement(template.ast('pop(bp)')),
+                expressionStatement(template.ast(`pop(${getRegister(fnPath, 'ebp')})`)),
                 expressionStatement(template.ast(`ret(${argsSize})`)),
             ];
             
-            const {argument} = path.node;
+            const argPath = path.get('argument');
+            const arg = argPath.node;
             
-            if (argument) {
-                const {name} = argument;
-                
-                if (is16bit(name))
-                    statements.unshift(expressionStatement(template.ast(`mov(ax, ${name})`)));
+            if (arg && !isEax(arg.name)) {
+                const expression = template.ast(`${getRegister(fnPath, 'eax')} = ${argPath}`);
+                statements.unshift(expressionStatement(expression));
             }
             
             replaceWithMultiple(path, statements);
