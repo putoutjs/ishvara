@@ -26,4 +26,3 @@ test('fasm: convert-ureg-to-reg: transform: no-type', (t) => {
     t.transform('no-type');
     t.end();
 });
-
