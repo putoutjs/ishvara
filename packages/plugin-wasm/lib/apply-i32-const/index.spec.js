@@ -7,22 +7,27 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('wasm: apply-i32-const: report', (t) => {
+test('ishvara: plugin-wasm: apply-i32-const: report', (t) => {
     t.report('apply-i32-const', `Use 'i32.const()'`);
     t.end();
 });
 
-test('wasm: apply-i32-const: transform', (t) => {
+test('ishvara: plugin-wasm: apply-i32-const: transform', (t) => {
     t.transform('apply-i32-const');
     t.end();
 });
 
-test('wasm: apply-i32-const: transform: i32-eq', (t) => {
+test('ishvara: plugin-wasm: apply-i32-const: transform: i32-eq', (t) => {
     t.transform('i32-eq');
     t.end();
 });
 
-test('wasm: apply-i32-const: no report: memory', (t) => {
+test('ishvara: plugin-wasm: apply-i32-const: no report: memory', (t) => {
     t.noReport('memory');
+    t.end();
+});
+
+test('ishvara: plugin-wasm: apply-i32-const: no report: i64-const', (t) => {
+    t.noReport('i64-const');
     t.end();
 });

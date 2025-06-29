@@ -7,17 +7,23 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('putout-wast-ts: apply-types: report', (t) => {
+test('ishvara: plugin:wasm: apply-types: report', (t) => {
     t.report('apply-types', `Apply types`);
     t.end();
 });
 
-test('putout-wast-ts: apply-types: transform', (t) => {
+test('ishvara: plugin:wasm: apply-types: transform', (t) => {
     t.transform('apply-types');
     t.end();
 });
 
-test('putout-wast-ts: apply-types: transform: no report after transform', (t) => {
+test('ishvara: plugin:wasm: apply-types: transform: i64', (t) => {
+    t.transform('i64');
+    t.end();
+});
+
+test('ishvara: plugin:wasm: apply-types: transform: no report after transform', (t) => {
     t.noReportAfterTransform('apply-types');
     t.end();
 });
+

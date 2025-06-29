@@ -20,3 +20,8 @@ test('ishvara: runner-wasm: variables', async ({compile}) => {
     const expected = 3;
     await compile('variables', expected, 'entry', [1, 2]);
 });
+
+test('ishvara: runner-wasm: local-set', async ({compile}) => {
+    const expected = 7n;
+    await compile('local-set', expected, 'entry');
+});

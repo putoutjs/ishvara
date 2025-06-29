@@ -16,8 +16,20 @@ export const match = () => ({
     },
 });
 export const replace = () => ({
-    'const __a = __b': `{
-        local(__a, i32)
-        local.set(__a, i32.const(__b))
-    }`,
+    'const __a = __b': ({__a}) => {
+        const type = parseType(__a);
+        delete __a.typeAnnotation;
+        
+        return `{
+            local(__a, ${type})
+            local.set(__a, ${type}.const(__b))
+        }`;
+    },
 });
+
+function parseType({typeAnnotation}) {
+    if (!typeAnnotation)
+        return 'i32';
+    
+    return typeAnnotation.typeAnnotation.typeName.name;
+}

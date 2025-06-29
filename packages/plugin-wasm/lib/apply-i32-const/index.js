@@ -11,7 +11,7 @@ export const include = () => [
 ];
 
 export const exclude = () => [
-    'i32.const(__a)',
+    '__.const(__a)',
     '__ishvara_wasm_memory(__args)',
 ];
 

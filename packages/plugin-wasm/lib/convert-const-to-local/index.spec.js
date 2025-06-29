@@ -21,3 +21,8 @@ test('wasm: convert-const-to-local: no report: not-fn', (t) => {
     t.noReport('not-fn');
     t.end();
 });
+
+test('wasm: convert-const-to-local: transform: type', (t) => {
+    t.transform('type');
+    t.end();
+});
