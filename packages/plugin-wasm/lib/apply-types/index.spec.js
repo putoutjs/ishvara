@@ -26,4 +26,3 @@ test('ishvara: plugin:wasm: apply-types: transform: no report after transform', 
     t.noReportAfterTransform('apply-types');
     t.end();
 });
-
