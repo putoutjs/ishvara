@@ -4,6 +4,11 @@
             "maxElementLengthInOneLine": 100
         }
     }],
+    "match": {
+        "*.spec.js": {
+            "nodejs/declare": "on"
+        }
+    },
     "rules": {
         "apply-arrow": "off",
         "declare": "off",

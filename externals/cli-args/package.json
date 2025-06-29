@@ -1,22 +1,16 @@
 {
-  "name": "ishvara",
-  "version": "2.8.0",
+  "name": "@ishvara/cli-args",
   "type": "module",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Compile JavaScript to WASM",
   "homepage": "https://github.com/putoutjs/ishvara",
-  "main": "externals/ishvara/lib/ishvara.js",
-  "bin": {
-    "ishvara": "externals/ishvara/bin/ishvara.js"
-  },
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/putoutjs/ishvara.git"
   },
   "scripts": {
-    "wisdom": "madrun wisdom",
     "test": "madrun test",
-    "test:all": "madrun test:all",
     "watch:test": "madrun watch:test",
     "lint": "madrun lint",
     "fresh:lint": "madrun fresh:lint",
@@ -92,7 +86,7 @@
     "#runner-wasm": "./packages/runner-wasm/runner.js",
     "#operator-wasm": "./packages/operator-wasm/index.js",
     "#operator-fasm": "./externals/operator-fasm/index.ts",
-    "#ishvara": "./externals/ishvara/ishvara.js"
+    "#ishvara": "./packages/ishvara/ishvara.js"
   },
   "license": "MIT",
   "workspaces": [

@@ -260,7 +260,9 @@ __ishvara_do_while_247:
 dec [sec_quantity]
 sti
 mov dx, 0x3f2
-mov al, RESET_CONTROLLER + USE_DMA + RUN_MOTOR
+mov al, RESET_CONTROLLER
+add al, USE_DMA
+add al, RUN_MOTOR
 out dx, al
 call __ishvara_waitLong
 mov ah, 0xf
@@ -325,7 +327,8 @@ mov [bx], al
 inc bx
 loop __ishvara_do_while_330
 mov dx, 0x3f2
-mov al, RESET_CONTROLLER + USE_DMA
+mov al, RESET_CONTROLLER
+add al, USE_DMA
 out dx, al
 add [secbuffer], 0x200
 dec [sec_number]
@@ -573,8 +576,7 @@ mov cx, -1
 cld
 
 __ishvara_do_while_590:
-mov al, [si]
-inc si
+lodsb
 inc cx
 test al, al
 jnz __ishvara_do_while_590

@@ -45,7 +45,9 @@
     "try-to-catch": "^3.0.1",
     "typescript": "^5.8.3",
     "wabt": "^1.0.37",
-    "yargs-parser": "^22.0.0"
+    "yargs-parser": "^22.0.0",
+    "@ishvara/cli-help": "*",
+    "@ishvara/cli-args": "*"
   },
   "keywords": [
     "putout"

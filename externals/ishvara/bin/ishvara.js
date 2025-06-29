@@ -8,10 +8,13 @@ import {codeFrameColumns} from '@putout/babel';
 import chalk from 'chalk';
 import {bundle} from '@ishvara/bundler';
 import {prepareError} from '@ishvara/bundler/prepare-error';
-import {parseArgs, validateArgs} from '#cli-args';
-import {help} from '../../../packages/cli-help/help.js';
+import {help} from '@ishvara/cli-help';
+import {
+    parseArgs,
+    validateArgs,
+    parseConfig,
+} from '@ishvara/cli-args';
 import * as ishvara from '../lib/ishvara.js';
-import {parseConfig} from '../../../packages/cli-args/parse-config.js';
 
 const onStageChange = (args) => (stage, {last, places}) => {
     const line = stage[0].toUpperCase() + stage.slice(1);
@@ -168,3 +171,4 @@ function log({quiet}, message, {withDivider} = {}) {
         process.stdout.write(divider);
     }
 }
+
