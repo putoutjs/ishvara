@@ -1,3 +1,9 @@
+2025.06.29, v2.8.1
+
+feature:
+- 7310af0 ishvara: runner-wasm: local-set
+- 54b08ab plugin-wasm: convert-await-to-call: add
+
 2025.06.29, v2.8.0
 
 feature:
