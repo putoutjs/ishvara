@@ -28,5 +28,6 @@ test('ishvara: nemesis: kernel: compile', async (t) => {
     
     t.notOk(places.length);
     t.end();
-}, {timeout: 10_000});
-
+}, {
+    timeout: 10_000,
+});

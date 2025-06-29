@@ -20,4 +20,3 @@ test('ishvara: nemesis: boot: compile', async (t) => {
     t.notOk(places.length);
     t.end();
 });
-
