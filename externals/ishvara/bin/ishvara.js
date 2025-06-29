@@ -9,9 +9,9 @@ import chalk from 'chalk';
 import {bundle} from '@ishvara/bundler';
 import {prepareError} from '@ishvara/bundler/prepare-error';
 import {parseArgs, validateArgs} from '#cli-args';
-import {help} from '#cli-help';
-import * as ishvara from '#ishvara';
-import {parseConfig} from '../packages/cli-args/parse-config.js';
+import {help} from '../../../packages/cli-help/help.js';
+import * as ishvara from '../lib/ishvara.js';
+import {parseConfig} from '../../../packages/cli-args/parse-config.js';
 
 const onStageChange = (args) => (stage, {last, places}) => {
     const line = stage[0].toUpperCase() + stage.slice(1);

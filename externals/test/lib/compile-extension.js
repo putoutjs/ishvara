@@ -40,19 +40,22 @@ export const compileExtension = (dir, {run, target}) => ({fail, equal}) => async
         return fail(places[0].message);
     
     if (target === 'wasm') {
-        const result = [];
+        const output = [];
         const wasm = await run(binary, {
             console: {
                 log: (a) => {
-                    result.push(a);
+                    output.push(a);
                     return a;
                 },
             },
         });
         
-        wasm[main](...args);
+        const result = wasm[main](...args);
         
-        return equal(result.join('\n'), expected);
+        if (!output.length)
+            return equal(result, expected);
+        
+        return equal(output.join('\n'), expected);
     }
     
     const result = await run(binary);

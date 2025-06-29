@@ -7,6 +7,7 @@ Transforms:
 - ✅[`apply-types`](https://putout.cloudcmd.io/#/gist/5e3f3260fcd10398c2249231ada8cb06/b28fa3069226fcf347926a25f43adfbd5aff75b1);
 - ✅[`convert-const-to-local`](https://putout.cloudcmd.io/#/gist/6d8ad12a1ccfb0b36eee7a4a612ec574/c8bbab02a4844c7da1dbb59ac6f307b0b2ba93d4);
 - ✅[`convert-export-memory-to-call`](https://putout.cloudcmd.io/#/gist/921e66339ea459d0f3b44fbeb635520d/964250541bb5a7d154582022c3d32189cd4287a3);
+- ✅[`convert-await-to-call`](https://putout.cloudcmd.io/#/gist/a2f0c04234dd4bd49e79b6b0e337d4f7/7d044fbb4309c2fba18044bb35650a49907f8c10);
 - ✅[`apply-i32-local`](https://putout.cloudcmd.io/#/gist/da191803cc8c7de00f43c224ef7ab5d7/b185b773c1a498ab96adea5daf1f56513937cc49);
 - ✅[`apply-wasm-import`](https://putout.cloudcmd.io/#/gist/17388f93e2ee59c99dc5dff60b799424/0e37752251b20d8aeabb6818196a623af8e153e3);
 - ✅[`apply-wasm-memory`](https://putout.cloudcmd.io/#/gist/921e66339ea459d0f3b44fbeb635520d/eaa5d72007d2328303cfa046a5c0ff5c23e8af5c);
