@@ -1,4 +1,5 @@
 import {linux} from '@ishvara/operator-fasm';
+import {sum} from './sum/sum.ts';
 
 format.ELF64.executable;
 segment.readable.executable;
@@ -18,9 +19,6 @@ linux.write({
 
 linux.exit(0);
 
-async function sum(a, b): i64 {
-    return a + b;
-}
-
+section: 'code';
 segment.readable.writeable;
 section: 'data';

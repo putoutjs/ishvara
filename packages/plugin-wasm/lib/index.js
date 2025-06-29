@@ -1,3 +1,4 @@
+import * as convertAwaitToCall from './convert-await-to-call/index.js';
 import * as applyTypeToIf from './apply-type-to-if/index.js';
 import * as applyLocalGet from './apply-local-get/index.js';
 import * as applyEq from './apply-eq/index.js';
@@ -30,4 +31,5 @@ export const rules = {
     'apply-eq': applyEq,
     'apply-local-get': applyLocalGet,
     'apply-type-to-if': applyTypeToIf,
+    'convert-await-to-call': convertAwaitToCall,
 };

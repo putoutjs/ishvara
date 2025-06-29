@@ -71,3 +71,8 @@ test('plugin-wasm: transform: apply-type-to-if', (t) => {
     t.transform('apply-type-to-if');
     t.end();
 });
+
+test('plugin-wasm: transform: convert-await-to-call', (t) => {
+    t.transform('convert-await-to-call');
+    t.end();
+});

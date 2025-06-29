@@ -1,5 +1,5 @@
-import * as wasm from '#compiler-wasm';
-import * as fasm from '#compiler-fasm';
+import * as wasm from '../../../packages/compiler-wasm/compiler.js';
+import * as fasm from '../../../packages/compiler-fasm/compiler.js';
 
 export const compile = async (source, options) => {
     const {
