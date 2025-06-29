@@ -1,3 +1,8 @@
+2025.06.29, v2.8.0
+
+feature:
+- 1d124f6 plugin-wasm: convert-await-to-call: add
+
 2025.06.28, v2.7.5
 
 feature:
