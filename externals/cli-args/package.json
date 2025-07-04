@@ -48,19 +48,19 @@
     "putout"
   ],
   "devDependencies": {
+    "@ishvara/test": "*",
     "@putout/plugin-printer": "^5.0.0",
     "@putout/test": "^13.2.3",
     "c8": "^10.0.0",
     "eslint": "^9.0.0",
     "eslint-plugin-n": "^17.0.0",
-    "eslint-plugin-putout": "^27.0.0",
+    "eslint-plugin-putout": "^28.0.0",
     "just-kebab-case": "^4.2.0",
     "madrun": "^11.0.1",
     "montag": "^1.2.1",
     "nodemon": "^3.0.1",
     "redlint": "^4.2.1",
-    "supertape": "^11.1.0",
-    "@ishvara/test": "*"
+    "supertape": "^11.1.0"
   },
   "imports": {
     "#cli-args": "./packages/cli-args/index.js",
