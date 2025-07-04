@@ -93,7 +93,7 @@ function createExpression(__a, {one, two, test}) {
     
     if (isArrayExpression(__a))
         return blockStatement([
-            expressionStatement(template.ast(`mov (al, [${__a.elements[0].name}])`)),
+            expressionStatement(template.ast(`al = [${__a.elements[0].name}]`)),
             expressionStatement(template.ast(`${test}(al, al)`)),
         ]);
     
