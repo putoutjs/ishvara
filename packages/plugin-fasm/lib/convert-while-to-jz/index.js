@@ -12,6 +12,8 @@ const {
     isCallExpression,
     labeledStatement,
     isBooleanLiteral,
+    isArrayExpression,
+    blockStatement,
 } = types;
 
 const createStartLabel = (line) => `__ishvara_do_while_${line}`;
@@ -25,9 +27,13 @@ export const replace = () => ({
         const startLabel = createStartLabel(line);
         const conditionLabel = createConditionLabel(line);
         const [one, two, jnz, test] = parseWhileArgs(__a);
-        const expression = isCallExpression(__a) ? __a : template.ast(`${test}(${one}, ${two})`);
         
-        let conditionExpression = expressionStatement(expression);
+        let conditionExpression = createExpression(__a, {
+            one,
+            two,
+            test,
+        });
+        
         const wasContinue = maybeReplaceContinueWithJmp(path, conditionLabel);
         
         if (wasContinue)
@@ -57,6 +63,14 @@ const parseWhileArgs = (__a) => {
             'cmp',
         ];
     
+    if (isArrayExpression(__a))
+        return [
+            'al',
+            'al',
+            'jnz',
+            'test',
+        ];
+    
     if (compare(__a, '__a === __b'))
         return [
             extract(__a.left),
@@ -72,6 +86,19 @@ const parseWhileArgs = (__a) => {
         'test',
     ];
 };
+
+function createExpression(__a, {one, two, test}) {
+    if (isCallExpression(__a))
+        return expressionStatement(__a);
+    
+    if (isArrayExpression(__a))
+        return blockStatement([
+            expressionStatement(template.ast(`mov (al, [${__a.elements[0].name}])`)),
+            expressionStatement(template.ast(`${test}(al, al)`)),
+        ]);
+    
+    return expressionStatement(template.ast(`${test}(${one}, ${two})`));
+}
 
 function maybeReplaceContinueWithJmp(path, startLabel) {
     let was = false;

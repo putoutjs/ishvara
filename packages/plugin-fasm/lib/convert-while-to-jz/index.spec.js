@@ -16,3 +16,8 @@ test('fasm: convert-while-to-jz: transform', (t) => {
     t.transform('convert-while-to-jz');
     t.end();
 });
+
+test('fasm: convert-while-to-jz: transform: assign', (t) => {
+    t.transform('assign');
+    t.end();
+});
