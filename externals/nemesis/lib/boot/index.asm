@@ -199,15 +199,14 @@ __ishvara_getStringLength:
 push bp
 mov bp, sp
 mov si, [bp + 4]
-mov cx, -1
-cld
+xor bx, bx
 
-__ishvara_do_while_183:
-lodsb
-inc cx
+__ishvara_do_while_181:
+inc bx
+mov al, [bx + si]
 test al, al
-jnz __ishvara_do_while_183
-mov ax, cx
+jnz __ishvara_do_while_181
+mov ax, bx
 pop bp
 ret 2
 kernel_name db 'KERNEL', 0

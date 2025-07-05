@@ -1,3 +1,9 @@
+2025.07.05, v2.8.3
+
+feature:
+- 42f6ce4 plugin-fasm: convert-while-to-js: assing -> mov
+- b02d926 @putout/plugin-fasm: convert-while-to-jz: BinaryExpression
+
 2025.07.04, v2.8.2
 
 feature:
