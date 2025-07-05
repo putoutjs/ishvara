@@ -31,4 +31,3 @@ test('fasm: convert-while-to-jz: transform: lodsb', (t) => {
     t.transform('lodsb');
     t.end();
 });
-
