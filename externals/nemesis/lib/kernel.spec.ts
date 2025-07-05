@@ -26,7 +26,9 @@ test('ishvara: nemesis: kernel: compile', async (t) => {
         config: require('./.ishvara.json'),
     });
     
-    t.notOk(places.length);
+    const expected = [];
+    
+    t.deepEqual(places, expected);
     t.end();
 }, {
     timeout: 10_000,

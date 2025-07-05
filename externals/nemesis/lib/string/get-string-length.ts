@@ -1,10 +1,12 @@
 export async function getStringLength(str): ureg {
     let usi = str;
-    let ucx = 0;
+    let ubx = 0;
     
-    while ([usi + ucx]) {
-        ++ucx;
+    while ([
+        ubx + usi,
+    ]) {
+        ++ubx;
     }
     
-    return ucx;
+    return ubx;
 }

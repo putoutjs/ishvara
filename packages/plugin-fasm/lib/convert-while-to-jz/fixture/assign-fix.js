@@ -5,7 +5,7 @@ __ishvara_do_while_4: {
     ++esi;
     ++ecx;
     {
-        al = [esi];
+        mov(al, [esi]);
         test(al, al);
     }
     jnz(__ishvara_do_while_4);

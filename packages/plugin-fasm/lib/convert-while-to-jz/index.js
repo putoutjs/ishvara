@@ -92,11 +92,13 @@ function createExpression(__a, {one, two, test}) {
     if (isCallExpression(__a))
         return expressionStatement(__a);
     
-    if (isArrayExpression(__a))
+    if (isArrayExpression(__a)) {
+        const source = print(__a).slice(0, -2);
         return blockStatement([
-            expressionStatement(template.ast(`al = ${print(__a)}`)),
+            expressionStatement(template.ast(`mov(al, ${source})`)),
             expressionStatement(template.ast(`${test}(al, al)`)),
         ]);
+    }
     
     return expressionStatement(template.ast(`${test}(${one}, ${two})`));
 }

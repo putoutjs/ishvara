@@ -28,6 +28,11 @@ test('compiler: convert-assign-to-mov: transform', (t) => {
     t.end();
 });
 
+test('compiler: convert-assign-to-mov: transform: binary', (t) => {
+    t.transform('binary');
+    t.end();
+});
+
 test('compiler: convert-assign-to-mov: transform: args', (t) => {
     t.transform('args', {
         convertArgumentsToRegisters,

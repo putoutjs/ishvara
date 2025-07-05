@@ -17,6 +17,8 @@ test('ishvara: nemesis: boot: compile', async (t) => {
         target: 'fasm',
     });
     
-    t.notOk(places.length);
+    const expected = [];
+    
+    t.deepEqual(places, expected);
     t.end();
 });
