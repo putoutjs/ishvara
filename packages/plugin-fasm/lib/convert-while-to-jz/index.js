@@ -94,6 +94,7 @@ function createExpression(__a, {one, two, test}) {
     
     if (isArrayExpression(__a)) {
         const source = print(__a).slice(0, -2);
+        
         return blockStatement([
             expressionStatement(template.ast(`mov(al, ${source})`)),
             expressionStatement(template.ast(`${test}(al, al)`)),
