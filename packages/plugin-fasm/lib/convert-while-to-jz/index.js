@@ -80,6 +80,14 @@ const parseWhileArgs = (__a) => {
             'test',
         ];
     
+    if (isCallExpression(__a))
+        return [
+            __a.name,
+            __a.name,
+            'jnz',
+            'test',
+        ];
+    
     return [
         __a.name,
         __a.name,
@@ -88,12 +96,20 @@ const parseWhileArgs = (__a) => {
     ];
 };
 
+const printExpression = (a) => print(a).slice(0, -2);
+
 function createExpression(__a, {one, two, test}) {
-    if (isCallExpression(__a))
-        return expressionStatement(__a);
+    if (isCallExpression(__a)) {
+        const op = printExpression(__a);
+        
+        return blockStatement([
+            expressionStatement(template.ast(op)),
+            expressionStatement(template.ast(`${test}(al, al)`)),
+        ]);
+    }
     
     if (isArrayExpression(__a)) {
-        const source = print(__a).slice(0, -2);
+        const source = printExpression(__a);
         
         return blockStatement([
             expressionStatement(template.ast(`mov(al, ${source})`)),
