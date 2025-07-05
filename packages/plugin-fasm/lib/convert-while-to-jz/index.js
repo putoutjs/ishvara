@@ -2,6 +2,7 @@ import {
     template,
     types,
     operator,
+    print,
 } from 'putout';
 
 const {compare, extract} = operator;
@@ -93,7 +94,7 @@ function createExpression(__a, {one, two, test}) {
     
     if (isArrayExpression(__a))
         return blockStatement([
-            expressionStatement(template.ast(`al = [${__a.elements[0].name}]`)),
+            expressionStatement(template.ast(`al = ${print(__a)}`)),
             expressionStatement(template.ast(`${test}(al, al)`)),
         ]);
     

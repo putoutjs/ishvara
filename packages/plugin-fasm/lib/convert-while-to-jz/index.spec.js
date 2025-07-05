@@ -21,3 +21,9 @@ test('fasm: convert-while-to-jz: transform: assign', (t) => {
     t.transform('assign');
     t.end();
 });
+
+test('fasm: convert-while-to-jz: transform: binary', (t) => {
+    t.transform('binary');
+    t.end();
+});
+
