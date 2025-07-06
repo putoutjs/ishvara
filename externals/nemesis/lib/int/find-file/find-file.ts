@@ -35,8 +35,7 @@ export async function findFile() {
     }
     
     si = 0x7c00;
-    find_file_in_fat:
-    pop(di);
+    find_file_in_fat: pop(di);
     push(di);
     push(si);
     
@@ -59,8 +58,7 @@ export async function findFile() {
     --si;
     jmp(find_file_in_fat);
     
-    find_all_good:
-    si += 0x1a;
+    find_all_good: si += 0x1a;
     lodsw();
     await setFileOffset();
     lodsw();
@@ -71,15 +69,13 @@ export async function findFile() {
     or(dl, dl);
     jz(_dl0);
     ++al;
-    _dl0:
-    await setFileSecSize();
+    _dl0: await setFileSecSize();
     pop(di);
     pop(cx);
     al = 0;
     ret;
     // нашли =)!!!
-    file_not_found:
-    pop(di);
+    file_not_found: pop(di);
     pop(cx);
     
     al = 1; // Ничего не нашли o_O ...

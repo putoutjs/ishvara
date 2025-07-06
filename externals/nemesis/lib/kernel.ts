@@ -39,4 +39,3 @@ let buf: rb = 0x10;
 let error_reading2 = 'error reading the file o_O';
 let old_ds: i16 = 0;
 let old_esi: i16 = 0;
-

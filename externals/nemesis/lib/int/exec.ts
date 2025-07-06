@@ -9,7 +9,8 @@ let not_f = 'sh3ll not found :(!';
 export async function exec() {
     di = bx;
     cx = 3;
-    al = 3; //_find_file;
+    al = 3;
+    //_find_file;
     // в di уже лежит имя файла ;)
     int(0xff);
     
@@ -40,7 +41,8 @@ export async function exec() {
         cwd();
         div(bx);
         ch = al; //в ch номер дорожки
-        mul(bx); //если парная - нужно перевернуть
+        mul(bx);
+        //если парная - нужно перевернуть
         // ;дискетук a.k.a головке один
         pop(dx);
         
@@ -60,7 +62,7 @@ export async function exec() {
         
         pop(cx);
     } while (--cx);
-	
+    
     // не нашли o_O
     if (al) {
         nemesis.printf(not_f);
