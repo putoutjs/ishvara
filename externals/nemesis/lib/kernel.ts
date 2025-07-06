@@ -36,8 +36,7 @@ jmp($);
 section: 'code';
 section: 'data';
 let buf: rb = 0x10;
-let not_f = 'sh3ll not found :(!';
 let error_reading2 = 'error reading the file o_O';
-let exec_addr: i16 = 0x500;
 let old_ds: i16 = 0;
 let old_esi: i16 = 0;
+

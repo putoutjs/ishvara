@@ -3,6 +3,7 @@ import {types} from 'putout';
 const {
     isProgram,
     isBlockStatement,
+    isLabeledStatement,
 } = types;
 
 export const report = (path) => {
@@ -29,6 +30,9 @@ export const replace = () => ({
         return path;
     },
     '__a: {__body}': ({__body}, path) => {
+        if (isLabeledStatement(path.parentPath))
+            return path;
+        
         const [first, ...other] = __body.body;
         
         path.node.body = first;
@@ -39,8 +43,14 @@ export const replace = () => ({
 });
 
 function extractBody(path, other) {
-    const index = path.parentPath.node.body.indexOf(path.node);
-    const {body} = path.parentPath.node;
-    
-    body.splice(index + 1, 0, ...other);
+    try {
+        const index = path.parentPath.node.body.indexOf(path.node);
+        const {body} = path.parentPath.node;
+        
+        body.splice(index + 1, 0, ...other);
+    } catch(a) {
+        console.log(path + '');
+        throw Error('x');
+    }
 }
+

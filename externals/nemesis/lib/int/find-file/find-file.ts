@@ -1,8 +1,8 @@
 import {nemesis} from '@ishvara/operator-fasm';
+import {setFileSecSize} from './file-sec-size';
+import {setFileOffset} from './file-offset';
 
-let file_offset: i16 = 0;
 let file_size: i16 = 0;
-let file_sec_size = 0;
 
 // Считываем сектор, в котором находятся записи об
 // именах файлах и данных о них и ищем название
@@ -35,7 +35,8 @@ export async function findFile() {
     }
     
     si = 0x7c00;
-    find_file_in_fat: pop(di);
+    find_file_in_fat:
+    pop(di);
     push(di);
     push(si);
     
@@ -58,9 +59,10 @@ export async function findFile() {
     --si;
     jmp(find_file_in_fat);
     
-    find_all_good: si += 0x1a;
+    find_all_good:
+    si += 0x1a;
     lodsw();
-    [file_offset] = ax;
+    await setFileOffset();
     lodsw();
     [file_size] = ax;
     bx = 0x200;
@@ -69,13 +71,15 @@ export async function findFile() {
     or(dl, dl);
     jz(_dl0);
     ++al;
-    _dl0: [file_sec_size] = al;
+    _dl0:
+    await setFileSecSize();
     pop(di);
     pop(cx);
     al = 0;
     ret;
     // нашли =)!!!
-    file_not_found: pop(di);
+    file_not_found:
+    pop(di);
     pop(cx);
     
     al = 1; // Ничего не нашли o_O ...

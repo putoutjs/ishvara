@@ -27,8 +27,9 @@ export const traverse = ({store, pathStore, push}) => ({
         if (name === 'section' && body.expression.value === 'code')
             store('label', path);
     },
-    FunctionDeclaration: pathStore,
-    Program: {
+    'FunctionDeclaration': pathStore,
+    'const __a = (__args) => __body': pathStore,
+    'Program': {
         exit(path) {
             const [label] = store();
             const fns = pathStore();

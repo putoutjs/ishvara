@@ -1,0 +1,72 @@
+import {nemesis} from '@ishvara/operator-fasm';
+import {getFileSecSize} from './find-file/file-sec-size';
+import {getFileOffset} from './find-file/file-offset';
+
+let exec_addr: i16 = 0x500;
+let not_f = 'sh3ll not found :(!';
+
+// bx - file name
+export async function exec() {
+    di = bx;
+    cx = 3;
+    al = 3; //_find_file;
+    // в di уже лежит имя файла ;)
+    int(0xff);
+    
+    if (al)
+        return;
+    
+    // При секридинге максимальный размер ядра 8.5 кб...
+    do {
+        push(cx);
+        ax = await getFileOffset();
+        al -= 2;
+        cx = 0x200;
+        mul(cx);
+        ax += 0x4200;
+        cwd();
+        div(cx);
+        // получаем количество секторов в ax
+        cx = 18; //дорожка
+        cwd();
+        div(cx);
+        // в ax номер дорожки
+        // в dx номер сектора на дорожке
+        ++dl;
+        cl = dl;
+        dx = ax; //смотрим парная ли дорожка
+        push(dx);
+        bx = 2;
+        cwd();
+        div(bx);
+        ch = al; //в ch номер дорожки
+        mul(bx); //если парная - нужно перевернуть
+        // ;дискетук a.k.a головке один
+        pop(dx);
+        
+        dh = dx === 1 ? 1 : 0;
+        ah = await getFileSecSize();
+        
+        al = nemesis.readSector({
+            count: ah,
+            buffer: [exec_addr],
+            sector: cl,
+            track: ch,
+            head: dh,
+        });
+        
+        if (!al)
+            break;
+        
+        pop(cx);
+    } while (--cx);
+	
+    // не нашли o_O
+    if (al) {
+        nemesis.printf(not_f);
+        return 1;
+    }
+    
+    call([exec_addr]);
+    return 0;
+}
