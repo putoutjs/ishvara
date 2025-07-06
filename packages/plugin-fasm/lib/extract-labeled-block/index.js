@@ -43,14 +43,8 @@ export const replace = () => ({
 });
 
 function extractBody(path, other) {
-    try {
-        const index = path.parentPath.node.body.indexOf(path.node);
-        const {body} = path.parentPath.node;
-        
-        body.splice(index + 1, 0, ...other);
-    } catch(a) {
-        console.log(path + '');
-        throw Error('x');
-    }
+    const index = path.parentPath.node.body.indexOf(path.node);
+    const {body} = path.parentPath.node;
+    
+    body.splice(index + 1, 0, ...other);
 }
-

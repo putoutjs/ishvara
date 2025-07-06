@@ -1,24 +1,24 @@
 org(0x7e00);
 use16();
 
-const hi = [
+let hi = [
     'Hello from Nemesis =)!',
     0xd,
 ];
 
-const sh3ll = 'SH3LL ';
+let sh3ll = 'SH3LL ';
 
-const buf: rb = 0x10;
-const not_f = 'sh3ll not found :(!';
-const minline = 0;
-const maxline = 24;
-const maxcol = 79;
-const file_offset: i16 = 0;
-const file_size: i16 = 0;
-const file_sec_size = 0;
-const error_reading2 = 'error reading the file o_O';
-const old_ds: i16 = 0;
-const old_esi: i16 = 0;
+let buf: rb = 0x10;
+let not_f = 'sh3ll not found :(!';
+let minline = 0;
+let maxline = 24;
+let maxcol = 79;
+let file_offset: i16 = 0;
+let file_size: i16 = 0;
+let file_sec_size = 0;
+let error_reading2 = 'error reading the file o_O';
+let old_ds: i16 = 0;
+let old_esi: i16 = 0;
 
 cli();
 push(ax);
@@ -35,6 +35,6 @@ sti();
 section: 'data';
 
 function get() {
-    const eax = 3;
+    let eax = 3;
 }
 

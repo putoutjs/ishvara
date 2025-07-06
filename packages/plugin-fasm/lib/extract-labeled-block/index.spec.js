@@ -27,7 +27,7 @@ test('fasm: extract-labeled-block: transform: nested-labels', (t) => {
     t.end();
 });
 
-test.only('fasm: extract-labeled-block: transform: nested-not-block', (t) => {
+test('fasm: extract-labeled-block: transform: nested-not-block', (t) => {
     t.transform('nested-not-block', [
         ['convert-if-to-jmp', convertIfToJmp],
         ['convert-return-to-eax', convertReturnToEax],
@@ -44,4 +44,3 @@ test('fasm: extract-labeled-block: transform: convert-do-while-to-jnz', (t) => {
     });
     t.end();
 });
-
