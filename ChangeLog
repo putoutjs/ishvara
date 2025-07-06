@@ -1,3 +1,8 @@
+2025.07.06, v2.8.5
+
+feature:
+- 2578175 plugin-fasm: extract-labeled-block: nested labels
+
 2025.07.05, v2.8.4
 
 feature:
