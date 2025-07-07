@@ -88,7 +88,7 @@ export async function readSector() {
         bl &= 0xf0; //чистим младший нибл в bl
         ax &= bx;
         jnc(no_carry);
-        // если небыло переноса
+        // если не было переноса
         // то страници в dl
         ++dl; // увеличиваем dl, если был перенос
         no_carry: io.out(4, al);
