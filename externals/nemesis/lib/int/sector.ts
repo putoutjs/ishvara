@@ -14,10 +14,12 @@ let MSG_READ_SECTOR = [
     'read sector: enter',
     0xd,
 ];
+
 let MSG_READ_SECTOR_EXIT = [
     'read sector: exit: sector > 0x12',
     0xd,
 ];
+
 let MSG_READ_SECTOR_HEAD_EXIT = [
     'read sector: head > 1',
     0xd,
@@ -60,7 +62,9 @@ export async function readSector() {
     nemesis.printf(MSG_READ_SECTOR);
     
     do {
-        [--sec_quantity];
+        [
+            --sec_quantity,
+        ];
         sti();
         dx = 0x3f2;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
@@ -150,10 +154,14 @@ export async function readSector() {
         al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
         io.out(dx, al); // посылаем новую установку
         [secbuffer] += 0x200;
-        [--sec_number];
+        [
+            --sec_number,
+        ];
         
         if ([sec_number] > 0x12) {
-            [--track_number];
+            [
+                --track_number,
+            ];
             [sec_number] = 1;
         } else {
             al = 0;

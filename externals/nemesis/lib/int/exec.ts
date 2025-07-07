@@ -5,6 +5,7 @@ import {getFileOffset} from './find-file/file-offset';
 let exec_addr: i16 = 0x500;
 let NOT_FOUND = 'not found :(!';
 let FOUND = 'found :)!';
+
 let EXECUTING = [
     'executing...',
     0xd,
