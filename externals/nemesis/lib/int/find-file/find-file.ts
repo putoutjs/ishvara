@@ -4,14 +4,30 @@ import {setFileOffset} from './file-offset';
 
 let file_size: i16 = 0;
 
+let MSG_FIND_FILE_READ_SECTOR = [
+    'find file: read sector',
+    0xd,
+];
+
+let MSG_NOT_EMPTY_READ_RESULT = [
+    'find file: read sector: not empty read result',
+    0xd,
+];
+let MSG_EMPTY_READ_RESULT = [
+    'find file: read sector: empty read result',
+    0xd,
+];
+
 // Считываем сектор, в котором находятся записи об
 // именах файлах и данных о них и ищем название
 export async function findFile() {
+    cx = 3;
     di = bx;
     push(di);
     push(bx);
     do {
         push(cx);
+        nemesis.printf(MSG_FIND_FILE_READ_SECTOR);
         al = nemesis.readSector({
             count: 1,
             buffer: 0x7c00,
@@ -20,8 +36,12 @@ export async function findFile() {
             head: 1,
         });
         
-        if (!al)
+        if (!al) {
+            nemesis.printf(MSG_EMPTY_READ_RESULT);
             break;
+        }
+        
+        nemesis.printf(MSG_NOT_EMPTY_READ_RESULT);
         
         pop(cx);
     } while (--cx);

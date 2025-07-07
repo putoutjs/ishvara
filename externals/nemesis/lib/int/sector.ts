@@ -1,4 +1,4 @@
-import {io} from '@ishvara/operator-fasm';
+import {io, nemesis} from '@ishvara/operator-fasm';
 
 let status_buffer: rb = 7;
 let sec_quantity = 0;
@@ -9,6 +9,21 @@ let drive = 0;
 let head = 0;
 let secread_com = 0xE6;
 let dma_command = 0x46;
+
+let MSG_READ_SECTOR = [
+    'read sector: enter',
+    0xd,
+];
+let MSG_READ_SECTOR_EXIT = [
+    'read sector: exit: sector > 0x12',
+    0xd,
+];
+let MSG_READ_SECTOR_HEAD_EXIT = [
+    'read sector: head > 1',
+    0xd,
+];
+
+let REG = 0;
 
 DMA_COMMAND_READ.equ = 0x4a;
 DMA_COMMAND_WRITE.equ = 0x46;
@@ -25,23 +40,27 @@ FLOPPY.equ = 0;
 // dl - номер накопителя(0 для дискеты первой)
 // dh - головка
 export async function readSector() {
-    if (cl > 0x12)
-        return 1;
-    
-    if (dh > 1)
-        return 2;
-    
-    secread_all_good: [sec_quantity] = ah;
+    [sec_quantity] = ah;
     [secbuffer] = bx;
     [sec_number] = cl;
     [track_number] = ch;
     [drive] = dl;
     [head] = dh;
     
+    if (cl > 0x12) {
+        nemesis.printf(MSG_READ_SECTOR_EXIT);
+        return 1;
+    }
+    
+    if (dh > 1) {
+        nemesis.printf(MSG_READ_SECTOR_HEAD_EXIT);
+        return 2;
+    }
+    
+    nemesis.printf(MSG_READ_SECTOR);
+    
     do {
-        [
-            --sec_quantity,
-        ];
+        [--sec_quantity];
         sti();
         dx = 0x3f2;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
@@ -131,14 +150,10 @@ export async function readSector() {
         al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
         io.out(dx, al); // посылаем новую установку
         [secbuffer] += 0x200;
-        [
-            --sec_number,
-        ];
+        [--sec_number];
         
         if ([sec_number] > 0x12) {
-            [
-                --track_number,
-            ];
+            [--track_number];
             [sec_number] = 1;
         } else {
             al = 0;

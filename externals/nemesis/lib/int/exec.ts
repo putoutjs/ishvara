@@ -3,20 +3,25 @@ import {getFileSecSize} from './find-file/file-sec-size';
 import {getFileOffset} from './find-file/file-offset';
 
 let exec_addr: i16 = 0x500;
-let not_f = 'sh3ll not found :(!';
+let NOT_FOUND = 'not found :(!';
+let FOUND = 'found :)!';
+let EXECUTING = [
+    'executing...',
+    0xd,
+];
 
 // bx - file name
 export async function exec() {
-    di = bx;
-    cx = 3;
-    al = 3;
-    //_find_file;
-    // в di уже лежит имя файла ;)
-    int(0xff);
+    nemesis.printf(EXECUTING);
+    ax = nemesis.findFile(bx);
     
-    if (al)
+    if (ax) {
+        nemesis.printf(NOT_FOUND);
         return;
+    }
     
+    nemesis.printf(FOUND);
+    cx = 3;
     // При секридинге максимальный размер ядра 8.5 кб...
     do {
         push(cx);
@@ -65,7 +70,7 @@ export async function exec() {
     
     // не нашли o_O
     if (al) {
-        nemesis.printf(not_f);
+        nemesis.printf(NOT_FOUND);
         return 1;
     }
     

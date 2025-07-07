@@ -21,3 +21,8 @@ test('fasm: split-binary-expression: transform: same-add', (t) => {
     t.transform('same-add');
     t.end();
 });
+
+test('fasm: split-binary-expression: no report: const', (t) => {
+    t.noReport('const');
+    t.end();
+});
