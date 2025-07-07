@@ -89,7 +89,7 @@ export async function readSector() {
         ax &= bx;
         jnc(no_carry);
         // если не было переноса
-        // то страници в dl
+        // то страницы в dl
         ++dl; // увеличиваем dl, если был перенос
         no_carry: io.out(4, al);
         // посылаем младший байт адреса
