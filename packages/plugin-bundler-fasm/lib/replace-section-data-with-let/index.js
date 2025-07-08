@@ -19,7 +19,7 @@ export const fix = ({label, list}) => {
     
     replaceWithMultiple(label, nodes);
 };
-export const traverse = ({store, pathStore, push}) => ({
+export const traverse = ({store, pathStore, push, options}) => ({
     LabeledStatement(path) {
         const {label, body} = path.node;
         const {name} = label;
@@ -36,8 +36,12 @@ export const traverse = ({store, pathStore, push}) => ({
     },
     Program: {
         exit(path) {
+            const {variables = []} = options;
             const [label] = store();
-            const list = pathStore();
+            const list = [
+                ...pathStore(),
+                ...variables,
+            ];
             
             if (!label)
                 return;

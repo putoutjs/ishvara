@@ -99,20 +99,20 @@ iret
 
 __ishvara_exec:
 mov al, 2
-mov bx, EXECUTING
+mov bx, __debug_1_executing
 int 0xff
 mov al, 3
 int 0xff
 test ax, ax
 jz __ishvara_fasm_if_end_10
 mov al, 2
-mov bx, NOT_FOUND
+mov bx, __debug_2_notFound
 int 0xff
 ret
 
 __ishvara_fasm_if_end_10:
 mov al, 2
-mov bx, FOUND
+mov bx, __debug_3_notFound
 int 0xff
 mov cx, 3
 
@@ -708,6 +708,9 @@ jnz __ishvara_do_while_691
 mov ax, cx
 pop bp
 ret 2
+__debug_3_notFound db 'not found', 0xd, 0
+__debug_2_notFound db 'not found', 0xd, 0
+__debug_1_executing db 'executing...', 0xd, 0
 old_esi dw 0
 old_ds dw 0
 error_reading2 db 'error reading the file o_O', 0

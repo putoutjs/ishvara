@@ -14,9 +14,20 @@ const parseConfig = (config) => ({
 });
 
 export const transform = (source, config) => {
-    const {plugins} = parseConfig(config);
+    const {debug, plugins} = parseConfig(config);
+    const variables = [];
     const {code: bundled} = putout(source, {
         isTS: true,
+        rules: {
+            'ishvara/bundler-fasm/apply-debug': ['on', {
+                debug,
+                count: 0,
+                variables,
+            }],
+            'ishvara/bundler-fasm/replace-section-data-with-let': ['on', {
+                variables,
+            }],
+        },
         plugins: [
             ['ishvara/bundler-fasm', bundler],
         ],

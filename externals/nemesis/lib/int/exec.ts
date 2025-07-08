@@ -13,15 +13,15 @@ let EXECUTING = [
 
 // bx - file name
 export async function exec() {
-    nemesis.printf(EXECUTING);
+    debug('executing...');
     ax = nemesis.findFile(bx);
     
     if (ax) {
-        nemesis.printf(NOT_FOUND);
+        debug('not found');
         return;
     }
     
-    nemesis.printf(FOUND);
+    debug('not found');
     cx = 3;
     // При секридинге максимальный размер ядра 8.5 кб...
     do {

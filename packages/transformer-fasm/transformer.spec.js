@@ -104,3 +104,41 @@ test('ishvara: transformer-fasm: empty config', (t) => {
     t.equal(code, expected);
     t.end();
 });
+
+test('ishvara: transformer-fasm: debug: on', (t) => {
+    const source = montag`
+        debug('hello');
+    `;
+    
+    const config = {
+        debug: true,
+    };
+    
+    const [code] = transform(source, config);
+    
+    const expected = montag`
+        (__debug_1_hello.db['hello'], 0xd, 0);
+        debug(__debug_1_hello);
+    
+    `;
+    
+    t.equal(code, expected);
+    t.end();
+});
+
+test('ishvara: transformer-fasm: debug: off', (t) => {
+    const source = montag`
+        debug('hello');
+    `;
+    
+    const config = {};
+    const [code] = transform(source, {
+        ...config,
+        debug: false,
+    });
+    
+    const expected = '\n';
+    
+    t.equal(code, expected);
+    t.end();
+});

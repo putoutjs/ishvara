@@ -26,3 +26,8 @@ test('plugin-bundler-fasm: transform: add-use-directive', (t) => {
     t.transform('add-use-directive');
     t.end();
 });
+
+test('plugin-bundler-fasm: transform: apply-debug', (t) => {
+    t.transform('apply-debug');
+    t.end();
+});

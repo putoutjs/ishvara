@@ -36,3 +36,8 @@ test('plugin-nemesis: transform: convert-find-file-to-int-0xff', (t) => {
     t.transform('convert-find-file-to-int-0xff');
     t.end();
 });
+
+test('plugin-nemesis: transform: convert-debug-to-printf', (t) => {
+    t.transform('convert-debug-to-printf');
+    t.end();
+});

@@ -3,24 +3,26 @@ import {createRequire} from 'node:module';
 import process from 'node:process';
 import tryCatch from 'try-catch';
 
+const {assign} = Object;
 const require = createRequire(import.meta.url);
 
 export const parseConfig = (name, overrides = {}) => {
     const {
         cwd = process.cwd,
         readConfig = require,
+        env = process.env,
     } = overrides;
     
+    const debug = Boolean(Number(env.DEBUG));
     const dir = dirname(name);
     const configPath = join(cwd(), dir, '.ishvara.json');
     
-    const [error, options] = tryCatch(readConfig, configPath);
+    const [error, options = {}] = tryCatch(readConfig, configPath);
     
-    if (!error)
-        return [null, options];
-    
-    if (error.code === 'MODULE_NOT_FOUND')
-        return [null, { }];
+    assign(options, {
+        debug,
+    });
     
     return [error, options];
 };
+
