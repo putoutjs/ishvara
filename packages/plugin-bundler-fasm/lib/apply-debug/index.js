@@ -30,6 +30,7 @@ export const replace = ({options}) => {
         },
     };
 };
+
 function createVariable(__a, name) {
     return template.ast(`let ${name} = ['${__a.value}', 0xd]`);
 }
