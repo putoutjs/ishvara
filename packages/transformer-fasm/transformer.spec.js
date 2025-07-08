@@ -117,8 +117,8 @@ test('ishvara: transformer-fasm: debug: on', (t) => {
     const [code] = transform(source, config);
     
     const expected = montag`
-        (__debug_1_hello.db['hello'], 0xd, 0);
         debug(__debug_1_hello);
+        (__debug_1_hello.db['hello'], 0xd, 0);
     
     `;
     
