@@ -1,3 +1,4 @@
+import * as convertSetColorTo0xff from './convert-set-color-to-0xff/index.js';
 import * as convertDebugToPrintf from './convert-debug-to-printf/index.js';
 import * as convertFindFileToInt0xff from './convert-find-file-to-int-0xff/index.js';
 import * as convertReadSectorToInt0xff from './convert-read-sector-to-int-0xff/index.js';
@@ -14,4 +15,5 @@ export const rules = {
     'convert-read-sector-to-int-0xff': convertReadSectorToInt0xff,
     'convert-find-file-to-int-0xff': convertFindFileToInt0xff,
     'convert-debug-to-printf': convertDebugToPrintf,
+    'convert-set-color-to-0xff': convertSetColorTo0xff,
 };

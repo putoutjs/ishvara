@@ -2,12 +2,25 @@ import {types} from 'putout';
 
 const {isIdentifier} = types;
 
-export const report = () => `Use 'nemesis.printf()' instead of 'debug'`;
+export const report = () => `Use 'nemesis.printf()' instead of 'debug()'`;
 
 export const match = () => ({
     'debug(__a)': ({__a}) => isIdentifier(__a),
 });
 
-export const replace = () => ({
-    'debug(__a)': 'nemesis.printf(__a)',
-});
+export const replace = ({options}) => {
+    const {color = 4, background = 0} = options;
+    
+    return {
+        'debug(__a)': `{
+            push(cx);
+            nemesis.setColor({
+                color: ${color},
+                background: ${background},
+            });
+            nemesis.printf(__a);
+            nemesis.setColor();
+            push(pop);
+        }`,
+    };
+};

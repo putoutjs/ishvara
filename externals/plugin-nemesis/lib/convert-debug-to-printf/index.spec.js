@@ -8,7 +8,7 @@ const test = createTest(import.meta.url, {
 });
 
 test('nemesis: convert-debug-to-printf: report', (t) => {
-    t.report('convert-debug-to-printf', `Use 'nemesis.printf()' instead of 'debug'`);
+    t.report('convert-debug-to-printf', `Use 'nemesis.printf()' instead of 'debug()'`);
     t.end();
 });
 

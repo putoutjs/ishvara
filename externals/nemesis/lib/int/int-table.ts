@@ -6,6 +6,7 @@ import {minMaxColLine} from './position/min-max-col-line.ts';
 import {readSector} from './sector.ts';
 import {findFile} from './find-file/find-file.ts';
 import {exec} from './exec';
+import {setColor} from './color';
 
 const _reboot = 0;
 const _get_char = 1;
@@ -38,6 +39,11 @@ export async function intTable(): iret {
     
     if (al === _setcursor) {
         await setCursor();
+        return;
+    }
+    
+    if (al === _color) {
+        await setColor();
         return;
     }
     

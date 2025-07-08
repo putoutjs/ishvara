@@ -2,6 +2,8 @@ import {test} from 'supertape';
 import montag from 'montag';
 import {compile} from './compiler.js';
 
+const noop = () => {};
+
 test('ishvara: compiler-fasm: optimized', async (t) => {
     const source = 'mov(eax, 1)';
     const [code] = await compile(source, {
@@ -73,6 +75,66 @@ test('ishvara: compiler-fasm: optimized: onStageChanged: error', async (t) => {
         ['optimize', {
             last: true,
             places: [],
+        }],
+    ];
+    
+    t.deepEqual(result, expected);
+    t.end();
+});
+
+test('ishvara: compiler-fasm: optimized: onStageChanged: code', async (t) => {
+    const source = 'mov(eax, 0x1);\n';
+    const result = [];
+    const onStageChange = (a, b) => result.push([a, b]);
+    
+    await compile(source, {
+        type: 'code',
+        optimization: false,
+        onStageChange,
+    });
+    
+    const expected = [
+        ['transform', {
+            last: true,
+            places: [],
+        }],
+    ];
+    
+    t.deepEqual(result, expected);
+    t.end();
+});
+
+test('ishvara: compiler-fasm: optimized: onStageChanged: place', async (t) => {
+    const source = 'let a = 5\n';
+    const result = [];
+    const onStageChange = (a, b) => result.push([a, b]);
+    
+    await compile(source, {
+        type: 'code',
+        optimization: false,
+        onStageChange,
+        config: {
+            plugins: [
+                ['report', {
+                    report: () => 'hello',
+                    fix: noop,
+                    include: () => ['Program'],
+                }],
+            ],
+        },
+    });
+    
+    const expected = [
+        ['transform', {
+            last: true,
+            places: [{
+                message: 'hello',
+                position: {
+                    column: 0,
+                    line: 1,
+                },
+                rule: 'report',
+            }],
         }],
     ];
     

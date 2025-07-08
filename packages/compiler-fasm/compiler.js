@@ -27,13 +27,17 @@ export const compile = async (source, options = {}) => {
     
     const [code, compilePlaces] = transform(source, config);
     
+    if (compilePlaces.length) {
+        emitLastStateChange('transform', compilePlaces);
+        return [code, compilePlaces];
+    }
+    
+    if (type === 'code') {
+        emitLastStateChange('transform');
+        return [code, compilePlaces];
+    }
+    
     emitStateChange('transform');
-    
-    if (compilePlaces.length)
-        return [code, compilePlaces];
-    
-    if (type === 'code')
-        return [code, compilePlaces];
     
     const [optimized, optimizedPlaces] = optimization ? optimize(code) : [
         code,

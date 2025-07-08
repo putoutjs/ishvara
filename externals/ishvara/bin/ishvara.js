@@ -97,7 +97,7 @@ if (error) {
     process.exit(1);
 }
 
-const [errorOptions, config] = await parseConfig(name);
+const [errorOptions, config] = parseConfig(name);
 
 if (errorOptions) {
     console.error(errorOptions);

@@ -17,6 +17,12 @@ export function setTextColor() {
     [textColor] = al;
 }
 
+// 6: в cl textColor, в ch backgroundColor
+export function setColor() {
+    [textColor] = cl;
+    [backgroundColor] = ch;
+}
+
 export function getColor(): i8 {
     al = [backgroundColor];
     al <<= 4;

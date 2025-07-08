@@ -6,7 +6,7 @@
     dl = 0;
     dh = 1;
     {
-        al = 0xc;
+        al = 12;
         int(0x0ff);
         jnc(__ishvara_read_sector_ok_1);
         al = 1;

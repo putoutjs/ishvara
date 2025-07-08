@@ -126,6 +126,29 @@ test('ishvara: transformer-fasm: debug: on', (t) => {
     t.end();
 });
 
+test('ishvara: transformer-fasm: debug: on: color', (t) => {
+    const source = montag`
+        debug('hello');
+    `;
+    
+    const config = {
+        debug: true,
+        debugText: 3,
+        debugColor: 4,
+    };
+    
+    const [code] = transform(source, config);
+    
+    const expected = montag`
+        debug(__debug_1_hello);
+        (__debug_1_hello.db['hello'], 0xd, 0);
+    
+    `;
+    
+    t.equal(code, expected);
+    t.end();
+});
+
 test('ishvara: transformer-fasm: debug: off', (t) => {
     const source = montag`
         debug('hello');

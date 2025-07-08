@@ -1,5 +1,6 @@
 import {types, operator} from 'putout';
 import {is8bit} from '@ishvara/operator-fasm/regs';
+import {READ_SECTOR} from '../api.js';
 
 export const report = () => `Use '0xff' instead of 'nemesis.readSector()'`;
 
@@ -53,7 +54,7 @@ export const replace = () => ({
 
 function createReadSector(line) {
     return `{
-        al = 0xc;
+        al = ${READ_SECTOR};
         int(0x0ff);
         jnc(__ishvara_read_sector_ok_${line});
         al = 1;

@@ -4,12 +4,6 @@ import {getFileOffset} from './find-file/file-offset';
 
 let exec_addr: i16 = 0x500;
 let NOT_FOUND = 'not found :(!';
-let FOUND = 'found :)!';
-
-let EXECUTING = [
-    'executing...',
-    0xd,
-];
 
 // bx - file name
 export async function exec() {
@@ -21,7 +15,7 @@ export async function exec() {
         return;
     }
     
-    debug('not found');
+    debug('found');
     cx = 3;
     // При секридинге максимальный размер ядра 8.5 кб...
     do {
@@ -48,8 +42,8 @@ export async function exec() {
         div(bx);
         ch = al; //в ch номер дорожки
         mul(bx);
-        //если парная - нужно перевернуть
-        // ;дискетук a.k.a головке один
+        // если парная - нужно перевернуть
+        // дискету a.k.a головке один
         pop(dx);
         
         dh = dx === 1 ? 1 : 0;

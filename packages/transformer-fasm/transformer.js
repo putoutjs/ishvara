@@ -5,6 +5,7 @@ import * as ishvara from '#plugin-ishvara';
 import * as bundler from '#plugin-bundler-fasm';
 
 const defaultConfig = {
+    rules: {},
     plugins: [],
 };
 
@@ -14,7 +15,12 @@ const parseConfig = (config) => ({
 });
 
 export const transform = (source, config) => {
-    const {debug, plugins} = parseConfig(config);
+    const {
+        debug,
+        plugins,
+        rules,
+    } = parseConfig(config);
+    
     const variables = [];
     const {code: bundled} = putout(source, {
         isTS: true,
@@ -36,6 +42,9 @@ export const transform = (source, config) => {
     const {code, places} = putout(bundled, {
         fixCount: 5,
         isTS: true,
+        rules: {
+            ...rules,
+        },
         plugins: [
             ...plugins,
             ['remove-nested-blocks', removeNestedBlocks],

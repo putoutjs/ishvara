@@ -2,7 +2,7 @@ import {nemesis} from '#operator-fasm';
 
 {
     {
-        al = 0xc;
+        al = 12;
         int(0x0ff);
         jnc(__ishvara_read_sector_ok_3);
         al = 1;
@@ -20,7 +20,7 @@ import {nemesis} from '#operator-fasm';
     dl = 0;
     dh = 1;
     {
-        al = 0xc;
+        al = 12;
         int(0x0ff);
         jnc(__ishvara_read_sector_ok_5);
         al = 1;

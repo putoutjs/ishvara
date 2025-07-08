@@ -1,11 +1,11 @@
 const {entries} = Object;
 
-export const prepare = (wastts) => {
+export const prepare = (wast) => {
     const result = {};
     let stack = [];
     let imports = [];
     
-    for (const [name, value] of entries(wastts)) {
+    for (const [name, value] of entries(wast)) {
         if (name === 'stack') {
             stack = value;
             continue;

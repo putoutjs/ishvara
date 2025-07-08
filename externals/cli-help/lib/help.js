@@ -1,7 +1,6 @@
-import {createRequire} from 'node:module';
-
-const require = createRequire(import.meta.url);
-const helpList = require('./help.json');
+import helpList from './help.json' with {
+    type: 'json',
+};
 
 const {entries} = Object;
 

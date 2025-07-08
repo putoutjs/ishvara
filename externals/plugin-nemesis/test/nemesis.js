@@ -41,3 +41,8 @@ test('plugin-nemesis: transform: convert-debug-to-printf', (t) => {
     t.transform('convert-debug-to-printf');
     t.end();
 });
+
+test('plugin-nemesis: transform: convert-set-color-to-0xff', (t) => {
+    t.transform('convert-set-color-to-0xff');
+    t.end();
+});

@@ -35,7 +35,7 @@ function ishvara({targets, src}) {
     const result = [];
     
     for (const target of targets) {
-        const cmd = `ishvara -t ${target} ${src}`;
+        const cmd = `./externals/ishvara/bin/ishvara.js -t ${target} ${src}`;
         result.push(cmd);
     }
     
