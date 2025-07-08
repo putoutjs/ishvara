@@ -7,4 +7,3 @@ test('ishvara: cli-help', (t) => {
     t.match(result, 'Usage');
     t.end();
 });
-
