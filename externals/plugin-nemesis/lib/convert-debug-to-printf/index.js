@@ -13,14 +13,14 @@ export const replace = ({options}) => {
     
     return {
         'debug(__a)': `{
-            push(cx);
+            pusha();
             nemesis.setColor({
                 color: ${color},
                 background: ${background},
             });
             nemesis.printf(__a);
             nemesis.setColor();
-            push(pop);
+            popa();
         }`,
     };
 };

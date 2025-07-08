@@ -10,21 +10,6 @@ let head = 0;
 let secread_com = 0xE6;
 let dma_command = 0x46;
 
-let MSG_READ_SECTOR = [
-    'read sector: enter',
-    0xd,
-];
-
-let MSG_READ_SECTOR_EXIT = [
-    'read sector: exit: sector > 0x12',
-    0xd,
-];
-
-let MSG_READ_SECTOR_HEAD_EXIT = [
-    'read sector: head > 1',
-    0xd,
-];
-
 let REG = 0;
 
 DMA_COMMAND_READ.equ = 0x4a;
@@ -33,6 +18,8 @@ DMA_COMMAND_WRITE.equ = 0x46;
 RESET_CONTROLLER.equ = 4;
 USE_DMA.equ = 8;
 RUN_MOTOR.equ = 16;
+
+const PORT_ADDRESS_OF_STATUS_REGISTER = 0x3f4;
 
 FLOPPY.equ = 0;
 // ah - кол-во секторов
@@ -50,16 +37,16 @@ export async function readSector() {
     [head] = dh;
     
     if (cl > 0x12) {
-        nemesis.printf(MSG_READ_SECTOR_EXIT);
+        debug('read sector: exit: sector > 0x12');
         return 1;
     }
     
     if (dh > 1) {
-        nemesis.printf(MSG_READ_SECTOR_HEAD_EXIT);
+        debug('read sector: head > 1');
         return 2;
     }
     
-    nemesis.printf(MSG_READ_SECTOR);
+    debug('read sector: enter');
     
     do {
         [
@@ -69,15 +56,23 @@ export async function readSector() {
         dx = 0x3f2;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
         io.out(dx, al);
+        debug('before long wait');
         await waitLong();
+        debug('after long wait');
         ah = 15; // номер кода
+        debug('out fdc #1: ah = 15');
         await out_fdc(); // посылаем контроллеру НГМД
-        ah = FLOPPY; //номер накопителя (дискета ;))
+        ah = FLOPPY; // номер накопителя (дискета ;))
+        debug('out fdc #2: ah = FLOPPY');
         await out_fdc();
         ah = [track_number];
+        debug('out fdc #3: ah = [track_number]');
         await out_fdc();
-        await wait_interrupt(); //ожидаем прерывания от нгдм
+        debug('wait interrupt');
+        await wait_interrupt(); // ожидаем прерывания от нгдм
+        debug('before short wait');
         await waitShort();
+        debug('after short wait');
         al = [dma_command];
         //0x4a;для записи 0x46
         // код чтения данных контроллера нмгд
@@ -85,17 +80,19 @@ export async function readSector() {
         io.out(11, al); // вычисляем адрес буфера
         ax = [secbuffer]; // смещение буфера в ds
         bx = ds;
-        cl = 4; //готовим вращения старшего нибла
+        cl = 4; // готовим вращения старшего нибла
         rol(bx, cl); //вращаем младшие 4 бита
         dl = bl;
-        dl &= 0xf; //чистим старший нибл в dl
-        bl &= 0xf0; //чистим младший нибл в bl
+        dl &= 0xf; // чистим старший нибл в dl
+        bl &= 0xf0; // чистим младший нибл в bl
         ax &= bx;
         jnc(no_carry);
+        debug('overflow -> ++dl');
         // если не было переноса
         // то страницы в dl
         ++dl; // увеличиваем dl, если был перенос
-        no_carry: io.out(4, al);
+        no_carry:
+        io.out(4, al);
         // посылаем младший байт адреса
         al = ah; // сдвигаем старший байт
         io.out(4, al); //посылаем младший байт адреса
@@ -148,6 +145,8 @@ export async function readSector() {
             await in_fdc(); //получаем байт
             [bx] = al; // помещаем в буфер
             ++bx; // указываем на следующий байт буфера
+            
+            debug('loop: --cx');
         } while (--cx);
         // выключаем мотор
         dx = 0x3f2;
@@ -168,6 +167,7 @@ export async function readSector() {
         }
         
         al |= [sec_quantity];
+        debug('loop: al');
     } while (al);
 }
 
@@ -197,21 +197,20 @@ async function waitShort() {
 
 // шлем байт из ah fdc
 async function out_fdc() {
-    dx = 0x3f4;
-    // адрес порта регистра статуса
+    dx = PORT_ADDRESS_OF_STATUS_REGISTER;
     do {
-        io.in(al, dx); //и данные
-    } while (al === 128);
+        io.in(al, dx);
+    } while (!test(al, 0x80));
     ++dx;
     al = ah;
     io.out(dx, al);
 }
 
 async function in_fdc() {
-    dx = 0x3f4;
+    dx = PORT_ADDRESS_OF_STATUS_REGISTER;
     do {
         io.in(al, dx);
-    } while (al === 128);
+    } while (!test(al, 128));
     ++dx;
     io.in(al, dx);
 }
