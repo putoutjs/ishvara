@@ -25,4 +25,3 @@ export const parseConfig = (name, overrides = {}) => {
     
     return [error, options];
 };
-

@@ -23,4 +23,3 @@ test('bundler-fasm: apply-debug: transform with options: apply-debug-options', (
     });
     t.end();
 });
-

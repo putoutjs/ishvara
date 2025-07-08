@@ -18,6 +18,7 @@ test('ishvara: cli-options: parse-options: debug', (t) => {
     const env = {
         DEBUG: '1',
     };
+    
     const [, result] = parseConfig(__filename, {
         env,
     });
@@ -40,4 +41,3 @@ test('ishvara: cli-options: parse-options: options', async (t) => {
     t.equal(error, originalError);
     t.end();
 });
-
