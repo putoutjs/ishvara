@@ -11,9 +11,7 @@ let secread_com = 0xE6;
 
 const BUSY = 0x80;
 
-const DMA_COMMAND_READ = 0x46;
-
-let dma_command = DMA_COMMAND_READ;
+let dma_command = 0x46;
 
 const RESET_CONTROLLER = 4;
 const USE_DMA = 8;
@@ -61,8 +59,8 @@ export async function readSector() {
         debug('after long wait');
         debug('out fdc #1: ah = 15');
         ah = 15; // номер кода
-        await out_fdc(); // посылаем контроллеру НГМД
-        
+        await out_fdc();
+        // посылаем контроллеру НГМД
         debug('out fdc #2: ah = FLOPPY');
         ah = FLOPPY; // номер накопителя (дискета ;))
         await out_fdc();
