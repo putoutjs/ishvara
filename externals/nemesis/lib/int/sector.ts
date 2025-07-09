@@ -91,7 +91,8 @@ export async function readSector() {
         // если не было переноса
         // то страницы в dl
         ++dl; // увеличиваем dl, если был перенос
-        no_carry: io.out(4, al);
+        no_carry: debug('carry');
+        io.out(4, al);
         // посылаем младший байт адреса
         al = ah; // сдвигаем старший байт
         io.out(4, al); //посылаем младший байт адреса
@@ -106,6 +107,7 @@ export async function readSector() {
         al = 2; //готовим разрешение канала 2
         io.out(10, al); //DMA ожидает данные
         ah = [secread_com]; // 0xE6;0x66;код чтения одного сектора
+        debug('read one sector');
         await out_fdc();
         //посылаем команду контроллеру нмгд
         ah = [head];
@@ -136,6 +138,7 @@ export async function readSector() {
         // не используется потому, что
         // размер сектора задан!
         await out_fdc();
+        debug('wait interrupt');
         await wait_interrupt();
         // читаем результирующие байты
         cx = 7; // берем 7 байтов статуса

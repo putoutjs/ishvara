@@ -23,3 +23,10 @@ test('bundler-fasm: apply-debug: transform with options: apply-debug-options', (
     });
     t.end();
 });
+
+test('bundler-fasm: apply-debug: transform with options: label', (t) => {
+    t.transformWithOptions('label', {
+        debug: false,
+    });
+    t.end();
+});
