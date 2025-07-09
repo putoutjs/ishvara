@@ -8,20 +8,21 @@ let track_number = 0;
 let drive = 0;
 let head = 0;
 let secread_com = 0xE6;
-let dma_command = 0x46;
 
-let REG = 0;
+const BUSY = 0x80;
 
-DMA_COMMAND_READ.equ = 0x4a;
-DMA_COMMAND_WRITE.equ = 0x46;
+const DMA_COMMAND_READ = 0x46;
 
-RESET_CONTROLLER.equ = 4;
-USE_DMA.equ = 8;
-RUN_MOTOR.equ = 16;
+let dma_command = DMA_COMMAND_READ;
+
+const RESET_CONTROLLER = 4;
+const USE_DMA = 8;
+const RUN_MOTOR = 16;
 
 const PORT_ADDRESS_OF_STATUS_REGISTER = 0x3f4;
+const MOTOR = 0x3f2;
+const FLOPPY = 0;
 
-FLOPPY.equ = 0;
 // ah - кол-во секторов
 // bx - buffer
 // cl - номер сектора
@@ -53,21 +54,23 @@ export async function readSector() {
             --sec_quantity,
         ];
         sti();
-        dx = 0x3f2;
+        dx = MOTOR;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
         io.out(dx, al);
-        debug('before long wait');
         await waitLong();
         debug('after long wait');
-        ah = 15; // номер кода
         debug('out fdc #1: ah = 15');
+        ah = 15; // номер кода
         await out_fdc(); // посылаем контроллеру НГМД
-        ah = FLOPPY; // номер накопителя (дискета ;))
+        
         debug('out fdc #2: ah = FLOPPY');
+        ah = FLOPPY; // номер накопителя (дискета ;))
         await out_fdc();
-        ah = [track_number];
+        
         debug('out fdc #3: ah = [track_number]');
+        ah = [track_number];
         await out_fdc();
+        
         debug('wait interrupt');
         await wait_interrupt(); // ожидаем прерывания от нгдм
         debug('before short wait');
@@ -85,7 +88,7 @@ export async function readSector() {
         dl = bl;
         dl &= 0xf; // чистим старший нибл в dl
         bl &= 0xf0; // чистим младший нибл в bl
-        ax &= bx;
+        ax += bx;
         jnc(no_carry);
         debug('overflow -> ++dl');
         // если не было переноса
@@ -106,26 +109,30 @@ export async function readSector() {
         io.out(5, al); //посылаем старший байт
         al = 2; //готовим разрешение канала 2
         io.out(10, al); //DMA ожидает данные
-        ah = [secread_com]; // 0xE6;0x66;код чтения одного сектора
         debug('read one sector');
+        ah = [secread_com]; // 0xE6;0x66;код чтения одного сектора
         await out_fdc();
         //посылаем команду контроллеру нмгд
         ah = [head];
         // head/drive по форумуле
         // 00000hdd, поэтому если головка 1
         // ;то в ah будет 4=2^2
+        debug('ah <<= 2');
         ah <<= 2;
         await out_fdc();
         
+        debug('[track_number]');
         ah = [track_number];
         await out_fdc();
         
         ah = [head];
+        debug('[head]');
         await out_fdc();
         ah = [sec_number];
+        debug('[sec_number]');
         await out_fdc();
-        
         ah = 2; // 0x200 [es:bx+3];код размера сектора
+        debug('ah = 2');
         await out_fdc();
         
         ah = 0x12; //[es:bx+4];номер конца дорожки
@@ -137,6 +144,7 @@ export async function readSector() {
         //[es:bx+6];длина данных
         // не используется потому, что
         // размер сектора задан!
+        debug('ah = 0xff');
         await out_fdc();
         debug('wait interrupt');
         await wait_interrupt();
@@ -151,7 +159,7 @@ export async function readSector() {
             debug('loop: --cx');
         } while (--cx);
         // выключаем мотор
-        dx = 0x3f2;
+        dx = MOTOR;
         al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
         io.out(dx, al); // посылаем новую установку
         [secbuffer] += 0x200;
@@ -181,10 +189,10 @@ async function wait_interrupt<es>() {
     bx = 0x3e; //смещение для байта статуса
     do {
         dl = es[bx];
-    } while (dl === 0x80);
+    } while (!test(dl, 0x80));
     // проверяем бит 7
     dl &= 0b1_111_111; //сбрасываем бит 7
-    es[bx] = dl; //заменяем байт стутуса
+    es[bx] = dl; //заменяем байт статуса
 }
 
 async function waitLong() {
@@ -202,7 +210,7 @@ async function out_fdc() {
     dx = PORT_ADDRESS_OF_STATUS_REGISTER;
     do {
         io.in(al, dx);
-    } while (!test(al, 0x80));
+    } while (!test(al, BUSY));
     ++dx;
     al = ah;
     io.out(dx, al);
@@ -212,7 +220,7 @@ async function in_fdc() {
     dx = PORT_ADDRESS_OF_STATUS_REGISTER;
     do {
         io.in(al, dx);
-    } while (!test(al, 128));
+    } while (!test(al, BUSY));
     ++dx;
     io.in(al, dx);
 }

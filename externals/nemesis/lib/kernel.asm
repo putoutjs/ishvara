@@ -15,12 +15,14 @@ _printf equ 2
 _get_char equ 1
 _reboot equ 0
 FLOPPY equ 0
+MOTOR equ 0x3f2
 PORT_ADDRESS_OF_STATUS_REGISTER equ 0x3f4
 RUN_MOTOR equ 0x10
 USE_DMA equ 8
 RESET_CONTROLLER equ 4
 DMA_COMMAND_WRITE equ 0x46
 DMA_COMMAND_READ equ 0x4a
+BUSY equ 0x80
 _backspace equ 0xe
 _enter equ 0xd
 cli
@@ -114,7 +116,7 @@ ret
 __ishvara_fasm_if_end_11:
 mov cx, 3
 
-__ishvara_do_while_129:
+__ishvara_do_while_141:
 push cx
 call __ishvara_getFileOffset
 sub al, 2
@@ -152,24 +154,24 @@ mov bx, [exec_addr]
 mov dl, 0
 mov al, 0xc
 int 0xff
-jnc __ishvara_read_sector_ok_160
+jnc __ishvara_read_sector_ok_172
 mov al, 1
-jmp __ishvara_read_sector_end_160
+jmp __ishvara_read_sector_end_172
 
-__ishvara_read_sector_ok_160:
+__ishvara_read_sector_ok_172:
 xor ax, ax
 
-__ishvara_read_sector_end_160:
+__ishvara_read_sector_end_172:
 clc
 test al, al
 jnz __ishvara_fasm_if_end_17
-jmp __ishvara_ishvara_do_while_break_129
+jmp __ishvara_ishvara_do_while_break_141
 
 __ishvara_fasm_if_end_17:
 pop cx
-loop __ishvara_do_while_129
+loop __ishvara_do_while_141
 
-__ishvara_ishvara_do_while_break_129:
+__ishvara_ishvara_do_while_break_141:
 test al, al
 jz __ishvara_fasm_if_end_12
 mov al, 2
@@ -189,7 +191,7 @@ mov di, bx
 push di
 push bx
 
-__ishvara_do_while_190:
+__ishvara_do_while_202:
 push cx
 mov ah, 1
 mov bx, 0x7c00
@@ -198,24 +200,24 @@ mov dl, 0
 mov dh, 1
 mov al, 0xc
 int 0xff
-jnc __ishvara_read_sector_ok_193
+jnc __ishvara_read_sector_ok_205
 mov al, 1
-jmp __ishvara_read_sector_end_193
+jmp __ishvara_read_sector_end_205
 
-__ishvara_read_sector_ok_193:
+__ishvara_read_sector_ok_205:
 xor ax, ax
 
-__ishvara_read_sector_end_193:
+__ishvara_read_sector_end_205:
 clc
 test al, al
 jnz __ishvara_fasm_if_end_18
-jmp __ishvara_ishvara_do_while_break_190
+jmp __ishvara_ishvara_do_while_break_202
 
 __ishvara_fasm_if_end_18:
 pop cx
-loop __ishvara_do_while_190
+loop __ishvara_do_while_202
 
-__ishvara_ishvara_do_while_break_190:
+__ishvara_ishvara_do_while_break_202:
 test al, al
 jz __ishvara_fasm_if_end_13
 pop di
@@ -299,10 +301,10 @@ ret
 __ishvara_in_fdc:
 mov dx, PORT_ADDRESS_OF_STATUS_REGISTER
 
-__ishvara_do_while_280:
+__ishvara_do_while_292:
 in al, dx
-test al, 0x80
-jz __ishvara_do_while_280
+test al, BUSY
+jz __ishvara_do_while_292
 inc dx
 in al, dx
 ret
@@ -310,10 +312,10 @@ ret
 __ishvara_out_fdc:
 mov dx, PORT_ADDRESS_OF_STATUS_REGISTER
 
-__ishvara_do_while_290:
+__ishvara_do_while_302:
 in al, dx
-test al, 0x80
-jz __ishvara_do_while_290
+test al, BUSY
+jz __ishvara_do_while_302
 inc dx
 mov al, ah
 out dx, al
@@ -335,10 +337,10 @@ mov ax, 0x40
 mov es, ax
 mov bx, 0x3e
 
-__ishvara_do_while_315:
+__ishvara_do_while_327:
 mov dl, [es:bx]
 test dl, 0x80
-jnz __ishvara_do_while_315
+jz __ishvara_do_while_327
 and dl, 0x7f
 mov [es:bx], dl
 pop es
@@ -363,10 +365,10 @@ mov ax, 2
 ret
 
 __ishvara_fasm_if_end_15:
-__ishvara_do_while_345:
+__ishvara_do_while_357:
 dec [sec_quantity]
 sti
-mov dx, 0x3f2
+mov dx, MOTOR
 mov al, RESET_CONTROLLER + USE_DMA + RUN_MOTOR
 out dx, al
 call __ishvara_waitLong
@@ -388,9 +390,11 @@ rol bx, cl
 mov dl, bl
 and dl, 0xf
 and bl, 0xf0
-and ax, bx
-jnc no_carry
+add ax, bx
+jnc __ishvara_no_carry
 inc dl
+
+__ishvara_no_carry:
 out 4, al
 mov al, ah
 out 4, al
@@ -424,12 +428,12 @@ call __ishvara_wait_interrupt
 mov cx, 7
 mov bx, status_buffer
 
-__ishvara_do_while_440:
+__ishvara_do_while_453:
 call __ishvara_in_fdc
 mov [bx], al
 inc bx
-loop __ishvara_do_while_440
-mov dx, 0x3f2
+loop __ishvara_do_while_453
+mov dx, MOTOR
 mov al, RESET_CONTROLLER + USE_DMA
 out dx, al
 add [secbuffer], 0x200
@@ -446,7 +450,7 @@ mov al, 0
 __ishvara_fasm_if_end_19:
 or al, [sec_quantity]
 test al, al
-jnz __ishvara_do_while_345
+jnz __ishvara_do_while_357
 ret
 
 __ishvara_clearScreen:
@@ -531,7 +535,7 @@ xchg cx, ax
 mov si, bx
 mov bl, al
 
-__ishvara_do_while_541:
+__ishvara_do_while_555:
 call __ishvara_getColumn
 xchg bl, al
 mov bh, al
@@ -553,7 +557,7 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_end_21:
-jmp __ishvara_do_while_condition_541
+jmp __ishvara_do_while_condition_555
 
 __ishvara_fasm_if_end_20:
 cmp al, _backspace
@@ -569,7 +573,7 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_end_23:
-jmp __ishvara_do_while_condition_541
+jmp __ishvara_do_while_condition_555
 
 __ishvara_fasm_if_end_22:
 mov ah, al
@@ -578,8 +582,8 @@ xchg ah, al
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_541:
-loop __ishvara_do_while_541
+__ishvara_do_while_condition_555:
+loop __ishvara_do_while_555
 pop di
 pop cx
 pop bx
@@ -682,11 +686,11 @@ mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_707:
+__ishvara_do_while_721:
 inc cx
 lodsb
 test al, al
-jnz __ishvara_do_while_707
+jnz __ishvara_do_while_721
 mov ax, cx
 pop bp
 ret 2

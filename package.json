@@ -43,7 +43,7 @@
     "fasm.js": "^1.0.7",
     "hexdump-nodejs": "^0.1.0",
     "iced-x86": "^1.21.0",
-    "just-camel-case": "^6.2.0",
+    "just-snake-case": "^3.2.0",
     "putout": "^40.1.9",
     "try-catch": "^3.0.1",
     "try-to-catch": "^3.0.1",

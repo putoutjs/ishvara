@@ -3,7 +3,7 @@ import {
     types,
     operator,
 } from 'putout';
-import toCamelCase from 'just-camel-case';
+import toSnakeCase from 'just-snake-case';
 
 const {remove} = operator;
 const {
@@ -11,7 +11,8 @@ const {
     isLabeledStatement,
 } = types;
 
-const prepare = (__a) => toCamelCase(__a.value).replaceAll(/[^a-zA-Z\d]/g, '');
+const maybeCutDash = (a) => a.endsWith('_') ? a.slice(0, -1) : a;
+const prepare = (__a) => maybeCutDash(toSnakeCase(__a.value));
 
 export const report = () => `Apply 'debug()'`;
 
