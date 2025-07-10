@@ -62,8 +62,8 @@ export async function readSector() {
         ah = [track_number];
         await out_fdc();
         
-        await waitInterrupt(); // ожидаем прерывания от НГМД
-        
+        await waitInterrupt();
+        // ожидаем прерывания от НГМД
         al = [dma_command];
         //0x4a;для записи 0x46
         // код чтения данных контроллера нмгд
@@ -81,8 +81,7 @@ export async function readSector() {
         // если не было переноса
         // то страницы в dl
         ++dl; // увеличиваем dl, если был перенос
-        no_carry:
-        io.out(4, al);
+        no_carry: io.out(4, al);
         // посылаем младший байт адреса
         al = ah; // сдвигаем старший байт
         io.out(4, al); //посылаем младший байт адреса
@@ -163,13 +162,10 @@ export async function readSector() {
 
 // ждем прерывание нгмд; управление статусом
 async function waitInterrupt<es>() {
-    const SEGMENT_BIOS = 0x40;
-    const STATUS_OFFSET = 0x3e;
-    
     // прерывания 6 в байте статуса BIOS
-    ax = SEGMENT_BIOS; // Сегмент области данных BIOS
+    ax = 0x40; // Сегмент области данных BIOS
     es = ax; // помещаем в es
-    bx = STATUS_OFFSET; //смещение для байта статуса
+    bx = 0x3e; //смещение для байта статуса
     do {
         dl = es[bx];
     } while (!test(dl, 0x80));
