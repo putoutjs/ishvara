@@ -11,7 +11,9 @@ let secread_com = 0xE6;
 
 const BUSY = 0x80;
 
-let dma_command = 0x46;
+const DMA_COMMAND_READ = 0x46;
+
+let dma_command = DMA_COMMAND_READ;
 
 const RESET_CONTROLLER = 4;
 const USE_DMA = 8;
@@ -54,16 +56,19 @@ export async function readSector() {
         dx = MOTOR_REGISTER;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
         io.out(dx, al);
+        await waitLong();
         ah = 15; // номер кода
         await out_fdc(); // посылаем контроллеру НГМД
+        
         ah = FLOPPY; // номер накопителя (дискета ;))
         await out_fdc();
         
         ah = [track_number];
         await out_fdc();
         
-        await waitInterrupt();
-        // ожидаем прерывания от НГМД
+        await waitInterrupt(); // ожидаем прерывания от НГМД
+        await waitShort();
+        
         al = [dma_command];
         //0x4a;для записи 0x46
         // код чтения данных контроллера нмгд
@@ -81,7 +86,8 @@ export async function readSector() {
         // если не было переноса
         // то страницы в dl
         ++dl; // увеличиваем dl, если был перенос
-        no_carry: io.out(4, al);
+        no_carry:
+        io.out(4, al);
         // посылаем младший байт адреса
         al = ah; // сдвигаем старший байт
         io.out(4, al); //посылаем младший байт адреса
@@ -110,7 +116,6 @@ export async function readSector() {
         
         ah = [head];
         await out_fdc();
-        
         ah = [sec_number];
         await out_fdc();
         ah = 2; // 0x200 [es:bx+3];код размера сектора
@@ -163,9 +168,13 @@ export async function readSector() {
 // ждем прерывание нгмд; управление статусом
 async function waitInterrupt<es>() {
     // прерывания 6 в байте статуса BIOS
-    ax = 0x40; // Сегмент области данных BIOS
+    const SEGMENT_BIOS = 0x40;
+    const STATUS_OFFSET = 0x3e;
+    
+    // прерывания 6 в байте статуса BIOS
+    ax = SEGMENT_BIOS; // Сегмент области данных BIOS
     es = ax; // помещаем в es
-    bx = 0x3e; //смещение для байта статуса
+    bx = STATUS_OFFSET; //смещение для байта статуса
     do {
         dl = es[bx];
     } while (!test(dl, 0x80));
@@ -195,3 +204,14 @@ async function waitWhileBusy() {
         io.in(al, dx);
     } while (!test(al, BUSY));
 }
+
+async function waitLong() {
+    cx = 3500;
+    loop($);
+}
+
+async function waitShort() {
+    cx = 1750;
+    loop($);
+}
+
