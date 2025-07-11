@@ -159,11 +159,10 @@ export async function readSector() {
             [sec_number] = 1;
         }
         
-        debug('readSector: goint to break');
+        debug('readSector: going to break');
         
         al = [sec_quantity];
     } while (al);
-    
     debug('readSector: done');
 }
 

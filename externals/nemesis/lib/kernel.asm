@@ -576,7 +576,7 @@ mov cx, 7
 mov al, 6
 int 0xff
 mov al, 2
-mov bx, __debug_6_read_sector_goint_to_break
+mov bx, __debug_6_read_sector_going_to_break
 int 0xff
 mov cx, 2
 mov al, 6
@@ -846,7 +846,7 @@ __debug_10_find_file_read_sector_not_empty_read_result db 'find file: read secto
 __debug_9_find_file_read_sector_empty_read_result db 'find file: read sector: empty read result', 0xd, 0
 __debug_8_find_file_read_sector db 'find file: read sector', 0xd, 0
 __debug_7_read_sector_done db 'readSector: done', 0xd, 0
-__debug_6_read_sector_goint_to_break db 'readSector: goint to break', 0xd, 0
+__debug_6_read_sector_going_to_break db 'readSector: going to break', 0xd, 0
 __debug_5_loop db 'loop', 0xd, 0
 __debug_4_before_loop db 'before loop', 0xd, 0
 __debug_3_read_sector_enter db 'read sector: enter', 0xd, 0
