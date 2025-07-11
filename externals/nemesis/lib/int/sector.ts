@@ -57,8 +57,8 @@ export async function readSector() {
         io.out(dx, al);
         await waitLong();
         ah = SEEK; // номер кода
-        await out_fdc(); // посылаем контроллеру НГМД
-        
+        await out_fdc();
+        // посылаем контроллеру НГМД
         ah = FLOPPY; // номер накопителя (дискета ;))
         await out_fdc();
         
