@@ -11,9 +11,7 @@ let secread_com = 0xE6;
 
 const BUSY = 0x80;
 
-const DMA_COMMAND_READ = 0x46;
-
-let dma_command = DMA_COMMAND_READ;
+let dma_command = 0x46;
 
 const RESET_CONTROLLER = 4;
 const USE_DMA = 8;
@@ -58,8 +56,8 @@ export async function readSector() {
         io.out(dx, al);
         await waitLong();
         ah = 15; // номер кода
-        await out_fdc(); // посылаем контроллеру НГМД
-        
+        await out_fdc();
+        // посылаем контроллеру НГМД
         ah = FLOPPY; // номер накопителя (дискета ;))
         await out_fdc();
         
@@ -86,8 +84,7 @@ export async function readSector() {
         // если не было переноса
         // то страницы в dl
         ++dl; // увеличиваем dl, если был перенос
-        no_carry:
-        io.out(4, al);
+        no_carry: io.out(4, al);
         // посылаем младший байт адреса
         al = ah; // сдвигаем старший байт
         io.out(4, al); //посылаем младший байт адреса
@@ -168,13 +165,10 @@ export async function readSector() {
 // ждем прерывание нгмд; управление статусом
 async function waitInterrupt<es>() {
     // прерывания 6 в байте статуса BIOS
-    const SEGMENT_BIOS = 0x40;
-    const STATUS_OFFSET = 0x3e;
-    
     // прерывания 6 в байте статуса BIOS
-    ax = SEGMENT_BIOS; // Сегмент области данных BIOS
+    ax = 0x40; // Сегмент области данных BIOS
     es = ax; // помещаем в es
-    bx = STATUS_OFFSET; //смещение для байта статуса
+    bx = 0x3e; //смещение для байта статуса
     do {
         dl = es[bx];
     } while (!test(dl, 0x80));
@@ -214,4 +208,3 @@ async function waitShort() {
     cx = 1750;
     loop($);
 }
-
