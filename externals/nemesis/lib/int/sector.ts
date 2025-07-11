@@ -10,6 +10,7 @@ let head = 0;
 let secread_com = 0xE6;
 
 const BUSY = 0x80;
+const SEEK = 0xf;
 
 let dma_command = 0x46;
 
@@ -55,9 +56,9 @@ export async function readSector() {
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
         io.out(dx, al);
         await waitLong();
-        ah = 15; // номер кода
-        await out_fdc();
-        // посылаем контроллеру НГМД
+        ah = SEEK; // номер кода
+        await out_fdc(); // посылаем контроллеру НГМД
+        
         ah = FLOPPY; // номер накопителя (дискета ;))
         await out_fdc();
         
@@ -171,7 +172,7 @@ async function waitInterrupt<es>() {
     bx = 0x3e; //смещение для байта статуса
     do {
         dl = es[bx];
-    } while (!test(dl, 0x80));
+    } while (!test(dl, BUSY));
     // проверяем бит 7
     dl &= 0b1_111_111; //сбрасываем бит 7
     es[bx] = dl; //заменяем байт статуса
