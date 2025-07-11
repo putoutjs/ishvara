@@ -72,6 +72,9 @@ function parseOperator(operator) {
     if (operator === '>')
         return 'jle';
     
+    if (operator === '<')
+        return 'jge';
+    
     throw Error(`☝️Looks like operator '${operator}' not supported`);
 }
 

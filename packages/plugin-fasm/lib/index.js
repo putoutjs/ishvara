@@ -1,3 +1,4 @@
+import * as switchCmpOperands from './switch-cmp-operands/index.js';
 import * as splitBinaryExpression from './split-binary-expression/index.js';
 import * as convertLinuxExitToSyscall from './convert-linux-exit-to-syscall/index.js';
 import * as convertLinuxWriteToSyscall from './convert-linux-write-to-syscall/index.js';
@@ -84,4 +85,5 @@ export const rules = {
     'convert-linux-write-to-syscall': convertLinuxWriteToSyscall,
     'convert-linux-exit-to-syscall': convertLinuxExitToSyscall,
     'split-binary-expression': splitBinaryExpression,
+    'switch-cmp-operands': switchCmpOperands,
 };

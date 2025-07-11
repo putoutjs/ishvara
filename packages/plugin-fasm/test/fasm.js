@@ -196,3 +196,8 @@ test('plugin-fasm: transform: split-binary-expression', (t) => {
     t.transform('split-binary-expression');
     t.end();
 });
+
+test('plugin-fasm: transform: switch-cmp-operands', (t) => {
+    t.transform('switch-cmp-operands');
+    t.end();
+});

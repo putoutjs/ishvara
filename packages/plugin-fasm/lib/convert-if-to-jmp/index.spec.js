@@ -78,6 +78,11 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: more', (t) => {
     t.end();
 });
 
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: less', (t) => {
+    t.transform('less');
+    t.end();
+});
+
 test('ishvara: plugin-fasm: convert-if-to-jmp: transform: else', (t) => {
     t.transform('else');
     t.end();

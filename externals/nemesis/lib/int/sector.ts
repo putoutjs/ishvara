@@ -11,6 +11,10 @@ let secread_com = 0xE6;
 
 const BUSY = 0x80;
 const SEEK = 0xf;
+const FULL_LENGTH = 0xFF;
+const GAP = 0x1B;
+const END_OF_TRACK = 0x12;
+const LENGTH_512 = 2;
 
 let dma_command = 0x46;
 
@@ -51,19 +55,20 @@ export async function readSector() {
     
     do {
         dec([sec_quantity]);
+        push(cx);
         sti();
         dx = MOTOR_REGISTER;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
         io.out(dx, al);
         await waitLong();
         ah = SEEK; // номер кода
-        await out_fdc();
+        await outFDC();
         // посылаем контроллеру НГМД
         ah = FLOPPY; // номер накопителя (дискета ;))
-        await out_fdc();
+        await outFDC();
         
         ah = [track_number];
-        await out_fdc();
+        await outFDC();
         
         await waitInterrupt(); // ожидаем прерывания от НГМД
         await waitShort();
@@ -100,67 +105,66 @@ export async function readSector() {
         al = 2; //готовим разрешение канала 2
         io.out(10, al); //DMA ожидает данные
         ah = [secread_com]; // 0xE6;0x66;код чтения одного сектора
-        await out_fdc();
+        await outFDC();
         //посылаем команду контроллеру нмгд
         ah = [head];
         // head/drive по формуле
         // 00000hdd, поэтому если головка 1
         // ;то в ah будет 4=2^2
         ah <<= 2;
-        await out_fdc();
+        await outFDC();
         
         ah = [track_number];
-        await out_fdc();
+        await outFDC();
         
         ah = [head];
-        await out_fdc();
+        await outFDC();
+        
         ah = [sec_number];
-        await out_fdc();
-        ah = 2; // 0x200 [es:bx+3];код размера сектора
-        await out_fdc();
+        await outFDC();
         
-        ah = 0x12; // [es:bx+4];номер конца дорожки
-        await out_fdc();
+        ah = LENGTH_512; // 0x200 [es:bx+3];код размера сектора
+        await outFDC();
         
-        ah = 0x1B; // [es:bx+5];длина сдвига
-        await out_fdc();
-        debug('ah = 0xff');
-        ah = 0xFF;
-        //[es:bx+6];длина данных
-        // не используется потому, что
-        // размер сектора задан!
-        await out_fdc();
-        debug('wait_interrupt');
+        ah = END_OF_TRACK;
+        await outFDC();
+        
+        ah = GAP;
+        await outFDC();
+        
+        ah = FULL_LENGTH;
+        await outFDC();
+        
         await waitInterrupt();
-        debug('after wait');
         // читаем результирующие байты
         cx = 7; // берем 7 байтов статуса
         bx = status_buffer;
         debug('before loop');
         do {
-            await in_fdc(); // получаем байт
+            await inFDC(); // получаем байт
             [bx] = al; // помещаем в буфер
             ++bx;
+            debug('loop');
             // указываем на следующий байт буфера
-            debug('loop: --cx');
         } while (--cx);
         // выключаем мотор
         dx = MOTOR_REGISTER;
         al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
         io.out(dx, al); // посылаем новую установку
         [secbuffer] += 0x200;
-        dec([sec_number]);
+        inc([sec_number]);
         
-        if ([sec_number] > 0x12) {
-            dec([track_number]);
+        if ([sec_number] > END_OF_TRACK) {
+            inc([track_number]);
             [sec_number] = 1;
-        } else {
-            al = 0;
         }
         
-        al |= [sec_quantity];
-        debug('loop: al');
+        debug('readSector: goint to break');
+        
+        al = [sec_quantity];
     } while (al);
+    
+    debug('readSector: done');
 }
 
 // ждем прерывание нгмд; управление статусом
@@ -179,7 +183,7 @@ async function waitInterrupt<es>() {
 }
 
 // шлем байт из ah fdc
-async function out_fdc() {
+async function outFDC() {
     await waitWhileBusy();
     
     dx = DATA_REGISTER;
@@ -187,7 +191,7 @@ async function out_fdc() {
     io.out(dx, al);
 }
 
-async function in_fdc() {
+async function inFDC() {
     await waitWhileBusy();
     dx = DATA_REGISTER;
     io.in(al, dx);

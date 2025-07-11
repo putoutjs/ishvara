@@ -10,6 +10,7 @@
         }
     },
     "rules": {
+        "conditions/apply-comparison-order": "off",
         "apply-arrow": "off",
         "declare": "off",
         "extract-sequence-expressions": "off",
