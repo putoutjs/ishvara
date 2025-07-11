@@ -366,13 +366,23 @@ __ishvara_getFileSecSize:
 mov al, [file_sec_size]
 ret
 
+__ishvara_waitShort:
+mov cx, 0x6d6
+loop $
+ret
+
+__ishvara_waitLong:
+mov cx, 0xdac
+loop $
+ret
+
 __ishvara_waitWhileBusy:
 mov dx, STATUS_REGISTER
 
-__ishvara_do_while_301:
+__ishvara_do_while_311:
 in al, dx
 test al, BUSY
-jz __ishvara_do_while_301
+jz __ishvara_do_while_311
 ret
 
 __ishvara_in_fdc:
@@ -394,10 +404,10 @@ mov ax, SEGMENT_BIOS
 mov es, ax
 mov bx, STATUS_OFFSET
 
-__ishvara_do_while_327:
+__ishvara_do_while_338:
 mov dl, [es:bx]
 test dl, 0x80
-jz __ishvara_do_while_327
+jz __ishvara_do_while_338
 and dl, 0x7f
 mov [es:bx], dl
 pop es
@@ -456,12 +466,13 @@ mov al, 6
 int 0xff
 popa
 
-__ishvara_do_while_356:
+__ishvara_do_while_367:
 dec [sec_quantity]
 sti
 mov dx, MOTOR_REGISTER
 mov al, RESET_CONTROLLER + USE_DMA + RUN_MOTOR
 out dx, al
+call __ishvara_waitLong
 mov ah, 0xf
 call __ishvara_out_fdc
 mov ah, FLOPPY
@@ -469,6 +480,7 @@ call __ishvara_out_fdc
 mov ah, [track_number]
 call __ishvara_out_fdc
 call __ishvara_waitInterrupt
+call __ishvara_waitShort
 mov al, [dma_command]
 out 0xc, al
 out 0xb, al
@@ -561,7 +573,7 @@ mov al, 6
 int 0xff
 popa
 
-__ishvara_do_while_443:
+__ishvara_do_while_455:
 call __ishvara_in_fdc
 mov [bx], al
 inc bx
@@ -576,7 +588,7 @@ mov cx, 2
 mov al, 6
 int 0xff
 popa
-loop __ishvara_do_while_443
+loop __ishvara_do_while_455
 mov dx, MOTOR_REGISTER
 mov al, RESET_CONTROLLER + USE_DMA
 out dx, al
@@ -605,7 +617,7 @@ mov al, 6
 int 0xff
 popa
 test al, al
-jnz __ishvara_do_while_356
+jnz __ishvara_do_while_367
 ret
 
 __ishvara_clearScreen:
@@ -690,7 +702,7 @@ xchg cx, ax
 mov si, bx
 mov bl, al
 
-__ishvara_do_while_543:
+__ishvara_do_while_555:
 call __ishvara_getColumn
 xchg bl, al
 mov bh, al
@@ -712,7 +724,7 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_end_21:
-jmp __ishvara_do_while_condition_543
+jmp __ishvara_do_while_condition_555
 
 __ishvara_fasm_if_end_20:
 cmp al, _backspace
@@ -728,7 +740,7 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_end_23:
-jmp __ishvara_do_while_condition_543
+jmp __ishvara_do_while_condition_555
 
 __ishvara_fasm_if_end_22:
 mov ah, al
@@ -737,8 +749,8 @@ xchg ah, al
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_543:
-loop __ishvara_do_while_543
+__ishvara_do_while_condition_555:
+loop __ishvara_do_while_555
 pop di
 pop cx
 pop bx
@@ -841,11 +853,11 @@ mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_709:
+__ishvara_do_while_721:
 inc cx
 lodsb
 test al, al
-jnz __ishvara_do_while_709
+jnz __ishvara_do_while_721
 mov ax, cx
 pop bp
 ret 2
