@@ -1,3 +1,10 @@
+2025.07.11, v2.8.11
+
+feature:
+- 3adba0a @putout/plugin-optimizer-fasm: merge-one-byte-reg: exclude not mov
+- ca99add plugin-bandler-fasm: apply-debug: snake-case
+- 139a278 @putout/plugin-bundler-fasm: apply-debug: label
+
 2025.07.08, v2.8.10
 
 feature:
