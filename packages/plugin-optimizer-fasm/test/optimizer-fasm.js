@@ -12,8 +12,8 @@ test('plugin-optimizer-fasm: convert-mov-to-xor', (t) => {
     t.end();
 });
 
-test('plugin-optimizer-fasm: transform: join-one-byte-registers-assign', (t) => {
-    t.transform('join-one-byte-registers-assign');
+test('plugin-optimizer-fasm: transform: merge-one-byte-reg-assign', (t) => {
+    t.transform('merge-one-byte-reg-assign');
     t.end();
 });
 

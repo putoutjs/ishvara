@@ -1,6 +1,11 @@
 import {operator, types} from 'putout';
 
-const {isNumericLiteral} = types;
+const {
+    isNumericLiteral,
+    isExpressionStatement,
+    isCallExpression,
+} = types;
+
 const {
     remove,
     compare,
@@ -44,6 +49,17 @@ const checkNext = ({__a, __b, __c}, path) => {
             return false;
         
         const next = path.parentPath.getNextSibling();
+        const {node} = next;
+        
+        if (!node)
+            return false;
+        
+        if (isExpressionStatement(next) && isCallExpression(node.expression)) {
+            const {callee} = node.expression;
+            
+            if (callee.name !== 'mov')
+                return false;
+        }
         
         if (compare(next, `mov(${reg}, ${__c.value})`))
             return true;

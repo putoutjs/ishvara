@@ -19,6 +19,11 @@ export const parseConfig = (name, overrides = {}) => {
     
     const [error, options = {}] = tryCatch(readConfig, configPath);
     
+    if (error?.code === 'MODULE_NOT_FOUND')
+        return [null, {
+            debug,
+        }];
+    
     assign(options, {
         debug,
     });

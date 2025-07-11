@@ -41,3 +41,13 @@ test('optimizer-fasm: merge-one-byte-reg-assign: transform: const', (t) => {
     t.transform('const');
     t.end();
 });
+
+test('optimizer-fasm: merge-one-byte-reg-assign: transform: one-reg', (t) => {
+    t.transform('one-reg');
+    t.end();
+});
+
+test('optimizer-fasm: merge-one-byte-reg-assign: no report: no-next', (t) => {
+    t.noReport('no-next');
+    t.end();
+});

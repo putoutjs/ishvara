@@ -2,6 +2,8 @@ import {fileURLToPath} from 'node:url';
 import {test, stub} from 'supertape';
 import {parseConfig} from './parse-config.js';
 
+const {assign} = Object;
+
 const __filename = fileURLToPath(import.meta.url);
 
 test('ishvara: cli-options: parse-options', async (t) => {
@@ -39,5 +41,22 @@ test('ishvara: cli-options: parse-options: options', async (t) => {
     });
     
     t.equal(error, originalError);
+    t.end();
+});
+
+test('ishvara: cli-options: parse-options: options: not found', async (t) => {
+    const originalError = Error('parse error');
+    
+    assign(originalError, {
+        code: 'MODULE_NOT_FOUND',
+    });
+    
+    const readConfig = stub().throws(originalError);
+    
+    const [error] = await parseConfig(__filename, {
+        readConfig,
+    });
+    
+    t.notOk(error);
     t.end();
 });
