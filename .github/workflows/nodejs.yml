@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 23.x
+          - 24.x
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1

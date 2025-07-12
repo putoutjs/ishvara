@@ -1,20 +1,22 @@
-import {readFile} from 'node:fs/promises';
-import {unzip} from 'node:zlib';
-import {promisify} from 'node:util';
 import {FatFsDisk} from 'fatfs-wasm';
 
-const extract = promisify(unzip);
+const {assign} = Object;
 
-export const createDisk = async () => {
-    const packed = await readFile(new URL('../data/fat-small.img.zip', import.meta.url).pathname);
-    const data = await extract(packed);
-    const disk = await FatFsDisk.create(data);
+export const createDisk = (data) => {
+    const result = {};
     
-    disk.mount();
+    assign(result, {
+        [Symbol.asyncDispose]() {
+            this.disk.unmount();
+        },
+        async use() {
+            this.disk = await FatFsDisk.create(data);
+            this.disk.mount();
+            
+            return this.disk;
+        },
+    });
     
-    return {
-        disk,
-        data,
-    };
+    return result;
 };
 
