@@ -19,4 +19,3 @@ export const createDisk = (data) => {
     
     return result;
 };
-
