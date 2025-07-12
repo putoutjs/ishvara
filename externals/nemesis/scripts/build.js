@@ -20,4 +20,3 @@ const floppy = await format({
 });
 
 writeFileSync(imagePath, floppy);
-console.log(`🎁 build/nemesis-small.img`);
