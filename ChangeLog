@@ -1,3 +1,10 @@
+2025.07.12, v2.9.0
+
+feature:
+- d98cffc @ishvara/format-floppy: add
+- 9dda9f1 @ishvara/format-floppy: add
+- 1cb5e1a plugin-fasm: switch-cmp-operands: add
+
 2025.07.11, v2.8.11
 
 feature:
