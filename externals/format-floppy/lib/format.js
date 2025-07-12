@@ -17,8 +17,7 @@ export const format = async ({boot, files = {}}) => {
         floppy.writeFile(`/${name}`, buffer);
     }
     
-    if (boot)
-        data.copy(boot);
+    boot?.copy(data);
     
     return data;
 };

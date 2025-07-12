@@ -1,21 +1,18 @@
 import {FatFsDisk} from 'fatfs-wasm';
 
-const {assign} = Object;
-
 export const createDisk = (data) => {
-    const result = {};
-    
-    assign(result, {
+    return new class {
+        #disk = null;
+        
         [Symbol.asyncDispose]() {
-            this.disk.unmount();
-        },
+            this.#disk.unmount();
+        }
+        
         async use() {
-            this.disk = await FatFsDisk.create(data);
-            this.disk.mount();
+            this.#disk = await FatFsDisk.create(data);
+            this.#disk.mount();
             
-            return this.disk;
-        },
-    });
-    
-    return result;
+            return this.#disk;
+        }
+    };
 };

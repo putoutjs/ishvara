@@ -1,6 +1,12 @@
 import {safeAlign} from 'eslint-plugin-putout';
 import {defineConfig} from 'eslint/config';
+import {matchToFlat} from '@putout/eslint-flat';
 
+export const match = {
+    '**/scripts/**/*.js': {
+        'n/hashbang': 'off',
+    },
+};
 export default defineConfig([
     safeAlign, {
         ignores: ['example.*', '**/fixture'],
@@ -13,4 +19,6 @@ export default defineConfig([
             'no-constant-condition': 'off',
         },
     },
+    ...matchToFlat(match),
 ]);
+

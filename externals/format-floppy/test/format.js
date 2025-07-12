@@ -9,8 +9,9 @@ test('ishvara: format-floppy: boot', async (t) => {
     });
     
     const sector = floppy.subarray(0, boot.length);
+    const result = sector.toString();
     
-    t.deepEqual(sector, boot);
+    t.equal(result, 'hello');
     t.end();
 });
 
