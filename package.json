@@ -48,6 +48,7 @@
     "try-catch": "^3.0.1",
     "try-to-catch": "^3.0.1",
     "typescript": "^5.8.3",
+    "v86": "^0.5.155",
     "wabt": "^1.0.37",
     "yargs-parser": "^22.0.0"
   },

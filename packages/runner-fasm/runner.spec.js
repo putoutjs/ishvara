@@ -15,3 +15,9 @@ test('ishvara: runner-fasm: sum', async ({compile}) => {
     const expected = '3';
     await compile('sum', expected);
 });
+
+test('ishvara: runner-fasm: boot', async ({compile}) => {
+    const expected = 'Hello World';
+    await compile('boot', expected);
+});
+
