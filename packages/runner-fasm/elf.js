@@ -9,4 +9,3 @@ export const isELF = (binary) => {
     const signature = Buffer.from(binary.slice(0, 4));
     return !Buffer.compare(signature, ELF);
 };
-

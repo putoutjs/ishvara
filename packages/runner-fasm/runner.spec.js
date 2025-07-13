@@ -20,4 +20,3 @@ test('ishvara: runner-fasm: boot', async ({compile}) => {
     const expected = 'Hello World';
     await compile('boot', expected);
 });
-

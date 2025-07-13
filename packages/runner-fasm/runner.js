@@ -8,4 +8,3 @@ export const run = async (binary) => {
     
     return await boot(binary);
 };
-
