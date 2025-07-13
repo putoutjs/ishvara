@@ -1,3 +1,9 @@
+2025.07.13, v2.10.0
+
+feature:
+- 1da9fed ishvara: runner-fasm: add boot
+- 1c27a4f ishvara: nemesis: build floppy image
+
 2025.07.12, v2.9.0
 
 feature:
