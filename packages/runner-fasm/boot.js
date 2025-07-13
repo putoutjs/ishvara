@@ -66,4 +66,3 @@ function run({bootloader, seabios, vgabios} = {}) {
         });
     });
 }
-
