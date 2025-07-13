@@ -54,14 +54,16 @@ function run({bootloader, seabios, vgabios} = {}) {
                 output += String.fromCharCode(byte);
                 
                 setTimeout(() => {
-                    if (prevLength === output.length) {
-                        emulator.stop();
-                        resolve(output);
-                    } else {
+                    if (prevLength !== output.length) {
                         prevLength = output.length;
+                        return;
                     }
+                    
+                    emulator.stop();
+                    resolve(output);
                 }, 5);
             });
         });
     });
 }
+
