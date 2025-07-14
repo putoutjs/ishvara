@@ -61,7 +61,7 @@ export async function exec() {
             break;
         
         pop(cx);
-    } while(--cx);
+    } while (--cx);
     
     // не нашли o_O
     if (al) {

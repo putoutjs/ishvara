@@ -4,7 +4,7 @@ export async function getStringLength(str): ureg {
     
     cld();
     
-    while(lodsb()) {
+    while (lodsb()) {
         ++ucx;
     }
     

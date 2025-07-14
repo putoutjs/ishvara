@@ -141,7 +141,7 @@ export async function readSector() {
             [bx] = al; // помещаем в буфер
             ++bx;
             // указываем на следующий байт буфера
-        } while(--cx);
+        } while (--cx);
         // выключаем мотор
         dx = MOTOR_REGISTER;
         al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
@@ -155,7 +155,7 @@ export async function readSector() {
         }
         
         al = [sec_quantity];
-    } while(al);
+    } while (al);
     debug('end');
 }
 
@@ -168,7 +168,7 @@ async function waitInterrupt<es>() {
     bx = 0x3e; //смещение для байта статуса
     do {
         dl = es[bx];
-    } while(!test(dl, BUSY));
+    } while (!test(dl, BUSY));
     // проверяем бит 7
     dl &= 0b1_111_111; //сбрасываем бит 7
     es[bx] = dl; //заменяем байт статуса
@@ -193,7 +193,7 @@ async function waitWhileBusy() {
     dx = STATUS_REGISTER;
     do {
         io.in(al, dx);
-    } while(!test(al, BUSY));
+    } while (!test(al, BUSY));
 }
 
 async function waitLong() {
