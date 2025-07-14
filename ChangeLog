@@ -1,3 +1,8 @@
+2025.07.14, v2.10.2
+
+fix:
+- bffa9f5 @ishvara-plugin-fasm: convert-while-to-js: jz -> jnz
+
 2025.07.13, v2.10.1
 
 fix:
