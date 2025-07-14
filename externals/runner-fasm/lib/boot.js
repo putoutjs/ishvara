@@ -7,8 +7,8 @@ const extract = promisify(unzip);
 
 const DEBUG_PORT = 0xe9;
 
-const SEABIOS_PATH_ZIP = new URL('./data/seabios.bin.zip', import.meta.url).pathname;
-const VGABIOS_PATH_ZIP = new URL('./data/vgabios.bin.zip', import.meta.url).pathname;
+const SEABIOS_PATH_ZIP = new URL('../bios/seabios.bin.zip', import.meta.url).pathname;
+const VGABIOS_PATH_ZIP = new URL('../bios/vgabios.bin.zip', import.meta.url).pathname;
 
 const seabiosZip = readFileSync(SEABIOS_PATH_ZIP);
 const vgabiosZip = readFileSync(VGABIOS_PATH_ZIP);
@@ -32,7 +32,7 @@ export const boot = async (binary) => {
 function run({bootloader, seabios, vgabios} = {}) {
     return new Promise((resolve) => {
         const emulator = new V86({
-            wasm_path: new URL('../../node_modules/v86/build/v86.wasm', import.meta.url).pathname,
+            wasm_path: new URL('../../../node_modules/v86/build/v86.wasm', import.meta.url).pathname,
             bios: {
                 buffer: seabios,
             },

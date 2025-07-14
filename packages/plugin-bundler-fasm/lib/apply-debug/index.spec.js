@@ -30,3 +30,17 @@ test('bundler-fasm: apply-debug: transform with options: label', (t) => {
     });
     t.end();
 });
+
+test('bundler-fasm: apply-debug: transform with options: port', (t) => {
+    t.transformWithOptions('port', {
+        debug: 'port',
+    });
+    t.end();
+});
+
+test('bundler-fasm: apply-debug: transform with options: port: 2', (t) => {
+    t.transformWithOptions('port', {
+        debug: '2',
+    });
+    t.end();
+});

@@ -16,7 +16,7 @@ test('ishvara: cli-options: parse-options', async (t) => {
     t.end();
 });
 
-test('ishvara: cli-options: parse-options: debug', (t) => {
+test('ishvara: cli-options: parse-options: debug: 1', (t) => {
     const env = {
         DEBUG: '1',
     };
@@ -26,7 +26,24 @@ test('ishvara: cli-options: parse-options: debug', (t) => {
     });
     
     const expected = {
-        debug: true,
+        debug: '1',
+    };
+    
+    t.deepEqual(result, expected);
+    t.end();
+});
+
+test('ishvara: cli-options: parse-options: debug', (t) => {
+    const env = {
+        DEBUG: '2',
+    };
+    
+    const [, result] = parseConfig(__filename, {
+        env,
+    });
+    
+    const expected = {
+        debug: '2',
     };
     
     t.deepEqual(result, expected);

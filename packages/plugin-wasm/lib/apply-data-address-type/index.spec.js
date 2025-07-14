@@ -7,12 +7,12 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('wasm: apply-data-address-type: report', (t) => {
+test('wasm: apply-bios-address-type: report: apply-data-address-type', (t) => {
     t.report('apply-data-address-type', `Apply data address type`);
     t.end();
 });
 
-test('wasm: apply-data-address-type: transform', (t) => {
+test('wasm: apply-bios-address-type: transform: apply-data-address-type', (t) => {
     t.transform('apply-data-address-type');
     t.end();
 });

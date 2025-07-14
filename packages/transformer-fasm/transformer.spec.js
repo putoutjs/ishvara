@@ -118,7 +118,7 @@ test('ishvara: transformer-fasm: debug: on', (t) => {
     
     const expected = montag`
         debug(__debug_1_hello);
-        (__debug_1_hello.db['hello'], 0xd, 0);
+        (__debug_1_hello.db['hello'], 0xa, 0);
     
     `;
     
@@ -141,7 +141,7 @@ test('ishvara: transformer-fasm: debug: on: color', (t) => {
     
     const expected = montag`
         debug(__debug_1_hello);
-        (__debug_1_hello.db['hello'], 0xd, 0);
+        (__debug_1_hello.db['hello'], 0xa, 0);
     
     `;
     

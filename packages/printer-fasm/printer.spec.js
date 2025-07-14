@@ -64,6 +64,25 @@ test('ishvara: printer-fasm: jmp far', (t) => {
     t.end();
 });
 
+test('ishvara: printer-fasm: jmp far: inside label', (t) => {
+    const source = montag`
+         __ishvara_reboot: {
+            jmp.far('0xFFFF:0x0000');
+        }
+        (debug_1_reboot.db['reboot'], 0xa, 0);
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+         __ishvara_reboot:
+        jmp far 0xFFFF:0x0000
+        debug_1_reboot db 'reboot', 0xa, 0\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
 test('ishvara: printer-fasm: db', (t) => {
     const source = montag`
         kernel_name.db['KERNEL'], 0;
@@ -80,12 +99,12 @@ test('ishvara: printer-fasm: db', (t) => {
 
 test('ishvara: printer-fasm: db: couple', (t) => {
     const source = montag`
-        hi.db['hello from Nemizida =)!!!'], 0xd, 0
+        hi.db['hello from Nemizida =)!!!'], 0xa, 0
     `;
     
     const result = print(source);
     const expected = montag`
-        hi db 'hello from Nemizida =)!!!', 0xd, 0\n\n
+        hi db 'hello from Nemizida =)!!!', 0xa, 0\n\n
     `;
     
     t.equal(result, expected);

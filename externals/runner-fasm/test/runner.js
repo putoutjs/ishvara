@@ -1,5 +1,5 @@
 import {createTest} from '@ishvara/test';
-import {run} from '#runner-fasm';
+import {run} from '../lib/runner.js';
 
 const {test} = createTest(import.meta.url, {
     target: 'fasm',
@@ -19,4 +19,9 @@ test('ishvara: runner-fasm: sum', async ({compile}) => {
 test('ishvara: runner-fasm: boot', async ({compile}) => {
     const expected = 'Hello World';
     await compile('boot', expected);
+});
+
+test('ishvara: runner-fasm: debug', async ({compile}) => {
+    const expected = 'hello world\n';
+    await compile('debug', expected);
 });

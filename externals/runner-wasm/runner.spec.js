@@ -1,5 +1,5 @@
 import {createTest} from '@ishvara/test';
-import {run} from '#runner-wasm';
+import {run} from './runner.js';
 
 const {test} = createTest(import.meta.url, {
     run,

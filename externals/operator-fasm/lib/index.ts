@@ -5,3 +5,4 @@ export const io = {
     in: (a, b) => a + b,
     out: (a, b) => a + b,
 };
+export const debug = (a) => a;

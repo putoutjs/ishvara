@@ -7,17 +7,17 @@ const test = createTest(import.meta.url, {
     ],
 });
 
-test('bundler-fasm: replace-section-data-with-let: report', (t) => {
+test('bundler-fasm: replace-section-bios-with-let: report: replace-section-data-with-let', (t) => {
     t.report('replace-section-data-with-let', `Replace section 'data' with 'let'`);
     t.end();
 });
 
-test('bundler-fasm: replace-section-data-with-let: transform', (t) => {
+test('bundler-fasm: replace-section-bios-with-let: transform: replace-section-data-with-let', (t) => {
     t.transform('replace-section-data-with-let');
     t.end();
 });
 
-test('bundler-fasm: replace-section-data-with-let: no report: const', (t) => {
+test('bundler-fasm: replace-section-bios-with-let: no report: const', (t) => {
     t.noReport('const');
     t.end();
 });

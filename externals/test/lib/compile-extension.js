@@ -22,6 +22,9 @@ export const compileExtension = (dir, {run, target}) => ({fail, equal}) => async
     const [binary, places] = await ishvara.compile(bundled, {
         target,
         type: OUTPUT,
+        config: {
+            debug: 'port',
+        },
     });
     
     if (OUTPUT && OUTPUT !== 'bundle') {

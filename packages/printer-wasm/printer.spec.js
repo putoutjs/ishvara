@@ -142,7 +142,7 @@ test('ishvara: printer-wasm: function: no export', (t) => {
     t.end();
 });
 
-test('ishvara: printer-wasm: data', (t) => {
+test('ishvara: printer-wasm: bios', (t) => {
     const source = montag`
         data(i32.const(0), "Hello World");
     `;

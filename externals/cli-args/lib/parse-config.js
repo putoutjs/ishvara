@@ -13,7 +13,7 @@ export const parseConfig = (name, overrides = {}) => {
         env = process.env,
     } = overrides;
     
-    const debug = Boolean(Number(env.DEBUG));
+    const debug = env.DEBUG || false;
     const dir = dirname(name);
     const configPath = join(cwd(), dir, '.ishvara.json');
     

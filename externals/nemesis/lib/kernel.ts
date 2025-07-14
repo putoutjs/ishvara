@@ -25,7 +25,7 @@ sti();
 let shell = 'SH3LL ';
 let hi = [
     'Hello from Nemesis =)!',
-    0xd,
+    0xA,
 ];
 
 nemesis.printf(hi);

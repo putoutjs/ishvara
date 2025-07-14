@@ -15,7 +15,7 @@ import {
 import {scroll} from './scroll.ts';
 import {getColor} from '../color.ts';
 
-_enter.equ = 0xd;
+_enter.equ = 0xa;
 _backspace.equ = 0xe;
 
 export async function printf<es, bx, cx, di>() {

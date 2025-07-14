@@ -34,6 +34,7 @@
   "dependencies": {
     "@ishvara/bundler": "*",
     "@ishvara/operator-fasm": "*",
+    "@ishvara/runner-fasm": "*",
     "@putout/babel": "^4.0.1",
     "@putout/plugin-esm": "^4.5.0",
     "@putout/plugin-remove-nested-blocks": "^9.0.0",
@@ -48,7 +49,6 @@
     "try-catch": "^3.0.1",
     "try-to-catch": "^3.0.1",
     "typescript": "^5.8.3",
-    "v86": "^0.5.155",
     "wabt": "^1.0.37",
     "yargs-parser": "^22.0.0"
   },
@@ -86,12 +86,12 @@
     "#printer-wasm": "./packages/printer-wasm/printer.js",
     "#printer-fasm": "./packages/printer-fasm/printer.js",
     "#runner-fasm": "./packages/runner-fasm/runner.js",
+    "#runner-wasm": "./externals/runner-wasm/runner.js",
     "#translator-wasm": "./packages/translator-wasm/translator.js",
     "#test-wasm": "./packages/test-wasm/test.js",
     "#translator-fasm": "./packages/translator-fasm/translator.js",
     "#transformer-wasm": "./packages/transformer-wasm/transformer.js",
     "#transformer-fasm": "./packages/transformer-fasm/transformer.js",
-    "#runner-wasm": "./packages/runner-wasm/runner.js",
     "#operator-wasm": "./packages/operator-wasm/index.js",
     "#operator-fasm": "./externals/operator-fasm/index.ts",
     "#ishvara": "./externals/ishvara/ishvara.js"

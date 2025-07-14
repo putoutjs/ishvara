@@ -27,7 +27,7 @@ test('ishvara: compiler-wasm', async (t) => {
     t.end();
 });
 
-test('ishvara: compiler-wasm: data', async (t) => {
+test('ishvara: compiler-wasm: bios', async (t) => {
     const source = montag`
         data(0, 'Hello World');
     `;

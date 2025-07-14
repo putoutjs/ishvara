@@ -4,5 +4,5 @@ async function execute() {
 
 let __debug_1_hello_world_abcd_e = [
     'hello world abcd e :)!',
-    0xd,
+    0xa,
 ];
