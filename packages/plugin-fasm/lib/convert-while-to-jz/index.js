@@ -91,7 +91,7 @@ const parseWhileArgs = (__a) => {
     return [
         __a.name,
         __a.name,
-        'jz',
+        'jnz',
         'test',
     ];
 };

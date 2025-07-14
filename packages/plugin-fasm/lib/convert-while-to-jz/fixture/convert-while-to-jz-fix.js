@@ -9,7 +9,7 @@ function getStringLength(str) {
         lodsb();
         ++ucx;
         test(al, al);
-        jz(__ishvara_do_while_8);
+        jnz(__ishvara_do_while_8);
     }
     return ucx;
 }

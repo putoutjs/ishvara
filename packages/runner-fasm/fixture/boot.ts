@@ -14,10 +14,10 @@ function start() {
     
     lodsb();
     
-    do {
+    while (al) {
         io.out(DEBUG_PORT, al);
         lodsb();
-    } while (al)
+    }
     
     hlt();
 }

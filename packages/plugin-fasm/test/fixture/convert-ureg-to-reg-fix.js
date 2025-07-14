@@ -6,7 +6,7 @@ function getStringLength(str) {
     __ishvara_do_while_8: lodsb();
     inc(cx);
     test(al, al);
-    jz(__ishvara_do_while_8);
+    jnz(__ishvara_do_while_8);
     {
         mov(ax, cx);
         ret();

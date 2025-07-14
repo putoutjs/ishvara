@@ -52,15 +52,13 @@ function run({bootloader, seabios, vgabios} = {}) {
             
             emulator.v86.cpu.io.register_write(DEBUG_PORT, this, (byte) => {
                 output += String.fromCharCode(byte);
+                prevLength = output.length;
                 
                 setTimeout(() => {
-                    if (prevLength !== output.length) {
-                        prevLength = output.length;
-                        return;
+                    if (prevLength === output.length) {
+                        emulator.stop();
+                        resolve(output);
                     }
-                    
-                    emulator.stop();
-                    resolve(output);
                 }, 5);
             });
         });
