@@ -1,3 +1,9 @@
+2025.07.14, v2.10.3
+
+feature:
+- ca49e32 plugin-bundler-fasm: replace-section-code-with-functions: exclude start
+- f305e8f @ishvara/runner/fasm: externals
+
 2025.07.14, v2.10.2
 
 fix:
