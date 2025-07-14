@@ -59,7 +59,7 @@ function run({bootloader, seabios, vgabios} = {}) {
                         emulator.stop();
                         resolve(output);
                     }
-                }, 5);
+                }, 1000);
             });
         });
     });

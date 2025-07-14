@@ -1,4 +1,4 @@
-import {io, nemesis} from '@ishvara/operator-fasm';
+import {io} from '@ishvara/operator-fasm';
 
 let status_buffer: rb = 7;
 let sec_quantity = 0;
@@ -41,17 +41,13 @@ export async function readSector() {
     [drive] = dl;
     [head] = dh;
     
-    if (cl > 0x12) {
-        debug('read sector: exit: sector > 0x12');
+    if (cl > 0x12)
         return 1;
-    }
     
-    if (dh > 1) {
-        debug('read sector: head > 1');
+    if (dh > 1)
         return 2;
-    }
     
-    debug('read sector: enter');
+    debug('enter');
     
     do {
         dec([sec_quantity]);
@@ -144,9 +140,8 @@ export async function readSector() {
             await inFDC(); // получаем байт
             [bx] = al; // помещаем в буфер
             ++bx;
-            debug('loop');
             // указываем на следующий байт буфера
-        } while (--cx);
+        } while(--cx);
         // выключаем мотор
         dx = MOTOR_REGISTER;
         al = RESET_CONTROLLER + USE_DMA; // оставляем биты 3 и 4 (12)
@@ -159,11 +154,9 @@ export async function readSector() {
             [sec_number] = 1;
         }
         
-        debug('readSector: going to break');
-        
         al = [sec_quantity];
-    } while (al);
-    debug('readSector: done');
+    } while(al);
+    debug('end');
 }
 
 // ждем прерывание нгмд; управление статусом
@@ -175,7 +168,7 @@ async function waitInterrupt<es>() {
     bx = 0x3e; //смещение для байта статуса
     do {
         dl = es[bx];
-    } while (!test(dl, BUSY));
+    } while(!test(dl, BUSY));
     // проверяем бит 7
     dl &= 0b1_111_111; //сбрасываем бит 7
     es[bx] = dl; //заменяем байт статуса
@@ -200,7 +193,7 @@ async function waitWhileBusy() {
     dx = STATUS_REGISTER;
     do {
         io.in(al, dx);
-    } while (!test(al, BUSY));
+    } while(!test(al, BUSY));
 }
 
 async function waitLong() {

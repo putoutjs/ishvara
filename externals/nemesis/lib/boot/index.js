@@ -94,7 +94,7 @@ async function start() {
                 return;
             }
         }
-    } while (cx);
+    } while(cx);
     si += 0x14;
     lodsw();
     [kernel_offset] = ax;
@@ -158,7 +158,7 @@ async function start() {
         }
         
         pop(cx);
-    } while (--cx);
+    } while(--cx);
     
     if (ax)
         await printf(error_krnlfile);

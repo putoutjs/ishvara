@@ -6,7 +6,7 @@ import {bundle} from '@ishvara/bundler';
 
 const {RAW, OUTPUT} = process.env;
 
-export const compileExtension = (dir, {run, target}) => ({fail, equal}) => async (name, expected, main, args = []) => {
+export const compileExtension = (dir, {run, target, config}) => ({fail, equal}) => async (name, expected, main, args = []) => {
     const filePath = join(dir, name);
     const [error, bundled] = await bundle(filePath);
     
@@ -23,6 +23,7 @@ export const compileExtension = (dir, {run, target}) => ({fail, equal}) => async
         target,
         type: OUTPUT,
         config: {
+            ...config,
             debug: 'port',
         },
     });

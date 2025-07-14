@@ -28,7 +28,7 @@ FULL_LENGTH equ 0xFF
 SEEK equ 0xf
 BUSY equ 0x80
 _backspace equ 0xe
-_enter equ 0xd
+_enter equ 0xa
 cli
 push ax
 push es
@@ -55,54 +55,63 @@ jmp far 0xFFFF:0x0000
 
 __ishvara_fasm_if_end_1:
 cmp al, _find_file
+
 jnz __ishvara_fasm_if_end_2
 call __ishvara_findFile
 iret
 
 __ishvara_fasm_if_end_2:
 cmp al, _printf
+
 jnz __ishvara_fasm_if_end_3
 call __ishvara_printf
 iret
 
 __ishvara_fasm_if_end_3:
 cmp al, _setcursor
+
 jnz __ishvara_fasm_if_end_4
 call __ishvara_setCursor
 iret
 
 __ishvara_fasm_if_end_4:
 cmp al, _color
+
 jnz __ishvara_fasm_if_end_5
 call __ishvara_setColor
 iret
 
 __ishvara_fasm_if_end_5:
 cmp al, _exec
+
 jnz __ishvara_fasm_if_end_6
 call __ishvara_exec
 iret
 
 __ishvara_fasm_if_end_6:
 cmp al, _cls
+
 jnz __ishvara_fasm_if_end_7
 call __ishvara_clearScreen
 iret
 
 __ishvara_fasm_if_end_7:
 cmp al, _setminmaxcolline
+
 jnz __ishvara_fasm_if_end_8
 call __ishvara_minMaxColLine
 iret
 
 __ishvara_fasm_if_end_8:
 cmp al, _getcursor
+
 jnz __ishvara_fasm_if_end_9
 call __ishvara_getCursor
 iret
 
 __ishvara_fasm_if_end_9:
 cmp al, _secread
+
 jnz __ishvara_fasm_if_end_10
 call __ishvara_readSector
 iret
@@ -110,18 +119,54 @@ iret
 __ishvara_fasm_if_end_10:
 iret
 
+
 __ishvara_exec:
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_11_executing
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 mov al, 3
 int 0xff
 test ax, ax
 jz __ishvara_fasm_if_end_11
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_12_not_found
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 ret
 
 __ishvara_fasm_if_end_11:
+pusha
+
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_13_found
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 mov cx, 3
 
-__ishvara_do_while_145:
+__ishvara_do_while_148:
 push cx
+
 call __ishvara_getFileOffset
 sub al, 2
 mov cx, 0x200
@@ -149,34 +194,40 @@ jmp __ishvara_fasm_if_end_16
 
 __ishvara_fasm_if_else_16:
 mov dh, 0
+
 mov ah, al
 
 __ishvara_fasm_if_end_16:
 call __ishvara_getFileSecSize
+
 xchg ah, al
 mov bx, [exec_addr]
 mov dl, 0
 mov al, 0xc
 int 0xff
-jnc __ishvara_read_sector_ok_176
+jnc __ishvara_read_sector_ok_179
 mov al, 1
-jmp __ishvara_read_sector_end_176
+jmp __ishvara_read_sector_end_179
 
-__ishvara_read_sector_ok_176:
+__ishvara_read_sector_ok_179:
 xor ax, ax
 
-__ishvara_read_sector_end_176:
+
+__ishvara_read_sector_end_179:
 clc
+
 test al, al
 jnz __ishvara_fasm_if_end_17
-jmp __ishvara_ishvara_do_while_break_145
+jmp __ishvara_ishvara_do_while_break_148
 
 __ishvara_fasm_if_end_17:
 pop cx
-loop __ishvara_do_while_145
 
-__ishvara_ishvara_do_while_break_145:
+loop __ishvara_do_while_148
+
+__ishvara_ishvara_do_while_break_148:
 test al, al
+
 jz __ishvara_fasm_if_end_12
 mov al, 2
 mov bx, NOT_FOUND
@@ -186,8 +237,10 @@ ret
 
 __ishvara_fasm_if_end_12:
 call [exec_addr]
+
 xor ax, ax
 ret
+
 
 __ishvara_findFile:
 mov cx, 3
@@ -195,8 +248,20 @@ mov di, bx
 push di
 push bx
 
-__ishvara_do_while_206:
+__ishvara_do_while_209:
 push cx
+
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_8_find_file_read_sector
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 mov ah, 1
 mov bx, 0x7c00
 mov cx, 2
@@ -204,25 +269,51 @@ mov dl, 0
 mov dh, 1
 mov al, 0xc
 int 0xff
-jnc __ishvara_read_sector_ok_209
+jnc __ishvara_read_sector_ok_212
 mov al, 1
-jmp __ishvara_read_sector_end_209
+jmp __ishvara_read_sector_end_212
 
-__ishvara_read_sector_ok_209:
+__ishvara_read_sector_ok_212:
 xor ax, ax
 
-__ishvara_read_sector_end_209:
+
+__ishvara_read_sector_end_212:
 clc
+
 test al, al
 jnz __ishvara_fasm_if_end_18
-jmp __ishvara_ishvara_do_while_break_206
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_9_find_file_read_sector_empty_read_result
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
+jmp __ishvara_ishvara_do_while_break_209
 
 __ishvara_fasm_if_end_18:
-pop cx
-loop __ishvara_do_while_206
+pusha
 
-__ishvara_ishvara_do_while_break_206:
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_10_find_file_read_sector_not_empty_read_result
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
+pop cx
+loop __ishvara_do_while_209
+
+__ishvara_ishvara_do_while_break_209:
 test al, al
+
 jz __ishvara_fasm_if_end_13
 pop di
 pop cx
@@ -232,13 +323,16 @@ ret
 __ishvara_fasm_if_end_13:
 mov si, 0x7c00
 
+
 __ishvara_find_file_in_fat:
 pop di
+
 push di
 push si
 
 __ishvara__strcmp:
 lodsb
+
 cmp [di], al
 jnz __ishvara__strcmp_end
 inc di
@@ -246,12 +340,14 @@ jmp __ishvara__strcmp
 
 __ishvara__strcmp_end:
 pop si
+
 cmp al, 0x20
 jnz __ishvara_not_equal
 mov al, 0
 
 __ishvara_not_equal:
 or al, al
+
 jz __ishvara_find_all_good
 add si, 0x20
 lodsb
@@ -262,6 +358,7 @@ jmp __ishvara_find_file_in_fat
 
 __ishvara_find_all_good:
 add si, 0x1a
+
 lodsw
 call __ishvara_setFileOffset
 lodsw
@@ -275,6 +372,7 @@ inc al
 
 __ishvara__dl0:
 call __ishvara_setFileSecSize
+
 pop di
 pop cx
 mov al, 0
@@ -282,50 +380,61 @@ ret
 
 __ishvara_file_not_found:
 pop di
+
 pop cx
 mov al, 1
 ret
+
 
 __ishvara_setFileOffset:
 mov [file_offset], ax
 ret
 
+
 __ishvara_getFileOffset:
 mov ax, [file_offset]
 ret
+
 
 __ishvara_setFileSecSize:
 mov [file_sec_size], al
 ret
 
+
 __ishvara_getFileSecSize:
 mov al, [file_sec_size]
 ret
+
 
 __ishvara_waitShort:
 mov cx, 0x6d6
 loop $
 ret
 
+
 __ishvara_waitLong:
 mov cx, 0xdac
 loop $
 ret
 
+
 __ishvara_waitWhileBusy:
 mov dx, STATUS_REGISTER
 
-__ishvara_do_while_306:
+__ishvara_do_while_312:
 in al, dx
+
 test al, BUSY
-jz __ishvara_do_while_306
+jz __ishvara_do_while_312
 ret
+
 
 __ishvara_inFDC:
 call __ishvara_waitWhileBusy
 mov dx, DATA_REGISTER
 in al, dx
 ret
+
 
 __ishvara_outFDC:
 call __ishvara_waitWhileBusy
@@ -334,20 +443,23 @@ mov al, ah
 out dx, al
 ret
 
+
 __ishvara_waitInterrupt:
 push es
 mov ax, 0x40
 mov es, ax
 mov bx, 0x3e
 
-__ishvara_do_while_333:
+__ishvara_do_while_339:
 mov dl, [es:bx]
+
 test dl, BUSY
-jz __ishvara_do_while_333
+jz __ishvara_do_while_339
 and dl, 0x7f
 mov [es:bx], dl
 pop es
 ret
+
 
 __ishvara_readSector:
 mov [sec_quantity], ah
@@ -358,18 +470,55 @@ mov [drive], dl
 mov [head], dh
 cmp cl, 0x12
 jle __ishvara_fasm_if_end_14
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_1_read_sector_exit_sector_0x12
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 mov ax, 1
 ret
 
 __ishvara_fasm_if_end_14:
 cmp dh, 1
+
 jle __ishvara_fasm_if_end_15
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_2_read_sector_head_1
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 mov ax, 2
 ret
 
 __ishvara_fasm_if_end_15:
-__ishvara_do_while_358:
+pusha
+
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_3_read_sector_enter
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
+
+__ishvara_do_while_368:
 dec [sec_quantity]
+
 push cx
 sti
 mov dx, MOTOR_REGISTER
@@ -400,6 +549,7 @@ inc dl
 
 __ishvara_no_carry:
 out 4, al
+
 mov al, ah
 out 4, al
 mov al, dl
@@ -432,12 +582,35 @@ call __ishvara_outFDC
 call __ishvara_waitInterrupt
 mov cx, 7
 mov bx, status_buffer
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_4_before_loop
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 
-__ishvara_do_while_445:
+__ishvara_do_while_455:
 call __ishvara_inFDC
+
 mov [bx], al
 inc bx
-loop __ishvara_do_while_445
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_5_loop
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
+loop __ishvara_do_while_455
 mov dx, MOTOR_REGISTER
 mov al, RESET_CONTROLLER + USE_DMA
 out dx, al
@@ -449,10 +622,34 @@ inc [track_number]
 mov [sec_number], 1
 
 __ishvara_fasm_if_end_19:
+pusha
+
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_6_read_sector_going_to_break
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 mov al, [sec_quantity]
 test al, al
-jnz __ishvara_do_while_358
+jnz __ishvara_do_while_368
+pusha
+mov cx, 7
+mov al, 6
+int 0xff
+mov al, 2
+mov bx, __debug_7_read_sector_done
+int 0xff
+mov cx, 2
+mov al, 6
+int 0xff
+popa
 ret
+
 
 __ishvara_clearScreen:
 push es
@@ -474,6 +671,7 @@ pop di
 pop ax
 pop es
 ret
+
 
 __ishvara_setCursor:
 push es
@@ -515,12 +713,14 @@ pop es
 mov ax, di
 ret
 
+
 __ishvara_getCursor:
 call __ishvara_getColumn
 mov ah, al
 call __ishvara_getLine
 xchg ah, al
 ret
+
 
 __ishvara_printf:
 push es
@@ -536,8 +736,9 @@ xchg cx, ax
 mov si, bx
 mov bl, al
 
-__ishvara_do_while_541:
+__ishvara_do_while_555:
 call __ishvara_getColumn
+
 xchg bl, al
 mov bh, al
 call __ishvara_getLine
@@ -558,10 +759,12 @@ call __ishvara_scroll
 call __ishvara_decLine
 
 __ishvara_fasm_if_end_21:
-jmp __ishvara_do_while_condition_541
+jmp __ishvara_do_while_condition_555
+
 
 __ishvara_fasm_if_end_20:
 cmp al, _backspace
+
 jnz __ishvara_fasm_if_end_22
 mov ah, al
 call __ishvara_getColumn
@@ -574,22 +777,26 @@ call __ishvara_decColumn
 sub di, 2
 
 __ishvara_fasm_if_end_23:
-jmp __ishvara_do_while_condition_541
+jmp __ishvara_do_while_condition_555
+
 
 __ishvara_fasm_if_end_22:
 mov ah, al
+
 call __ishvara_getColor
 xchg ah, al
 stosw
 call __ishvara_incColumn
 
-__ishvara_do_while_condition_541:
-loop __ishvara_do_while_541
+__ishvara_do_while_condition_555:
+loop __ishvara_do_while_555
+
 pop di
 pop cx
 pop bx
 pop es
 ret
+
 
 __ishvara_scroll:
 pusha
@@ -610,48 +817,59 @@ rep stosw
 popa
 ret
 
+
 __ishvara_getColor:
 mov al, [backgroundColor]
 shl al, 4
 add al, [textColor]
 ret
 
+
 __ishvara_setColor:
 mov [textColor], cl
 mov [backgroundColor], ch
 ret
 
+
 __ishvara_setTextColor:
 mov [textColor], al
 ret
+
 
 __ishvara_getTextColor:
 mov al, [textColor]
 ret
 
+
 __ishvara_getBackgroundColor:
 mov al, [backgroundColor]
 ret
+
 
 __ishvara_setBackgroundColor:
 mov [backgroundColor], al
 ret
 
+
 __ishvara_setColumn:
 mov [col], bl
 ret
+
 
 __ishvara_decColumn:
 dec [col]
 ret
 
+
 __ishvara_incColumn:
 inc [col]
 ret
 
+
 __ishvara_getColumn:
 mov al, [col]
 ret
+
 
 __ishvara_minMaxColLine:
 mov [minCol], bl
@@ -660,25 +878,31 @@ mov [minLine], bh
 mov [maxLine], ch
 ret
 
+
 __ishvara_getMinColumn:
 mov al, [minCol]
 ret
+
 
 __ishvara_setLine:
 mov [line], bh
 ret
 
+
 __ishvara_decLine:
 dec [line]
 ret
+
 
 __ishvara_incLine:
 inc [line]
 ret
 
+
 __ishvara_getLine:
 mov al, [line]
 ret
+
 
 __ishvara_getStringLength:
 push bp
@@ -687,19 +911,34 @@ mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_707:
+__ishvara_do_while_721:
 inc cx
+
 lodsb
 test al, al
-jnz __ishvara_do_while_707
+jnz __ishvara_do_while_721
 mov ax, cx
 pop bp
 ret 2
+
+__debug_13_found db 'found', 0xa, 0
+__debug_12_not_found db 'not found', 0xa, 0
+__debug_11_executing db 'executing...', 0xa, 0
+__debug_10_find_file_read_sector_not_empty_read_result db 'find file: read sector: not empty read result', 0xa, 0
+__debug_9_find_file_read_sector_empty_read_result db 'find file: read sector: empty read result', 0xa, 0
+__debug_8_find_file_read_sector db 'find file: read sector', 0xa, 0
+__debug_7_read_sector_done db 'readSector: done', 0xa, 0
+__debug_6_read_sector_going_to_break db 'readSector: going to break', 0xa, 0
+__debug_5_loop db 'loop', 0xa, 0
+__debug_4_before_loop db 'before loop', 0xa, 0
+__debug_3_read_sector_enter db 'read sector: enter', 0xa, 0
+__debug_2_read_sector_head_1 db 'read sector: head > 1', 0xa, 0
+__debug_1_read_sector_exit_sector_0x12 db 'read sector: exit: sector > 0x12', 0xa, 0
 old_esi dw 0
 old_ds dw 0
 error_reading2 db 'error reading the file o_O', 0
 buf rb 0x10
-hi db 'Hello from Nemesis =)!', 0
+hi db 'Hello from Nemesis =)!', 0xa, 0
 shell db 'SH3LL ', 0
 NOT_FOUND db 'not found :(!', 0
 exec_addr dw 0x500

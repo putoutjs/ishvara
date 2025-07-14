@@ -37,6 +37,6 @@ export const traverse = ({push}) => ({
 function findLastLocal(path) {
     do {
         path = path.getPrevSibling(path);
-    } while (!compare(path, LOCAL));
+    } while(!compare(path, LOCAL));
     return path;
 }

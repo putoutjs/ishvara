@@ -8,6 +8,7 @@ function start() {
 }
 
 section: 'data';
+section: 'code';
 
 (rb, 0x200 - ($ - start) - 2);
 (dw, 0xAA55);

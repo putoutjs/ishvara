@@ -112,7 +112,7 @@ function createLabel(path, name) {
 const getLatestLabeledStatement = (path) => {
     do {
         path = path.parentPath;
-    } while (isLabeledStatement(path.parentPath));
+    } while(isLabeledStatement(path.parentPath));
     return path;
 };
 

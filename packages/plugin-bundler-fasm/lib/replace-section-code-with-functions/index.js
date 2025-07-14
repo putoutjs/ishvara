@@ -17,7 +17,7 @@ export const fix = ({label, fns}) => {
     
     replaceWithMultiple(label, nodes);
 };
-export const traverse = ({store, pathStore, push}) => ({
+export const traverse = ({store, pathStore, push, options}) => ({
     LabeledStatement(path) {
         const {node} = path;
         const {label, body} = node;
@@ -27,12 +27,21 @@ export const traverse = ({store, pathStore, push}) => ({
         if (name === 'section' && body.expression.value === 'code')
             store('label', path);
     },
-    'FunctionDeclaration': pathStore,
+    'FunctionDeclaration': (path) => {
+        if (path.node.id.name === 'start')
+            return;
+        
+        pathStore(path);
+    },
     'const __a = (__args) => __body': pathStore,
     'Program': {
         exit(path) {
             const [label] = store();
-            const fns = pathStore();
+            const {functions = []} = options;
+            const fns = [
+                ...pathStore(),
+                ...functions,
+            ];
             
             if (!label)
                 return;

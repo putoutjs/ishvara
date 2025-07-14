@@ -5,10 +5,12 @@ import {
 } from 'putout';
 import toSnakeCase from 'just-snake-case';
 
-const {remove} = operator;
+const {remove, replaceWith} = operator;
 const {
     isStringLiteral,
     isLabeledStatement,
+    awaitExpression,
+    identifier,
 } = types;
 
 const maybeCutDash = (a) => a.endsWith('_') ? a.slice(0, -1) : a;
@@ -50,7 +52,7 @@ export const replace = ({options}) => {
                 return '';
             }
             
-            const {variables} = options;
+            const {variables, functions} = options;
             const name = `__debug_${++counter}_` + prepare(__a);
             const programPath = path.scope.getProgramParent().path;
             
@@ -59,21 +61,40 @@ export const replace = ({options}) => {
             if (variables)
                 variables.push(programPath.get('body').at(-1));
             
-            if (debug === 'port')
-                return `{
-                    pusha();
-                    ax = 0;
-                    ds = ax;
-                    si = ${name}
-                    
-                    lodsb();
-                    
-                    while (al) {
-                        io.out(${DEBUG_PORT}, al);
+            if (debug === 'port' && !programPath.__ishvara_apply_debug) {
+                programPath.__ishvara_apply_debug = true;
+                const node = template.ast(`
+                    async function debugPort(name) {
+                        pusha();
+                        ax = 0;
+                        ds = ax;
+                        si = name;
+                        
                         lodsb();
-                    }
-                    popa();
-                 }`;
+                        
+                        while(al) {
+                            io.out(${DEBUG_PORT}, al);
+                            lodsb();
+                        }
+                        popa();
+                     }
+                 `);
+                
+                programPath.node.body.push(node);
+                
+                if (functions)
+                    functions.push(programPath.get('body').at(-1));
+            }
+            
+            if (debug === 'port') {
+                const {node} = path;
+                
+                node.callee.name = 'debugPort';
+                node.arguments[0] = identifier(name);
+                replaceWith(path, awaitExpression(node));
+                
+                return path;
+            }
             
             return `debug(${name})`;
         },

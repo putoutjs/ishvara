@@ -69,5 +69,5 @@ export async function printf<es, bx, cx, di>() {
         
         stosw();
         await incColumn();
-    } while (--cx);
+    } while(--cx);
 }

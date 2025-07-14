@@ -30,7 +30,7 @@ export async function findFile() {
         debug('find file: read sector: not empty read result');
         
         pop(cx);
-    } while (--cx);
+    } while(--cx);
     
     if (al) {
         pop(di);

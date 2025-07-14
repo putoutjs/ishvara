@@ -22,6 +22,8 @@ export const transform = (source, config) => {
     } = parseConfig(config);
     
     const variables = [];
+    const functions = [];
+    
     const {code: bundled} = putout(source, {
         isTS: true,
         rules: {
@@ -29,9 +31,13 @@ export const transform = (source, config) => {
                 debug,
                 count: 0,
                 variables,
+                functions,
             }],
             'ishvara/bundler-fasm/replace-section-data-with-let': ['on', {
                 variables,
+            }],
+            'ishvara/bundler-fasm/replace-section-code-with-functions': ['on', {
+                functions,
             }],
         },
         plugins: [

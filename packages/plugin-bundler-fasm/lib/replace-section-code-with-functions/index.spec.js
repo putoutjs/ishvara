@@ -26,3 +26,8 @@ test('bundler-fasm: replace-section-code-with-functions: transform: arrow', (t) 
     t.transform('arrow');
     t.end();
 });
+
+test('bundler-fasm: replace-section-code-with-functions: no report: start', (t) => {
+    t.noReport('start');
+    t.end();
+});
