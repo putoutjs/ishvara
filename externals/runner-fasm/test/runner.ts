@@ -37,4 +37,3 @@ test('ishvara: runner-fasm: include', async ({compile}) => {
     
     await compile('include', expected);
 });
-

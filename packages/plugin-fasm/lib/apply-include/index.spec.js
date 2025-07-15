@@ -23,4 +23,3 @@ test('fasm: apply-include: transform with options: read-file', (t) => {
     });
     t.end();
 });
-

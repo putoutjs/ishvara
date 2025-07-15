@@ -66,4 +66,3 @@ export const transform = (source, config) => {
     
     return [code, places];
 };
-

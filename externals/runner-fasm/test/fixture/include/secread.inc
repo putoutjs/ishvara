@@ -125,7 +125,7 @@ no_carry:
 	call    __ishvara_debugPort
 ;читаем результируюющие байты
 	mov	  cx,7;берем 7 байтов статуса
-	mov	  bx,stutus_buffer
+	mov	  bx,status_buffer
 next:
 	call	  in_fdc;получаем байт
 	mov	  [bx],al;помещаем в буфер
@@ -194,7 +194,7 @@ once_again:
 	ret
 ;---------------------------------------------------------
 ;Данные!!!!!!! СУКА!!!!!!!!!
-stutus_buffer rb	7
+status_buffer rb	7
 ;buffer:
 sec_quantity  db	0
 secbuffer     dw	0
