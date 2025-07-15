@@ -26,7 +26,9 @@
     "fix:lint": "madrun fix:lint",
     "coverage": "madrun coverage",
     "report": "madrun report",
-    "build": "madrun build"
+    "build": "madrun build",
+    "build:debug": "madrun build:debug",
+    "build:all": "madrun build:all"
   },
   "dependencies": {},
   "keywords": [

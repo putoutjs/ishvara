@@ -1,4 +1,4 @@
-import {bios} from '#operator-fasm';
+import {bios} from '@ishvara/operator-fasm';
 import {printf} from './printf';
 import {getCursor, setCursor} from './cursor.ts';
 import {clearScreen} from './clear-screen.ts';

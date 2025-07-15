@@ -23,11 +23,11 @@ export async function findFile() {
         });
         
         if (!al) {
-            debug('find file: read sector: empty read result');
+            debug('find file: read sector: ok');
             break;
         }
         
-        debug('find file: read sector: not empty read result');
+        debug('find file: read sector: not ok');
         
         pop(cx);
     } while (--cx);
@@ -36,6 +36,7 @@ export async function findFile() {
         pop(di);
         pop(cx);
         al = 0;
+        debug('find file: not found');
         
         return;
     }
@@ -72,10 +73,11 @@ export async function findFile() {
     bx = 0x200;
     cwd();
     div(bx);
-    or(dl, dl);
-    jz(_dl0);
-    ++al;
-    _dl0: await setFileSecSize();
+    
+    if (!dl)
+        ++al;
+    
+    await setFileSecSize();
     pop(di);
     pop(cx);
     al = 0;

@@ -131,7 +131,9 @@ export async function readSector() {
         ah = FULL_LENGTH;
         await outFDC();
         
+        debug('before interrupt');
         await waitInterrupt();
+        debug('after interrupt');
         // читаем результирующие байты
         cx = 7; // берем 7 байтов статуса
         bx = status_buffer;
