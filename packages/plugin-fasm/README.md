@@ -4,6 +4,7 @@ Transforms:
 
 - ✅[`add-label-refix`](https://putout.cloudcmd.io/#/gist/2123b2e3a71354a60f65e11e5f809c24/19c063b0fd95f2198f76daf43c466c3ad846e37a);
 - ✅[`apply-cmp`](https://putout.cloudcmd.io/#/gist/d1520a4277ef2149bfc98d777108d400/99853b56f55c65c8e965d06740127d78288f5aa7);
+- ✅[`apply-include`](https://putout.cloudcmd.io/#/gist/ad5ac3ef4892c5d8365163fb6adc8547/e186cc7911b5b407bf824ea850074950c15a9e19);
 - ✅[`apply-registers`](https://putout.cloudcmd.io/#/gist/7219eaf624623d9a80d3e8f90bb3a498/8f2606c8f5ef483ed9ec5cecbaaa041e6e327455);
 - ✅[`move-vars-to-bottom`](https://putout.cloudcmd.io/#/gist/3e3b83e6e23650d819e56b88f961051c/89ef3eafd926e14736ddc244d044de47709c8b69);
 - ✅[`move-equ-to-bottom`](https://putout.cloudcmd.io/#/gist/de37a39902edaa97b981d7484dd67052/70c423b9d177774482bd4dacbafd8723defb2f3a);

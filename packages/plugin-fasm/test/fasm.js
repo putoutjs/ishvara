@@ -201,3 +201,8 @@ test('plugin-fasm: transform: switch-cmp-operands', (t) => {
     t.transform('switch-cmp-operands');
     t.end();
 });
+
+test('plugin-fasm: transform: apply-include', (t) => {
+    t.transform('apply-include');
+    t.end();
+});

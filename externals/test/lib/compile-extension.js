@@ -4,6 +4,7 @@ import {codeFrameColumns} from '@putout/babel';
 import * as ishvara from 'ishvara';
 import {bundle} from '@ishvara/bundler';
 
+const isString = (a) => typeof a === 'string';
 const {RAW, OUTPUT} = process.env;
 
 export const compileExtension = (dir, {run, target, config}) => ({fail, equal}) => async (name, expected, main, args = []) => {
@@ -29,7 +30,7 @@ export const compileExtension = (dir, {run, target, config}) => ({fail, equal}) 
     });
     
     if (OUTPUT && OUTPUT !== 'bundle') {
-        if (RAW)
+        if (RAW || !isString(binary))
             console.log(binary);
         else
             console.log(codeFrameColumns(binary, {}, {
@@ -66,3 +67,4 @@ export const compileExtension = (dir, {run, target, config}) => ({fail, equal}) 
     
     return equal(result, expected);
 };
+

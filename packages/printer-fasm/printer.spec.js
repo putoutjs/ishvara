@@ -170,3 +170,19 @@ test('ishvara: printer-fasm: in/out', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-fasm: include', (t) => {
+    const source = montag`
+        include\`
+            int 0xff
+        \`;
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        int 0xff\n\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});

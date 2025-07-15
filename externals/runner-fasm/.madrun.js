@@ -2,7 +2,7 @@ import {run} from 'madrun';
 
 export default {
     'prepublishOnly': () => run(['lint', 'test']),
-    'test': () => `tape 'test/*.js' 'lib/**/*.spec.js'`,
+    'test': () => `tape 'test/*.*' 'lib/**/*.spec.*'`,
     'watch:test': async () => `nodemon -w lib -x "${await run('test')}"`,
     'lint': () => 'putout .',
     'fresh:lint': async () => await run('lint', '--fresh'),

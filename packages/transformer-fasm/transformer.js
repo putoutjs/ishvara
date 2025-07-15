@@ -1,3 +1,4 @@
+import {readFileSync as _readFileSync} from 'node:fs';
 import putout from 'putout';
 import * as removeNestedBlocks from '@putout/plugin-remove-nested-blocks';
 import * as fasm from '#plugin-fasm';
@@ -19,6 +20,7 @@ export const transform = (source, config) => {
         debug,
         plugins,
         rules,
+        readFileSync = _readFileSync,
     } = parseConfig(config);
     
     const variables = [];
@@ -50,6 +52,9 @@ export const transform = (source, config) => {
         isTS: true,
         rules: {
             ...rules,
+            'ishvara/fasm/apply-include': ['on', {
+                readFileSync,
+            }],
         },
         plugins: [
             ...plugins,
@@ -61,3 +66,4 @@ export const transform = (source, config) => {
     
     return [code, places];
 };
+

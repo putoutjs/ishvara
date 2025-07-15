@@ -1,4 +1,5 @@
 import {createTest} from '@ishvara/test';
+import montag from 'montag';
 import {run} from '../lib/runner.js';
 
 const {test} = createTest(import.meta.url, {
@@ -25,3 +26,15 @@ test('ishvara: runner-fasm: debug', async ({compile}) => {
     const expected = 'hello world\n';
     await compile('debug', expected);
 });
+
+test('ishvara: runner-fasm: include', async ({compile}) => {
+    const expected = montag`
+        begin
+        secread: start
+        secread: before wait
+    
+    `;
+    
+    await compile('include', expected);
+});
+
