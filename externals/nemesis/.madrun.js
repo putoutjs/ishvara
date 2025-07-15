@@ -18,9 +18,9 @@ export default {
             'cp ./build/* ~/nemesis-emulator/',
         ].join(' && ');
     },
-    'build:debug': async () => [await run('build'), {
-        DEBUG: '2',
-    }],
+    'build:debug': async () => [
+        await run('build'), {
+            DEBUG: '2',
+        }],
     'build:all': async () => await run(['build', 'build:debug']),
 };
-
