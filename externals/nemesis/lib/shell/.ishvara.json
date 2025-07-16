@@ -1,0 +1,10 @@
+{
+    "rules": {
+        "@ishvara/plugin-nemesis/convert-debug-to-printf": ["on", {
+            "color": 7
+        }]
+    },
+    "plugins": [
+        "@ishvara/plugin-nemesis"
+    ]
+}

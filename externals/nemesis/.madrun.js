@@ -14,6 +14,7 @@ export default {
         return [
             '../ishvara/bin/ishvara.js -t fasm lib/kernel.ts',
             '../ishvara/bin/ishvara.js -t fasm lib/boot/index.js',
+            '../ishvara/bin/ishvara.js -t fasm lib/shell/shell.ts',
             './scripts/build.js',
             'cp ./build/* ~/nemesis-emulator/',
         ].join(' && ');

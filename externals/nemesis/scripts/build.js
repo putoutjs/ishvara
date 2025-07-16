@@ -6,8 +6,9 @@ import {format} from '@ishvara/format-floppy';
 
 const {DEBUG} = process.env;
 const bootPath = new URL('../lib/boot/index.bin', import.meta.url).pathname;
-const kernelPath = new URL('../lib/kernel.bin', import.meta.url).pathname;
-const shellPath = new URL('../data/sh3ll.bin', import.meta.url).pathname;
+const kernelPath = new URL('../binaries/kernel.bin', import.meta.url).pathname;
+//const shellPath = new URL('../binaries/sh3ll.bin', import.meta.url).pathname;
+const shellPath = new URL('../lib/shell/shell.bin', import.meta.url).pathname;
 const imagePath = getImagePath(DEBUG);
 
 const boot = readFileSync(bootPath);
@@ -15,8 +16,8 @@ const kernel = readFileSync(kernelPath);
 const shell = readFileSync(shellPath);
 
 const files = {
-    kernel,
-    shell,
+    'kernel.bin': kernel,
+    'sh3ll.bin': shell,
 };
 
 const floppy = await format({

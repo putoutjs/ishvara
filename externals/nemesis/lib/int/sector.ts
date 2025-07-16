@@ -51,7 +51,6 @@ export async function readSector() {
     
     do {
         dec([sec_quantity]);
-        push(cx);
         sti();
         dx = MOTOR_REGISTER;
         al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;
