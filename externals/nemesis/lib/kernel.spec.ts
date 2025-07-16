@@ -1,7 +1,7 @@
 import {compile} from 'ishvara';
 import {bundle} from '@ishvara/bundler';
 import {test} from 'supertape';
-import config from './.ishvara.json' with { type: 'json' };
+import config from './.ishvara.json' with {type: 'json'};
 
 test('ishvara: nemesis: kernel: bundle', async (t) => {
     const filePath = new URL('./kernel.ts', import.meta.url).pathname;

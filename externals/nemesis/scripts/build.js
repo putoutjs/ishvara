@@ -7,6 +7,7 @@ import {format} from '@ishvara/format-floppy';
 const {DEBUG} = process.env;
 const bootPath = new URL('../lib/boot/index.bin', import.meta.url).pathname;
 const kernelPath = new URL('../binaries/kernel.bin', import.meta.url).pathname;
+
 //const shellPath = new URL('../binaries/sh3ll.bin', import.meta.url).pathname;
 const shellPath = new URL('../lib/shell/shell.bin', import.meta.url).pathname;
 const imagePath = getImagePath(DEBUG);
