@@ -1,3 +1,9 @@
+2025.07.17, v2.11.1
+
+feature:
+- 12ddc96 @ishvara/plugin-nemesis: convert-gets-to-0xff
+- cfb743f nemesis: sector: rm useless push
+
 2025.07.15, v2.11.0
 
 feature:
