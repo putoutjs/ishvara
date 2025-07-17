@@ -160,4 +160,3 @@ function maybeReplaceBreak(path, line) {
             insertAfter(path, labeledNode);
     }
 }
-

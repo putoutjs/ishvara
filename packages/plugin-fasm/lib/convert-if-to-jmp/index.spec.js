@@ -99,4 +99,3 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: split-stack-operations
     });
     t.end();
 });
-

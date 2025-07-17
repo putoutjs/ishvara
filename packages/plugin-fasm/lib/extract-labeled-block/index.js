@@ -1,6 +1,5 @@
 import {types, operator} from 'putout';
 
-const {isArray} = Array;
 const {getTemplateValues} = operator;
 
 const {

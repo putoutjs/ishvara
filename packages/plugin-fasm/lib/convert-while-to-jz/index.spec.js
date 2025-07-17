@@ -36,4 +36,3 @@ test('fasm: convert-while-to-jz: transform: break', (t) => {
     t.transform('break');
     t.end();
 });
-

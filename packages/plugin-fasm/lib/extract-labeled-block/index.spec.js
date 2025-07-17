@@ -54,4 +54,3 @@ test('fasm: extract-labeled-block: transform: convert-do-while-to-jnz', (t) => {
     });
     t.end();
 });
-

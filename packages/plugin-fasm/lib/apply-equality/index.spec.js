@@ -21,4 +21,3 @@ test('fasm: apply-equality: transform: else', (t) => {
     t.transform('else');
     t.end();
 });
-
