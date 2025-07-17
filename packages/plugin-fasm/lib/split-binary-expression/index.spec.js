@@ -26,3 +26,9 @@ test('fasm: split-binary-expression: no report: const', (t) => {
     t.noReport('const');
     t.end();
 });
+
+test('fasm: split-binary-expression: no report: type', (t) => {
+    t.noReport('type');
+    t.end();
+});
+

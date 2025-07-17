@@ -1,3 +1,5 @@
+import * as convertGetsTo0xff from './convert-gets-to-0xff/index.js';
+import * as convertSetCreenSizeTo0xff from './convert-set-creen-size-to-0xff/index.js';
 import * as convertSetColorTo0xff from './convert-set-color-to-0xff/index.js';
 import * as convertDebugToPrintf from './convert-debug-to-printf/index.js';
 import * as convertFindFileToInt0xff from './convert-find-file-to-int-0xff/index.js';
@@ -16,4 +18,6 @@ export const rules = {
     'convert-find-file-to-int-0xff': convertFindFileToInt0xff,
     'convert-debug-to-printf': convertDebugToPrintf,
     'convert-set-color-to-0xff': convertSetColorTo0xff,
+    'convert-set-creen-size-to-0xff': convertSetCreenSizeTo0xff,
+    'convert-gets-to-0xff': convertGetsTo0xff,
 };

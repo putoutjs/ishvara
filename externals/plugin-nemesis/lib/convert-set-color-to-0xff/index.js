@@ -1,7 +1,4 @@
-import {operator, types} from 'putout';
-
-const {isArrayExpression} = types;
-const {extract} = operator;
+import {parseArgs, SET_COLOR} from '../api.js';
 
 const GREEN = 2;
 const BLACK = 0;
@@ -26,25 +23,8 @@ export const replace = () => ({
         return `{
         	cl = ${color}
             ch = ${background};
-            al = 6;
+            al = ${SET_COLOR};
             int(0xff);
         }`;
     },
 });
-
-function parseArgs({properties}) {
-    const result = {};
-    
-    for (const {key, value} of properties) {
-        const extracted = extract(value);
-        
-        if (isArrayExpression(value)) {
-            result[key.name] = `[${extracted}]`;
-            continue;
-        }
-        
-        result[key.name] = extracted;
-    }
-    
-    return result;
-}

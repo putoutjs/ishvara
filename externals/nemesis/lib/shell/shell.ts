@@ -23,14 +23,29 @@ const _setminmaxcolline = 0xb;
 const _cmd_size = 80;
 
 let hi = [
-    'Hi, I am Shell. Type help for ',
+    'Hi, I am Sh3ll. Type help for ',
     'more information',
-    0xa,
+    0xd,
 ];
+let prompt = ']';
 
 function start() {
     nemesis.printf(hi);
+    nemesis.setScreenSize({
+        columns: [1, 79],
+        lines: [0, 24],
+    });
+    nemesis.printf(prompt);
+    nemesis.gets({
+        size: _cmd_size,
+        buffer: _cmd_buff,
+    });
+    
+    nemesis.printf(_cmd_buff);
+    
     jmp($);
 }
 
 section: 'data';
+
+let _cmd_buff: rb = _cmd_size + 1;

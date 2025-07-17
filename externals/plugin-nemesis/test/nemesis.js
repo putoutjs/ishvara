@@ -46,3 +46,13 @@ test('plugin-nemesis: transform: convert-set-color-to-0xff', (t) => {
     t.transform('convert-set-color-to-0xff');
     t.end();
 });
+
+test('plugin-nemesis: transform: convert-set-creen-size-to-0xff', (t) => {
+    t.transform('convert-set-creen-size-to-0xff');
+    t.end();
+});
+
+test('plugin-nemesis: transform: convert-gets-to-0xff', (t) => {
+    t.transform('convert-gets-to-0xff');
+    t.end();
+});

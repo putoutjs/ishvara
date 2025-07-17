@@ -1,8 +1,4 @@
-import {operator, types} from 'putout';
-import {SET_CURSOR} from '../api.js';
-
-const {isArrayExpression} = types;
-const {extract} = operator;
+import {parseArgs, SET_CURSOR} from '../api.js';
 
 export const report = () => `Use '0xff' instead of 'nemesis.setCursor'`;
 
@@ -18,20 +14,3 @@ export const replace = () => ({
         }`;
     },
 });
-
-function parseArgs({properties}) {
-    const result = {};
-    
-    for (const {key, value} of properties) {
-        const extracted = extract(value);
-        
-        if (isArrayExpression(value)) {
-            result[key.name] = `[${extracted}]`;
-            continue;
-        }
-        
-        result[key.name] = extracted;
-    }
-    
-    return result;
-}

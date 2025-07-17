@@ -1,12 +1,21 @@
 import {operator, types} from 'putout';
 
-const {isIdentifier} = types;
+const {
+    isIdentifier,
+    isMemberExpression,
+} = types;
+
 const {compare} = operator;
 
 export const report = () => `Split 'binary expression'`;
 
 export const match = () => ({
-    '__a = __b + __c': ({__c}) => !(isIdentifier(__c) && /[A-Z]/.test(__c.name)),
+    '__a = __b + __c': ({__c, __a}) => {
+        if (isIdentifier(__c) && /[A-Z]/.test(__c.name))
+            return false;
+        
+        return !isMemberExpression(__a);
+    },
 });
 
 export const replace = () => ({

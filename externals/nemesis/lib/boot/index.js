@@ -11,7 +11,7 @@ org(0x7c00);
 use16();
 
 section: 'const';
-let loader_name = 'Nemesis Loader o_O';
+let loader_name = 'ANANDA [512]';
 let error_reading = 'error: read';
 let kernel_found = 'kernel found';
 let error_finding = 'error: kernel not found';
