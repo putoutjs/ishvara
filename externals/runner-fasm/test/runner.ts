@@ -37,3 +37,8 @@ test('ishvara: runner-fasm: include', async ({compile}) => {
     
     await compile('include', expected);
 });
+
+test.only('ishvara: runner-fasm: x64', async ({compile}) => {
+    const expected = 'Hello 64-bit world!\n';
+    await compile('strcmp', expected);
+});

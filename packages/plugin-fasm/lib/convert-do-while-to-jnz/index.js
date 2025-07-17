@@ -120,7 +120,7 @@ const parseWhileArgs = (__a) => {
 
 function maybeReplaceBreak(path, line) {
     let wasBreak = false;
-    const breakLabel = `ishvara_do_while_break_${line}`;
+    const breakLabel = `__ishvara_do_while_break_${line}`;
     
     path.traverse({
         BreakStatement(path) {

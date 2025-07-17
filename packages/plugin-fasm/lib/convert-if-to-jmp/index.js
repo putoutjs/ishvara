@@ -22,6 +22,7 @@ const createName = (suffix, type) => {
 export const report = () => `Use 'jmp' instead of 'if'`;
 export const match = () => ({
     'if (__a) __b': ({__a}) => isBinaryExpression(__a),
+    'if (__a) __b; else __c': ({__a}) => isBinaryExpression(__a),
 });
 
 export const replace = ({options}) => {

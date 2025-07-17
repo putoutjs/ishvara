@@ -5,7 +5,12 @@ import {
     print,
 } from 'putout';
 
-const {compare, extract} = operator;
+const {
+    compare,
+    extract,
+    replaceWith,
+    insertAfter,
+} = operator;
 
 const {
     identifier,
@@ -17,8 +22,8 @@ const {
     blockStatement,
 } = types;
 
-const createStartLabel = (line) => `__ishvara_do_while_${line}`;
-const createConditionLabel = (line) => `__ishvara_do_while_condition_${line}`;
+const createStartLabel = (line) => `__ishvara_while_${line}`;
+const createConditionLabel = (line) => `__ishvara_while_condition_${line}`;
 
 export const report = () => `Use 'jz' instead of 'while'`;
 
@@ -42,6 +47,8 @@ export const replace = () => ({
         
         __body.body.push(conditionExpression);
         __body.body.push(expressionStatement(template.ast(`${jnz}(${startLabel})`)));
+        
+        maybeReplaceBreak(path, line);
         
         return `${startLabel}: __body`;
     },
@@ -131,3 +138,26 @@ function maybeReplaceContinueWithJmp(path, startLabel) {
     });
     return was;
 }
+
+function maybeReplaceBreak(path, line) {
+    let wasBreak = false;
+    const breakLabel = `__ishvara_while_break_${line}`;
+    
+    path.traverse({
+        BreakStatement(path) {
+            wasBreak = true;
+            path.replaceWithSourceString(`jmp(${breakLabel})`);
+        },
+    });
+    
+    if (wasBreak) {
+        const nextPath = path.getNextSibling();
+        const labeledNode = labeledStatement(identifier(breakLabel), nextPath.node || expressionStatement(template.ast('nop()')));
+        
+        if (nextPath.node)
+            replaceWith(nextPath, labeledNode);
+        else
+            insertAfter(path, labeledNode);
+    }
+}
+

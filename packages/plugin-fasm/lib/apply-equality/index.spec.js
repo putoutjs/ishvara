@@ -16,3 +16,9 @@ test('fasm: apply-equality: transform', (t) => {
     t.transform('apply-equality');
     t.end();
 });
+
+test('fasm: apply-equality: transform: else', (t) => {
+    t.transform('else');
+    t.end();
+});
+

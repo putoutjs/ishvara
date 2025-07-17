@@ -88,9 +88,15 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: else', (t) => {
     t.end();
 });
 
+test('ishvara: plugin-fasm: convert-if-to-jmp: no report: unary', (t) => {
+    t.noReport('unary');
+    t.end();
+});
+
 test('ishvara: plugin-fasm: convert-if-to-jmp: transform: split-stack-operations', (t) => {
     t.transform('split-stack-operations', {
         splitStackOperations,
     });
     t.end();
 });
+

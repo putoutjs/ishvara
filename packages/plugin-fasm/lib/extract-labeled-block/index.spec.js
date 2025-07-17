@@ -1,6 +1,8 @@
 import {createTest} from '@putout/test';
+import * as removeNestedBlocks from '@putout/plugin-remove-nested-blocks';
 import * as splitAssignAwaitWithAssignEax from '../split-assign-await-with-assign-eax/index.js';
 import * as convertDoWhileToJnz from '../convert-do-while-to-jnz/index.js';
+import * as convertWhileToJz from '../convert-while-to-jz/index.js';
 import * as convertFunctionToLabel from '../convert-function-to-label/index.js';
 import * as convertIfToJmp from '../convert-if-to-jmp/index.js';
 import * as convertReturnToEax from '../convert-return-to-eax/index.js';
@@ -27,6 +29,14 @@ test('fasm: extract-labeled-block: transform: nested-labels', (t) => {
     t.end();
 });
 
+test('fasm: extract-labeled-block: transform: while', (t) => {
+    t.transform('while', {
+        convertWhileToJz,
+        removeNestedBlocks,
+    });
+    t.end();
+});
+
 test('fasm: extract-labeled-block: transform: nested-not-block', (t) => {
     t.transform('nested-not-block', [
         ['convert-if-to-jmp', convertIfToJmp],
@@ -44,3 +54,4 @@ test('fasm: extract-labeled-block: transform: convert-do-while-to-jnz', (t) => {
     });
     t.end();
 });
+

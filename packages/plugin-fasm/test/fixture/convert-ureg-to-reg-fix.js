@@ -3,10 +3,10 @@ function getStringLength(str) {
     mov(cx, 0);
     mov(al, 1);
     
-    __ishvara_do_while_8: lodsb();
+    __ishvara_while_8: lodsb();
     inc(cx);
     test(al, al);
-    jnz(__ishvara_do_while_8);
+    jnz(__ishvara_while_8);
     {
         mov(ax, cx);
         ret();
