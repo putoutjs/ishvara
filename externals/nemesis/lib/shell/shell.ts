@@ -27,6 +27,7 @@ let hi = [
     'more information',
     0xd,
 ];
+
 let prompt = ']';
 
 function start() {
@@ -47,5 +48,4 @@ function start() {
 }
 
 section: 'data';
-
 let _cmd_buff: rb = _cmd_size + 1;

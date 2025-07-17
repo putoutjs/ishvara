@@ -31,4 +31,3 @@ test('fasm: split-binary-expression: no report: type', (t) => {
     t.noReport('type');
     t.end();
 });
-
