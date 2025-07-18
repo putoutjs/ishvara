@@ -1,6 +1,6 @@
 import {operator} from 'putout';
 
-const {compare} = operator;
+const {compare, remove} = operator;
 const RET = 'ret()';
 
 export const report = () => `Avoid useless 'ret'`;
@@ -9,6 +9,10 @@ export const match = () => ({
     'ret(__a)': ({__a}, path) => {
         const next = path.parentPath.getNextSibling();
         return compare(next, `ret(${__a.value})`);
+    },
+    '__a: ret()': (vars, path) => {
+        const next = path.getNextSibling();
+        return compare(next, 'ret(__a)');
     },
     [RET]: (vars, path) => {
         const next = path.parentPath.getNextSibling();
@@ -39,4 +43,12 @@ export const match = () => ({
 export const replace = () => ({
     [RET]: '',
     'ret(__a)': '',
+    '__a: ret()': (vars, path) => {
+        const next = path.getNextSibling();
+        
+        path.node.body = next.node;
+        remove(next);
+        
+        return path;
+    },
 });

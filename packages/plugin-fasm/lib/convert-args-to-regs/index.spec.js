@@ -8,6 +8,7 @@ import * as convertReturnToEax from '../convert-return-to-eax/index.js';
 import * as convertUregToReg from '../convert-ureg-to-reg/index.js';
 import * as convertAssignToMov from '../convert-assign-to-mov/index.js';
 import * as convertDeclarationToMov from '../convert-declaration-to-mov/index.js';
+import * as convertWhileToJz from '../convert-while-to-jz/index.js';
 import * as splitBinaryExpression from '../split-binary-expression/index.js';
 
 const test = createTest(import.meta.url, {
@@ -67,6 +68,26 @@ test('fasm: convert-args-to-regs: transform: assign', (t) => {
 test('fasm: convert-args-to-regs: transform: couple', (t) => {
     t.transform('couple', {
         splitBinaryExpression,
+    });
+    t.end();
+});
+
+test('fasm: convert-args-to-regs: transform: while', (t) => {
+    t.transform('while', {
+        convertAssignToMov,
+        convertDeclarationToMov,
+        convertUregToReg,
+        convertWhileToJz,
+    });
+    t.end();
+});
+
+test('fasm: convert-args-to-regs: transform: label', (t) => {
+    t.transform('label', {
+        convertAssignToMov,
+        convertDeclarationToMov,
+        convertUregToReg,
+        convertWhileToJz,
     });
     t.end();
 });

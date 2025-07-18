@@ -11,7 +11,7 @@ export const compileExtension = (dir, {run, target, config}) => ({fail, equal}) 
     const filePath = join(dir, name);
     const [error, bundled] = await bundle(filePath);
     
-    if (OUTPUT === 'bundle')
+    if (/bundled?/.test(OUTPUT))
         console.log(codeFrameColumns(bundled, {}, {
             highlightCode: true,
             forceColor: true,

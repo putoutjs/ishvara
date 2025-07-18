@@ -5,34 +5,36 @@ format.ELF64.executable;
 segment.readable.executable;
 entry.$;
 
+let result: i64 = 0;
+
 let a = 'hello';
 let b = 'world';
+let divider = '-';
 
 let EQUAl = 'equal';
 let NOT_EQUAl = 'not equal';
-
-let result: i64 = 0;
 
 al = await strcmp(a, a);
 
 if (!al)
     linux.write({
-        message: a,
+        message: EQUAl,
+        length: 5,
     })
+
+linux.write({
+    message: divider,
+    length: 1,
+})
 
 al = await strcmp(a, b);
 
 if (al)
     linux.write({
         message: NOT_EQUAl,
-        length: 5,
+        length: 9,
     })
-
-else
-    linux.write({
-        message: EQUAl,
-        length: 1,
-    })
+    
 
 linux.exit(0);
 

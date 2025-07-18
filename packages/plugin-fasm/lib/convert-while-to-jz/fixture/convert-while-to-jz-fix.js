@@ -6,10 +6,11 @@ function getStringLength(str) {
     const al = 1;
     
     __ishvara_while_8: {
+        test(al, al);
+        jz(__ishvara_while_end_8);
         lodsb();
         ++ucx;
-        test(al, al);
-        jnz(__ishvara_while_8);
+        jmp(__ishvara_while_8);
     }
-    return ucx;
+    __ishvara_while_end_8: return ucx;
 }

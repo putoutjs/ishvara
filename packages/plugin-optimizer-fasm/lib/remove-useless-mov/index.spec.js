@@ -16,3 +16,8 @@ test('optimizer-fasm: remove-useless-mov: transform', (t) => {
     t.transform('remove-useless-mov');
     t.end();
 });
+
+test('optimizer-fasm: remove-useless-mov: transform: label', (t) => {
+    t.transform('label');
+    t.end();
+});

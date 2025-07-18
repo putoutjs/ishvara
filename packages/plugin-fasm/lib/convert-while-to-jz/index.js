@@ -33,6 +33,7 @@ export const replace = () => ({
         const startLabel = createStartLabel(line);
         const conditionLabel = createConditionLabel(line);
         const [one, two, jnz, test] = parseWhileArgs(__a);
+        const endLabel = createEndLabel(path, line);
         
         let conditionExpression = createExpression(__a, {
             one,
@@ -45,10 +46,12 @@ export const replace = () => ({
         if (wasContinue)
             conditionExpression = labeledStatement(identifier(conditionLabel), conditionExpression);
         
-        __body.body.push(conditionExpression);
-        __body.body.push(expressionStatement(template.ast(`${jnz}(${startLabel})`)));
+        __body.body.unshift(expressionStatement(template.ast(`${jnz}(${endLabel})`)));
+        __body.body.unshift(conditionExpression);
         
-        maybeReplaceBreak(path, line);
+        __body.body.push(expressionStatement(template.ast(`jmp(${startLabel})`)));
+        
+        maybeReplaceBreak(path, endLabel);
         
         return `${startLabel}: __body`;
     },
@@ -67,7 +70,7 @@ const parseWhileArgs = (__a) => {
         return [
             'al',
             'al',
-            'jne',
+            'je',
             'cmp',
         ];
     
@@ -75,7 +78,7 @@ const parseWhileArgs = (__a) => {
         return [
             'al',
             'al',
-            'jnz',
+            'jz',
             'test',
         ];
     
@@ -87,18 +90,10 @@ const parseWhileArgs = (__a) => {
             'test',
         ];
     
-    if (isCallExpression(__a))
-        return [
-            __a.name,
-            __a.name,
-            'jnz',
-            'test',
-        ];
-    
     return [
         __a.name,
         __a.name,
-        'jnz',
+        'jz',
         'test',
     ];
 };
@@ -139,24 +134,23 @@ function maybeReplaceContinueWithJmp(path, startLabel) {
     return was;
 }
 
-function maybeReplaceBreak(path, line) {
-    let wasBreak = false;
-    const breakLabel = `__ishvara_while_break_${line}`;
-    
+function maybeReplaceBreak(path, endLabel) {
     path.traverse({
         BreakStatement(path) {
-            wasBreak = true;
-            path.replaceWithSourceString(`jmp(${breakLabel})`);
+            path.replaceWithSourceString(`jmp(${endLabel})`);
         },
     });
+}
+
+function createEndLabel(path, line) {
+    const endLabel = `__ishvara_while_end_${line}`;
+    const nextPath = path.getNextSibling();
+    const labeledNode = labeledStatement(identifier(endLabel), nextPath.node || expressionStatement(template.ast('nop()')));
     
-    if (wasBreak) {
-        const nextPath = path.getNextSibling();
-        const labeledNode = labeledStatement(identifier(breakLabel), nextPath.node || expressionStatement(template.ast('nop()')));
-        
-        if (nextPath.node)
-            replaceWith(nextPath, labeledNode);
-        else
-            insertAfter(path, labeledNode);
-    }
+    if (nextPath.node)
+        replaceWith(nextPath, labeledNode);
+    else
+        insertAfter(path, labeledNode);
+    
+    return endLabel;
 }

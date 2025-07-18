@@ -7,12 +7,16 @@ import {
 const {
     replaceWithMultiple,
     rename,
+    traverse,
     compare,
 } = operator;
 
 const {
     expressionStatement,
     isReturnStatement,
+    isLabeledStatement,
+    blockStatement,
+    isBlockStatement,
 } = types;
 
 const isEax = (name) => /[re]?a[xl]/.test(name);
@@ -47,14 +51,7 @@ export const replace = () => ({
             createExpression(`mov(${ebp}, ${esp})`),
         ]);
         
-        const last = __body.body.at(-1);
-        const popEBP = createExpression(`pop(${ebp})`);
-        
-        if (!isReturnStatement(last))
-            if (compare(last, 'ret()'))
-                __body.body.splice(-1, 0, popEBP);
-            else
-                __body.body.push(popEBP);
+        insertReturnAtEnd(ebp, __body);
         
         const params = path.get('params');
         
@@ -71,7 +68,11 @@ export const replace = () => ({
         path.__ishvara_args_size = argsSize;
         path.node.params = [];
         
-        replaceReturn(path, argsSize);
+        const replaceReturn = createReplaceReturn(path, argsSize);
+        
+        traverse(path, {
+            ReturnStatement: replaceReturn,
+        });
         
         delete path.node.returnType;
         
@@ -132,23 +133,57 @@ function getType({typeAnnotation}) {
     return typeAnnotation.typeAnnotation.typeName.name;
 }
 
-function replaceReturn(fnPath, argsSize) {
-    fnPath.traverse({
-        ReturnStatement(path) {
-            const statements = [
-                expressionStatement(template.ast(`pop(${getRegister(fnPath, 'ebp')})`)),
-                expressionStatement(template.ast(`ret(${argsSize})`)),
-            ];
-            
-            const argPath = path.get('argument');
-            const arg = argPath.node;
-            
-            if (arg && !isEax(arg.name)) {
-                const expression = template.ast(`${getRegister(fnPath, 'eax')} = ${argPath}`);
-                statements.unshift(expressionStatement(expression));
-            }
-            
-            replaceWithMultiple(path, statements);
-        },
-    });
+const createReplaceReturn = (fnPath, argsSize) => (path) => {
+    const statements = [
+        expressionStatement(template.ast(`pop(${getRegister(fnPath, 'ebp')})`)),
+        expressionStatement(template.ast(`ret(${argsSize})`)),
+    ];
+    
+    const argPath = path.get('argument');
+    const arg = argPath.node;
+    
+    if (arg && !isEax(arg.name)) {
+        const expression = template.ast(`${getRegister(fnPath, 'eax')} = ${argPath}`);
+        statements.unshift(expressionStatement(expression));
+    }
+    
+    if (path.parentPath.isLabeledStatement()) {
+        path.parentPath.node.body = blockStatement(statements);
+        return;
+    }
+    
+    replaceWithMultiple(path, statements);
+};
+
+function insertReturnAtEnd(ebp, __body) {
+    const last = __body.body.at(-1);
+    const popEBP = createExpression(`pop(${ebp})`);
+    
+    if (isReturnStatement(last))
+        return;
+    
+    if (!isLabeledStatement(last)) {
+        if (compare(last, 'ret()'))
+            __body.body.splice(-1, 0, popEBP);
+        else
+            __body.body.push(popEBP);
+        
+        return;
+    }
+    
+    if (isBlockStatement(last.body)) {
+        if (compare(last.body.body.at(-1), 'ret()'))
+            last.body.body.splice(-1, 0, popEBP);
+        else
+            last.body.body.push(popEBP);
+        
+        return;
+    }
+    
+    if (compare(last.body, 'ret()'))
+        last.body = blockStatement([
+            popEBP,
+            last.body,
+        ]);
 }
+

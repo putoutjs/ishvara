@@ -11,7 +11,7 @@ const isUSI = (name) => {
     return /[re]?si/.test(name);
 };
 
-export const report = () => `Use 'lodsb' instead of assigining 'al'`;
+export const report = () => `Use 'lodsb' instead of assigning 'al'`;
 
 export const match = () => ({
     'al = [__b]': check,

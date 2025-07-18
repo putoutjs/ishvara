@@ -8,7 +8,7 @@ const {test} = createTest(import.meta.url, {
 });
 
 test('ishvara: runner-fasm: x64', async ({compile}) => {
-    const expected = 'Hello 64-bit world!\n';
+    const expected = 'Hello 64-bit world!';
     await compile('x64', expected);
 });
 
@@ -38,7 +38,7 @@ test('ishvara: runner-fasm: include', async ({compile}) => {
     await compile('include', expected);
 });
 
-test('ishvara: runner-fasm: x64', async ({compile}) => {
-    const expected = 'Hello 64-bit world!\n';
+test('ishvara: runner-fasm: strcmp', async ({compile}) => {
+    const expected = 'equal-not equal';
     await compile('strcmp', expected);
 });

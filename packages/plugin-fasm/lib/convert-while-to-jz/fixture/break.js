@@ -5,3 +5,11 @@ while ([esi]) {
     ++esi;
     ++ecx;
 }
+
+while (lodsb()) {
+    if (al !== [udi])
+        break;
+
+    ++udi;
+    ++ucx;
+}

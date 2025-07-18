@@ -2,10 +2,12 @@ let esi = str;
 let ecx = 0;
 
 __ishvara_while_4: {
-    ++ecx;
     {
         lodsb();
         test(al, al);
     }
-    jnz(__ishvara_while_4);
+    jz(__ishvara_while_end_4);
+    ++ecx;
+    jmp(__ishvara_while_4);
 }
+__ishvara_while_end_4: nop();

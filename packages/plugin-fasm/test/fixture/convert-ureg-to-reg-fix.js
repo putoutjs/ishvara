@@ -3,12 +3,11 @@ function getStringLength(str) {
     mov(cx, 0);
     mov(al, 1);
     
-    __ishvara_while_8: lodsb();
+    __ishvara_while_8: test(al, al);
+    jz(__ishvara_while_end_8);
+    lodsb();
     inc(cx);
-    test(al, al);
-    jnz(__ishvara_while_8);
-    {
-        mov(ax, cx);
-        ret();
-    }
+    jmp(__ishvara_while_8);
+    __ishvara_while_end_8: mov(ax, cx);
+    ret();
 }

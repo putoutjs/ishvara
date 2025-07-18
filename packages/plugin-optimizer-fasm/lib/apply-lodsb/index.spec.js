@@ -8,7 +8,7 @@ const test = createTest(import.meta.url, {
 });
 
 test('optimizer-fasm: apply-lodsb: report', (t) => {
-    t.report('apply-lodsb', `Use 'lodsb' instead of assigining 'al'`);
+    t.report('apply-lodsb', `Use 'lodsb' instead of assigning 'al'`);
     t.end();
 });
 
