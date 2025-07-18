@@ -1,7 +1,9 @@
 export async function clearBuffer(buffer) {
     di = buffer;
-    al = 0;
+    si = buffer;
     
-    while ([di])
+    while (lodsb()) {
+        al = 0;
         stosb();
+    }
 }

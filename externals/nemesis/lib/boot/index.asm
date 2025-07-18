@@ -218,13 +218,17 @@ mov si, [bp + 4]
 mov cx, -1
 cld
 
-__ishvara_do_while_184:
-inc cx
-
+__ishvara_while_184:
 lodsb
+
 test al, al
-jnz __ishvara_do_while_184
+jz __ishvara_while_end_184
+inc cx
+jmp __ishvara_while_184
+
+__ishvara_while_end_184:
 mov ax, cx
+
 pop bp
 ret 2
 

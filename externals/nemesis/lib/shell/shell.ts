@@ -60,7 +60,9 @@ async function start() {
     
     do {
         nemesis.printf(prompt);
+        
         await clearBuffer(buffer);
+        
         nemesis.gets({
             size: _cmd_size,
             buffer,
@@ -70,7 +72,7 @@ async function start() {
         
         await strcmp(buffer, cmd_help);
         
-        if (al) {
+        if (!al) {
             nemesis.printf(cmd_list);
             continue;
         }
