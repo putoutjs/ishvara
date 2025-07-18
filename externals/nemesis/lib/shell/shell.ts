@@ -31,14 +31,22 @@ let hi = [
 ];
 
 let cmd_help = 'help';
+
 let cmd_list = [
     0xd,
-    'Help? Why not o_O?', 0xd,
-    'help   - show this screen ;)', 0xd,
-    'dir    - show the files in dir where you now', 0xd,
-    'cls    - will clear the screen', 0xd,
-    'reboot - reboot the computer', 0xd,
-    'color  - change text and background color', 0xd, 0xd,
+    'Help? Why not o_O?',
+    0xd,
+    'help   - show this screen ;)',
+    0xd,
+    'dir    - show the files in dir where you now',
+    0xd,
+    'cls    - will clear the screen',
+    0xd,
+    'reboot - reboot the computer',
+    0xd,
+    'color  - change text and background color',
+    0xd,
+    0xd,
 ];
 
 let prompt = ']';
@@ -74,4 +82,3 @@ async function start() {
 section: 'code';
 section: 'data';
 let buffer: rb = _cmd_size + 1;
-

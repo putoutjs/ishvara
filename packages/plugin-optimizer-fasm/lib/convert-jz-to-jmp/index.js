@@ -72,6 +72,7 @@ const check = (vars, path) => {
 };
 
 const isPrevTest = (path) => compare(path, 'test(__a, __a)');
+
 const isPrevCmp = (path) => {
     if (compare(path, 'cmp(__a, __a)'))
         return true;
