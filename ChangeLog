@@ -1,3 +1,9 @@
+2025.07.18, v2.12.0
+
+feature:
+- c1e341e ishvara: plugin-fasm: convert-while-to-jz
+- 31c7d80 ishvara: plugin-fasm: extract-labeled-block
+
 2025.07.17, v2.11.1
 
 feature:
