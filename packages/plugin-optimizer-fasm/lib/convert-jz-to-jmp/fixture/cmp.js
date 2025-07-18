@@ -6,3 +6,6 @@ __ishvara_do_while_4: {
     cmp(al, al);
     jne(__ishvara_do_while_4);
 }
+
+hello: cmp(al, al);
+je(__ishvara_do_while_34);

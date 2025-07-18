@@ -20,6 +20,7 @@ const {
     isBooleanLiteral,
     isArrayExpression,
     blockStatement,
+    isBlockStatement,
 } = types;
 
 const createStartLabel = (line) => `__ishvara_while_${line}`;
@@ -28,7 +29,7 @@ const createConditionLabel = (line) => `__ishvara_while_condition_${line}`;
 export const report = () => `Use 'jz' instead of 'while'`;
 
 export const replace = () => ({
-    'while(__a) {__body}': ({__a, __body}, path) => {
+    'while(__a) __b': ({__a, __b}, path) => {
         const {line} = path.node.loc.start;
         const startLabel = createStartLabel(line);
         const conditionLabel = createConditionLabel(line);
@@ -46,14 +47,15 @@ export const replace = () => ({
         if (wasContinue)
             conditionExpression = labeledStatement(identifier(conditionLabel), conditionExpression);
         
-        __body.body.unshift(expressionStatement(template.ast(`${jnz}(${endLabel})`)));
-        __body.body.unshift(conditionExpression);
+        const body = isBlockStatement(__b) ? __b : blockStatement([expressionStatement(__b)]);
+        body.body.unshift(expressionStatement(template.ast(`${jnz}(${endLabel})`)));
+        body.body.unshift(conditionExpression);
         
-        __body.body.push(expressionStatement(template.ast(`jmp(${startLabel})`)));
+        body.body.push(expressionStatement(template.ast(`jmp(${startLabel})`)));
         
         maybeReplaceBreak(path, endLabel);
         
-        return `${startLabel}: __body`;
+        return labeledStatement(identifier(startLabel), body);
     },
 });
 

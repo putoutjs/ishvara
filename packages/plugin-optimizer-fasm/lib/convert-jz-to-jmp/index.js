@@ -29,6 +29,13 @@ export const replace = () => ({
     'je(__a)': (vars, path) => {
         const prev = path.parentPath.getPrevSibling();
         
+        if (compare(prev, '__a: cmp(__b, __b)')) {
+            const {label} = prev.node;
+            remove(prev);
+            
+            return `${label.name}: jmp(__a)`;
+        }
+        
         if (compare(prev, 'cmp(__a, __a)'))
             remove(prev);
         
@@ -65,7 +72,12 @@ const check = (vars, path) => {
 };
 
 const isPrevTest = (path) => compare(path, 'test(__a, __a)');
-const isPrevCmp = (path) => compare(path, 'cmp(__a, __a)');
+const isPrevCmp = (path) => {
+    if (compare(path, 'cmp(__a, __a)'))
+        return true;
+    
+    return compare(path, '__a: cmp(__b, __b)');
+};
 
 const isPrevXor = (path) => compare(path, 'xor(__a, __a)');
 

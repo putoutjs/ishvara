@@ -36,3 +36,8 @@ test('fasm: convert-while-to-jz: transform: break', (t) => {
     t.transform('break');
     t.end();
 });
+
+test('fasm: convert-while-to-jz: transform: no-body', (t) => {
+    t.transform('no-body');
+    t.end();
+});
