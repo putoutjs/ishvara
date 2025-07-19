@@ -31,4 +31,3 @@ test('nemesis: convert-set-color-to-0xff: transform: yellow', (t) => {
     t.transform('yellow');
     t.end();
 });
-
