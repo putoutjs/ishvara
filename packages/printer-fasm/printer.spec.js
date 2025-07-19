@@ -25,7 +25,7 @@ test('ishvara: printer-fasm: label: start', (t) => {
     const result = print(source);
     const expected = montag`
         boot:
-        jmp short start\n\n
+        jmp short start\n
     `;
     
     t.equal(result, expected);
@@ -43,7 +43,7 @@ test('ishvara: printer-fasm: label', (t) => {
         mov eax, ebx
         
         boot:
-        jmp short start\n\n
+        jmp short start\n
     `;
     
     t.equal(result, expected);
@@ -76,7 +76,7 @@ test('ishvara: printer-fasm: jmp far: inside label', (t) => {
     const expected = montag`
          __ishvara_reboot:
         jmp far 0xFFFF:0x0000
-        debug_1_reboot db 'reboot', 0xa, 0\n\n
+        debug_1_reboot db 'reboot', 0xa, 0\n
     `;
     
     t.equal(result, expected);
@@ -90,7 +90,7 @@ test('ishvara: printer-fasm: db', (t) => {
     
     const result = print(source);
     const expected = montag`
-        kernel_name db 'KERNEL', 0\n\n
+        kernel_name db 'KERNEL', 0\n
     `;
     
     t.equal(result, expected);
@@ -104,7 +104,7 @@ test('ishvara: printer-fasm: db: couple', (t) => {
     
     const result = print(source);
     const expected = montag`
-        hi db 'hello from Nemizida =)!!!', 0xa, 0\n\n
+        hi db 'hello from Nemizida =)!!!', 0xa, 0\n
     `;
     
     t.equal(result, expected);
@@ -118,7 +118,7 @@ test('ishvara: printer-fasm: AssignmentExpression', (t) => {
     
     const result = print(source);
     const expected = montag`
-        mov [es:0xff * 4], ax\n\n
+        mov [es:0xff * 4], ax\n
     `;
     
     t.equal(result, expected);
@@ -132,7 +132,7 @@ test('ishvara: printer-fasm: AssignmentExpression: byte ptr', (t) => {
     
     const result = print(source);
     const expected = montag`
-        mov dl, [es:bx]\n\n
+        mov dl, [es:bx]\n
     `;
     
     t.equal(result, expected);
@@ -148,7 +148,7 @@ test('ishvara: printer-fasm: maxElementLengthInOneLine', (t) => {
     
     const result = print(source);
     const expected = montag`
-        mov al, [backgroundColor]\n\n
+        mov al, [backgroundColor]\n
     `;
     
     t.equal(result, expected);
@@ -180,7 +180,21 @@ test('ishvara: printer-fasm: include', (t) => {
     
     const result = print(source);
     const expected = montag`
-        int 0xff\n\n
+        int 0xff\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
+test('ishvara: printer-fasm: quotes', (t) => {
+    const source = montag`
+         (hi.db['Hi, I am Sh3ll. Type \\'help\\' for '], 'more information', 0xd, 0);
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+        hi db 'Hi, I am Sh3ll. Type ''help'' for ', 'more information', 0xd, 0\n
     `;
     
     t.equal(result, expected);

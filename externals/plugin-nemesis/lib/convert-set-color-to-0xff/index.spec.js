@@ -16,3 +16,19 @@ test('nemesis: convert-set-color-to-0xff: transform', (t) => {
     t.transform('convert-set-color-to-0xff');
     t.end();
 });
+
+test('nemesis: convert-set-color-to-0xff: transform: red', (t) => {
+    t.transform('red');
+    t.end();
+});
+
+test('nemesis: convert-set-color-to-0xff: transform: white', (t) => {
+    t.transform('white');
+    t.end();
+});
+
+test('nemesis: convert-set-color-to-0xff: transform: yellow', (t) => {
+    t.transform('yellow');
+    t.end();
+});
+

@@ -7,6 +7,7 @@ import {ExpressionStatement} from './visitors/expression-statement/expression-st
 import {SequenceExpression} from './visitors/sequence-expression.js';
 import {AssignmentExpression} from './visitors/assignment-expression.js';
 import {TaggedTemplateExpression} from './visitors/tagged-template-expression.js';
+import {StringLiteral} from './visitors/string-literal.js';
 
 export const print = (ast) => {
     return putoutPrint(ast, {
@@ -22,6 +23,7 @@ export const print = (ast) => {
             LabeledStatement,
             ExpressionStatement,
             SequenceExpression,
+            StringLiteral,
             TaggedTemplateExpression,
         },
     });

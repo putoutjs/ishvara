@@ -10,8 +10,7 @@ test('ishvara: asm', async (t) => {
     
     const expected = montag`
         xor eax, eax
-        inc eax
-        \n
+        inc eax\n
     `;
     
     t.equal(result, expected);
@@ -32,7 +31,7 @@ test('ishvara: asm: config', async (t) => {
     const expected = montag`
         xor eax, eax
         inc eax
-        \n
+    
     `;
     
     t.equal(result, expected);

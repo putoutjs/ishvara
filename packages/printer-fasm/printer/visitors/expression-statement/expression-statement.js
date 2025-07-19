@@ -1,4 +1,4 @@
-import {isNext} from '@putout/printer/is';
+import {isNext, exists} from '@putout/printer/is';
 import {isJmpFar, printJmpFar} from './print-jmp-far.js';
 import {isInOut, printInOut} from './print-in-out.js';
 
@@ -28,5 +28,7 @@ export const ExpressionStatement = (path, printer) => {
     
     indent();
     traverse(expression);
-    print.newline();
+    
+    const next = path.getNextSibling();
+    maybe.print.newline(exists(next));
 };

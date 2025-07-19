@@ -20,6 +20,7 @@
   "scripts": {
     "test": "madrun test",
     "watch:test": "madrun watch:test",
+    "watch:build": "madrun watch:build",
     "lint": "madrun lint",
     "fresh:lint": "madrun fresh:lint",
     "lint:fresh": "madrun lint:fresh",

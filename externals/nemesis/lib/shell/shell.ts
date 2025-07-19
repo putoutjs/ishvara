@@ -1,8 +1,10 @@
 import {
     org,
     use16,
+    bios,
     nemesis,
 } from '@ishvara/operator-fasm';
+import {printCommandNotFound} from './print-command-not-found.ts';
 import {clearBuffer} from './clear-buffer';
 import {strcmp} from '../string/strcmp';
 
@@ -25,16 +27,16 @@ const _setminmaxcolline = 0xb;
 const _cmd_size = 80;
 
 let hi = [
-    'Hi, I am Sh3ll. Type help for ',
+    `Hi, I am Sh3ll. Type 'help' for `,
     'more information',
     0xd,
 ];
 
-let cmd_help = 'help';
+let HELP = 'help';
+let REBOOT = 'reboot';
 
 let cmd_list = [
-    0xd,
-    'Help? Why not o_O?',
+    'Nemesis HELP:',
     0xd,
     'help   - show this screen ;)',
     0xd,
@@ -46,15 +48,14 @@ let cmd_list = [
     0xd,
     'color  - change text and background color',
     0xd,
-    0xd,
 ];
 
-let prompt = ']';
+let prompt = '] ';
 
 async function start() {
     nemesis.printf(hi);
     nemesis.setScreenSize({
-        columns: [1, 79],
+        columns: [2, 79],
         lines: [0, 24],
     });
     
@@ -68,16 +69,21 @@ async function start() {
             buffer,
         });
         
-        nemesis.printf(buffer);
-        
-        await strcmp(buffer, cmd_help);
+        await strcmp(buffer, HELP);
         
         if (!al) {
             nemesis.printf(cmd_list);
             continue;
         }
         
-        jmp($);
+        await strcmp(buffer, REBOOT);
+        
+        if (!al) {
+            bios.reboot();
+            continue;
+        }
+        
+        await printCommandNotFound(buffer);
     } while (true);
 }
 
