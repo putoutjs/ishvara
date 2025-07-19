@@ -1,6 +1,4 @@
-import helpList from './help.json' with {
-    type: 'json',
-};
+import helpList from './help.json' with {type: 'json'};
 
 const {entries} = Object;
 

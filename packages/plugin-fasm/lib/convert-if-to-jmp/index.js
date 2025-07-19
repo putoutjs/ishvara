@@ -7,6 +7,7 @@ const {
     isLabeledStatement,
     isBinaryExpression,
     isArrayExpression,
+    isLogicalExpression,
 } = types;
 
 const {
@@ -21,7 +22,9 @@ const createName = (suffix, type) => {
 
 export const report = () => `Use 'jmp' instead of 'if'`;
 export const match = () => ({
-    'if (__a) __b': ({__a}) => isBinaryExpression(__a),
+    'if (__a) __b': ({__a}) => {
+        return isBinaryExpression(__a) || isLogicalExpression(__a);
+    },
     'if (__a) __b; else __c': ({__a}) => isBinaryExpression(__a),
 });
 
@@ -32,13 +35,12 @@ export const replace = ({options}) => {
         'if (__a) __b': (vars, path) => {
             const next = getNext(path);
             const name = createName(++labelSuffix, 'end');
-            const [first, second, jnz] = parseTest(path);
+            const test = parseTest(path, name);
             
             createLabel(next, name);
             
             return `{
-                cmp(${first}, ${second});
-                ${jnz}(${name});
+                ${test}
                 __b;
             }`;
         },
@@ -47,13 +49,12 @@ export const replace = ({options}) => {
             const suffix = ++labelSuffix;
             const endLabel = createName(suffix, 'end');
             const elseLabel = createName(suffix, 'else');
-            const [first, second, jnz] = parseTest(path);
+            const test = parseTest(path, elseLabel);
             
             createLabel(next, endLabel);
             
             return `{
-                cmp(${first}, ${second});
-                ${jnz}(${elseLabel});
+                ${test}
                 __b;
                 jmp(${endLabel});
                 ${elseLabel}:
@@ -86,13 +87,7 @@ const maybeBraces = (node, value) => {
     return value;
 };
 
-function parseTest(path) {
-    const {
-        left,
-        right,
-        operator,
-    } = path.node.test;
-    
+function parseBinaryTest({left, right, operator}) {
     const extractedLeft = extract(left);
     const extractedRight = extract(right);
     
@@ -101,6 +96,40 @@ function parseTest(path) {
         maybeBraces(right, extractedRight),
         parseOperator(operator),
     ];
+}
+
+function parseTest(path, name) {
+    const {test} = path.node;
+    
+    if (isBinaryExpression(test)) {
+        const [first, second, jnz] = parseBinaryTest(test);
+        
+        return `
+            cmp(${first}, ${second});
+            ${jnz}(${name});
+        `;
+    }
+    
+    if (isLogicalExpression(test)) {
+        const {
+            left,
+            right,
+            operator,
+        } = test;
+        
+        const [firstLeft, secondLeft, jnzLeft] = parseBinaryTest(left);
+        const [firstRight, secondRight, jnzRight] = parseBinaryTest(right);
+        
+        if (operator === '&&')
+            return `
+                cmp(${firstLeft}, ${secondLeft});
+                ${jnzLeft}(${name});
+                cmp(${firstRight}, ${secondRight});
+                ${jnzRight}(${name});
+            `;
+    }
+    
+    throw Error(`Not supported yet: ${test.type}`);
 }
 
 function createLabel(path, name) {

@@ -12,7 +12,7 @@ let commandNotFoundSecond = [
     0,
 ];
 
-export async function printCommandNotFound(command) {
+export async function notFound(command) {
     nemesis.setColor({
         color: 'red',
     });

@@ -1,4 +1,5 @@
 import {createTest} from '@putout/test';
+import tryCatch from 'try-catch';
 import * as plugin from './index.js';
 import * as convertDoWhileToJnz from '../convert-do-while-to-jnz/index.js';
 import * as extractLabeledBlock from '../extract-labeled-block/index.js';
@@ -98,4 +99,18 @@ test('ishvara: plugin-fasm: convert-if-to-jmp: transform: split-stack-operations
         splitStackOperations,
     });
     t.end();
+});
+
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: and', (t) => {
+    t.transform('and');
+    t.end();
+});
+
+test('ishvara: plugin-fasm: convert-if-to-jmp: transform: or', (t) => {
+    const [error] = tryCatch(t.transform, 'or');
+    
+    t.equal(error.message, 'Not supported yet: LogicalExpression');
+    t.end();
+}, {
+    checkAssertionsCount: false,
 });
