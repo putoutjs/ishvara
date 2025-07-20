@@ -1,5 +1,6 @@
 nemesis
 fixture
+external/nemesis
 example
 .*
 test
