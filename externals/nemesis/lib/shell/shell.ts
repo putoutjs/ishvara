@@ -7,6 +7,8 @@ import {
 import {notFound} from './commands/not-found.ts';
 import {clearBuffer} from './clear-buffer';
 import {strcmp} from '../string/strcmp';
+import {color} from './commands/color';
+import {getStringLength} from '../string/get-string-length';
 
 org(0x500);
 use16();
@@ -23,7 +25,7 @@ let HELP = 'help';
 let REBOOT = 'reboot';
 let COLOR = 'color';
 
-let cmd_list = [
+let COMMANDS = [
     'Nemesis HELP:',
     0xd,
     'help   - show this screen ;)',
@@ -57,10 +59,15 @@ async function start() {
             buffer,
         });
         
+        al = await getStringLength(buffer);
+        
+        if (!al)
+            continue;
+        
         await strcmp(buffer, HELP);
         
         if (!al) {
-            nemesis.printf(cmd_list);
+            nemesis.printf(COMMANDS);
             continue;
         }
         
@@ -68,6 +75,13 @@ async function start() {
         
         if (!al) {
             bios.reboot();
+            continue;
+        }
+        
+        await strcmp(buffer, COLOR);
+        
+        if (!al) {
+            await color();
             continue;
         }
         

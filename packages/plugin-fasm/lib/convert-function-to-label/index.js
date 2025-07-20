@@ -1,5 +1,6 @@
-import {types} from 'putout';
+import {types, operator} from 'putout';
 
+const {compare} = operator;
 const {
     isCallExpression,
     isReturnStatement,
@@ -54,8 +55,12 @@ const convertFnToLabel = (ret) => ({__b, __type_params, __body}, path) => {
             },
         });
     
-    const iret = expressionStatement(maybeRet(ret, path) || callExpression(__b.typeName, []));
-    __body.body.push(iret);
+    const last = __body.body.at(-1);
+    
+    if (!compare(last, 'ret()')) {
+        const iret = expressionStatement(maybeRet(ret, path) || callExpression(__b.typeName, []));
+        __body.body.push(iret);
+    }
     
     return '__a: __body';
 };
@@ -107,3 +112,4 @@ function createStackOperation(name, args) {
     
     return expressionStatement(callExpression(callee, params));
 }
+

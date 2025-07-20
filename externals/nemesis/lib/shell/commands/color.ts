@@ -29,7 +29,8 @@ let colorHelp = [
 // в cl тextcolor, в ch bgcolor
 export async function color() {
     si = di;
-    lodsb;
+    ++si;
+    lodsb();
     
     if (!al) {
         nemesis.printf(colorHelp);
@@ -61,12 +62,14 @@ export async function color() {
 
 const FIRST = 0x030;
 const LAST = 0x40;
+const A = 'a';
+const F = 'f';
 
 async function hex2dec(): i8 {
     if (al > FIRST && al < LAST)
         return al - 0x30;
     
-    if (al < 'a' || al > 'f')
+    if (al < A || al > F)
         return 0x10;
     
     return al;

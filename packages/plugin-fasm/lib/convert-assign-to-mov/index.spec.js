@@ -28,8 +28,8 @@ test('compiler: convert-assign-to-mov: transform', (t) => {
     t.end();
 });
 
-test('compiler: convert-assign-to-mov: transform: binary', (t) => {
-    t.transform('binary');
+test('compiler: convert-assign-to-mov: transform: offset', (t) => {
+    t.transform('offset');
     t.end();
 });
 
@@ -49,3 +49,9 @@ test('compiler: convert-assign-to-mov: no report: ptr', (t) => {
     t.noReport('ptr');
     t.end();
 });
+
+test('compiler: convert-assign-to-mov: no report: binary', (t) => {
+    t.noReport('binary');
+    t.end();
+});
+

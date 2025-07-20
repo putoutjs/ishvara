@@ -18,7 +18,6 @@ test('ishvara: transformer-fasm', (t) => {
             mov(ebx, 2);
             add(eax, ebx);
             ret();
-            ret();
         }\n
     `;
     
@@ -41,7 +40,6 @@ test('ishvara: transformer-fasm: arrow', (t) => {
             mov(eax, 1);
             mov(ebx, 2);
             add(eax, ebx);
-            ret();
             ret();
         }\n
     `;
@@ -161,6 +159,26 @@ test('ishvara: transformer-fasm: debug: off', (t) => {
     });
     
     const expected = '\n';
+    
+    t.equal(code, expected);
+    t.end();
+});
+
+test('ishvara: transformer-fasm: remove-useless-operand', (t) => {
+    const source = montag`
+        async function hex2dec(): i8 {
+            return al - 0x30;
+        }
+    `;
+    
+    const [code] = transform(source);
+    
+    const expected = montag`
+        __ishvara_hex2dec: {
+            sub(al, 0x30);
+            ret();
+        }\n
+    `;
     
     t.equal(code, expected);
     t.end();

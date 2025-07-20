@@ -1,5 +1,6 @@
 import {readFileSync as _readFileSync} from 'node:fs';
 import putout from 'putout';
+import * as removeUselessOperand from '@putout/plugin-remove-useless-operand';
 import * as removeNestedBlocks from '@putout/plugin-remove-nested-blocks';
 import * as fasm from '#plugin-fasm';
 import * as ishvara from '#plugin-ishvara';
@@ -58,6 +59,7 @@ export const transform = (source, config) => {
         },
         plugins: [
             ...plugins,
+            ['remove-useless-operand', removeUselessOperand],
             ['remove-nested-blocks', removeNestedBlocks],
             ['ishvara/ishvara', ishvara],
             ['ishvara/fasm', fasm],

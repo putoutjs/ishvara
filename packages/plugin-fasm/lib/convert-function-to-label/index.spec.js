@@ -64,3 +64,9 @@ test('compiler: convert-function-to-label: no report: ureg', (t) => {
     t.noReport('ureg');
     t.end();
 });
+
+test('compiler: convert-function-to-label: transform: ret', (t) => {
+    t.transform('ret');
+    t.end();
+});
+

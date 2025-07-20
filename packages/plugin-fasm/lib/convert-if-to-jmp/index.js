@@ -127,9 +127,18 @@ function parseTest(path, name) {
                 cmp(${firstRight}, ${secondRight});
                 ${jnzRight}(${name});
             `;
+        
+        if (operator === '||') {
+            const nameOr = name.replace('end', 'or');
+            return `
+                cmp(${firstLeft}, ${secondLeft});
+                ${jnzLeft}(${nameOr});
+                cmp(${firstRight}, ${secondRight});
+                ${jnzRight}(${name});
+                ${nameOr}:
+            `;
+        }
     }
-    
-    throw Error(`Not supported yet: ${test.type}`);
 }
 
 function createLabel(path, name) {
