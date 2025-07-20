@@ -50,7 +50,7 @@ test('compiler: convert-assign-to-mov: no report: ptr', (t) => {
     t.end();
 });
 
-test('compiler: convert-assign-to-mov: no report: binary', (t) => {
-    t.noReport('binary');
+test('compiler: convert-assign-to-mov: transform: binary', (t) => {
+    t.transform('binary');
     t.end();
 });

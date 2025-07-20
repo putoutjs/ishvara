@@ -1,1 +1,3 @@
 al = al - 0x30;
+
+al = RESET_CONTROLLER + USE_DMA + RUN_MOTOR;

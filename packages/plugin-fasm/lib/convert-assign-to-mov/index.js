@@ -1,4 +1,8 @@
 import {types} from '@putout/babel';
+import {isRegister} from '@ishvara/operator-fasm/regs';
+import {operator} from 'putout';
+
+const {traverse} = operator;
 
 const {
     isMemberExpression,
@@ -19,11 +23,25 @@ export const match = () => ({
         if (isMemberExpression(__a))
             return false;
         
-        if (isBinaryExpression(__b))
-            return false;
-        
         if (isMemberExpression(__b))
             return false;
+        
+        if (isBinaryExpression(__b)) {
+            let is = false;
+            traverse(__b, {
+                Identifier: (path) => {
+                    const {name} = path.node;
+                    
+                    if (isRegister(name)) {
+                        is = true;
+                        path.stop();
+                    }
+                },
+            });
+            
+            if (is)
+                return false;
+        }
         
         return !isCallExpression(__b);
     },
