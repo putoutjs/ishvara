@@ -28,6 +28,7 @@ export const match = () => ({
         
         if (isBinaryExpression(__b)) {
             let is = false;
+            
             traverse(__b, {
                 Identifier: (path) => {
                     const {name} = path.node;
