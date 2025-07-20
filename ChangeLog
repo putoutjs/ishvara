@@ -1,3 +1,9 @@
+2025.07.20, v2.12.5
+
+feature:
+- 828cb35 @putout/plugin-fasm: convert-assign-to-move: constants
+- e2f186e @ishvara/transformer-fasm: remove-useless-operand: add
+
 2025.07.19, v2.12.4
 
 feature:
