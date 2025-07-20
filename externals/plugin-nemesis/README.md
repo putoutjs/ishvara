@@ -11,4 +11,4 @@ Transforms:
 - ✅[`convert-set-color-to-int-0xff`](https://putout.cloudcmd.io/#/gist/a2dfbe8d6cf1f79328c572d5f10b201c/7b0f12fb1e4a61bac0914e3697eff75678bcb707);
 - ✅[`convert-gets-to-0xff`](https://putout.cloudcmd.io/#/gist/ac0146b899433d90ba83214a20865db0/4fce39e0d68031b05a65a68aa817c29d46560f4f);
 - ✅[`convert-debug-to-printf`](https://putout.cloudcmd.io/#/gist/2bc7d9ead127236ae4593c8abe150538/5993e8fe1355acbab1778f1cf70b2311c21913b1);
-- ✅[`convert-clear-scren-to-int-0xff`](https://putout.cloudcmd.io/#/gist/693fcd438d105d74a243636662d79011/a722a5729204527189e5dc1b2a867e053cf2e0f5);
+- ✅[`convert-clear-screen-to-int-0xff`](https://putout.cloudcmd.io/#/gist/693fcd438d105d74a243636662d79011/a722a5729204527189e5dc1b2a867e053cf2e0f5);

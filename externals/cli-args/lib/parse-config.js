@@ -41,6 +41,7 @@ function findConfig(name, {cwd, readConfig, findUpSync}) {
         const configPath = findUpSync(NAME, {
             cwd: join(cwd(), dir),
         });
+        
         [error, options = {}] = tryCatch(readConfig, configPath);
         
         if (error?.code === 'MODULE_NOT_FOUND')
@@ -49,4 +50,3 @@ function findConfig(name, {cwd, readConfig, findUpSync}) {
     
     return [error, options];
 }
-
