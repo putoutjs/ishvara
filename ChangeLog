@@ -1,3 +1,8 @@
+2025.07.20, v2.12.6
+
+feature:
+- 4fc2b36 ishvara: plugin-fasm: convert-if-to-jmp: or
+
 2025.07.20, v2.12.5
 
 feature:
