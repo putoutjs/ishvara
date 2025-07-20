@@ -30,6 +30,8 @@
   },
   "dependencies": {
     "@ishvara/bundler": "*",
+    "@ishvara/cli-args": "*",
+    "@ishvara/cli-help": "*",
     "@ishvara/operator-fasm": "*",
     "@putout/babel": "^4.0.1",
     "@putout/plugin-esm": "^4.5.0",
@@ -45,9 +47,7 @@
     "try-to-catch": "^3.0.1",
     "typescript": "^5.8.3",
     "wabt": "^1.0.37",
-    "yargs-parser": "^22.0.0",
-    "@ishvara/cli-help": "*",
-    "@ishvara/cli-args": "*"
+    "yargs-parser": "^22.0.0"
   },
   "keywords": [
     "putout"

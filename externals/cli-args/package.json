@@ -35,6 +35,8 @@
     "@typescript-eslint/typescript-estree": "^8.32.1",
     "chalk": "^5.4.1",
     "fasm.js": "^1.0.7",
+    "find-up": "^7.0.0",
+    "find-up-simple": "^1.0.1",
     "hexdump-nodejs": "^0.1.0",
     "iced-x86": "^1.21.0",
     "putout": "^40.1.9",

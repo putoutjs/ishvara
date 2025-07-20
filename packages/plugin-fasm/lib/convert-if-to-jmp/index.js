@@ -1,4 +1,5 @@
 import {types, operator} from 'putout';
+import {parseOperator} from './operator.js';
 
 const {
     callExpression,
@@ -64,22 +65,6 @@ export const replace = ({options}) => {
     };
 };
 
-function parseOperator(operator) {
-    if (operator === '===')
-        return 'jnz';
-    
-    if (operator === '!==')
-        return 'jz';
-    
-    if (operator === '>')
-        return 'jle';
-    
-    if (operator === '<')
-        return 'jge';
-    
-    throw Error(`☝️Looks like operator '${operator}' not supported`);
-}
-
 const maybeBraces = (node, value) => {
     if (isArrayExpression(node))
         return `[${value}]`;
@@ -87,14 +72,17 @@ const maybeBraces = (node, value) => {
     return value;
 };
 
-function parseBinaryTest({left, right, operator}) {
+function parseBinaryTest({left, right, operator}, options = {}) {
+    const {direct = false} = options;
     const extractedLeft = extract(left);
     const extractedRight = extract(right);
     
     return [
         maybeBraces(left, extractedLeft),
         maybeBraces(right, extractedRight),
-        parseOperator(operator),
+        parseOperator(operator, {
+            direct,
+        }),
     ];
 }
 
@@ -117,23 +105,30 @@ function parseTest(path, name) {
             operator,
         } = test;
         
-        const [firstLeft, secondLeft, jnzLeft] = parseBinaryTest(left);
-        const [firstRight, secondRight, jnzRight] = parseBinaryTest(right);
-        
-        if (operator === '&&')
+        if (operator === '&&') {
+            const [firstLeft, secondLeft, jnzLeft] = parseBinaryTest(left);
+            const [firstRight, secondRight, jnzRight] = parseBinaryTest(right);
+            
             return `
                 cmp(${firstLeft}, ${secondLeft});
                 ${jnzLeft}(${name});
                 cmp(${firstRight}, ${secondRight});
                 ${jnzRight}(${name});
             `;
+        }
         
         if (operator === '||') {
+            const [firstLeft, secondLeft, jzLeft] = parseBinaryTest(left, {
+                direct: true,
+            });
+            
+            const [firstRight, secondRight, jnzRight] = parseBinaryTest(right);
+            
             const nameOr = name.replace('end', 'or');
             
             return `
                 cmp(${firstLeft}, ${secondLeft});
-                ${jnzLeft}(${nameOr});
+                ${jzLeft}(${nameOr});
                 cmp(${firstRight}, ${secondRight});
                 ${jnzRight}(${name});
                 ${nameOr}:

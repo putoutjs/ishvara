@@ -97,14 +97,14 @@ if (error) {
     process.exit(1);
 }
 
-const [errorOptions, config] = parseConfig(name);
+const [errorOptions, config] = await parseConfig(name);
 
 if (errorOptions) {
     console.error(errorOptions);
     process.exit(1);
 }
 
-if (args.output === 'bundle') {
+if (/bundled?/.test(args.output)) {
     log(args, `✅ \n\n`);
     
     if (RAW)

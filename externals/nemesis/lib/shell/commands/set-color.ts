@@ -27,7 +27,7 @@ let colorHelp = [
 ];
 
 // в cl тextcolor, в ch bgcolor
-export async function color() {
+export async function setColor() {
     si = di;
     ++si;
     lodsb();
@@ -45,7 +45,7 @@ export async function color() {
     }
     
     ch = al;
-    lodsb;
+    lodsb();
     
     await hex2dec();
     
@@ -53,6 +53,8 @@ export async function color() {
         nemesis.printf(colorHelp);
         return;
     }
+    
+    cl = al;
     
     nemesis.setColor({
         color: cl,
@@ -66,10 +68,10 @@ const A = 'a';
 const F = 'f';
 
 async function hex2dec(): i8 {
-    if (al > FIRST && al < LAST)
+    if (al >= FIRST && al <= LAST)
         return al - 0x30;
     
-    if (al < A || al > F)
+    if (al <= A || al >= F)
         return 0x10;
     
     return al;

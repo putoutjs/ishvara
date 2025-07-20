@@ -47,12 +47,17 @@ test('plugin-nemesis: transform: convert-set-color-to-0xff', (t) => {
     t.end();
 });
 
-test('plugin-nemesis: transform: convert-set-creen-size-to-0xff', (t) => {
-    t.transform('convert-set-creen-size-to-0xff');
+test('plugin-nemesis: transform: convert-set-screen-size-to-0xff', (t) => {
+    t.transform('convert-set-screen-size-to-0xff');
     t.end();
 });
 
 test('plugin-nemesis: transform: convert-gets-to-0xff', (t) => {
     t.transform('convert-gets-to-0xff');
+    t.end();
+});
+
+test('plugin-nemesis: transform: convert-clear-screen-to-int-0xff', (t) => {
+    t.transform('convert-clear-screen-to-int-0xff');
     t.end();
 });

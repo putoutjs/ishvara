@@ -7,7 +7,7 @@ import {
 import {notFound} from './commands/not-found.ts';
 import {clearBuffer} from './clear-buffer';
 import {strcmp} from '../string/strcmp';
-import {color} from './commands/color';
+import {setColor} from './commands/set-color';
 import {getStringLength} from '../string/get-string-length';
 
 org(0x500);
@@ -24,6 +24,7 @@ let hi = [
 let HELP = 'help';
 let REBOOT = 'reboot';
 let COLOR = 'color';
+let CLS = 'cls';
 
 let COMMANDS = [
     'Nemesis HELP:',
@@ -81,7 +82,14 @@ async function start() {
         await strcmp(buffer, COLOR);
         
         if (!al) {
-            await color();
+            await setColor();
+            continue;
+        }
+        
+        await strcmp(buffer, CLS);
+        
+        if (!al) {
+            nemesis.clearScreen();
             continue;
         }
         
