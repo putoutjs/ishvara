@@ -130,6 +130,7 @@ function parseTest(path, name) {
         
         if (operator === '||') {
             const nameOr = name.replace('end', 'or');
+            
             return `
                 cmp(${firstLeft}, ${secondLeft});
                 ${jnzLeft}(${nameOr});

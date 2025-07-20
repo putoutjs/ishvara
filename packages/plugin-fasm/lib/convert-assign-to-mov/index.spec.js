@@ -54,4 +54,3 @@ test('compiler: convert-assign-to-mov: no report: binary', (t) => {
     t.noReport('binary');
     t.end();
 });
-

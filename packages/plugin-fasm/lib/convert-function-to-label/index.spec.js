@@ -69,4 +69,3 @@ test('compiler: convert-function-to-label: transform: ret', (t) => {
     t.transform('ret');
     t.end();
 });
-

@@ -112,4 +112,3 @@ function createStackOperation(name, args) {
     
     return expressionStatement(callExpression(callee, params));
 }
-
