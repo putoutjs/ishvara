@@ -1,3 +1,4 @@
+import * as convertFindFirstToInt0xff from './convert-find-first-to-int-0xff/index.js';
 import * as convertClearScreenToInt0xff from './convert-clear-screen-to-int-0xff/index.js';
 import * as convertGetsTo0xff from './convert-gets-to-0xff/index.js';
 import * as convertSetScreenSizeTo0xff from './convert-set-screen-size-to-0xff/index.js';
@@ -22,4 +23,5 @@ export const rules = {
     'convert-set-screen-size-to-0xff': convertSetScreenSizeTo0xff,
     'convert-gets-to-0xff': convertGetsTo0xff,
     'convert-clear-screen-to-int-0xff': convertClearScreenToInt0xff,
+    'convert-find-first-to-int-0xff': convertFindFirstToInt0xff,
 };

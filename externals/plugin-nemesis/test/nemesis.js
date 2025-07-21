@@ -61,3 +61,7 @@ test('plugin-nemesis: transform: convert-clear-screen-to-int-0xff', (t) => {
     t.transform('convert-clear-screen-to-int-0xff');
     t.end();
 });
+test('plugin-nemesis: transform: convert-find-first-to-int-0xff', (t) => {
+    t.transform('convert-find-first-to-int-0xff');
+    t.end();
+})
