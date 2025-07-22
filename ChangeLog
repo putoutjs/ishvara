@@ -1,3 +1,9 @@
+2025.07.22, v2.12.7
+
+feature:
+- 28cb12b @ishvara/plugin-fasm: convert-do-while-to-jnz: break
+- 9757627 @ishvara/plugin-nemesis: convert-find-first-to-int-0xff: add
+
 2025.07.20, v2.12.6
 
 feature:
