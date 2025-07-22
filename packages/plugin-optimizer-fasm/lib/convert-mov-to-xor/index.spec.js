@@ -71,4 +71,3 @@ test('optimizer-fasm: convert-mov-to-xor: no report: offset', (t) => {
     t.noReport('offset');
     t.end();
 });
-

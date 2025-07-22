@@ -20,6 +20,5 @@ export async function dir() {
         mov([si], al);
         nemesis.printf(si);
     } while (true);
-    
     nemesis.printf(NEW_LINE);
 }
