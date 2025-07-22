@@ -1,6 +1,7 @@
-import {operator} from 'putout';
+import {operator, types} from 'putout';
 import {is8bit} from '@ishvara/operator-fasm/regs';
 
+const {isMemberExpression} = types;
 const {compare} = operator;
 
 const checkFirst = (name) => (path) => {
@@ -46,7 +47,12 @@ export const exclude = () => [
 ];
 
 export const match = () => ({
-    'mov(__a, 0)': ({__a}) => !is8bit(__a.name),
+    'mov(__a, 0)': ({__a}) => {
+        if (isMemberExpression(__a))
+            return false;
+        
+        return !is8bit(__a.name);
+    },
     'mov(__a, 1)': (vars, path) => {
         if (is32(path))
             return true;

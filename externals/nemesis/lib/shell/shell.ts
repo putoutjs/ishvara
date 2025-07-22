@@ -4,6 +4,7 @@ import {
     bios,
     nemesis,
 } from '@ishvara/operator-fasm';
+import {dir} from './commands/dir.ts';
 import {notFound} from './commands/not-found.ts';
 import {clearBuffer} from './clear-buffer';
 import {strcmp} from '../string/strcmp';
@@ -25,6 +26,7 @@ let HELP = 'help';
 let REBOOT = 'reboot';
 let COLOR = 'color';
 let CLS = 'cls';
+let DIR = 'dir';
 
 let COMMANDS = [
     'Nemesis HELP:',
@@ -90,6 +92,13 @@ async function start() {
         
         if (!al) {
             nemesis.clearScreen();
+            continue;
+        }
+        
+        await strcmp(buffer, DIR);
+        
+        if (!al) {
+            await dir();
             continue;
         }
         

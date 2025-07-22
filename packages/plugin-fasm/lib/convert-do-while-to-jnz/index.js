@@ -81,6 +81,8 @@ export const replace = () => ({
         __body.body.push(conditionExpression);
         __body.body.push(expressionStatement(template.ast(`${jnz}(${startLabel})`)));
         
+        maybeReplaceBreak(path, line);
+        
         return `${startLabel}: __body`;
     },
 });

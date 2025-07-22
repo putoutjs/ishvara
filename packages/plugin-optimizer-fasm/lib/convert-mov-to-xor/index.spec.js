@@ -66,3 +66,9 @@ test('optimizer-fasm: convert-mov-to-xor: no report: 8-bit', (t) => {
     t.noReport('8-bit');
     t.end();
 });
+
+test('optimizer-fasm: convert-mov-to-xor: no report: offset', (t) => {
+    t.noReport('offset');
+    t.end();
+});
+
