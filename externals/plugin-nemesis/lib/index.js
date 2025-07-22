@@ -1,3 +1,4 @@
+import * as removeUselessDeclarations from './remove-useless-declarations/index.js';
 import * as convertFindFirstToInt0xff from './convert-find-first-to-int-0xff/index.js';
 import * as convertClearScreenToInt0xff from './convert-clear-screen-to-int-0xff/index.js';
 import * as convertGetsTo0xff from './convert-gets-to-0xff/index.js';
@@ -24,4 +25,5 @@ export const rules = {
     'convert-gets-to-0xff': convertGetsTo0xff,
     'convert-clear-screen-to-int-0xff': convertClearScreenToInt0xff,
     'convert-find-first-to-int-0xff': convertFindFirstToInt0xff,
+    'remove-useless-declarations': removeUselessDeclarations,
 };

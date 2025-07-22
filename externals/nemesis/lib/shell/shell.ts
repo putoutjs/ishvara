@@ -2,8 +2,8 @@ import {
     org,
     use16,
     bios,
-    nemesis,
 } from '@ishvara/operator-fasm';
+import {nemesis} from '@ishvara/operator-nemesis';
 import {dir} from './commands/dir.ts';
 import {notFound} from './commands/not-found.ts';
 import {clearBuffer} from './clear-buffer';
@@ -109,3 +109,4 @@ async function start() {
 section: 'code';
 section: 'data';
 let buffer: rb = cmdSize + 1;
+

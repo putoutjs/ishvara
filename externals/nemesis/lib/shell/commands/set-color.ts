@@ -1,4 +1,4 @@
-import {nemesis} from '@ishvara/operator-fasm';
+import {nemesis} from '@ishvara/operator-nemesis';
 
 let colorHelp = [
     'type: color bt',

@@ -66,6 +66,13 @@ await validateArgs(args, {
 
 const [name] = args._;
 
+const [errorOptions, config] = parseConfig(name);
+
+if (errorOptions) {
+    console.error(errorOptions);
+    process.exit(1);
+}
+
 log(args, `🔎 ${name}\n`);
 log(args, `🚀 ${args.target}\n\n`);
 
@@ -73,7 +80,7 @@ log(args, 'Bundle', {
     withDivider: true,
 });
 
-const [error, source] = await bundle(name);
+const [error, source] = await bundle(name, config);
 
 if (error) {
     console.log(error);
@@ -94,13 +101,6 @@ if (error) {
     const name = error.id || error.fileName;
     
     console.error(`file://${chalk.blue(name)}:${line}: ${chalk.red(message)}`);
-    process.exit(1);
-}
-
-const [errorOptions, config] = await parseConfig(name);
-
-if (errorOptions) {
-    console.error(errorOptions);
     process.exit(1);
 }
 

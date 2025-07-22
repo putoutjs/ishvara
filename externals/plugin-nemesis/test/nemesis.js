@@ -66,3 +66,8 @@ test('plugin-nemesis: transform: convert-find-first-to-int-0xff', (t) => {
     t.transform('convert-find-first-to-int-0xff');
     t.end();
 });
+
+test('plugin-nemesis: transform: remove-useless-declarations', (t) => {
+    t.transform('remove-useless-declarations');
+    t.end();
+});

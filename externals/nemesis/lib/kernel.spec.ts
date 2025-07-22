@@ -1,7 +1,7 @@
 import {compile} from 'ishvara';
 import {bundle} from '@ishvara/bundler';
 import {test} from 'supertape';
-import config from './.ishvara.json' with {
+import config from '../.ishvara.json' with {
     type: 'json',
 };
 

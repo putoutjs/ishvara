@@ -1,4 +1,7 @@
 {
+    "external": [
+        "@ishvara/operator-nemesis"
+    ],
     "rules": {
         "@ishvara/plugin-nemesis/convert-debug-to-printf": ["on", {
             "color": 7

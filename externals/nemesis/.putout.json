@@ -9,6 +9,7 @@
             "nodejs/declare": "on"
         },
         "lib": {
+            "esm/merge-duplicate-imports-join": "off",
             "conditions/apply-comparison-order": "off",
             "apply-arrow": "off",
             "declare": "off",

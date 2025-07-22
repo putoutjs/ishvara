@@ -13,3 +13,4 @@ Transforms:
 - ✅[`convert-gets-to-0xff`](https://putout.cloudcmd.io/#/gist/ac0146b899433d90ba83214a20865db0/4fce39e0d68031b05a65a68aa817c29d46560f4f);
 - ✅[`convert-debug-to-printf`](https://putout.cloudcmd.io/#/gist/2bc7d9ead127236ae4593c8abe150538/5993e8fe1355acbab1778f1cf70b2311c21913b1);
 - ✅[`convert-clear-screen-to-int-0xff`](https://putout.cloudcmd.io/#/gist/693fcd438d105d74a243636662d79011/a722a5729204527189e5dc1b2a867e053cf2e0f5);
+- ✅[`remove-useless-declarations`](https://putout.cloudcmd.io/#/gist/9045b99fbb58a53047dec060d3f143cf/646d41281b8010f6b4429b81cc4ba6987c12a041);

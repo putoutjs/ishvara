@@ -6,11 +6,18 @@ import {prepareError} from './prepare-error.js';
 
 const isString = (a) => typeof a === 'string';
 
-export async function bundle(filePath) {
+const createConfig = (config) => ({
+    external: [],
+    ...config,
+});
+
+export async function bundle(filePath, config) {
+    const customConfig = createConfig(config);
     const external = [
         '#operator-fasm',
         '#operator-wasm',
         '@ishvara/operator-fasm',
+        ...customConfig.external,
     ];
     
     // create a bundle
@@ -27,6 +34,12 @@ export async function bundle(filePath) {
             }),
             tsParser(),
         ],
+        onwarn(warning, warn) {
+            if (warning.code === 'UNRESOLVED_IMPORT')
+                return;
+            
+            warn(warning);
+        },
     });
     
     if (error)
