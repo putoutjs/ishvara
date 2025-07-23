@@ -1,3 +1,8 @@
+2025.07.23, v2.13.1
+
+feature:
+- ed31929 @ishvara/plugin-fasm: remove-useless-promise
+
 2025.07.22, v2.13.0
 
 feature:
