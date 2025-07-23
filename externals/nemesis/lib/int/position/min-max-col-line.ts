@@ -1,3 +1,5 @@
+import {i8} from '@ishvara/operator-fasm';
+
 let minLine = 0;
 let maxLine = 24;
 

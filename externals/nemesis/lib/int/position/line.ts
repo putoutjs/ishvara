@@ -1,3 +1,5 @@
+import {i8} from '@ishvara/operator-fasm';
+
 let line = 3;
 
 export function getLine(): i8 {

@@ -38,6 +38,9 @@ export async function bundle(filePath, config) {
             if (warning.code === 'UNRESOLVED_IMPORT')
                 return;
             
+            if (warning.code === 'UNUSED_EXTERNAL_IMPORT')
+                return;
+            
             warn(warning);
         },
     });

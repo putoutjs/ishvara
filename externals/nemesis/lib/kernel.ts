@@ -1,7 +1,9 @@
+import {nemesis} from '@ishvara/operator-nemesis';
 import {
     org,
     use16,
-    nemesis,
+    i16,
+    rb,
 } from '@ishvara/operator-fasm';
 import {intTable} from './int/int-table.ts';
 

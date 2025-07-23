@@ -1,3 +1,5 @@
+import {i8} from '@ishvara/operator-fasm';
+
 let col = 0;
 
 export function getColumn(): i8 {

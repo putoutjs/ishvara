@@ -1,3 +1,5 @@
+import {i8} from '@ishvara/operator-fasm';
+
 let file_sec_size = 0;
 
 export const getFileSecSize = (): i8 => {

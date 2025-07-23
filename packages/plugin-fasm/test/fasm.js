@@ -206,3 +206,8 @@ test('plugin-fasm: transform: apply-include', (t) => {
     t.transform('apply-include');
     t.end();
 });
+
+test('plugin-fasm: transform: remove-useless-promise', (t) => {
+    t.transform('remove-useless-promise');
+    t.end();
+});

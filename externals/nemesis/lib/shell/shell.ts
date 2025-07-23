@@ -1,9 +1,10 @@
+import {nemesis} from '@ishvara/operator-nemesis';
 import {
     org,
     use16,
     bios,
+    rb,
 } from '@ishvara/operator-fasm';
-import {nemesis} from '@ishvara/operator-nemesis';
 import {dir} from './commands/dir.ts';
 import {notFound} from './commands/not-found.ts';
 import {clearBuffer} from './clear-buffer';

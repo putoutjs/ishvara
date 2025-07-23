@@ -1,4 +1,5 @@
 import {nemesis} from '@ishvara/operator-nemesis';
+import {i8} from '@ishvara/operator-fasm';
 
 let colorHelp = [
     'type: color bt',
@@ -67,7 +68,7 @@ const LAST = 0x40;
 const A = 'a';
 const F = 'f';
 
-async function hex2dec(): i8 {
+async function hex2dec(): Promise<i8> {
     if (al >= FIRST && al <= LAST)
         return al - 0x30;
     

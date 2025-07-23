@@ -26,7 +26,9 @@
     "coverage": "madrun coverage",
     "report": "madrun report"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@ishvara/operator-fasm": "*"
+  },
   "keywords": [
     "putout",
     "putout-plugin",

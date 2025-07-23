@@ -15,7 +15,7 @@ test('ishvara: nemesis: kernel: bundle', async (t) => {
 
 test('ishvara: nemesis: kernel: compile', async (t) => {
     const filePath = new URL('./kernel.ts', import.meta.url).pathname;
-    const [, bundled] = await bundle(filePath);
+    const [, bundled] = await bundle(filePath, config);
     const [, places] = await compile(bundled, {
         target: 'fasm',
         config,

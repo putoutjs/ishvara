@@ -1,4 +1,5 @@
-import {nemesis} from '@ishvara/operator-fasm';
+import {nemesis} from '@ishvara/operator-nemesis';
+import {i16} from '@ishvara/operator-fasm';
 import {getFileSecSize} from './find-file/file-sec-size';
 import {getFileOffset} from './find-file/file-offset';
 

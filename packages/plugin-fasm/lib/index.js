@@ -1,3 +1,4 @@
+import * as removeUselessPromise from './remove-useless-promise/index.js';
 import * as applyInclude from './apply-include/index.js';
 import * as switchCmpOperands from './switch-cmp-operands/index.js';
 import * as splitBinaryExpression from './split-binary-expression/index.js';
@@ -88,4 +89,5 @@ export const rules = {
     'split-binary-expression': splitBinaryExpression,
     'switch-cmp-operands': switchCmpOperands,
     'apply-include': applyInclude,
+    'remove-useless-promise': removeUselessPromise,
 };

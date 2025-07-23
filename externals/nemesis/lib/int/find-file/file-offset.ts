@@ -1,3 +1,5 @@
+import {i16} from '@ishvara/operator-fasm';
+
 let file_offset: i16 = 0;
 
 export const getFileOffset = () => {

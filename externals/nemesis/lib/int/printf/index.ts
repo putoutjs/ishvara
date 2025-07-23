@@ -1,4 +1,4 @@
-import {nemesis} from '@ishvara/operator-fasm';
+import {nemesis} from '@ishvara/operator-nemesis';
 import {getStringLength} from '../../string/get-string-length.js';
 import {
     getLine,
@@ -15,8 +15,8 @@ import {
 import {scroll} from './scroll.ts';
 import {getColor} from '../color.ts';
 
-_enter.equ = 0xa;
-_backspace.equ = 0xe;
+const _enter = 0xa;
+const _backspace = 0xe;
 
 export async function printf<es, bx, cx, di>() {
     ax = 0xb800;

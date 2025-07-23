@@ -1,4 +1,5 @@
-import {nemesis, i16} from '@ishvara/operator-nemesis';
+import {nemesis} from '@ishvara/operator-nemesis';
+import {i16} from '@ishvara/operator-fasm';
 
 let count: i16 = 0;
 let NEW_LINE = [0xd, 0xd];
