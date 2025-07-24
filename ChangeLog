@@ -1,3 +1,11 @@
+2025.07.24, v2.13.2
+
+fix:
+- 4c4d3c1 @ishvara/plugin-fasm: convert-args-to-regs
+
+feature:
+- 6dd1438 @ishvara/operator-fasm: globals
+
 2025.07.23, v2.13.1
 
 feature:
