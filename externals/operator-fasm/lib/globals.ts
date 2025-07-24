@@ -6,10 +6,13 @@ declare global {
     var cl: number;
     var cx: number;
     var bx: number;
+    var sp: number;
     var ch: number;
     var di: number;
     var es: unknown;
     var cs: unknown;
+    var ds: unknown;
+    var ss: unknown;
     var $: number;
     
     var mov: (a, b) => void;
