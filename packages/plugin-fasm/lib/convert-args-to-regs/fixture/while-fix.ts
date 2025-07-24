@@ -1,3 +1,5 @@
+import {ureg} from '@ishvara/operator-fasm';
+
 export async function strcmp() {
     push(bp);
     mov(bp, sp);
@@ -8,21 +10,21 @@ export async function strcmp() {
     
     cld();
     
-    __ishvara_while_9: {
+    __ishvara_while_11: {
         {
             lodsb();
             test(al, al);
         }
-        jz(__ishvara_while_end_9);
+        jz(__ishvara_while_end_11);
         
         if (al !== [di])
-            (jmp(__ishvara_while_end_9));
+            (jmp(__ishvara_while_end_11));
         
         ++di;
         ++cx;
-        jmp(__ishvara_while_9);
+        jmp(__ishvara_while_11);
     }
-    __ishvara_while_end_9: {
+    __ishvara_while_end_11: {
         pop(bp);
         ret(4);
     }

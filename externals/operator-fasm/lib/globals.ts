@@ -17,8 +17,9 @@ declare global {
     
     var mov: (a, b) => void;
     var inc: (b) => void;
-    var lodsb: () => void;
+    var lodsb: () => number;
     var cli: () => void;
+    var cld: () => void;
     var sti: () => void;
     var push: (a) => void;
     var pop: (a) => void;

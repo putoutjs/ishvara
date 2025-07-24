@@ -71,7 +71,8 @@ export const replace = () => ({
         const replaceReturn = createReplaceReturn(path, argsSize);
         
         traverse(path, {
-            ReturnStatement: replaceReturn,
+            'ReturnStatement': replaceReturn,
+            'ret()': replaceReturn,
         });
         
         delete path.node.returnType;
@@ -157,10 +158,11 @@ const createReplaceReturn = (fnPath, argsSize) => (path) => {
 
 function insertReturnAtEnd(ebp, __body) {
     const last = __body.body.at(-1);
-    const popEBP = createExpression(`pop(${ebp})`);
     
-    if (isReturnStatement(last))
+    if (isReturnStatement(last) || isLabeledStatement(last))
         return;
+    
+    const popEBP = createExpression(`pop(${ebp})`);
     
     if (!isLabeledStatement(last)) {
         if (compare(last, 'ret()'))

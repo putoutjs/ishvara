@@ -7,7 +7,7 @@ export async function strcmp() {
     ax += bx;
     end: {
         pop(bp);
-        ret();
+        ret(4);
     }
 }
 
@@ -18,8 +18,6 @@ export async function noBodyInsideLabel() {
     mov(bx, [bp + 6]);
     
     ax += bx;
-    end: {
-        pop(bp);
-        ret();
-    }
+    pop(bp);
+    ret(4);
 }
