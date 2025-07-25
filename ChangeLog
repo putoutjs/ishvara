@@ -1,3 +1,8 @@
+2025.07.25, v2.13.3
+
+feature:
+- 7c0c12c @ishvara/plugin-fasm: extract-labele-blocks: nested
+
 2025.07.24, v2.13.2
 
 fix:
