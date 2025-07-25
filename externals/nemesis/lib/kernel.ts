@@ -16,6 +16,7 @@ push([ax, es]);
 
 ax = 0;
 es = ax;
+
 ax = intTable;
 
 es[0xff * 4] = ax;

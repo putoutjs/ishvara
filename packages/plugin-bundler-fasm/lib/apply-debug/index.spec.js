@@ -44,3 +44,10 @@ test('bundler-fasm: apply-debug: transform with options: port: 2', (t) => {
     });
     t.end();
 });
+
+test('bundler-fasm: apply-debug: transform with options: wrong-debug', (t) => {
+    t.transformWithOptions('wrong-debug', {
+        debug: 'putout:runner:fix',
+    });
+    t.end();
+});

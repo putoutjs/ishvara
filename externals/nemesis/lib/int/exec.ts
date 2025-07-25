@@ -9,6 +9,8 @@ let NOT_FOUND = 'not found :(!';
 // bx - file name
 export async function exec() {
     debug('executing...');
+    di = bx;
+    cx = 3;
     ax = nemesis.findFile(bx);
     
     if (ax) {
@@ -17,7 +19,6 @@ export async function exec() {
     }
     
     debug('found');
-    cx = 3;
     // При секридинге максимальный размер ядра 8.5 кб...
     do {
         push(cx);

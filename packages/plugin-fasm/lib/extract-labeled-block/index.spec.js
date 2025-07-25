@@ -24,8 +24,8 @@ test('fasm: extract-labeled-block: transform', (t) => {
     t.end();
 });
 
-test('fasm: extract-labeled-block: transform: nested-labels', (t) => {
-    t.transform('nested-labels');
+test('fasm: extract-labeled-block: no report: nested-labels', (t) => {
+    t.noReport('nested-labels');
     t.end();
 });
 
@@ -52,5 +52,10 @@ test('fasm: extract-labeled-block: transform: convert-do-while-to-jnz', (t) => {
         convertDoWhileToJnz,
         convertFunctionToLabel,
     });
+    t.end();
+});
+
+test('fasm: extract-labeled-block: no report: nested-labels-inside', (t) => {
+    t.noReport('nested-labels-inside');
     t.end();
 });

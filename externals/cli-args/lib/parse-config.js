@@ -42,6 +42,9 @@ function findConfig(name, {cwd, readConfig, findUpSync}) {
             cwd: join(cwd(), dir),
         });
         
+        if (!configPath)
+            return [null, { }];
+        
         [error, options = {}] = tryCatch(readConfig, configPath);
         
         if (error?.code === 'MODULE_NOT_FOUND')

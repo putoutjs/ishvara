@@ -1,4 +1,8 @@
-import {io} from '@ishvara/operator-fasm';
+import {
+    io,
+    rb,
+    i16,
+} from '@ishvara/operator-fasm';
 
 let status_buffer: rb = 7;
 let sec_quantity = 0;
@@ -65,8 +69,11 @@ export async function readSector() {
         ah = [track_number];
         await outFDC();
         
+        debug('before wait long 2');
         await waitInterrupt(); // ожидаем прерывания от НГМД
+        debug('after wait long 2');
         await waitShort();
+        debug('after wait short');
         
         al = [dma_command];
         //0x4a;для записи 0x46
@@ -82,7 +89,7 @@ export async function readSector() {
         bl &= 0xf0; // чистим младший нибл в bl
         ax += bx;
         jnc(no_carry);
-        // если не было переноса
+        // если не было переноса,
         // то страницы в dl
         ++dl; // увеличиваем dl, если был перенос
         no_carry: io.out(4, al);
@@ -100,6 +107,7 @@ export async function readSector() {
         al = 2; //готовим разрешение канала 2
         io.out(10, al); //DMA ожидает данные
         ah = [secread_com]; // 0xE6;0x66;код чтения одного сектора
+        debug('before wait');
         await outFDC();
         //посылаем команду контроллеру нмгд
         ah = [head];
