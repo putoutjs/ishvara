@@ -1,9 +1,12 @@
 export * from './globals.ts';
-
 export type rb = number;
+
 export type ureg = Promise<number>;
+
 export type i16 = number;
+
 export type i8 = number | number[];
+
 export type iret = Promise<number>;
 
 const noop = () => {};
@@ -19,4 +22,3 @@ export const io = {
 };
 export const debug = (a: string) => a;
 export const org = (a: number) => a;
-

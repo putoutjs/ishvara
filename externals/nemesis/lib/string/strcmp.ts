@@ -1,4 +1,5 @@
 import {ureg} from '@ishvara/operator-fasm';
+
 export async function strcmp(a, b): ureg {
     let uax = 0;
     let usi = a;

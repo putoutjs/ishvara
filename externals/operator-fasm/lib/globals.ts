@@ -40,4 +40,3 @@ declare global {
     var mul: (a) => 0;
     var lodsw: () => 0;
 }
-
