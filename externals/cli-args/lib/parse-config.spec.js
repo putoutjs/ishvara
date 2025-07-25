@@ -50,10 +50,10 @@ test('ishvara: cli-options: parse-options: debug', (t) => {
     t.end();
 });
 
-test('ishvara: cli-options: parse-options: options', async (t) => {
+test('ishvara: cli-options: parse-options: options', (t) => {
     const originalError = Error('parse error');
     const readConfig = stub().throws(originalError);
-    const [error] = await parseConfig(__filename, {
+    const [error] = parseConfig(__filename, {
         readConfig,
     });
     
@@ -61,7 +61,7 @@ test('ishvara: cli-options: parse-options: options', async (t) => {
     t.end();
 });
 
-test('ishvara: cli-options: parse-options: options: not found', async (t) => {
+test('ishvara: cli-options: parse-options: options: not found', (t) => {
     const originalError = Error('parse error');
     
     assign(originalError, {
@@ -70,10 +70,29 @@ test('ishvara: cli-options: parse-options: options: not found', async (t) => {
     
     const readConfig = stub().throws(originalError);
     
-    const [error] = await parseConfig(__filename, {
+    const [error] = parseConfig(__filename, {
         readConfig,
     });
     
     t.notOk(error);
+    t.end();
+});
+
+test('ishvara: cli-options: parse-options: options: findUpSync', (t) => {
+    const originalError = Error('parse error');
+    
+    assign(originalError, {
+        code: 'MODULE_NOT_FOUND',
+    });
+    
+    const readConfig = stub().throws(originalError);
+    const findUpSync = stub();
+    
+    parseConfig(__filename, {
+        readConfig,
+        findUpSync,
+    });
+    
+    t.calledOnce(readConfig);
     t.end();
 });

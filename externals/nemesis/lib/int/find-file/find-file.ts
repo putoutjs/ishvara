@@ -8,7 +8,6 @@ let file_size: i16 = 0;
 // Считываем сектор, в котором находятся записи об
 // именах файлах и данных о них и ищем название
 export async function findFile() {
-    cx = 3;
     di = bx;
     push(di);
     push(bx);
@@ -82,7 +81,7 @@ export async function findFile() {
     pop(di);
     pop(cx);
     al = 0;
-    ret;
+    ret();
     // нашли =)!!!
     file_not_found: pop(di);
     pop(cx);

@@ -29,7 +29,14 @@ export const traverse = ({push}) => ({
         if (isProgram(parentPath))
             return;
         
+        if (isLabeledStatement(parentPath))
+            return;
+        
+        if (isLabeledStatement(path.node.body))
+            return;
+        
         const {__body} = getTemplateValues(path, '__a: __b: {__body}');
+        
         const [first, ...other] = __body.body;
         
         if (!isBlockStatement(first))

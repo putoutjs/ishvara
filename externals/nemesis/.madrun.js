@@ -4,7 +4,7 @@ export default {
     'prepublishOnly': () => run(['lint', 'test']),
     'test': () => `tape 'test/*.*' 'lib/**/*.spec.*'`,
     'watch:test': async () => `nodemon -w lib -x "${await run('test')}"`,
-    'watch:build': async () => `nodemon -w lib -e ts -x "${await run('build')}"`,
+    'watch:build': async () => `nodemon -w . -e ts -x "${await run('build')}"`,
     'lint': () => 'putout .',
     'fresh:lint': async () => await run('lint', '--fresh'),
     'lint:fresh': async () => await run('lint', '--fresh'),
@@ -13,9 +13,9 @@ export default {
     'report': () => 'c8 report --reporter=lcov',
     'build': () => {
         return [
-            //'../ishvara/bin/ishvara.js -t fasm lib/kernel.ts',
-            '../ishvara/bin/ishvara.js -t fasm lib/boot/index.js',
-            '../ishvara/bin/ishvara.js -t fasm lib/shell/shell.ts',
+            '../ishvara/bin/ishvara.js -t fasm lib/kernel.ts',
+            //'../ishvara/bin/ishvara.js -t fasm lib/boot/index.js',
+            //'../ishvara/bin/ishvara.js -t fasm lib/shell/shell.ts',
             './scripts/build.js',
             'cp ./build/* ~/nemesis-emulator/',
         ].join(' && ');

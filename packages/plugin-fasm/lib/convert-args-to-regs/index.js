@@ -16,7 +16,6 @@ const {
     isReturnStatement,
     isLabeledStatement,
     blockStatement,
-    isBlockStatement,
 } = types;
 
 const isEax = (name) => /[re]?a[xl]/.test(name);
@@ -164,27 +163,8 @@ function insertReturnAtEnd(ebp, __body) {
     
     const popEBP = createExpression(`pop(${ebp})`);
     
-    if (!isLabeledStatement(last)) {
-        if (compare(last, 'ret()'))
-            __body.body.splice(-1, 0, popEBP);
-        else
-            __body.body.push(popEBP);
-        
-        return;
-    }
-    
-    if (isBlockStatement(last.body)) {
-        if (compare(last.body.body.at(-1), 'ret()'))
-            last.body.body.splice(-1, 0, popEBP);
-        else
-            last.body.body.push(popEBP);
-        
-        return;
-    }
-    
-    if (compare(last.body, 'ret()'))
-        last.body = blockStatement([
-            popEBP,
-            last.body,
-        ]);
+    if (compare(last, 'ret()'))
+        __body.body.splice(-1, 0, popEBP);
+    else
+        __body.body.push(popEBP);
 }

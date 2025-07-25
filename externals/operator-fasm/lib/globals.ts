@@ -1,20 +1,24 @@
 declare global {
     var al: any;
     var ah: any;
-    var ax: number | number[];
-    var si: number;
+    var ax: unknown;
+    var si: unknown;
     var cl: number;
-    var cx: number;
-    var bx: number;
+    var cx: unknown;
+    var bx: unknown;
+    var bl: unknown;
+    var bh: unknown;
+    var dx: number;
+    var dl: unknown;
+    var dh: unknown;
     var sp: number;
     var ch: number;
-    var di: number;
+    var di: unknown;
     var es: unknown;
     var cs: unknown;
     var ds: unknown;
     var ss: unknown;
     var $: number;
-    
     var mov: (a, b) => void;
     var inc: (b) => void;
     var lodsb: () => number;
@@ -24,4 +28,16 @@ declare global {
     var push: (a) => void;
     var pop: (a) => void;
     var jmp: (a) => void;
+    var dec: (a) => void;
+    var rol: (a, b) => void;
+    var jnc: (a) => void;
+    var loop: (a) => void;
+    var call: (a) => void;
+    var test: (a, b) => 0;
+    var ret: (a?) => 0;
+    var cwd: () => {};
+    var div: (a) => 0;
+    var mul: (a) => 0;
+    var lodsw: () => 0;
 }
+

@@ -5,7 +5,9 @@ import {
 } from 'putout';
 import toSnakeCase from 'just-snake-case';
 
+const isBool = (a) => typeof a === 'boolean';
 const {remove, replaceWith} = operator;
+
 const {
     isStringLiteral,
     isLabeledStatement,
@@ -20,10 +22,10 @@ const DEBUG_PORT = 0xE9;
 const PORT = '2';
 
 const prepareDebug = ({debug}) => {
-    if (debug === PORT)
+    if (debug === PORT || debug === 'port')
         return 'port';
     
-    return debug;
+    return isBool(debug) && debug || debug === '1';
 };
 
 export const report = () => `Apply 'debug()'`;

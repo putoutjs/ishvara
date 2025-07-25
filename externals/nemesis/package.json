@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
-  "description": "🐊Ishvara plugin adds ability to transform Nemesis",
+  "description": "x86 OS Nemesis",
   "homepage": "https://github.com/coderaiser/putout/tree/master/packages/plugin-madrun#readme",
   "main": "lib/index.js",
   "release": false,
