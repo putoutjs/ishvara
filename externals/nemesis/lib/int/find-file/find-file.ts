@@ -42,13 +42,11 @@ export async function findFile() {
     }
     
     si = 0x7c00;
-    find_file_in_fat:
-    pop(di);
+    find_file_in_fat: pop(di);
     push(di);
     push(si);
     
-    _strcmp:
-    lodsb();
+    _strcmp: lodsb();
     cmp([di], al);
     jnz(_strcmp_end);
     ++di;
@@ -58,8 +56,7 @@ export async function findFile() {
     cmp(al, 0x20);
     jnz(not_equal);
     al = 0;
-    not_equal:
-    or(al, al);
+    not_equal: or(al, al);
     jz(find_all_good);
     si += 0x20;
     lodsb();
@@ -68,8 +65,7 @@ export async function findFile() {
     --si;
     jmp(find_file_in_fat);
     
-    find_all_good:
-    si += 0x1a;
+    find_all_good: si += 0x1a;
     lodsw();
     await setFileOffset();
     lodsw();
@@ -88,8 +84,7 @@ export async function findFile() {
     debug('all good');
     ret();
     // нашли =)!!!
-    file_not_found:
-    pop(di);
+    file_not_found: pop(di);
     pop(cx);
     debug('file not found: ret');
     
