@@ -20,6 +20,7 @@ declare global {
     var ss: unknown;
     var $: number;
     var mov: (a, b) => void;
+    var cmp: (a, b) => void;
     var inc: (b) => void;
     var lodsb: () => number;
     var cli: () => void;
