@@ -23,6 +23,7 @@ export async function findFile() {
         });
         
         if (!al) {
+            pop(cx);
             debug('find file: read sector: ok');
             break;
         }

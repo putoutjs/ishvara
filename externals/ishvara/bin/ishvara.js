@@ -131,7 +131,7 @@ if (args.output) {
     if (args.output === 'binary' || RAW)
         process.stdout.write(binary);
     else
-        console.log(codeFrameColumns(binary, {}, {
+        console.log(codeFrameColumns(String(binary), {}, {
             highlightCode: true,
             forceColor: true,
         }));
