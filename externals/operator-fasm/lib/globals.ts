@@ -24,6 +24,7 @@ declare global {
     var inc: (b) => void;
     var jnz: (b) => void;
     var lodsb: () => number;
+    var stosw: () => number;
     var cli: () => void;
     var cld: () => void;
     var sti: () => void;
