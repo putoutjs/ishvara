@@ -7,6 +7,8 @@ import {readSector} from './sector.ts';
 import {findFile} from './find-file/find-file.ts';
 import {exec} from './exec';
 import {setColor} from './color';
+import {getChar} from './get-char';
+import {gets} from './gets';
 
 const _reboot = 0;
 const _get_char = 1;
@@ -71,4 +73,15 @@ export async function intTable(): iret {
         await readSector();
         return;
     }
+    
+    if (al === _get_char) {
+        await getChar();
+        return;
+    }
+    
+    if (al === _gets) {
+        await gets();
+        return;
+    }
 }
+

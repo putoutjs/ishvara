@@ -20,7 +20,7 @@ const cmdSize = 80;
 let hi = [
     `Hi, I am Sh3ll. Type 'help' for `,
     'more information',
-    0xd,
+    0xa,
 ];
 
 let HELP = 'help';

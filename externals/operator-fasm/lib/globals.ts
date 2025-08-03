@@ -3,15 +3,15 @@ declare global {
     var ah: any;
     var ax: unknown;
     var si: unknown;
-    var cl: number;
+    var cl: unknown;
     var cx: unknown;
     var bx: unknown;
     var bl: unknown;
     var bh: unknown;
-    var dx: number;
+    var dx: unknown;
     var dl: unknown;
     var dh: unknown;
-    var sp: number;
+    var sp: unknown;
     var ch: number;
     var di: unknown;
     var es: unknown;
@@ -25,6 +25,7 @@ declare global {
     var jnz: (b) => void;
     var lodsb: () => number;
     var stosw: () => number;
+    var stosb: () => number;
     var cli: () => void;
     var cld: () => void;
     var sti: () => void;
@@ -42,4 +43,5 @@ declare global {
     var div: (a) => 0;
     var mul: (a) => 0;
     var lodsw: () => 0;
+    var int: (a) => 0;
 }

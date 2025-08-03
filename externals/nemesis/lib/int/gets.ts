@@ -1,0 +1,51 @@
+import {nemesis} from '@ishvara/operator-nemesis';
+
+const BACKSPACE = 0xe;
+const ENTER = 0xa;
+
+//:;в bx ложится буфер
+//;в сx ложится кол-во символов
+export async function gets() {
+    push(bx);
+    
+    do {
+        di = bx;
+        al = 1; // get_char
+        int(0xff);
+        stosb();
+        push(ax);
+        nemesis.printf(bx);
+        ++bx;
+        pop(ax);
+        
+        if (al === BACKSPACE) {
+            ++cx;
+            
+            --bx;
+            --di;
+            pop(ax);
+            push(ax);
+            cmp(di, ax);
+            
+            if (di !== ax) {
+                ++cx;
+                --bx;
+                al = 0;
+                stosb();
+                --di;
+            }
+            
+            al = 0;
+            --di;
+            stosb();
+        }
+        
+        if (al === ENTER)
+            break;
+    } while (--cx);
+    --di;
+    al = 0;
+    stosb();
+    pop(bx);
+}
+
