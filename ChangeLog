@@ -1,3 +1,25 @@
+2026.02.08, v3.0.0
+
+fix:
+- 6f48834 ishvara: plugin-fasm: apply-types: multiple quotes
+- 26db527 ishvara: plugin-fasm: apply-types: template
+- d9a64c7 ishvara: cli-help: bundle first
+- 27d9836 nemesis: find_file: pop
+- 8413a28 nemesis: condition
+
+feature:
+- f66536f ishvara: plugin-fasm: apply-types: backslash
+- 29b01f8 ishvara: cli-help: output: bundle
+- 23c2f48 ishvara: cli-help: targets: asm/wast
+- 105b625 ishvara: printer-fasm: string-literal: improve
+- c58d11d drop support of node < 22
+- 3591a99 ishvara: @putout/plugin-printer v7.1.1
+- 84c7040 ishvara: @putout/plugin-esm v9.2.0
+- fab315c ishvara: v86 v0.5.319
+- cdaebc9 ishvara: update dependencies
+- e9c308e nemesis: gets
+- 96bcd68 @ishvara/plugin-fasm: extract-labele-blocks: nested
+
 2025.07.25, v2.13.3
 
 feature:
