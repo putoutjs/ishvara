@@ -54,7 +54,7 @@
   ],
   "devDependencies": {
     "@ishvara/test": "*",
-    "@putout/plugin-printer": "^5.0.0",
+    "@putout/plugin-printer": "^7.1.1",
     "@putout/test": "^15.1.1",
     "c8": "^10.0.0",
     "eslint": "^10.0.0",
