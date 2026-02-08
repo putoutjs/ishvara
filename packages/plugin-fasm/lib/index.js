@@ -45,6 +45,7 @@ import * as splitStackOperations from './split-stack-operations/index.js';
 import * as convertFunctionToLabel from './convert-function-to-label/index.js';
 
 export const rules = {
+    'apply-types': applyTypes,
     'convert-dec-to-hex': convertDecToHex,
     'convert-equ-call-to-member': convEquCallToMember,
     'convert-assign-to-member': convertAssignToMember,
@@ -76,7 +77,6 @@ export const rules = {
     'convert-strncmp-to-repe-cmpsb': convertStrncmpToRepeCmpsb,
     'convert-ternary-to-if': convertTernaryToIf,
     'convert-args-to-regs': convertArgsToRegs,
-    'apply-types': applyTypes,
     'convert-assign-to-and': convertAssignToAnd,
     'convert-assign-to-or': convertAssignToOr,
     'apply-registers': applyRegisters,

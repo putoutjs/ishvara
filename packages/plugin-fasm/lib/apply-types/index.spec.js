@@ -22,6 +22,11 @@ test('fasm: apply-types: transform: i64', (t) => {
     t.end();
 });
 
+test('fasm: apply-types: transform: backslash', (t) => {
+    t.transform('backslash');
+    t.end();
+});
+
 test('fasm: apply-types: no report: ureg', (t) => {
     t.noReport('ureg');
     t.end();

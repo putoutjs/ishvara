@@ -6,6 +6,7 @@ const {
     isExportNamedDeclaration,
     isFunction,
     isProgram,
+    isStringLiteral,
 } = types;
 
 const {extract} = operator;
@@ -38,13 +39,12 @@ export const replace = () => ({
         const elementsPath = path.get('declarations.0.init');
         
         for (const element of elementsPath.get('elements')) {
-            const value = extract(element);
-            
-            if (isString(value)) {
-                const escaped = value.replaceAll(`'`, `\\'`);
-                values.push(`'${escaped}'`);
+            if (isStringLiteral(element)) {
+                values.push(element.node.raw);
                 continue;
             }
+            
+            const value = extract(element);
             
             values.push(value);
         }

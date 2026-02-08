@@ -211,3 +211,8 @@ test('plugin-fasm: transform: remove-useless-promise', (t) => {
     t.transform('remove-useless-promise');
     t.end();
 });
+
+test('plugin-fasm: transform: backslash', (t) => {
+    t.transform('backslash');
+    t.end();
+});
