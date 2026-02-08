@@ -1,6 +1,6 @@
 {
     "-t, --target           ": "set target type: 'wasm', 'wast', 'fasm', 'asm'",
-    "-o, --output           ": "set output type: 'code', 'optimized', 'assembly', 'binary'",
+    "-o, --output           ": "set output type: 'code', 'optimized', 'assembly', 'binary', 'bundle'",
     "-h, --help             ": "display this help and exit",
     "-v, --version          ": "output version information and exit"
 }
