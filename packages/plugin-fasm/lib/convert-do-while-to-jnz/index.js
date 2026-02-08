@@ -108,8 +108,8 @@ const parseWhileArgs = (__a) => {
         return [
             extract(__a.left),
             extract(__a.right),
-            'jnz',
-            'test',
+            'jz',
+            'cmp',
         ];
     
     return [

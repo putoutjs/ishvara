@@ -68,6 +68,11 @@ test('fasm: convert-do-while-to-jz: transform: true', (t) => {
     t.end();
 });
 
+test('fasm: convert-do-while-to-jz: transform: cmp', (t) => {
+    t.transform('cmp');
+    t.end();
+});
+
 test('fasm: convert-do-while-to-jz: transform: after-if', (t) => {
     t.transform('after-if', {
         applyEquality,
