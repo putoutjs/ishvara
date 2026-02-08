@@ -1,1 +1,1 @@
-(scan_table.db = 33, 'ASDFGHJKL:~\'', 0);
+(scan_table.db = 33, '\'ASDFGHJKL:~\'', 0);

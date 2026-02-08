@@ -47,7 +47,7 @@ export const replace = () => ({
             const value = extract(element);
             
             if (isString(value)) {
-                const escaped = value.replace(`'`, `\\'`);
+                const escaped = value.replaceAll(`'`, `\\'`);
                 values.push(`'${escaped}'`);
                 continue;
             }
