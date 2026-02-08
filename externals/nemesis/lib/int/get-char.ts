@@ -61,12 +61,12 @@ export async function getChar() {
     
     pop(ax);
     //;Ожидание несколько милисикунд
-    call(weit);
+    call(wait);
     
     end_of_gets: pop(bx);
 }
 
-async function weit() {
+async function wait() {
     push(cx);
     cx = 0x99;
     
