@@ -1,3 +1,5 @@
+import {Buffer} from 'node:buffer';
+
 const ELF = Buffer.from([
     0x7F,
     0x45,

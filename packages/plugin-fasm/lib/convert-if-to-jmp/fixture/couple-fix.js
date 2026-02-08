@@ -20,10 +20,12 @@ __ishvara_fasm_if_end_1: {
         al = 0;
         ah = [mincol];
         
-        if (ah === [col])
+        {
+            cmp(ah, [col]);
+            jnz(__ishvara_fasm_if_end_3);
             jmp(_nopoint2write);
-        
-        dec([col]);
+        }
+        __ishvara_fasm_if_end_3: dec([col]);
         dec([col]);
         di -= 2;
     }

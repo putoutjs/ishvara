@@ -1,3 +1,4 @@
+import {Buffer} from 'node:buffer';
 import {test} from 'supertape';
 import {format} from '../lib/format.js';
 import {readFloppyFile} from '../lib/read-floppy-file.js';

@@ -4,12 +4,16 @@ __ishvara_fasm_if_5: __ishvara_fasm_if_4: {
     {
         ah = await getColumn();
         al = await getMinColumn();
-        
-        if (ah !== al) {
-            await __ishvara_decColumn();
-            await __ishvara_decColumn();
-            di -= 2;
+        {
+            cmp(ah, al);
+            jz(__ishvara_fasm_if_end_2);
+            {
+                await __ishvara_decColumn();
+                await __ishvara_decColumn();
+                di -= 2;
+            }
         }
+        __ishvara_fasm_if_end_2: nop();
     }
 }
 __ishvara_fasm_if_end_1: nop();

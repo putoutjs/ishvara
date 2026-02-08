@@ -1,7 +1,7 @@
 import {dirname, join} from 'node:path';
 import {createRequire} from 'node:module';
 import process from 'node:process';
-import tryCatch from 'try-catch';
+import {tryCatch} from 'try-catch';
 import {findUpSync as _findUpSync} from 'find-up-simple';
 
 const {assign} = Object;

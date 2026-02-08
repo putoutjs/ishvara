@@ -9,7 +9,10 @@ export const match = () => ({
 });
 
 export const replace = ({options}) => {
-    const {color = 4, background = 0} = options;
+    const {
+        color = 4,
+        background = 0,
+    } = options;
     
     return {
         'debug(__a)': `{

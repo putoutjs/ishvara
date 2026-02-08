@@ -19,12 +19,12 @@
             "nodejs/declare": "off",
             "putout": "off",
             "remove-unused-expressions": "off",
-            "remove-unused-variables": "off",
+            "variables/remove-unused": "off",
             "typescript/remove-useless-types-from-constants": "off",
             "declare-before-reference": "off",
             "promises/remove-useless-await": "off",
             "promises/remove-useless-async": "off",
-            "remove-useless-variables/rename": "off",
+            "variables/rename-useless-rename": "off",
             "return/remove-useless": "off"
         }
     }

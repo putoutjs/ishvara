@@ -1,7 +1,7 @@
 import {join, dirname} from 'node:path';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
-import tryCatch from 'try-catch';
+import {tryCatch} from 'try-catch';
 import kebabCase from 'just-kebab-case';
 
 const readFixture = (url, name) => {

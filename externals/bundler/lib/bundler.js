@@ -1,6 +1,7 @@
+import {Buffer} from 'node:buffer';
 import {rollup} from 'rollup';
 import resolve from '@rollup/plugin-node-resolve';
-import tryToCatch from 'try-to-catch';
+import {tryToCatch} from 'try-to-catch';
 import tsParser from './ts-parser.js';
 import {prepareError} from './prepare-error.js';
 

@@ -1,4 +1,4 @@
-import tryToCatch from 'try-to-catch';
+import {tryToCatch} from 'try-to-catch';
 
 export const validateArgs = async (args, {log, exit, stat}) => {
     if (!args._.length) {

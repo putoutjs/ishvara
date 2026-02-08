@@ -130,7 +130,7 @@ test('ishvara: compiler-fasm: optimized: onStageChanged: place', async (t) => {
             places: [{
                 message: 'hello',
                 position: {
-                    column: 0,
+                    column: 1,
                     line: 1,
                 },
                 rule: 'report',

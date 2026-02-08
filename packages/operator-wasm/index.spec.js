@@ -1,5 +1,5 @@
 import {test} from 'supertape';
-import tryCatch from 'try-catch';
+import {tryCatch} from 'try-catch';
 import {create} from './index.js';
 
 test('ishvara: operator-wast: create: call', (t) => {

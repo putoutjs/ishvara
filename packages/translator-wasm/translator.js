@@ -1,5 +1,5 @@
 import createWabt from 'wabt';
-import tryCatch from 'try-catch';
+import {tryCatch} from 'try-catch';
 
 export const translate = async (wast, options = {}) => {
     const {name = 'ishvara.wast', type} = options;
@@ -21,7 +21,7 @@ export const translate = async (wast, options = {}) => {
 };
 
 function toPlaces(name, error) {
-    const first = error.message.split('\n')[1];
+    const [, first] = error.message.split('\n');
     
     const list = first
         .replace(`${name}�`, '')
