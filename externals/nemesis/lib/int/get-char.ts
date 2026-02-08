@@ -7,9 +7,7 @@ const LEFT_SHIFT_UP = 0x2a + 0x80;
 
 // никаких параметров не принимает.
 // в al возвращает ascii код нажатой клавиши
-export async function getChar() {
-    push(bx);
-    
+export async function getChar<bx>() {
     again: do {
         io.in(al, 0x60);
     } while (al === 0xfa);
@@ -59,11 +57,9 @@ export async function getChar() {
     al = 0x20;
     io.out(0x20, al);
     
-    pop(ax);
     //;Ожидание несколько милисикунд
     call(wait);
-    
-    end_of_gets: pop(bx);
+    pop(ax);
 }
 
 async function wait() {
