@@ -27,7 +27,13 @@ test('fasm: apply-types: transform: backslash', (t) => {
     t.end();
 });
 
+test('fasm: apply-types: transform: template', (t) => {
+    t.transform('template');
+    t.end();
+});
+
 test('fasm: apply-types: no report: ureg', (t) => {
     t.noReport('ureg');
     t.end();
 });
+

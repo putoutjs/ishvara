@@ -46,6 +46,12 @@ export const replace = () => ({
             
             const value = extract(element);
             
+            if (isString(value)) {
+                const escaped = value.replace(`'`, `\\'`);
+                values.push(`'${escaped}'`);
+                continue;
+            }
+            
             values.push(value);
         }
         
@@ -70,3 +76,4 @@ function convert({__b, __c}) {
     
     return `__a.${type} = __c`;
 }
+
