@@ -34,7 +34,7 @@
     "@ishvara/cli-help": "*",
     "@ishvara/operator-fasm": "*",
     "@putout/babel": "^5.2.12",
-    "@putout/plugin-esm": "^4.5.0",
+    "@putout/plugin-esm": "^9.2.0",
     "@putout/plugin-remove-nested-blocks": "^9.0.0",
     "@putout/printer": "^15.0.0",
     "@typescript-eslint/typescript-estree": "^8.32.1",
