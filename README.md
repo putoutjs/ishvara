@@ -25,7 +25,7 @@ function add() {
 }
 ```
 
-You can compile it to fasm to wasm.
+You can compile it to fasm and wasm.
 
 ### Fasm
 
@@ -71,7 +71,7 @@ $ hexdump example/fn.bin
 0000010
 ```
 
-## Example
+### wasm
 
 Let's suppose we have absolutely valid JavaScript file with types, which we can run with node v24.
 
