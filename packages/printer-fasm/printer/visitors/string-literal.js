@@ -2,7 +2,7 @@ export const StringLiteral = (path, {write}, semantics) => {
     const {value, raw = `'${value}'`} = path.node;
     
     if (path.parentPath.isJSXAttribute()) {
-        write(raw);
+        write(`"${value}"`);
         return;
     }
     
@@ -14,7 +14,7 @@ export const StringLiteral = (path, {write}, semantics) => {
 
 const maybeEscape = (value, {escapeDoubleQuote, escapeSingleQuote}) => {
     const list = value.split('');
-    const slash = `\\`;
+    const slash = '\\';
     
     if (escapeSingleQuote)
         return escape(list, {
@@ -34,9 +34,17 @@ const maybeEscape = (value, {escapeDoubleQuote, escapeSingleQuote}) => {
 const escape = (list, {slash, quote}) => {
     const result = [];
     
-    for (const char of list) {
-        if (char === slash) {
+    for (const [index, char] of list.entries()) {
+        const prev = list[index - 1];
+        const next = list[index + 1];
+        
+        if (char === slash && next === quote) {
             result.push(quote);
+            continue;
+        }
+        
+        if (char === quote && prev !== slash) {
+            result.push(`${slash}${char}`);
             continue;
         }
         

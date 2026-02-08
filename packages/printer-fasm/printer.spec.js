@@ -200,3 +200,18 @@ test('ishvara: printer-fasm: quotes', (t) => {
     t.equal(result, expected);
     t.end();
 });
+
+test('ishvara: printer-fasm: escape', (t) => {
+    const source = montag`
+      (scan_table_shift.db[0x21],  '\\z');
+    `;
+    
+    const result = print(source);
+    const expected = montag`
+         scan_table_shift db 0x21, '\\z'\n
+    `;
+    
+    t.equal(result, expected);
+    t.end();
+});
+
