@@ -42,6 +42,7 @@
     "@ishvara/bundler": "*",
     "@ishvara/format-floppy": "*",
     "@ishvara/operator-fasm": "*",
+    "@ishvara/plugin-nemesis": "*",
     "@ishvara/operator-nemesis": "*",
     "@ishvara/runner-fasm": "*",
     "@ishvara/test": "*",

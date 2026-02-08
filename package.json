@@ -59,6 +59,7 @@
   ],
   "devDependencies": {
     "@ishvara/test": "*",
+    "@ishvara/plugin-nemesis": "*",
     "@putout/plugin-printer": "^7.1.1",
     "@putout/test": "^15.1.1",
     "c8": "^10.0.0",

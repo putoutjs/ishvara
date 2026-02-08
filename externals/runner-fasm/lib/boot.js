@@ -1,6 +1,7 @@
 import {readFileSync} from 'node:fs';
 import {promisify} from 'node:util';
 import {unzip} from 'node:zlib';
+import {setTimeout} from 'node:timers/promises';
 import {V86} from 'v86';
 
 const extract = promisify(unzip);
@@ -50,17 +51,18 @@ function run({bootloader, seabios, vgabios} = {}) {
         emulator.bus.register('emulator-started', function() {
             let prevLength = 0;
             
-            emulator.v86.cpu.io.register_write(DEBUG_PORT, this, (byte) => {
+            emulator.v86.cpu.io.register_write(DEBUG_PORT, this, async (byte) => {
                 output += String.fromCharCode(byte);
                 prevLength = output.length;
                 
-                setTimeout(() => {
-                    if (prevLength === output.length) {
-                        emulator.stop();
-                        resolve(output);
-                    }
-                }, 1000);
+                await setTimeout(1000);
+                
+                if (prevLength === output.length) {
+                    emulator.stop();
+                    resolve(output);
+                }
             });
         });
     });
 }
+

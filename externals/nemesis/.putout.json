@@ -24,7 +24,7 @@
             "declare-before-reference": "off",
             "promises/remove-useless-await": "off",
             "promises/remove-useless-async": "off",
-            "variables/rename-useless-rename": "off",
+            "variables/remove-useless-rename": "off",
             "return/remove-useless": "off"
         }
     }

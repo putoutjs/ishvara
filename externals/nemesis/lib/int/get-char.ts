@@ -108,7 +108,7 @@ let scan_table = [
     0x21,
     'asdfghjkl;"`',
     0x21,
-    '\zxcvbnm,./',
+    '\\zxcvbnm,./',
     0x21,
     0x21,
     0x21,
