@@ -61,7 +61,9 @@ export async function printf<es, bx, cx, di>() {
                 await decColumn();
                 di -= 2;
                 al = 0;
-                stosb();
+                ah = await getColor();
+                
+                stosw();
                 
                 await incColumn(); // оставляем курсор на месте
             }
