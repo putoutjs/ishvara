@@ -7,3 +7,4 @@ coverage
 eslint.config.*
 *.config.*
 *.spec.*
+*.asm

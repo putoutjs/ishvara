@@ -3,3 +3,4 @@ build
 *.swp
 yarn-error.log
 coverage
+*.asm

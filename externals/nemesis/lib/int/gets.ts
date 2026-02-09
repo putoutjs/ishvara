@@ -1,7 +1,7 @@
 import {nemesis} from '@ishvara/operator-nemesis';
 
 const BACKSPACE = 0xe;
-const ENTER = 0xa;
+const ENTER = 0xd;
 
 //:;в bx ложится буфер
 //;в сx ложится кол-во символов
@@ -11,8 +11,8 @@ export async function gets() {
     do {
         di = bx;
         nemesis.getChar();
-        stosb();
         push(ax);
+        stosb();
         nemesis.printf(bx);
         ++bx;
         pop(ax);
