@@ -10,8 +10,7 @@ export async function gets() {
     
     do {
         di = bx;
-        al = 1; // get_char
-        int(0xff);
+        nemesis.getChar();
         stosb();
         push(ax);
         nemesis.printf(bx);

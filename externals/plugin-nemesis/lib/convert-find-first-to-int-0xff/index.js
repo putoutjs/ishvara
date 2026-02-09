@@ -1,4 +1,4 @@
-const FIND_FIRST = 5;
+import {FIND_FIRST} from '../api.js';
 
 export const report = () => `Use '0xff' instead of 'nemesis.readSector()'`;
 

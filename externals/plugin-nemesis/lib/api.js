@@ -3,8 +3,10 @@ import {operator, types} from 'putout';
 const {isArrayExpression} = types;
 const {extract} = operator;
 
+export const GET_CHAR = 1;
 export const PRINTF = 2;
 export const FIND_FILE = 3;
+export const FIND_FIRST = 5;
 export const SET_COLOR = 6;
 export const SET_CURSOR = 7;
 export const GETS = 8;

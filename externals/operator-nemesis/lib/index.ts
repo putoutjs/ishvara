@@ -24,6 +24,7 @@ type Sector = {
 
 export const nemesis = {
     gets: (getsArgs: GetsArgs) => {},
+    getChar: () => {},
     printf: (message: unknown | number | string | (string | number)[]) => {},
     exec: (name: string) => {},
     clearScreen: noop,

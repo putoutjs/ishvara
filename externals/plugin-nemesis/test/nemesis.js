@@ -71,3 +71,7 @@ test('plugin-nemesis: transform: remove-useless-declarations', (t) => {
     t.transform('remove-useless-declarations');
     t.end();
 });
+test('plugin-nemesis: transform: convert-get-char-to-int-0xff', (t) => {
+    t.transform('convert-get-char-to-int-0xff');
+    t.end();
+})
