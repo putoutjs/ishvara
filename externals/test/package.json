@@ -29,7 +29,7 @@
   "dependencies": {
     "@ishvara/bundler": "*",
     "@putout/babel": "^5.2.12",
-    "ishvara": "^2.13.3",
+    "ishvara": "^3.0.0",
     "just-kebab-case": "^4.2.0",
     "supertape": "^12.4.0",
     "try-catch": "^4.0.9"
@@ -53,7 +53,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "publishConfig": {
     "access": "public"
