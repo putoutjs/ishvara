@@ -33,7 +33,7 @@ export async function getChar<bx>() {
         jmp(again);
     }
     
-    just_a_key: or([shift], 0);
+    or([shift], 0);
     jnz(with_shift);
     si = scan_table - 1;
     jmp(symbolwrite);

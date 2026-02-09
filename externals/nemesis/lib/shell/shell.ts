@@ -49,7 +49,7 @@ let prompt = '] ';
 async function start() {
     nemesis.printf(hi);
     nemesis.setScreenSize({
-        columns: [2, 79],
+        columns: [1, 79],
         lines: [0, 24],
     });
     
