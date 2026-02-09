@@ -9,6 +9,7 @@ import {exec} from './exec';
 import {setColor} from './color';
 import {getChar} from './get-char';
 import {gets} from './gets';
+import {findFirst} from "./find-file/find-first";
 
 const _reboot = 0;
 const _get_char = 1;
@@ -81,6 +82,11 @@ export async function intTable(): iret {
     
     if (al === _gets) {
         await gets();
+        return;
+    }
+    
+    if (al === _find_first) {
+        await findFirst();
         return;
     }
 }

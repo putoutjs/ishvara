@@ -18,7 +18,7 @@ export async function dir() {
         mov([si + 0xb], al);
         --si;
         al = 0xd;
-        mov([si], al);
+        [si] = al;
         nemesis.printf(si);
     } while (true);
     nemesis.printf(NEW_LINE);
