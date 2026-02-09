@@ -48,7 +48,7 @@ function run({bootloader, seabios, vgabios} = {}) {
         
         let output = '';
         
-        emulator.bus.register('emulator-started', function() {
+        emulator.bus.register('emulator-started', () => {
             let prevLength = 0;
             
             emulator.v86.cpu.io.register_write(DEBUG_PORT, this, async (byte) => {
