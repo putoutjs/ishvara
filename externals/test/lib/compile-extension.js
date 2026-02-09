@@ -1,7 +1,7 @@
 import {join} from 'node:path';
 import process from 'node:process';
 import {codeFrameColumns} from '@putout/babel';
-import * as ishvara from 'ishvara';
+import {compile} from 'ishvara';
 import {bundle} from '@ishvara/bundler';
 
 const isString = (a) => typeof a === 'string';
@@ -20,7 +20,7 @@ export const compileExtension = (dir, {run, target, config}) => ({fail, equal}) 
     if (error)
         return fail(error.message);
     
-    const [binary, places] = await ishvara.compile(bundled, {
+    const [binary, places] = await compile(bundled, {
         target,
         type: OUTPUT,
         config: {
