@@ -74,7 +74,16 @@ export async function printf<es, bx, cx, di>() {
         ah = await getColor();
         
         stosw();
+        
         await incColumn();
     } while (--cx);
+    
+    bl = await getColumn();
+    bh = await getLine();
+    
+    nemesis.setCursor({
+        column: bl,
+        line: bh,
+    });
 }
 
