@@ -5,6 +5,7 @@ const ALLOWED_INSTRUCTIONS = [
     'ret',
     'loop',
     'xor',
+    'cmp',
 ];
 
 const {compare} = operator;
