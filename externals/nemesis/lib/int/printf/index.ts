@@ -60,6 +60,10 @@ export async function printf<es, bx, cx, di>() {
                 await decColumn();
                 await decColumn();
                 di -= 2;
+                al = 0;
+                stosb();
+                
+                await incColumn(); // оставляем курсор на месте
             }
             
             continue;
@@ -71,3 +75,4 @@ export async function printf<es, bx, cx, di>() {
         await incColumn();
     } while (--cx);
 }
+
