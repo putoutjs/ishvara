@@ -26,25 +26,16 @@
     "report": "madrun report"
   },
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^16.0.1",
     "@typescript-eslint/typescript-estree": "^8.35.0",
     "fatfs-wasm": "^3.0.7",
-    "rollup": "^4.44.1",
     "try-to-catch": "^3.0.1"
   },
   "keywords": [
-    "putout",
-    "putout-plugin",
-    "plugin",
-    "madrun"
+    "ishvara"
   ],
   "devDependencies": {
-    "@putout/eslint-flat": "^3.0.0",
-    "@putout/plugin-nodejs": "*",
-    "@putout/plugin-remove-unused-expressions": "*",
     "c8": "^10.0.0",
     "eslint": "^9.0.0",
-    "eslint-plugin-n": "^17.0.0",
     "eslint-plugin-putout": "^30.0.2",
     "madrun": "^11.0.0",
     "montag": "^1.2.1",
@@ -53,7 +44,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "publishConfig": {
     "access": "public"
