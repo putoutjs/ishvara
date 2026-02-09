@@ -55,6 +55,7 @@ export async function printf<es, bx, cx, di>() {
         if (al === _backspace) {
             ah = await getColumn();
             al = await getMinColumn();
+            ++al;
             
             if (ah !== al) {
                 await decColumn();
