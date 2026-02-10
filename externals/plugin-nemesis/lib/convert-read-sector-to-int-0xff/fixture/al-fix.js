@@ -12,7 +12,7 @@
         al = 1;
         jmp(__ishvara_read_sector_end_1);
         __ishvara_read_sector_ok_1: ax = 0;
-        __ishvara_read_sector_end_1: clc();
+        __ishvara_read_sector_end_1: nop();
     }
     mov(al, al);
 }

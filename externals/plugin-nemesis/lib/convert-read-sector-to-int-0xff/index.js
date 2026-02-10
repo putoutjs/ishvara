@@ -62,7 +62,7 @@ function createReadSector(line) {
         __ishvara_read_sector_ok_${line}:
         ax = 0
         __ishvara_read_sector_end_${line}:
-        clc();
+         nop();
     }`;
 }
 

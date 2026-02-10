@@ -7,7 +7,7 @@ import {nemesis} from '#operator-fasm';
     al = 1;
     jmp(__ishvara_read_sector_end_3);
     __ishvara_read_sector_ok_3: ax = 0;
-    __ishvara_read_sector_end_3: clc();
+    __ishvara_read_sector_end_3: nop();
 }
 {
     {
@@ -17,7 +17,7 @@ import {nemesis} from '#operator-fasm';
         al = 1;
         jmp(__ishvara_read_sector_end_5);
         __ishvara_read_sector_ok_5: ax = 0;
-        __ishvara_read_sector_end_5: clc();
+        __ishvara_read_sector_end_5: nop();
     }
     mov(bx, ax);
 }
@@ -35,7 +35,7 @@ import {nemesis} from '#operator-fasm';
         al = 1;
         jmp(__ishvara_read_sector_end_7);
         __ishvara_read_sector_ok_7: ax = 0;
-        __ishvara_read_sector_end_7: clc();
+        __ishvara_read_sector_end_7: nop();
     }
     mov(ax, ax);
 }
