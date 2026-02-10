@@ -32,6 +32,8 @@
     "putout"
   ],
   "devDependencies": {
+    "@ishvara/plugin-nemesis": "*",
+    "ishvara": "*",
     "c8": "^10.0.0",
     "eslint": "^10.0.0",
     "eslint-plugin-putout": "^30.0.2",

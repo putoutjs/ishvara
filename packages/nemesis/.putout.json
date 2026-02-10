@@ -5,7 +5,7 @@
         }
     }],
     "match": {
-        "*.spec.js": {
+        "{test,*.spec.*}": {
             "nodejs/declare": "on",
             "tape/remove-skip": "off"
         },

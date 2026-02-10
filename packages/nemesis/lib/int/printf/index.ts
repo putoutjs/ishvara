@@ -78,7 +78,6 @@ export async function printf<es, bx, cx, di>() {
         
         await incColumn();
     } while (--cx);
-    
     bl = await getColumn();
     bh = await getLine();
     
@@ -87,4 +86,3 @@ export async function printf<es, bx, cx, di>() {
         line: bh,
     });
 }
-

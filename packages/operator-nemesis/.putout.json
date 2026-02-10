@@ -1,5 +1,6 @@
 {
     "rules": {
-        "variables/remove-unused": "off"
+        "variables/remove-unused": "off",
+        "maybe/noop": "off"
     }
 }

@@ -47,4 +47,3 @@ export async function gets() {
     stosb();
     pop(bx);
 }
-

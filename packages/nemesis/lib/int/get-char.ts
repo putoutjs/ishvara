@@ -56,7 +56,6 @@ export async function getChar<bx>() {
     
     al = 0x20;
     io.out(0x20, al);
-    
     //;Ожидание несколько милисикунд
     call(wait);
     pop(ax);
@@ -110,4 +109,3 @@ let scan_table = [
     0x21,
     ' ',
 ];
-

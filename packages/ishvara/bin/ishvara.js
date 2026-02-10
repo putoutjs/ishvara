@@ -14,8 +14,9 @@ import {
     validateArgs,
     parseConfig,
 } from '@ishvara/cli-args';
-import * as ishvara from '../lib/ishvara.js';
+import {compile} from '../lib/ishvara.js';
 
+debugger;
 const onStageChange = (args) => (stage, {last, places}) => {
     const line = stage[0].toUpperCase() + stage.slice(1);
     
@@ -118,7 +119,7 @@ if (/bundled?/.test(args.output)) {
     process.exit();
 }
 
-const [binary] = await ishvara.compile(source, {
+const [binary] = await compile(source, {
     name,
     type: args.output,
     target: args.target,
@@ -171,3 +172,4 @@ function log({quiet}, message, {withDivider} = {}) {
         process.stdout.write(divider);
     }
 }
+
