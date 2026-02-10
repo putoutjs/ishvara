@@ -2,6 +2,7 @@
 
 ![ishvara](https://github.com/putoutjs/ishvara/blob/master/images/ishvara.jpg)
 
+Renamed to [nirguna](https://github.com/putoutjs/nirguna).
 Compile JavaScript to WASM and Fasm.
 
 <img width="300" alt="image" src="https://github.com/user-attachments/assets/e3808fa0-90cc-4e9f-acb3-68babafa0350" />
