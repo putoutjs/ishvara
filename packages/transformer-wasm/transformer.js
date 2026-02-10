@@ -1,8 +1,8 @@
 import putout from 'putout';
 import * as removeNestedBlocks from '@putout/plugin-remove-nested-blocks';
 import * as esm from '@putout/plugin-esm';
-import * as ishvara from '#plugin-ishvara';
-import * as wasm from '#plugin-wasm';
+import * as ishvara from '@ishvara/plugin-ishvara';
+import * as wasm from '@ishvara/plugin-wasm';
 
 export const transform = (source) => {
     const {code, places} = putout(source, {

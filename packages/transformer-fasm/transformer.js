@@ -2,9 +2,9 @@ import {readFileSync as _readFileSync} from 'node:fs';
 import putout from 'putout';
 import * as removeUselessOperand from '@putout/plugin-remove-useless-operand';
 import * as removeNestedBlocks from '@putout/plugin-remove-nested-blocks';
-import * as fasm from '#plugin-fasm';
-import * as ishvara from '#plugin-ishvara';
-import * as bundler from '#plugin-bundler-fasm';
+import * as fasm from '@ishvara/plugin-fasm';
+import * as ishvara from '@ishvara/plugin-ishvara';
+import * as bundler from '@ishvara/plugin-bandler-fasm';
 
 const defaultConfig = {
     rules: {},
