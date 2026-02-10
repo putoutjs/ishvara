@@ -1,6 +1,6 @@
 import {test} from 'supertape';
 import montag from 'montag';
-import {compile} from './compiler.js';
+import {compile} from '#compiler-fasm';
 
 const noop = () => {};
 

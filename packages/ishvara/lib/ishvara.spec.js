@@ -1,6 +1,6 @@
 import {test} from 'supertape';
 import montag from 'montag';
-import {compile} from './ishvara.js';
+import {compile} from '#ishvara';
 
 test('ishvara: asm', async (t) => {
     const source = 'eax = 1';

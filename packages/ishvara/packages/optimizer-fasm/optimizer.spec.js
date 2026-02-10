@@ -1,6 +1,6 @@
 import {test} from 'supertape';
 import montag from 'montag';
-import {optimize} from './optimizer.js';
+import {optimize} from '#optimizer-fasm';
 
 test('ishvara: optimizer-fasm', (t) => {
     const [code] = optimize(`

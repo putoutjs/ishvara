@@ -14,7 +14,7 @@ import {
     validateArgs,
     parseConfig,
 } from '@ishvara/cli-args';
-import {compile} from '../lib/ishvara.js';
+import {compile} from '#ishvara';
 
 debugger;
 const onStageChange = (args) => (stage, {last, places}) => {
@@ -172,4 +172,3 @@ function log({quiet}, message, {withDivider} = {}) {
         process.stdout.write(divider);
     }
 }
-
