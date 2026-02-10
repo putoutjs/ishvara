@@ -2,7 +2,7 @@ import {run} from 'madrun';
 
 export default {
     'wisdom': () => run(['lint', 'test:all']),
-    'test': () => `tape 'packages/**/*.spec.js' 'packages/**/test/*.js'`,
+    'test': () => `tape 'lib/**/*.js' 'packages/**/*.spec.js' 'packages/**/test/*.js' 'example/**/*.spec.ts'`,
     'test:all': () => run('test', 'externals/**/*.spec.ts'),
     'watch:test': async () => `nodemon -w packages -w test -x "${await run('test')}"`,
     'lint': () => `putout .`,
