@@ -1,5 +1,5 @@
 import putout from 'putout';
-import * as wasm from '#plugin-optimizer-wasm';
+import * as wasm from '@ishvara/plugin-optimizer-wasm';
 
 export const optimize = (source) => {
     const {code, places} = putout(source, {

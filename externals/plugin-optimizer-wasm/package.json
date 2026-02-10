@@ -1,10 +1,10 @@
 {
-  "name": "@ishvara/plugin-optimizer-fasm",
+  "name": "@ishvara/plugin-optimizer-wasm",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
-  "description": "🐊Ishvara plugin adds ability to optimize fasm",
+  "description": "🐊Ishvara plugin adds ability to optimize wasm",
   "homepage": "https://github.com/putoutjs/ishvara/tree/master/packages/plugin-optimizer-fasm#readme",
   "main": "lib/index.js",
   "release": false,

@@ -1,6 +1,6 @@
 import putout from 'putout';
 import * as removeNestedBlocks from '@putout/plugin-remove-nested-blocks';
-import * as fasm from '#plugin-optimizer-fasm';
+import * as fasm from '@ishvara/plugin-optimizer-fasm';
 
 export const optimize = (source) => {
     const {code, places} = putout(source, {
